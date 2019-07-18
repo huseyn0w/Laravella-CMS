@@ -3,8 +3,9 @@
 My CMS Project based on Laravel PHP Framework
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Laravella CMS is the analog to such popular CMS as Wordpress, DLE, Joomla and etc, but based on framework Laravel.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+See deployment for notes on how to deploy the project on a live system.
 
 
 
@@ -12,12 +13,13 @@ Demo soon...
 
 ## Features
 
+* General CMS Features like: Posts,Pages,Users,Statuses and etc...
 * Social media authentification possibility
-* Analog to such popular CMS as Wordpress, DLE, Joomla and etc.
 * Fast working
 * Easy to extend
-* Clean code
-* Using a lot of design patterns which decrease size of Controller.
+* Flexible templates system
+* Multiple languages extension (soon)
+* E-Commerce extension (soon)
 
 
 ## Deployment
@@ -30,7 +32,7 @@ Current Version of Laravel Framework is 5.8
 
 ## Authors
 
-* **Elman Hüseynov** - *Initial work* - [huseyn0w](https://github.com/ehuseynov)
+* **Elman Hüseynov** - [huseyn0w](https://linkedin.com/in/huseyn0w)
 
 ## License
 
