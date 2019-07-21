@@ -15,9 +15,11 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/cpanel', function () {
-    return view('cpanel/index');
-})->middleware('auth');
+Route::get('/cpanel', 'cPanel@index')->name('cpanel/home');
 
+Route::get('/cpanel/settings', 'cPanel@settings')->name('cpanel/settings');
 
+Route::get('/cpanel/myprofile', 'cPanel@myprofile')->name('cpanel/myprofile');
+
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 

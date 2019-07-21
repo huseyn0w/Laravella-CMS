@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/tests
 /.idea
 .env
 .editorconfig
@@ -12,3 +13,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+_ide_helper.php
+.phpstorm.meta.php

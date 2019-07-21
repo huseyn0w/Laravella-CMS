@@ -1,0 +1,18 @@
+textarea{
+    resize: none;
+}
+textarea.form-control{
+    height:auto;
+}
+
+.form-check .form-check-sign::before, .form-check .form-check-sign::after{
+    top: 50%;
+    margin-top: -11px;
+    left: 0;
+    margin-left: 0;
+}
+
+.sidebar .nav li .nav-link.sub-nav-link{
+    background-color: transparent;
+    padding: 5px 15px 5px 45px;
+}
