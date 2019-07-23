@@ -1,7 +1,7 @@
 <?php
 /**
  * Laravella CMS
- * File: settings.blade.php
+ * File: general-settings.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 21.07.2019
  */
@@ -19,27 +19,37 @@
                         <h4 class="card-title">Website settings</h4>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form action="{{ route('cpanel_update_general_settings') }}" method="POST">
                             @csrf
-                            @method('PUT')
                             <div class="row">
-                                <div class="col-md-12">
+                                @if ($errors->any())
+                                <div class="col-12">
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                                @endif
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>Website name</label>
-                                        <input type="text" class="form-control" value="">
+                                        <input type="text" name="website_name" class="form-control" value="{{ old('website_name') }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Tagline</label>
                                         <p>In a few words, explain what this site is about.</p>
-                                        <textarea rows="4" cols="80" class="form-control" value=""></textarea>
+                                        <textarea rows="4" cols="80" name="tagline" class="form-control" value="{{ old('tagline') }}"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Contact Email</label>
-                                        <input type="email" class="form-control" value="">
+                                        <input type="email" name="contact_email" class="form-control" value="{{ old('contact_email') }}">
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
+                                            <input class="form-check-input" name="membership" type="checkbox">
                                             <span class="form-check-sign"></span>
                                             Membership
                                         </label>
@@ -51,9 +61,13 @@
                                             $directories  = get_front_templates_array();
 
                                         @endphp
-                                        <select id="inputState" class="form-control">
+                                        <select id="inputState" name="active_template" class="form-control">
                                             @forelse($directories as $key => $value)
-                                                <option>{{$value}}</option>
+                                                @if($value === env('TEMPLATE_NAME'))
+                                                    <option selected="selected">{{$value}}</option>
+                                                @else
+                                                    <option>{{$value}}</option>
+                                                @endif
                                             @empty
                                                 <p>No templates</p>
                                             @endforelse

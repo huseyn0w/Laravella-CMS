@@ -27,13 +27,13 @@
                         <span class="no-icon">Settings</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{url('cpanel/settings')}}">General Settings</a>
-                        <a class="dropdown-item" href="{{url('cpanel/menus')}}">Menus</a>
-                        <a class="dropdown-item" href="{{url('cpanel/roles')}}">User Roles</a>
+                        <a class="dropdown-item" href="{{route('cpanel_general_settings')}}">General Settings</a>
+                        <a class="dropdown-item" href="{{route('cpanel_menus')}}">Menus</a>
+                        <a class="dropdown-item" href="{{route('cpanel_roles')}}">User Roles</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/logout') }}">
+                    <a class="nav-link" href="{{ route('cpanel-logout') }}">
                         <span class="no-icon">Log out</span>
                     </a>
                 </li>

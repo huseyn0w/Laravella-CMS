@@ -12,37 +12,37 @@
     </div>
     <ul class="nav">
         <li class="nav-item active">
-            <a class="nav-link" href="{{url('cpanel')}}">
+            <a class="nav-link" href="{{route('cpanel_home')}}">
                 <i class="nc-icon nc-chart-pie-35"></i>
                 <p>Dashboard</p>
             </a>
         </li>
         <li>
-            <a class="nav-link" href="{{url('cpanel/myprofile')}}">
+            <a class="nav-link" href="{{route('cpanel_myprofile')}}">
                 <i class="nc-icon nc-circle-09"></i>
                 <p>Edit Profile</p>
             </a>
         </li>
         <li>
-            <a class="nav-link" href="{{url('cpanel/pages')}}">
+            <a class="nav-link" href="#">
                 <i class="nc-icon nc-bullet-list-67"></i>
                 <p>Pages</p>
             </a>
         </li>
         <li>
-            <a class="nav-link" href="{{url('cpanel/posts')}}">
+            <a class="nav-link" href="#">
                 <i class="nc-icon nc-notes"></i>
                 <p>Posts</p>
             </a>
         </li>
         <li>
-            <a class="nav-link" href="{{url('cpanel/categories')}}">
+            <a class="nav-link" href="#">
                 <i class="nc-icon nc-credit-card"></i>
                 <p>Categories</p>
             </a>
         </li>
         <li>
-            <a class="nav-link" href="{{url('cpanel/users')}}">
+            <a class="nav-link" href="#">
                 <i class="nc-icon nc-atom"></i>
                 <p>Users</p>
             </a>
@@ -56,17 +56,17 @@
             <div class="collapse" id="siteSettings" aria-expanded="false" style="height: 0px;">
                 <ul class="nav">
                     <li>
-                        <a class="nav-link sub-nav-link" href="{{url('cpanel/settings')}}">
+                        <a class="nav-link sub-nav-link" href="{{route('cpanel_general_settings')}}">
                             <p>General Settings</p>
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link sub-nav-link" href="{{url('cpanel/menus')}}">
+                        <a class="nav-link sub-nav-link" href="{{route('cpanel_menus')}}">
                             <p>Menus</p>
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link sub-nav-link" href="{{url('cpanel/roles')}}">
+                        <a class="nav-link sub-nav-link" href="{{route('cpanel_roles')}}">
                             <p>User Roles</p>
                         </a>
                     </li>
