@@ -33,6 +33,8 @@
                                     </div>
                                 </div>
                                 @endif
+                            </div>
+                            <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Website name</label>
@@ -64,9 +66,9 @@
                                         <select id="inputState" name="active_template" class="form-control">
                                             @forelse($directories as $key => $value)
                                                 @if($value === env('TEMPLATE_NAME'))
-                                                    <option selected="selected">{{$value}}</option>
+                                                    <option value="{{$value}}" selected="selected">{{$value}}</option>
                                                 @else
-                                                    <option>{{$value}}</option>
+                                                    <option value="{{$value}}">{{$value}}</option>
                                                 @endif
                                             @empty
                                                 <p>No templates</p>

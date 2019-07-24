@@ -23,6 +23,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        view()->composer('*', function ($view)
+        {
+            if(\Auth::check()) $view->with('username', \Auth::user()->name);
+            //...with this variable
+
+        });
         $this->registerPolicies();
 
         //

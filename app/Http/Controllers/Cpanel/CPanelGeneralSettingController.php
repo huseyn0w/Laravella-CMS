@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cpanel;
 
 use App\Http\Requests\StoreGeneralSettings;
+use App\Repositories\CPanelGeneralSettingRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,10 +14,11 @@ class cPanelGeneralSettingController extends Controller
         return view('cpanel.general-settings');
     }
 
-    public function store(StoreGeneralSettings $request)
+    public function store(StoreGeneralSettings $request, CPanelGeneralSettingRepository $repository)
     {
-        $input = $request->all();
-        dd($input);
+        $result = $repository->saveSettings($request->all());
+
+        $result ? $message = 'salam' : $message = null;
 
     }
 }
