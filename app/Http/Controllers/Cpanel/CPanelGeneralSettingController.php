@@ -9,16 +9,25 @@ use App\Http\Controllers\Controller;
 
 class cPanelGeneralSettingController extends Controller
 {
-    public function index()
+    public function index(CPanelGeneralSettingRepository $repository)
     {
-        return view('cpanel.general-settings');
+        $general_settings = $repository->getAllSettings();
+
+        return view('cpanel.general-settings', compact("general_settings"));
     }
 
     public function store(StoreGeneralSettings $request, CPanelGeneralSettingRepository $repository)
     {
         $result = $repository->saveSettings($request->all());
 
-        $result ? $message = 'salam' : $message = null;
+        if($result){
+            return back()->with('success','Settings has beed saved!');
+        }
+        else{
+            return back()->with('danger', $result);
+        }
+
+
 
     }
 }

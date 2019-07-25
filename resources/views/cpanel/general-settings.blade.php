@@ -11,6 +11,17 @@
 
 @section('content')
 
+    @php
+
+        $website_name = $general_settings->website_name;
+        $tagline = $general_settings->tagline;
+        $email = $general_settings->contact_email;
+        $membership = $general_settings->membership;
+        $active_template_name = $general_settings->active_template_name;
+
+
+    @endphp
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -33,25 +44,40 @@
                                     </div>
                                 </div>
                                 @endif
+
+                                @if ($danger = Session::get('danger'))
+                                    <div class="col-12">
+                                        <div class="alert alert-danger">
+                                            <strong>{{$danger}}</strong>
+                                        </div>
+                                    </div>
+                                @endif
+                                @if ($success = Session::get('success'))
+                                    <div class="col-12">
+                                        <div class="alert alert-success">
+                                            <strong>{{$success}}</strong>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Website name</label>
-                                        <input type="text" name="website_name" class="form-control" value="{{ old('website_name') }}">
+                                        <input type="text" required name="website_name" class="form-control" value="{{ old('website_name', $website_name) }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Tagline</label>
                                         <p>In a few words, explain what this site is about.</p>
-                                        <textarea rows="4" cols="80" name="tagline" class="form-control" value="{{ old('tagline') }}"></textarea>
+                                        <textarea rows="4" required cols="80" name="tagline" class="form-control">{{ old('tagline', $tagline) }}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Contact Email</label>
-                                        <input type="email" name="contact_email" class="form-control" value="{{ old('contact_email') }}">
+                                        <input type="email" required name="contact_email" class="form-control" value="{{ old('contact_email', $email) }}">
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" name="membership" type="checkbox">
+                                            <input class="form-check-input" name="membership" type="checkbox" {{$membership == 1 ? 'checked value=1'  : 'value=0'}}>
                                             <span class="form-check-sign"></span>
                                             Membership
                                         </label>
@@ -63,9 +89,9 @@
                                             $directories  = get_front_templates_array();
 
                                         @endphp
-                                        <select id="inputState" name="active_template" class="form-control">
+                                        <select id="inputState" name="active_template" required class="form-control">
                                             @forelse($directories as $key => $value)
-                                                @if($value === env('TEMPLATE_NAME'))
+                                                @if($value === $active_template_name)
                                                     <option value="{{$value}}" selected="selected">{{$value}}</option>
                                                 @else
                                                     <option value="{{$value}}">{{$value}}</option>

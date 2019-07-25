@@ -28,6 +28,7 @@ class StoreGeneralSettings extends FormRequest
             'tagline' => 'required|string',
             'contact_email' => 'required|email',
             'active_template' => 'required|string',
+            'membership' => 'boolean'
         ];
     }
 }

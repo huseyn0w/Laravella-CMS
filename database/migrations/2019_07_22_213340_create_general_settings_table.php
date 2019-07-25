@@ -17,7 +17,7 @@ class CreateGeneralSettingsTable extends Migration
             $table->bigIncrements('id');
             $table->string('website_name');
             $table->string('tagline', 100);
-            $table->string('email');
+            $table->string('contact_email');
             $table->boolean('membership');
             $table->string('active_template_name');
             $table->timestamps();

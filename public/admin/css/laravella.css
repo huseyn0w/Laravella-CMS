@@ -21,3 +21,7 @@ ul,ol {
     padding-left: 15px;
     margin-bottom: 0;
 }
+
+.btn{
+    cursor: pointer;
+}
