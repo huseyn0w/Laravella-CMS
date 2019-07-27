@@ -44,21 +44,18 @@
                                     </div>
                                 </div>
                                 @endif
-
-                                @if ($danger = Session::get('danger'))
-                                    <div class="col-12">
-                                        <div class="alert alert-danger">
-                                            <strong>{{$danger}}</strong>
-                                        </div>
+                           @if ($update_message = Session::get('message'))
+                                <div class="col-12">
+                                 @if ($update_message)
+                                    <div class="alert alert-success">
+                                    <strong>Settings has been updated</strong>
+                                 @else
+                                    <div class="alert alert-danger">
+                                    <strong>{{$update_message}}</strong>
+                                 @endif
                                     </div>
-                                @endif
-                                @if ($success = Session::get('success'))
-                                    <div class="col-12">
-                                        <div class="alert alert-success">
-                                            <strong>{{$success}}</strong>
-                                        </div>
-                                    </div>
-                                @endif
+                                </div>
+                           @endif
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -76,8 +73,8 @@
                                         <input type="email" required name="contact_email" class="form-control" value="{{ old('contact_email', $email) }}">
                                     </div>
                                     <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" name="membership" type="checkbox" {{$membership == 1 ? 'checked value=1'  : 'value=0'}}>
+                                        <label for="membership" class="form-check-label">
+                                            <input class="form-check-input" id="membership" name="membership" type="checkbox" {{$membership == 1 ? 'checked=checked value=1'  : null}}>
                                             <span class="form-check-sign"></span>
                                             Membership
                                         </label>

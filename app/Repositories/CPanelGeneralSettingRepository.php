@@ -14,29 +14,31 @@ use Illuminate\Database\QueryException;
 
 class CPanelGeneralSettingRepository extends BaseRepository
 {
-    public function saveSettings($newData)
+    protected $model;
+
+
+    public function __construct(GeneralSettings $model)
     {
+        $this->model = $model;
+    }
 
-        $stored_settngs = GeneralSettings::first();
-
+    public function update($newData, $id = 1)
+    {
         try {
-
-            $stored_settngs->update($newData);
+            $this->model::first()->update($newData);
             $result = true;
 
         } catch (QueryException $e) {
-
             $result = $e->errorInfo;
 
         }
 
-
         return $result;
     }
 
-    public function getAllSettings()
+    public function all()
     {
-        $stored_settngs = GeneralSettings::first();
+        $stored_settngs = $this->model::first();
 
         return $stored_settngs;
     }

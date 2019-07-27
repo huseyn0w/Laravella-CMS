@@ -23,12 +23,22 @@ class StoreGeneralSettings extends FormRequest
      */
     public function rules()
     {
+        $membership = $this->request->get('membership');
+
+        if($membership === 'on') {
+            $this->request->add(['membership' => '1']);
+        }
+        else {
+            $this->request->add(['membership' => '0']);
+        }
+
+
         return [
             'website_name' => 'required|string',
             'tagline' => 'required|string',
             'contact_email' => 'required|email',
             'active_template' => 'required|string',
-            'membership' => 'boolean'
         ];
+
     }
 }
