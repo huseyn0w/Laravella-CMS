@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreGeneralSettings extends FormRequest
+class ValidateGeneralSettings extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,7 +37,7 @@ class StoreGeneralSettings extends FormRequest
             'website_name' => 'required|string',
             'tagline' => 'required|string',
             'contact_email' => 'required|email',
-            'active_template' => 'required|string',
+            'active_template' => 'string',
         ];
 
     }

@@ -33,7 +33,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
     {
 
     }
-    public function update($data, $id = 1)
+    public function update($validatedRequest, $id = 1)
     {
 
     }

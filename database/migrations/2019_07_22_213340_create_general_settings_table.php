@@ -20,7 +20,6 @@ class CreateGeneralSettingsTable extends Migration
             $table->string('contact_email');
             $table->boolean('membership');
             $table->string('active_template_name');
-            $table->timestamps();
         });
     }
 

@@ -19,7 +19,6 @@
         $membership = $general_settings->membership;
         $active_template_name = $general_settings->active_template_name;
 
-
     @endphp
 
     <div class="container-fluid">
@@ -44,18 +43,19 @@
                                     </div>
                                 </div>
                                 @endif
-                           @if ($update_message = Session::get('message'))
-                                <div class="col-12">
-                                 @if ($update_message)
-                                    <div class="alert alert-success">
-                                    <strong>Settings has been updated</strong>
-                                 @else
-                                    <div class="alert alert-danger">
-                                    <strong>{{$update_message}}</strong>
-                                 @endif
+                                @if ($update_message = Session::get('message'))
+                                    <div class="col-12">
+                                        @if ($update_message)
+                                            <div class="alert alert-success">
+                                                <strong>Settings has been updated</strong>
+                                            </div>
+                                        @else
+                                            <div class="alert alert-danger">
+                                                <strong>{{$update_message}}</strong>
+                                            </div>
+                                        @endif
                                     </div>
-                                </div>
-                           @endif
+                                @endif
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -73,7 +73,7 @@
                                         <input type="email" required name="contact_email" class="form-control" value="{{ old('contact_email', $email) }}">
                                     </div>
                                     <div class="form-check">
-                                        <label for="membership" class="form-check-label">
+                                        <label for="membership" class="form-check-label form-checkbox">
                                             <input class="form-check-input" id="membership" name="membership" type="checkbox" {{$membership == 1 ? 'checked=checked value=1'  : null}}>
                                             <span class="form-check-sign"></span>
                                             Membership
@@ -86,7 +86,7 @@
                                             $directories  = get_front_templates_array();
 
                                         @endphp
-                                        <select id="inputState" name="active_template" required class="form-control">
+                                        <select id="inputState" name="active_template_name" required class="form-control">
                                             @forelse($directories as $key => $value)
                                                 @if($value === $active_template_name)
                                                     <option value="{{$value}}" selected="selected">{{$value}}</option>

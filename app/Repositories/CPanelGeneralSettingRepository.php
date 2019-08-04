@@ -22,9 +22,11 @@ class CPanelGeneralSettingRepository extends BaseRepository
         $this->model = $model;
     }
 
-    public function update($newData, $id = 1)
+    public function update($updatedRequest, $id = 1)
     {
+
         try {
+            $newData = $updatedRequest->except(['_token']);
             $this->model::first()->update($newData);
             $result = true;
 

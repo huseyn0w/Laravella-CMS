@@ -16,7 +16,18 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username'
+        'name',
+        'email',
+        'role_id',
+        'password',
+        'username',
+        'city',
+        'country',
+        'about_me',
+        'linkedin_url',
+        'xing_url',
+        'facebook_url',
+        'google_url'
     ];
 
     /**
@@ -36,4 +47,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $permissions_json = $this->hasOne('App\Http\Models\UserRoles', 'id');
+    }
+
+
 }

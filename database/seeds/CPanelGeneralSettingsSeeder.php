@@ -12,10 +12,10 @@ class CPanelGeneralSettingsSeeder extends Seeder
     public function run()
     {
         DB::table('general_settings')->insert([
-            'website_name' => Str::random(10),
-            'tagline' => Str::random(100),
+            'website_name' => "Laravella CMS",
+            'tagline' => "Build your project on Laravella CMS and take an advantage of it",
             'contact_email' => 'thehuseyn0w@gmail.com',
-            'membership' => true,
+            'membership' => '1',
             'active_template_name' => 'default',
         ]);
     }

@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class GeneralSettings extends Model
 {
-    protected $fillable = ['website_name','tagline', 'email', 'membership', 'active_template_name'];
+    public $timestamps = false;
+    protected $fillable = [
+        'website_name',
+        'tagline',
+        'contact_email',
+        'membership',
+        'active_template_name'
+    ];
 }

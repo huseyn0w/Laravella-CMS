@@ -14,6 +14,10 @@ class cPanelHomeController extends Controller
 
     public function index()
     {
+//        $user = auth()->user();
+//
+//        print_r(json_decode($user->role->permissions, true));
+//        dd();
         return view('cpanel.home');
     }
 

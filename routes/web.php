@@ -18,7 +18,7 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name
 
 
 //Cpanel Routes
-Route::prefix('cpanel')->middleware(['auth'])->namespace('Cpanel')->group(function () {
+Route::prefix('cpanel')->middleware(['auth','permission'])->namespace('Cpanel')->group(function () {
 
     Route::get('/', 'CPanelHomeController@index')->name('cpanel_home');
 
@@ -27,7 +27,15 @@ Route::prefix('cpanel')->middleware(['auth'])->namespace('Cpanel')->group(functi
         Route::post('/', 'CPanelGeneralSettingController@store')->name('cpanel_update_general_settings');
     });
 
-    Route::get('/myprofile', 'CPanelMyProfileController@index')->name('cpanel_myprofile');
+
+
+    Route::prefix('myprofile')->group(function(){
+        Route::get('/', 'CPanelMyProfileController@index')->name('cpanel_myprofile');
+        Route::post('/', 'CPanelMyProfileController@store')->name('cpanel_update_user_profile');
+    });
+
+
+
 
     Route::get('/menus', 'CPanelMenuController@index')->name('cpanel_menus');
 

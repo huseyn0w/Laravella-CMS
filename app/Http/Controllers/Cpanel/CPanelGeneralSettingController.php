@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Cpanel;
 
-use App\Http\Requests\StoreGeneralSettings;
+use App\Http\Requests\ValidateGeneralSettings;
 use App\Repositories\CPanelGeneralSettingRepository;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class cPanelGeneralSettingController extends Controller
@@ -25,9 +24,9 @@ class cPanelGeneralSettingController extends Controller
         return view('cpanel.general-settings', compact("general_settings"));
     }
 
-    public function store(StoreGeneralSettings $request)
+    public function store(ValidateGeneralSettings $request)
     {
-        $result = $this->repository->update($request->all());
+        $result = $this->repository->update($request);
 
         return back()->with('message', $result);
     }
