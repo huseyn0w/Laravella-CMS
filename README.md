@@ -22,6 +22,17 @@ Demo soon...
 * E-Commerce extension (soon)
 
 
+
+## Advantages for developers
+Why it is easy to extend? Because it was written by using best practices and technologies, such as:
+* Short controllers
+* Separate Validator classes
+* Repository pattern to work with DB
+* Middleware usage
+* Observers usage
+
+
+
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
@@ -33,6 +44,10 @@ Current Version of Laravel Framework is 5.8
 ## Authors
 
 * **Elman Hüseynov** - [huseyn0w](https://linkedin.com/in/huseyn0w)
+
+## Contributors
+
+* **Ilkin Alibayli** - [ilkinalibayli](https://www.linkedin.com/in/ilkin-alibayli/)
 
 ## License
 
