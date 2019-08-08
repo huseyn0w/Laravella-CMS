@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Cpanel;
 
 use App\Http\Requests\ValidateUserSettings;
 use App\Repositories\CPanelUserSettingRepository;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CPanelMyProfileController extends Controller
+class CPanelMyProfileController extends CPanelBaseController
 {
-    private $repository;
 
     public function __construct(CPanelUserSettingRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 

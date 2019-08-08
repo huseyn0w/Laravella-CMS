@@ -42,7 +42,7 @@
             </a>
         </li>
         <li>
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{route('cpanel_all_users_list')}}">
                 <i class="nc-icon nc-atom"></i>
                 <p>Users</p>
             </a>
@@ -55,11 +55,13 @@
 
             <div class="collapse" id="siteSettings" aria-expanded="false" style="height: 0px;">
                 <ul class="nav">
+                    @if (Auth::user()->can('changeCpanelGeneralSettings', 'App\Http\Models\Cpanel\CPanelGeneralSettings'))
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_general_settings')}}">
                             <p>General Settings</p>
                         </a>
                     </li>
+                    @endif
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_menus')}}">
                             <p>Menus</p>

@@ -26,8 +26,23 @@ ul,ol {
     cursor: pointer;
 }
 
+.table{
+    margin-bottom: 0;
+}
+
+.card .card-body{
+    padding: 15px 15px 0 15px;
+}
+
+.card .table tbody td:last-child, .card .table thead th:last-child{
+    display: table-cell;
+}
+
 input[type="file"] {
     display: none;
+}
+#file-drag{
+    display: block;
 }
 .uploader {
     display: block;
@@ -159,4 +174,21 @@ input[type="file"] {
 .form-check-radio input[type="radio"]:checked+.form-check-sign::after{
     top: 0;
     left: 0;
+}
+
+
+.users-table .user_actions{
+    display: block;
+}
+
+.users-table .user_actions a,
+.users-table .user_actions button{
+    cursor: pointer;
+    border:none;
+    outline: none;
+    background-color: transparent;
+}
+
+.users-table .user_actions button{
+    color:red;
 }

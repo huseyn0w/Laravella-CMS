@@ -4,7 +4,7 @@ function ekUpload(){
 
     function Init() {
 
-        console.log("Upload Initialised");
+        //console.log("Upload Initialised");
 
         var fileSelect    = document.getElementById('file-upload'),
             fileDrag      = document.getElementById('file-drag');
@@ -43,12 +43,7 @@ function ekUpload(){
         }
     }
 
-    // Output
-    function output(msg) {
-        // Response
-        var m = document.getElementById('messages');
-        m.innerHTML = msg;
-    }
+
 
     function parseFile(file) {
 
@@ -77,37 +72,6 @@ function ekUpload(){
 
 
 
-
-    function uploadFile(file) {
-
-        var xhr = new XMLHttpRequest(),
-            fileSizeLimit = 1024; // In MB
-        if (xhr.upload) {
-            // Check if file is less than x MB
-            if (file.size <= fileSizeLimit * 1024 * 1024) {
-
-
-                // File received / failed
-                xhr.onreadystatechange = function(e) {
-                    if (xhr.readyState == 4) {
-                        // Everything is good!
-
-                        // progress.className = (xhr.status == 200 ? "success" : "failure");
-                        // document.location.reload(true);
-                    }
-                };
-
-                // Start upload
-                xhr.open('POST', document.getElementById('file-upload-form').action, true);
-                xhr.setRequestHeader('X-File-Name', file.name);
-                xhr.setRequestHeader('X-File-Size', file.size);
-                xhr.setRequestHeader('Content-Type', 'multipart/form-data');
-                xhr.send(file);
-            } else {
-                output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
-            }
-        }
-    }
 
     // Check for the various File API support.
     if (window.File && window.FileList && window.FileReader) {

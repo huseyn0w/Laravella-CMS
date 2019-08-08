@@ -13,11 +13,11 @@ use Image;
 
 class CPanelUserSettingRepository extends BaseRepository
 {
-    protected $model;
 
 
     public function __construct(User $model)
     {
+        parent::__construct();
         $this->model = $model;
     }
 

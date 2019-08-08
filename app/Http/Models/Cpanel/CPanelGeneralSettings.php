@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Http\Models\Cpanel;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GeneralSettings extends Model
+class CPanelGeneralSettings extends Model
 {
+    protected $table = 'general_settings';
+
     public $timestamps = false;
+
     protected $fillable = [
         'website_name',
         'tagline',

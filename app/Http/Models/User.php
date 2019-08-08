@@ -5,10 +5,12 @@ namespace App\Http\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth as Auth;
 
 class User extends Authenticatable
 {
     use Notifiable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -50,7 +52,17 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $permissions_json = $this->hasOne('App\Http\Models\UserRoles', 'id');
+        return $this->hasOne('App\Http\Models\UserRoles', 'id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->role->name == "Administrator";
+    }
+
+    public function permissions()
+    {
+        return $this->role->permissions;
     }
 
 

@@ -4,22 +4,25 @@ namespace App\Http\Controllers\Cpanel;
 
 use App\Http\Requests\ValidateGeneralSettings;
 use App\Repositories\CPanelGeneralSettingRepository;
-use App\Http\Controllers\Controller;
+use App\Http\Models\Cpanel\CPanelGeneralSettings;
+use Illuminate\Support\Facades\Auth;
 
-class cPanelGeneralSettingController extends Controller
+class cPanelGeneralSettingController extends CPanelBaseController
 {
 
-    private $repository;
 
     public function __construct(CPanelGeneralSettingRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 
 
-    public function index()
+    public function index(CPanelGeneralSettings $general_settings)
     {
-        $general_settings = $this->repository->all();
+        $this->authorize('changeCpanelGeneralSettings', $general_settings);
+
+        $general_settings = $this->repository->first();
 
         return view('cpanel.general-settings', compact("general_settings"));
     }

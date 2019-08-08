@@ -14,7 +14,7 @@ class UserPermissionsSeeder extends Seeder
         DB::table('user_permissions')->insert(
             [
                 ['name' => 'read_settings'],
-                ['name' => 'edit_settings'],
+                ['name' => 'update_settings'],
                 ['name' => 'create_users'],
                 ['name' => 'read_users'],
                 ['name' => 'update_users'],

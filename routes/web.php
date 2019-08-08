@@ -34,6 +34,12 @@ Route::prefix('cpanel')->middleware(['auth','permission'])->namespace('Cpanel')-
         Route::post('/', 'CPanelMyProfileController@store')->name('cpanel_update_user_profile');
     });
 
+    Route::prefix('users')->group(function(){
+        Route::get('/', 'CpanelUsersController@index')->name('cpanel_all_users_list');
+        Route::get('/{$id}/edit', 'CpanelUsersController@edit')->name('cpanel_edit_user_profile');
+        Route::get('/{$id}/update', 'CpanelUsersController@update')->name('cpanel_update_user_profile');
+        Route::delete('/{$id}/delete', 'CpanelUsersController@delete')->name('cpanel_delete_user');
+    });
 
 
 
@@ -44,6 +50,7 @@ Route::prefix('cpanel')->middleware(['auth','permission'])->namespace('Cpanel')-
 
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/unathorized', 'Auth\UserPermissionsController@index')->name('unathorized');
 
 
 

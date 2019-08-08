@@ -181,15 +181,15 @@
                     </div>
                     <div class="card-body">
                         <div class="author uploader">
-                            <a href="#">
-                                <span class="user-avatar">
+                            <span class="user-avatar">
                                     <input id="file-upload" class type="file" name="avatar" accept="image/*" />
-                                    <label for="file-upload" id="file-drag">
-                                    @if(!empty($user->avatar))
-                                        <img id="file-image" class="avatar border-gray" src="{{env('APP_URL')}}uploads/images/avatars/{{$user->id}}/{{$user->avatar}}" type="file" name="fileUpload" accept="image/*" />
-                                    @else
-                                        <img id="file-image" class="avatar border-gray" src="{{asset('admin')}}/img/faces/noavatar.svg" type="file" name="fileUpload" accept="image/*" />
-                                    @endif
+                                @if(!empty($user->avatar))
+                                    <img id="file-image" class="avatar border-gray" src="{{env('APP_URL')}}uploads/images/avatars/{{$user->id}}/{{$user->avatar}}" type="file" name="fileUpload" accept="image/*" />
+                                @else
+                                    <img id="file-image" class="avatar border-gray" src="{{asset('admin')}}/img/faces/noavatar.svg" type="file" name="fileUpload" accept="image/*" />
+                                @endif
+                                <label for="file-upload" id="file-drag">
+                                        Edit
                                         <div id="start">
                                           <div id="notimage" class="hidden">Please select an image</div>
                                         </div>
@@ -198,8 +198,7 @@
                                         </div>
                                       </label>
                                 </span>
-                                <h5 class="title">{{$user->name}} {{$user->surname}}</h5>
-                            </a>
+                            <h5 class="title">{{$user->name}} {{$user->surname}}</h5>
                             <p class="description">
                                 {{$user->username}}
                             </p>

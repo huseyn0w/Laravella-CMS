@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers\Cpanel;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class cPanelHomeController extends Controller
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class cPanelHomeController extends CPanelBaseController
 {
     public function  __construct()
     {
+        parent::__construct();
 
     }
 
-    public function index()
+
+    public function index(Request $request)
     {
-//        $user = auth()->user();
-//
-//        print_r(json_decode($user->role->permissions, true));
-//        dd();
         return view('cpanel.home');
     }
 

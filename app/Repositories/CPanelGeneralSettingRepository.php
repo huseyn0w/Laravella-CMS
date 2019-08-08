@@ -9,16 +9,15 @@
 namespace App\Repositories;
 
 
-use App\Http\Models\GeneralSettings;
+use App\Http\Models\Cpanel\CPanelGeneralSettings;
 use Illuminate\Database\QueryException;
 
 class CPanelGeneralSettingRepository extends BaseRepository
 {
-    protected $model;
 
-
-    public function __construct(GeneralSettings $model)
+    public function __construct(CPanelGeneralSettings $model)
     {
+        parent::__construct();
         $this->model = $model;
     }
 
@@ -38,10 +37,5 @@ class CPanelGeneralSettingRepository extends BaseRepository
         return $result;
     }
 
-    public function all()
-    {
-        $stored_settngs = $this->model::first();
 
-        return $stored_settngs;
-    }
 }

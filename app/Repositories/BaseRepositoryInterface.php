@@ -27,11 +27,26 @@ interface BaseRepositoryInterface
 
 
     /**
+     * Get only limited amount of records
+     * @param $postNum
+     * @return mixed
+     */
+    public function only($postNum);
+
+    /**
+     * Get first value from database
+     * @return mixed
+     */
+    public function first();
+
+
+    /**
      * Get one record by ID
      * @param $id
      * @return mixed
      */
-    public function get($id);
+
+    public function get($count);
 
 
     /**
