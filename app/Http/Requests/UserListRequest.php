@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class ValidateGeneralSettings extends FormRequest
+class UserListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,22 +24,17 @@ class ValidateGeneralSettings extends FormRequest
      */
     public function rules()
     {
-        $membership = $this->request->get('membership');
-
-        if($membership === 'on') {
-            $this->request->add(['membership' => '1']);
-        }
-        else {
-            $this->request->add(['membership' => '0']);
-        }
-
-
         return [
-            'website_name' => 'required|string',
-            'tagline' => 'required|string',
-            'contact_email' => 'required|email',
-            'active_template' => 'string',
+            'users_action'  => ["required" , "string", "regex:(delete)"],
+            'users'         => 'array|required'
         ];
+    }
 
+    public function messages()
+    {
+        return [
+            'users_action.regex' => 'You should use action "Delete"',
+            'users.required'  => 'You should choose at least 1 user to delete'
+        ];
     }
 }

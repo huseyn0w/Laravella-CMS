@@ -3,7 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Route;
+
 
 class ValidateUserSettings extends FormRequest
 {
@@ -14,7 +17,7 @@ class ValidateUserSettings extends FormRequest
      */
     public function authorize()
     {
-        return \Auth::check();
+        return Auth::check();
     }
 
     /**
@@ -24,22 +27,74 @@ class ValidateUserSettings extends FormRequest
      */
     public function rules()
     {
+        return $this->getRules();
+    }
 
-        return [
-            'email'         => 'required|email',
-            'name'          => 'nullable|string',
-            'surname'       => 'nullable|string',
-            'country'       => 'nullable|string',
-            'city'          => 'nullable|string',
-            'about_me'      => 'nullable|string',
-            'facebook_url'  => 'nullable|url',
-            'twitter_url'   => 'nullable|url',
-            'instagram_url' => 'nullable|url',
-            'google_url'    => 'nullable|url',
-            'linkedin_url'  => 'nullable|url',
-            'xing_url'      => 'nullable|url',
-            'gender'        => 'nullable|in:male,female',
-            'avatar'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+
+    /**
+     * Return rules depends on user update or add new user page
+     * @return array
+     */
+    private function getRules():array
+    {
+        $userId = (int) $this->route('id');
+
+        $route_name = Route::currentRouteName();
+
+        $rules = [
+            'name'                          => 'nullable|string',
+            'surname'                       => 'nullable|string',
+            'country'                       => 'nullable|string',
+            'city'                          => 'nullable|string',
+            'about_me'                      => 'nullable|string',
+            'facebook_url'                  => 'nullable|url',
+            'twitter_url'                   => 'nullable|url',
+            'instagram_url'                 => 'nullable|url',
+            'google_url'                    => 'nullable|url',
+            'linkedin_url'                  => 'nullable|url',
+            'xing_url'                      => 'nullable|url',
+            'role_id'                       => 'numeric',
+            'gender'                        => 'nullable|in:male,female',
+            'avatar'                        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'password'                      => 'sometimes|nullable|min:6|same:password_confirmation',
+            'password_confirmation'         => 'sometimes|nullable|min:6',
         ];
+
+        if($route_name === "cpanel_update_user_profile")
+        {
+            $email = ['required',
+                'string',
+                'email',
+                'max:100',
+                Rule::unique('users')->ignore($userId)
+            ];
+
+            $username = [
+                'string',
+                'min:5',
+                'max:20',
+                Rule::unique('users')->ignore($userId)
+            ];
+
+            $password = 'nullable|min:6|same:password_confirmation';
+            $password_confirmation = 'nullable|min:6|same:password_confirmation';
+
+
+            $rules['avatar'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }
+        else
+        {
+            $password = 'required|min:6|same:password_confirmation';
+            $password_confirmation = 'required|min:6';
+            $email =    'email|required|max:100|unique:users';
+            $username = 'string|min:5|max:20|unique:users';
+        }
+
+        $rules['email'] = $email;
+        $rules['username'] = $username;
+        $rules['password'] = $password;
+        $rules['password_confirmation'] = $password_confirmation;
+
+        return $rules;
     }
 }

@@ -18,11 +18,11 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name
 
 
 //Cpanel Routes
-Route::prefix('cpanel')->middleware(['auth','permission'])->namespace('Cpanel')->group(function () {
+Route::prefix('cpanel')->middleware(['auth'])->namespace('Cpanel')->group(function () {
 
     Route::get('/', 'CPanelHomeController@index')->name('cpanel_home');
 
-    Route::prefix('general-settings')->group(function(){
+    Route::prefix('general-settings')->middleware('manage_general_settings')->group(function(){
         Route::get('/', 'CPanelGeneralSettingController@index')->name('cpanel_general_settings');
         Route::post('/', 'CPanelGeneralSettingController@store')->name('cpanel_update_general_settings');
     });
@@ -30,22 +30,32 @@ Route::prefix('cpanel')->middleware(['auth','permission'])->namespace('Cpanel')-
 
 
     Route::prefix('myprofile')->group(function(){
-        Route::get('/', 'CPanelMyProfileController@index')->name('cpanel_myprofile');
-        Route::post('/', 'CPanelMyProfileController@store')->name('cpanel_update_user_profile');
+        Route::get('/', 'CpanelUsersController@edit')->name('cpanel_myprofile');
     });
 
-    Route::prefix('users')->group(function(){
+    Route::prefix('users')->middleware('manage_users')->group(function(){
         Route::get('/', 'CpanelUsersController@index')->name('cpanel_all_users_list');
-        Route::get('/{$id}/edit', 'CpanelUsersController@edit')->name('cpanel_edit_user_profile');
-        Route::get('/{$id}/update', 'CpanelUsersController@update')->name('cpanel_update_user_profile');
-        Route::delete('/{$id}/delete', 'CpanelUsersController@delete')->name('cpanel_delete_user');
+        Route::get('/{id}', 'CpanelUsersController@edit')->name('cpanel_edit_user_profile')->where('id', '[0-9]+');
+        Route::put('/{id}/update', 'CpanelUsersController@update')->name('cpanel_update_user_profile')->where('id', '[0-9]+');
+        Route::delete('/{id}/delete', 'CpanelUsersController@deleteAjax')->name('cpanel_delete_user')->where('id', '[0-9]+');
+        Route::delete('/multipleDelete', 'CpanelUsersController@multipleDelete')->name('cpanel_users_bulk_delete');
+        Route::get('/new', 'CpanelUsersController@addUser')->name('cpanel_add_new_user');
+        Route::post('/new', 'CpanelUsersController@saveUser')->name('cpanel_save_new_user');
     });
 
 
 
     Route::get('/menus', 'CPanelMenuController@index')->name('cpanel_menus');
 
-    Route::get('/roles', 'CPanelRoleController@index')->name('cpanel_roles');
+    Route::prefix('roles')->middleware('manage_roles')->group(function(){
+        Route::get('/', 'CPanelRoleController@index')->name('cpanel_user_roles');
+        Route::get('/{id}', 'CpanelRoleController@edit')->name('cpanel_edit_user_role')->where('id', '[0-9]+');
+        Route::put('/{id}/update', 'CpanelRoleController@update')->name('cpanel_update_user_role')->where('id', '[0-9]+');
+        Route::delete('/{id}/delete', 'CpanelRoleController@deleteAjax')->name('cpanel_delete_user_role')->where('id', '[0-9]+');
+        Route::get('/new', 'CpanelRoleController@addRole')->name('cpanel_add_user_role');
+        Route::post('/new', 'CpanelRoleController@saveRole')->name('cpanel_save_user_role');
+    });
+
 });
 
 

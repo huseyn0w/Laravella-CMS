@@ -29,7 +29,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{route('cpanel_general_settings')}}">General Settings</a>
                         <a class="dropdown-item" href="{{route('cpanel_menus')}}">Menus</a>
-                        <a class="dropdown-item" href="{{route('cpanel_roles')}}">User Roles</a>
+                        <a class="dropdown-item" href="{{route('cpanel_user_roles')}}">User Roles</a>
                     </div>
                 </li>
                 <li class="nav-item">

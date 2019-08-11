@@ -14,7 +14,7 @@ Demo soon...
 ## Features
 
 * General CMS Features like: Posts,Pages,Users,Statuses and etc...
-* Social media authentification possibility
+* Social media authentication possibility
 * Fast working
 * Easy to extend
 * Flexible templates system
@@ -28,8 +28,9 @@ Why it is easy to extend? Because it was written by using best practices and tec
 * Short controllers
 * Separate Validator classes
 * Repository pattern to work with DB
-* Middleware usage
-* Observers usage
+* Middleware
+* Observers
+* Policies
 
 
 
@@ -40,6 +41,8 @@ Add additional notes about how to deploy this on a live system
 ## Versioning
 
 Current Version of Laravel Framework is 5.8
+
+Current version of CMS is pre~alpha 0.0.1
 
 ## Authors
 

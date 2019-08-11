@@ -1,7 +1,7 @@
 <?php
 /**
  * Laravella CMS
- * File: myprofile.blade.php
+ * File: profile.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 21.07.2019
  */
@@ -14,10 +14,12 @@
     @php
         $countries = get_countries_array();
 
+        $user_roles = get_user_roles();
 
     @endphp
 
-    <form action="{{ route('cpanel_update_user_profile') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('cpanel_update_user_profile', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+        @method('PUT')
         @csrf
     <div class="container-fluid">
         <div class="row">
@@ -40,11 +42,11 @@
                     </div>
                 @else
                     <div class="alert alert-danger">
-                        <strong>{{$update_message}}</strong>
+                        <strong>Some problem has been occured. Please try again later.</strong>
                     </div>
                 @endif
             </div>
-             @endif
+            @endif
 
             <div class="col-md-8">
                 <div class="card">
@@ -62,22 +64,36 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}" placeholder="Email">
+                                    <label for="email">Email address</label>
+                                    <input type="email" id="email" class="form-control" name="email" value="{{ old('email', $user->email) }}">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name', $user->name) }}">
+                                    <label for="password">New Password</label>
+                                    <input type="password" id="password" class="form-control" name="password" value="">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Surname</label>
-                                    <input type="text" class="form-control" name="surname" placeholder="Surname" value="{{ old('surname', $user->surname) }}">
+                                    <label for="confirm_password">Confirm New Password</label>
+                                    <input type="password" id="confirm_password" class="form-control" name="password_confirmation" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ old('name', $user->name) }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="surname">Surname</label>
+                                    <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" value="{{ old('surname', $user->surname) }}">
                                 </div>
                             </div>
                         </div>
@@ -103,6 +119,24 @@
                                 </div>
                             </div>
                         </div>
+                        @if (Auth::user()->can('manage_users', 'App\Http\Models\User'))
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select name="role_id" id="user_role" class="form-control">
+                                        @foreach($user_roles as $role)
+                                            @if($user->role->name === $role->name)
+                                                <option value="{{$role->id}}" selected>{{$role->name}}</option>
+                                            @else
+                                                <option value="{{$role->id}}">{{$role->name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -156,6 +190,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-check form-check-radio">
+                                    <label>Gender</label>
+                                    <br>
                                     <label class="form-check-label form-checkbox-label">
                                         <input class="form-check-input" type="radio" name="gender" {{$user->gender === "male" ? 'checked' : null}} value="male" id="male">
                                         <span class="form-check-sign"></span>
@@ -249,5 +285,5 @@
 @endsection
 
 @push('extrascripts')
-<script src="{{asset('admin')}}/js/laravella.js"></script>
+<script src="{{asset('admin')}}/js/userprofile.js"></script>
 @endpush

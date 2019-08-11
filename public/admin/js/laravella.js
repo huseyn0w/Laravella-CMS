@@ -1,83 +1,135 @@
-// File Upload
-//
-function ekUpload(){
+$(function(){
 
-    function Init() {
+    var AllUsersCheckbox    = $("#selectAllUsers"),
+        users_checkbox      = $(".users-checkbox-input"),
+        delete_user         = $(".delete_user"),
+        delete_role         = $(".delete_role");
 
-        //console.log("Upload Initialised");
 
-        var fileSelect    = document.getElementById('file-upload'),
-            fileDrag      = document.getElementById('file-drag');
+    AllUsersCheckbox.on("click", function () {
+        AllUsersCheckbox.toggleClass('all-checked');
+        users_checkbox.each(function(index,el){
 
-        fileSelect.addEventListener('change', fileSelectHandler, false);
+           if(AllUsersCheckbox.hasClass('all-checked')){
+               console.log('we are here');
+               $(el).attr('checked', 'checked');
+           }
+           else {
+               console.log('we are here2');
+               $(el).removeAttr('checked');
+           }
+        });
+    });
 
-        // Is XHR2 available?
-        var xhr = new XMLHttpRequest();
-        if (xhr.upload) {
-            // File Drop
-            fileDrag.addEventListener('dragover', fileDragHover, false);
-            fileDrag.addEventListener('dragleave', fileDragHover, false);
-            fileDrag.addEventListener('drop', fileSelectHandler, false);
+
+    delete_user.on('click', function () {
+       var deleted_user_id = $(this).prev('.deleted_user_id').val();
+       var that = $(this);
+
+       var delete_confirmation = confirm('Are you sure? User will be deleted');
+        if(delete_confirmation){
+            console.log(deleted_user_id);
+            $.ajax({
+                url: "/cpanel/users/" + deleted_user_id + "/delete/",
+                type: 'DELETE',
+                data: {
+                    "id": deleted_user_id
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data)
+                {
+                 if(data === "OK")
+                 {
+                     var message = "User has been successfully deleted";
+                     that.closest('tr').fadeOut(1000, function () {
+                         that.remove();
+                         showNotification('top','right', message, 'success');
+                     });
+                 }
+                 else{
+                     var message = "Error has been occured. Please try again later";
+                     showNotification('top','right', message, 'error');
+                 }
+                },
+                error:function(data)
+                {
+                    var message = data;
+                    showNotification('top','right', message, 'error');
+                }
+            });
+
         }
-    }
+    });
 
-    function fileDragHover(e) {
-        var fileDrag = document.getElementById('file-drag');
 
-        e.stopPropagation();
-        e.preventDefault();
 
-    }
+    delete_role.on('click', function () {
+        var deleted_role_id = $(this).prev('.deleted_role_id').val();
+        var that = $(this);
 
-    function fileSelectHandler(e) {
-        // Fetch FileList object
-        var files = e.target.files || e.dataTransfer.files;
+        var delete_confirmation = confirm('Are you sure? User will be deleted');
+        if(delete_confirmation){
+            console.log(deleted_role_id);
+            $.ajax({
+                url: "/cpanel/roles/" + deleted_role_id + "/delete/",
+                type: 'DELETE',
+                data: {
+                    "id": deleted_role_id
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data)
+                {
+                    if(data === "OK")
+                    {
+                        var message = "Role has been successfully deleted";
+                        that.closest('tr').fadeOut(1000, function () {
+                            that.remove();
+                            showNotification('top','right', message, 'success');
+                        });
+                    }
+                    else{
+                        var message = "Error has been occured. Please try again later";
+                        showNotification('top','right', message, 'error');
+                    }
+                },
+                error:function(data)
+                {
+                    var message = data;
+                    showNotification('top','right', message, 'error');
+                }
+            });
 
-        // Cancel event and hover styling
-        fileDragHover(e);
-
-        // Process all File objects
-        for (var i = 0, f; f = files[i]; i++) {
-            parseFile(f);
-            //uploadFile(f);
         }
-    }
+    });
 
 
+    function showNotification(from, align, message, messagetype){
+        color = Math.floor((Math.random() * 4) + 1);
 
-    function parseFile(file) {
-
-
-        // var fileType = file.type;
-        // console.log(fileType);
-        var imageName = file.name;
-
-        var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
-        if (isGood) {
-            document.getElementById('start').classList.add("hidden");
-            document.getElementById('response').classList.remove("hidden");
-            document.getElementById('notimage').classList.add("hidden");
-            // Thumbnail Preview
-            document.getElementById('file-image').classList.remove("hidden");
-            document.getElementById('file-image').src = URL.createObjectURL(file);
+        if(messagetype === 'success'){
+            var icon = 'nc-icon nc-check-2';
         }
-        else {
-            document.getElementById('file-image').classList.add("hidden");
-            document.getElementById('notimage').classList.remove("hidden");
-            document.getElementById('start').classList.remove("hidden");
-            document.getElementById('response').classList.add("hidden");
-            document.getElementById("file-upload-form").reset();
+        else{
+            var icon = 'nc-icon nc-simple-remove';
         }
+
+        $.notify({
+            icon: icon,
+            message: message
+
+        },{
+            type: type[color],
+            timer: 4000,
+            placement: {
+                from: from,
+                align: align
+            }
+        });
     }
 
 
-
-
-    // Check for the various File API support.
-    if (window.File && window.FileList && window.FileReader) {
-        Init();
-    } else {
-        document.getElementById('file-drag').style.display = 'none';
-    }
-}
-ekUpload();
+});

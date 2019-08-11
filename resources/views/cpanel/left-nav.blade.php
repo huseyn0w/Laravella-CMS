@@ -55,7 +55,7 @@
 
             <div class="collapse" id="siteSettings" aria-expanded="false" style="height: 0px;">
                 <ul class="nav">
-                    @if (Auth::user()->can('changeCpanelGeneralSettings', 'App\Http\Models\Cpanel\CPanelGeneralSettings'))
+                    @if (Auth::user()->can('manage_general_settings', 'App\Http\Models\Cpanel\CPanelGeneralSettings'))
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_general_settings')}}">
                             <p>General Settings</p>
@@ -68,7 +68,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link sub-nav-link" href="{{route('cpanel_roles')}}">
+                        <a class="nav-link sub-nav-link" href="{{route('cpanel_user_roles')}}">
                             <p>User Roles</p>
                         </a>
                     </li>

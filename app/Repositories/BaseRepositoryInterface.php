@@ -31,7 +31,7 @@ interface BaseRepositoryInterface
      * @param $postNum
      * @return mixed
      */
-    public function only($postNum);
+    public function only($postNum, $fields = []);
 
     /**
      * Get first value from database
@@ -41,23 +41,25 @@ interface BaseRepositoryInterface
 
 
     /**
-     * Get one record by ID
-     * @param $id
+     * Get one record by id
+     * @param $count
+     * @param array $fields
      * @return mixed
      */
-
-    public function get($count);
+    public function get($count, $fields = []);
 
 
     /**
      * Get one record by custom parameter
      * @param $parameter
+     * @param $value
+     * @param array $fields
      * @return mixed
      */
-    public function getBy($parameter);
+    public function getBy($parameter, $value, $field = []);
 
     /**
-     * Update record by ID
+     * Get record by ID
      * @param $newData
      * @param $id
      * @return mixed

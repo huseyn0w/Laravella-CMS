@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -50,14 +51,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Add a mutator to ensure hashed passwords
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
+
     public function role()
     {
-        return $this->hasOne('App\Http\Models\UserRoles', 'id');
+        return $this->hasOne('App\Http\Models\UserRoles', 'id', 'role_id');
     }
 
     public function isAdmin()
     {
-        return $this->role->name == "Administrator";
+        return $this->role->id === 1;
     }
 
     public function permissions()

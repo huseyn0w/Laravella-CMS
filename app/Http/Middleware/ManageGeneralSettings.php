@@ -2,17 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Models\Cpanel\CPanelGeneralSettings;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class UserPermission
+class ManageGeneralSettings
 {
-    private $routes_permissions_array = [
-        ''
-    ];
-
-
-
     /**
      * Handle an incoming request.
      *
@@ -22,8 +17,9 @@ class UserPermission
      */
     public function handle($request, Closure $next)
     {
-        if(!Auth::user()->isAdmin()) return redirect()->route('home');
+        if(Auth::user()->cannot('manage_general_settings', CPanelGeneralSettings::class)){
+            abort(401);
+        }
         return $next($request);
-
     }
 }

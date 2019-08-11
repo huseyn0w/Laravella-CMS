@@ -9,6 +9,8 @@
 namespace App\Repositories;
 
 
+use Illuminate\Database\QueryException;
+
 abstract class BaseRepository implements  BaseRepositoryInterface{
 
     protected $model;
@@ -18,44 +20,67 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     }
 
-    public function create($data)
+    public function create($request)
     {
+        $result = false;
+        if($this->model::create($request)) $result = true;
 
+        return $result;
     }
 
     public function all()
     {
+        $result = false;
+        $result = $this->model::all();
 
+        return $result;
     }
-    public function get($id)
+    public function get($id, $fields = [])
     {
 
     }
 
     public function first()
     {
-        $data = $this->model::first();
+        try{
+            $data = $this->model::first();
+        }
+        catch (QueryException $e){
+            $data = $e->errorInfo;
+        }
 
         return $data;
     }
 
-    public function only($count){
+    public function only($count, $fields = []){
 
-        $data = $this->model::paginate($count);
+        try{
+            empty($fields) ? $data = $this->model::paginate($count) : $data = $this->model::select($fields)->paginate($count);
+        }
+        catch (QueryException $e){
+            $data = $e->errorInfo;
+        }
 
         return $data;
     }
 
-    public function getBy($paramName = 'id')
+    public function getBy($paramName, $paramValue, $fields = [])
     {
 
+        if(!empty($fields)){
+            $data = $this->model::select($fields)->where($paramName, $paramValue)->first();
+        }
+        else{
+            $data = $this->model::where($paramName, $paramValue)->first();
+        }
+
+        if(!$data) return false;
+
+        return $data;
     }
-    public function update($validatedRequest, $id = 1)
+    public function update($newData, $id = 1)
     {
         try {
-
-            $newData = $validatedRequest->except(["_token"]);
-
 
             $this->model::where('id', $id)->update($newData);
             $result = true;
@@ -73,7 +98,10 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
     }
     public function delete($id)
     {
+        $result = false;
+        if($this->model::destroy($id)) $result = true;
 
+        return $result;
     }
 
     public function deleteWhere($parameter = 'id')

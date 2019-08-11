@@ -6,6 +6,9 @@
  * Date: 22.07.2019
  */
 
+use App\Http\Models\UserRoles;
+use App\Http\Models\UserPermissions;
+
 function get_front_templates_array():array
 {
     $folders_array = [];
@@ -21,6 +24,22 @@ function get_front_templates_array():array
     }
 
     return $folders_array;
+}
+
+function get_user_roles():object
+{
+    $roles = UserRoles::select('id', 'name')->get();
+
+    return $roles;
+
+}
+
+function get_user_role_permissions()
+{
+    $role_permissions = UserPermissions::all();
+
+    return $role_permissions;
+
 }
 
 function get_countries_array():array

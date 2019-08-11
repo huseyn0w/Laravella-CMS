@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use App\Http\Models\Cpanel\CPanelGeneralSettings;
 use App\Http\Models\User;
+use App\Http\Models\UserRoles;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -21,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Model' => 'App\Policies\ModelPolicy',
         CPanelGeneralSettings::class => UserPolicy::class,
         User::class => UserPolicy::class,
+        UserRoles::class => UserPolicy::class,
     ];
 
     /**

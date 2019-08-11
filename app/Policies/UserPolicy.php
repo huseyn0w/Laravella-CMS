@@ -17,23 +17,34 @@ class UserPolicy
         $this->user_permissions = json_decode(Auth::user()->permissions());
     }
 
-    public function changeCpanelGeneralSettings()
+    public function manage_general_settings()
     {
         $result = false;
 
-        if($this->user_permissions->read_settings === 1 && $this->user_permissions->update_settings === 1) $result = true;
+        if($this->user_permissions->manage_general_settings === 1) $result = true;
 
         return $result;
     }
 
-    public function seeAllUsers()
+    public function manage_users()
     {
         $result = false;
 
-        if($this->user_permissions->read_users === 1) $result = true;
+        if($this->user_permissions->manage_users === 1) $result = true;
 
         return $result;
     }
+
+
+    public function manage_user_roles()
+    {
+        $result = false;
+
+        if($this->user_permissions->manage_user_roles === 1) $result = true;
+
+        return $result;
+    }
+
 
 
 

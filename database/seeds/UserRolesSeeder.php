@@ -29,7 +29,6 @@ class UserRolesSeeder extends Seeder
             [
                 ['name' => 'Administrator', 'permissions' => $admin_permissions_json],
                 ['name' => 'User', 'permissions' => $user_permissions_json],
-                ['name' => 'Editor', 'permissions' => $admin_permissions_json]
             ]
         );
     }

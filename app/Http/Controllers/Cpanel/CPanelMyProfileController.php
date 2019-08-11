@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Cpanel;
 
 use App\Http\Requests\ValidateUserSettings;
-use App\Repositories\CPanelUserSettingRepository;
+use App\Repositories\CPanelUserRepository;
 use Illuminate\Http\Request;
 
 class CPanelMyProfileController extends CPanelBaseController
 {
 
-    public function __construct(CPanelUserSettingRepository $repository)
+    public function __construct(CPanelUserRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;
@@ -18,7 +18,7 @@ class CPanelMyProfileController extends CPanelBaseController
     public function index()
     {
         $user = auth()->user();
-        return view('cpanel.myprofile', compact('user'));
+        return view('cpanel.profile', compact('user'));
     }
 
     public function store(ValidateUserSettings $request)

@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class cPanelGeneralSettingController extends CPanelBaseController
 {
-
-
     public function __construct(CPanelGeneralSettingRepository $repository)
     {
         parent::__construct();
@@ -20,8 +18,6 @@ class cPanelGeneralSettingController extends CPanelBaseController
 
     public function index(CPanelGeneralSettings $general_settings)
     {
-        $this->authorize('changeCpanelGeneralSettings', $general_settings);
-
         $general_settings = $this->repository->first();
 
         return view('cpanel.general-settings', compact("general_settings"));
