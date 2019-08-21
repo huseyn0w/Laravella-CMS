@@ -4,6 +4,7 @@ namespace App\Providers;
 
 
 use App\Http\Models\Cpanel\CPanelGeneralSettings;
+use App\Http\Models\Pages;
 use App\Http\Models\User;
 use App\Http\Models\UserRoles;
 use App\Policies\UserPolicy;
@@ -23,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
         CPanelGeneralSettings::class => UserPolicy::class,
         User::class => UserPolicy::class,
         UserRoles::class => UserPolicy::class,
+        Pages::class => UserPolicy::class,
     ];
 
     /**

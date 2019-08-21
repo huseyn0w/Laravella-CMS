@@ -10,7 +10,7 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    protected $user_permissions;
+    private $user_permissions;
 
     public function __construct()
     {
@@ -41,6 +41,15 @@ class UserPolicy
         $result = false;
 
         if($this->user_permissions->manage_user_roles === 1) $result = true;
+
+        return $result;
+    }
+
+    public function manage_pages()
+    {
+        $result = false;
+
+        if($this->user_permissions->manage_pages === 1) $result = true;
 
         return $result;
     }

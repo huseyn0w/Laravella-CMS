@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserRolesSeeder::class,
             CPanelGeneralSettingsSeeder::class,
             UsersTableSeeder::class,
+            PagesTableSeeder::class,
         ]);
     }
 }

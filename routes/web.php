@@ -44,7 +44,6 @@ Route::prefix('cpanel')->middleware(['auth'])->namespace('Cpanel')->group(functi
     });
 
 
-
     Route::get('/menus', 'CPanelMenuController@index')->name('cpanel_menus');
 
     Route::prefix('roles')->middleware('manage_roles')->group(function(){
@@ -55,6 +54,19 @@ Route::prefix('cpanel')->middleware(['auth'])->namespace('Cpanel')->group(functi
         Route::get('/new', 'CpanelRoleController@addRole')->name('cpanel_add_user_role');
         Route::post('/new', 'CpanelRoleController@saveRole')->name('cpanel_save_user_role');
     });
+
+    Route::prefix('pages')->middleware('manage_pages')->group(function(){
+        Route::get('/', 'CPanelPageController@index')->name('cpanel_pages_list');
+        Route::get('/{id}', 'CpanelPageController@edit')->name('cpanel_edit_page')->where('id', '[0-9]+');
+        Route::put('/{id}/update', 'CpanelPageController@update')->name('cpanel_update_page')->where('id', '[0-9]+');
+        Route::delete('/multipleDelete', 'CpanelPageController@multipleDelete')->name('cpanel_pages_bulk_delete');
+        Route::delete('/{id}/delete', 'CpanelPageController@deleteAjax')->name('cpanel_ajax_soft_delete_page')->where('id', '[0-9]+');
+        Route::delete('/multipleDelete', 'CPanelPageController@multipleDelete')->name('cpanel_pages_bulk_delete');
+        Route::get('/new', 'CpanelPageController@addPage')->name('cpanel_add_new_page');
+        Route::post('/new', 'CpanelPageController@create')->name('cpanel_save_new_page');
+    });
+
+
 
 });
 

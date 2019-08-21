@@ -53,6 +53,7 @@ class CPanelBaseController extends Controller
         return;
     }
 
+
     public function delete($id)
     {
         $result = $this->repository->delete($id);

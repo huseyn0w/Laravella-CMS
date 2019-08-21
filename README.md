@@ -26,11 +26,13 @@ Demo soon...
 ## Advantages for developers
 Why it is easy to extend? Because it was written by using best practices and technologies, such as:
 * Short controllers
-* Separate Validator classes
+* Separate Validator Request classes
 * Repository pattern to work with DB
-* Middleware
+* Middlewares
 * Observers
 * Policies
+* Easy text editor in backend (Summernote)
+* Media Library Opportunity (Spatie)
 
 
 

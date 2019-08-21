@@ -3,7 +3,30 @@ $(function(){
     var AllUsersCheckbox    = $("#selectAllUsers"),
         users_checkbox      = $(".users-checkbox-input"),
         delete_user         = $(".delete_user"),
+        delete_page         = $(".delete_page"),
+        date_time_input     = $("#date_time_picker"),
+        editor              = $("#editor"),
         delete_role         = $(".delete_role");
+
+
+    if(date_time_input.length){
+        date_time_input.datepicker({
+            'timepicker':true,
+            'language': 'en',
+            'dateFormat':'yyyy-mm-dd',
+            'timeFormat':'hh:ii:00'
+        });
+    }
+
+    if(editor.length){
+        editor.summernote({
+
+            height:300,
+
+        });
+    }
+
+
 
 
     AllUsersCheckbox.on("click", function () {
@@ -28,7 +51,6 @@ $(function(){
 
        var delete_confirmation = confirm('Are you sure? User will be deleted');
         if(delete_confirmation){
-            console.log(deleted_user_id);
             $.ajax({
                 url: "/cpanel/users/" + deleted_user_id + "/delete/",
                 type: 'DELETE',
@@ -69,9 +91,8 @@ $(function(){
         var deleted_role_id = $(this).prev('.deleted_role_id').val();
         var that = $(this);
 
-        var delete_confirmation = confirm('Are you sure? User will be deleted');
+        var delete_confirmation = confirm('Are you sure? Role will be deleted');
         if(delete_confirmation){
-            console.log(deleted_role_id);
             $.ajax({
                 url: "/cpanel/roles/" + deleted_role_id + "/delete/",
                 type: 'DELETE',
@@ -86,6 +107,47 @@ $(function(){
                     if(data === "OK")
                     {
                         var message = "Role has been successfully deleted";
+                        that.closest('tr').fadeOut(1000, function () {
+                            that.remove();
+                            showNotification('top','right', message, 'success');
+                        });
+                    }
+                    else{
+                        var message = "Error has been occured. Please try again later";
+                        showNotification('top','right', message, 'error');
+                    }
+                },
+                error:function(data)
+                {
+                    var message = data;
+                    showNotification('top','right', message, 'error');
+                }
+            });
+
+        }
+    });
+
+
+    delete_page.on('click', function () {
+        var deleted_role_id = $(this).prev('.deleted_page_id').val();
+        var that = $(this);
+
+        var delete_confirmation = confirm('Are you sure? Page will be deleted');
+        if(delete_confirmation){
+            $.ajax({
+                url: "/cpanel/pages/" + deleted_role_id + "/delete/",
+                type: 'DELETE',
+                data: {
+                    "id": deleted_role_id
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data)
+                {
+                    if(data === "OK")
+                    {
+                        var message = "Page has been successfully deleted";
                         that.closest('tr').fadeOut(1000, function () {
                             that.remove();
                             showNotification('top','right', message, 'success');
@@ -130,6 +192,10 @@ $(function(){
             }
         });
     }
+
+
+
+
 
 
 });

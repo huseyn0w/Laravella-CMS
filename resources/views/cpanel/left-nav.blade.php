@@ -25,10 +25,18 @@
         </li>
         <li>
             <a class="nav-link" href="#">
+                <i class="nc-icon nc-album-2"></i>
+                <p>Media</p>
+            </a>
+        </li>
+        @if (Auth::user()->can('manage_pages', 'App\Http\Models\Pages'))
+            <li>
+            <a class="nav-link" href="{{route('cpanel_pages_list')}}">
                 <i class="nc-icon nc-bullet-list-67"></i>
                 <p>Pages</p>
             </a>
         </li>
+        @endif
         <li>
             <a class="nav-link" href="#">
                 <i class="nc-icon nc-notes"></i>

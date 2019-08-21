@@ -8,6 +8,7 @@
 
 use App\Http\Models\UserRoles;
 use App\Http\Models\UserPermissions;
+use App\Http\Models\User;
 
 function get_front_templates_array():array
 {
@@ -40,6 +41,12 @@ function get_user_role_permissions()
 
     return $role_permissions;
 
+}
+function get_authors_list()
+{
+    $list = User::select('id', 'username')->get();
+
+    return $list;
 }
 
 function get_countries_array():array

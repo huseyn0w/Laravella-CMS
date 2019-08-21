@@ -23,8 +23,8 @@
 <script src="{{asset('admin')}}/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{asset('admin')}}/js/demo.js"></script>
-<script src="{{asset('admin')}}/js/laravella.js"></script>
 @stack('extrascripts')
+<script src="{{asset('admin')}}/js/laravella.js"></script>
 <script type="text/javascript">
     // $(document).ready(function() {
     //     // Javascript method's body can be found in assets/js/demos.js

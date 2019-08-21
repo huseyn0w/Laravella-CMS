@@ -31,12 +31,22 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
     public function all()
     {
         $result = false;
+
         $result = $this->model::all();
 
         return $result;
     }
     public function get($id, $fields = [])
     {
+
+    }
+
+    public function selectBy($fields)
+    {
+
+        $data = $this->model::select($fields)->get;
+
+        return $data;
 
     }
 
