@@ -61,13 +61,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="username">Title</label>
-                                        <input type="text" id="title" required class="form-control" name="title" value="{{ old('title', $page->title) }}" >
+                                        <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title', $page->title) }}" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="slug">Slug</label>
-                                        <input type="text" id="slug" required class="form-control" name="slug" value="{{ old('slug',$page->slug) }}">
+                                        <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug',$page->slug) }}">
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Content</label>
-                                        <textarea name="content" required id="editor"  class="form-control">{{old('content',$page->content)}}</textarea>
+                                        <textarea name="content"  id="editor"  class="my-editor form-control">{{old('content',$page->content)}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +129,7 @@
 @endsection
 
 @push('extrascripts')
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
+    <script src="https://cdn.tiny.cloud/1/4vyoa49f4irghhao6v5lpc7z5z2hvhgau8wsjj1y9g65ovse/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="{{asset('admin')}}/js/datepicker.min.js"></script>
     <script src="{{asset('admin')}}/js/i18n/datepicker.en.js"></script>
 @endpush

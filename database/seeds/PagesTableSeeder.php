@@ -14,14 +14,14 @@ class PagesTableSeeder extends Seeder
     {
         DB::table('pages')->insert([
             [
-                'name' => 'Homepage',
+                'title' => 'Homepage',
                 'slug' => '/',
                 'author_id' => 1,
                 'status' => 1,
                 'created_at' => Carbon::now()
             ],
             [
-                'name' => 'Contact',
+                'title' => 'Contact',
                 'slug' => '/contact',
                 'author_id' => 1,
                 'status' => 1,

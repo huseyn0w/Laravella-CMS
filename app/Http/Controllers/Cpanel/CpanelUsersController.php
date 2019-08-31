@@ -9,7 +9,7 @@ use App\Repositories\CPanelUserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CpanelUsersController extends CPanelBaseController
+class CPanelUsersController extends CPanelBaseController
 {
 
 

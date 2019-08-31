@@ -24,7 +24,7 @@
             </a>
         </li>
         <li>
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{route('cpanel_all_media')}}">
                 <i class="nc-icon nc-album-2"></i>
                 <p>Media</p>
             </a>

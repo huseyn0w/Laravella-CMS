@@ -104,7 +104,7 @@ class CPanelUserRepository extends BaseRepository
         $imageName = time().'.'.$request->avatar->getClientOriginalName();
         Image::make($request->file('avatar'))
             ->resize('200','200')
-            ->save(public_path('uploads/images/avatars/'.$id.'/'.$imageName));
+            ->save(public_path('uploads/avatars/'.$id.'/'.$imageName));
         return $imageName;
     }
 }

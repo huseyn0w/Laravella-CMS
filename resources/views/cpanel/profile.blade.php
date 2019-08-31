@@ -220,7 +220,7 @@
                             <span class="user-avatar">
                                     <input id="file-upload" class type="file" name="avatar" accept="image/*" />
                                 @if(!empty($user->avatar))
-                                    <img id="file-image" class="avatar border-gray" src="{{env('APP_URL')}}uploads/images/avatars/{{$user->id}}/{{$user->avatar}}" type="file" name="fileUpload" accept="image/*" />
+                                    <img id="file-image" class="avatar border-gray" src="{{env('APP_URL')}}uploads/avatars/{{$user->id}}/{{$user->avatar}}" type="file" name="fileUpload" accept="image/*" />
                                 @else
                                     <img id="file-image" class="avatar border-gray" src="{{asset('admin')}}/img/faces/noavatar.svg" type="file" name="fileUpload" accept="image/*" />
                                 @endif

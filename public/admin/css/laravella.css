@@ -203,3 +203,7 @@ input[type="file"] {
 .users-table .user_actions button{
     color:red;
 }
+
+ul.mfb-component__list li a#add-folder{
+    display: none !important;
+}

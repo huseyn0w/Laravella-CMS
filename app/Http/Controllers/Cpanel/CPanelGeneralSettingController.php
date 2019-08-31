@@ -7,7 +7,7 @@ use App\Repositories\CPanelGeneralSettingRepository;
 use App\Http\Models\Cpanel\CPanelGeneralSettings;
 use Illuminate\Support\Facades\Auth;
 
-class cPanelGeneralSettingController extends CPanelBaseController
+class CPanelGeneralSettingController extends CPanelBaseController
 {
     public function __construct(CPanelGeneralSettingRepository $repository)
     {

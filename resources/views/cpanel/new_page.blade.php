@@ -47,13 +47,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="username">Title</label>
-                                        <input type="text" id="title" required class="form-control" name="title" value="{{ old('title') }}" >
+                                        <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title') }}" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="slug">Slug</label>
-                                        <input type="text" id="slug" required class="form-control" name="slug" value="{{ old('slug') }}">
+                                        <label for="cpanel_slug">Slug</label>
+                                        <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug') }}">
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Content</label>
-                                        <textarea name="content" required id="editor"  class="form-control">{{old('content')}}</textarea>
+                                        <textarea name="content" id="editor"  class="my-editor form-control">{{old('content')}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -77,20 +77,20 @@
                                     <div class="form-group">
                                         <label>Author</label>
                                         <select name="author_id" id="author_id" class="form-control">
-                                         @foreach($users_list as $user)
-                                            @if($user->username === Auth::user()->username)
-                                                 <option value="{{$user->id}}" selected>{{$user->username}}</option>
-                                            @else
-                                                 <option value="{{$user->id}}">{{$user->username}}</option>
-                                            @endif
-                                         @endforeach
+                                            @foreach($users_list as $user)
+                                                @if($user->username === Auth::user()->username)
+                                                    <option value="{{$user->id}}" selected>{{$user->username}}</option>
+                                                @else
+                                                    <option value="{{$user->id}}">{{$user->username}}</option>
+                                                @endif
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Publish date</label>
-                                        <input class="form-control" autocomplete="off" name="created_at" required id="date_time_picker" type="text" />
+                                        <input class="form-control" autocomplete="off" name="created_at" value="{{ \Carbon\Carbon::now() }}" required id="date_time_picker" type="text" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -115,7 +115,7 @@
 @endsection
 
 @push('extrascripts')
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
+    <script src="https://cdn.tiny.cloud/1/4vyoa49f4irghhao6v5lpc7z5z2hvhgau8wsjj1y9g65ovse/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="{{asset('admin')}}/js/datepicker.min.js"></script>
     <script src="{{asset('admin')}}/js/i18n/datepicker.en.js"></script>
 @endpush

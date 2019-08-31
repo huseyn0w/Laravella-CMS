@@ -298,3 +298,4 @@ function get_countries_array():array
 
     return $countries;
 }
+
