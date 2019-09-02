@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Models\Cpanel;
+namespace App\Http\Models\CPanel;
 
 use Illuminate\Database\Eloquent\Model;
 

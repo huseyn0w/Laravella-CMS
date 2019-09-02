@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             CPanelGeneralSettingsSeeder::class,
             UsersTableSeeder::class,
             PagesTableSeeder::class,
+            CPanelCategorySeeder::class,
+            CPanelPostsSeeder::class,
         ]);
     }
 }

@@ -10,7 +10,6 @@
 @extends('cpanel.index')
 
 @push('extrastyles')
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('admin')}}/css/datepicker.min.css" rel="stylesheet">
 @endpush
 

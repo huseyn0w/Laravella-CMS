@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Models\Cpanel\CPanelGeneralSettings;
+use App\Http\Models\CPanel\CPanelGeneralSettings;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 

@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Cpanel;
+namespace App\Http\Controllers\CPanel;
 
 use App\Http\Requests\PageListRequest;
 use App\Http\Requests\ValidatePageData;
-use App\Repositories\PagesRepository;
+use App\Repositories\CPanelPageRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class CPanelPageController extends CPanelBaseController
 {
     private $pages_per_page = 10;
 
-    public function __construct(PagesRepository $repository)
+    public function __construct(CPanelPageRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;
@@ -33,50 +32,28 @@ class CPanelPageController extends CPanelBaseController
         return back()->with('message', $result);
     }
 
-    public function show($id)
-    {
 
+    public function editPage($id)
+    {
+        parent::edit($id);
+
+        return view('cpanel.edit_page', ["page" => $this->result]);
     }
 
-    public function edit($id)
+    public function createPage(ValidatePageData $request)
     {
-
-        $page = $this->repository->getBy('id', $id);
-
-        if(!$page) abort(404);
-        return view('cpanel.edit_page', compact("page"));
-    }
-
-    public function create(ValidatePageData $request)
-    {
-        $result = $this->repository->create($request->all());
-
-        if(!$result) return back()->with('message', $result);
-
+        parent::create($request);
         return redirect()->route('cpanel_pages_list')->with('page_added', " ");
 
     }
 
-    public function read()
+
+    public function updatePage($id, ValidatePageData $request)
     {
-
-    }
-
-    public function update($id, ValidatePageData $request)
-    {
-        $result = $this->repository->update($request->except('_token','_method'), $id);
-
-        return back()->with('message', $result);
-
+        return parent::update($id, $request);
     }
 
 
-
-
-    public function delete($id)
-    {
-
-    }
 
     public function addPage()
     {

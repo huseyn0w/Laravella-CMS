@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cpanel;
+namespace App\Http\Controllers\CPanel;
 
 use App\Http\Requests\ValidateUserRoles;
 use App\Repositories\CPanelUserRolesRepository;
@@ -26,28 +26,21 @@ class CPanelRoleController extends CPanelBaseController
         return view('cpanel.new_role');
     }
 
-    public function saveRole(ValidateUserRoles $request)
+    public function createRole(ValidateUserRoles $request)
     {
-        $result = $this->repository->create($request);
-
-        if(!$result) return back()->with('message', $result);
+        parent::create($request);
 
         return redirect()->route('cpanel_user_roles')->with('role_added', '-');
     }
 
-    public function edit($id)
+    public function editRole($id)
     {
-
-        $role = $this->repository->getBy('id', $id);
-
-        if(!$role) abort(404);
-        return view('cpanel.edit_role', compact("role"));
+        parent::edit($id);
+        return view('cpanel.edit_role', ["role" => $this->result]);
     }
 
-    public function update($id, ValidateUserRoles $request)
+    public function updateRole($id, ValidateUserRoles $request)
     {
-        $result = $this->repository->update($request,$id);
-        if(!$result) return back()->with('fail', '-');
-        return back()->with('message', '-');
+        return parent::update($id, $request);
     }
 }

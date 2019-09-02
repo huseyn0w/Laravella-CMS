@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
-class ValidatePageData extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,43 +27,47 @@ class ValidatePageData extends FormRequest
     public function rules()
     {
         $route_name = Route::currentRouteName();
-        $page_id = (int) $this->route('id');
+        $category_id = (int) $this->route('id');
 
         $rules = [
-            'author_id' => 'required|string|exists:users,id',
-            'created_at' => 'required|string',
-            'content' => 'required|string',
-            'status' => 'required|numeric',
+            'description' => 'string|nullable',
         ];
 
 
-        if($route_name === "cpanel_update_page")
+        if($route_name === "cpanel_update_category")
         {
 
-            $title = ['required',
+            $name = ['required',
                 'string',
                 'required',
                 'max:50',
-                Rule::unique('pages','title')->ignore($page_id)
+                Rule::unique('categories','name')->ignore($category_id)
             ];
 
             $slug = ['required',
                 'string',
                 'required',
                 'max:20',
-                Rule::unique('pages','slug')->ignore($page_id)
+                Rule::unique('categories','slug')->ignore($category_id)
             ];
+
+            $parent_category = 'numeric|nullable|not_in:'.$category_id;
+
+
         }
         else
         {
-            $title = 'required|string|max:50|unique:pages,title';
-            $slug = 'required|string|max:20|unique:pages,slug';
+            $name = 'required|string|max:50|unique:categories,name';
+            $slug = 'required|string|max:20|unique:categories,slug';
+            $parent_category = 'nullable|numeric';
         }
 
-        $rules['title'] = $title;
+        $rules['name'] = $name;
         $rules['slug'] = $slug;
+        $rules['parent_category'] = $parent_category;
 
 
         return $rules;
     }
+
 }

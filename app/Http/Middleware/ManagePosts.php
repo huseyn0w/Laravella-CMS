@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Models\Page;
+use App\Http\Models\Post;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class ManagePages
+class ManagePosts
 {
     /**
      * Handle an incoming request.
@@ -17,11 +17,9 @@ class ManagePages
      */
     public function handle($request, Closure $next)
     {
-
-        if(Auth::user()->cannot('manage_pages', Page::class)){
+        if(Auth::user()->cannot('manage_posts', Post::class)){
             abort(401);
         }
         return $next($request);
-
     }
 }

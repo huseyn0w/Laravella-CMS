@@ -4,8 +4,10 @@ $(function(){
         users_checkbox      = $(".users-checkbox-input"),
         delete_user         = $(".delete_user"),
         delete_page         = $(".delete_page"),
+        delete_post         = $(".delete_post"),
+        delete_category     = $(".delete_category"),
         date_time_input     = $("#date_time_picker"),
-        editor              = $("#editor"),
+        editor              = $(".my-editor"),
         media_upload_form   = $("#laravellaDropzone"),
         delete_role         = $(".delete_role");
 
@@ -124,16 +126,16 @@ $(function(){
 
 
     delete_page.on('click', function () {
-        var deleted_role_id = $(this).prev('.deleted_page_id').val();
+        var deleted_page_id = $(this).prev('.deleted_page_id').val();
         var that = $(this);
 
         var delete_confirmation = confirm('Are you sure? Page will be deleted');
         if(delete_confirmation){
             $.ajax({
-                url: "/cpanel/pages/" + deleted_role_id + "/delete/",
+                url: "/cpanel/pages/" + deleted_page_id + "/delete/",
                 type: 'DELETE',
                 data: {
-                    "id": deleted_role_id
+                    "id": deleted_page_id
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -143,6 +145,86 @@ $(function(){
                     if(data === "OK")
                     {
                         var message = "Page has been successfully deleted";
+                        that.closest('tr').fadeOut(1000, function () {
+                            that.remove();
+                            showNotification('top','right', message, 'success');
+                        });
+                    }
+                    else{
+                        var message = "Error has been occured. Please try again later";
+                        showNotification('top','right', message, 'error');
+                    }
+                },
+                error:function(data)
+                {
+                    var message = data;
+                    showNotification('top','right', message, 'error');
+                }
+            });
+
+        }
+    });
+
+    delete_post.on('click', function () {
+        var deleted_post_id = $(this).prev('.deleted_post_id').val();
+        var that = $(this);
+
+        var delete_confirmation = confirm('Are you sure? Post will be deleted');
+        if(delete_confirmation){
+            $.ajax({
+                url: "/cpanel/posts/" + deleted_post_id + "/delete/",
+                type: 'DELETE',
+                data: {
+                    "id": deleted_post_id
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data)
+                {
+                    if(data === "OK")
+                    {
+                        var message = "Post has been successfully deleted";
+                        that.closest('tr').fadeOut(1000, function () {
+                            that.remove();
+                            showNotification('top','right', message, 'success');
+                        });
+                    }
+                    else{
+                        var message = "Error has been occured. Please try again later";
+                        showNotification('top','right', message, 'error');
+                    }
+                },
+                error:function(data)
+                {
+                    var message = data;
+                    showNotification('top','right', message, 'error');
+                }
+            });
+
+        }
+    });
+
+    delete_category.on('click', function () {
+        var deleted_category_id = $(this).prev('.deleted_category_id').val();
+        var that = $(this);
+
+        var delete_confirmation = confirm('Are you sure? Category will be deleted');
+        if(delete_confirmation){
+            $.ajax({
+                url: "/cpanel/categories/" + deleted_category_id + "/delete/",
+                type: 'DELETE',
+                data: {
+                    "id": deleted_category_id
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data)
+                {
+                    if(data === "OK")
+                    {
+                        var message = "Category has been successfully deleted";
                         that.closest('tr').fadeOut(1000, function () {
                             that.remove();
                             showNotification('top','right', message, 'success');
@@ -188,43 +270,51 @@ $(function(){
         });
     }
 
-    var editor_config = {
-        path_absolute : "/",
-        height : "300",
-        selector: "textarea.my-editor",
-        plugins: [
-            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-            "searchreplace wordcount visualblocks visualchars code fullscreen",
-            "insertdatetime media nonbreaking save table contextmenu directionality",
-            "emoticons template paste textcolor colorpicker textpattern"
-        ],
-        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
-        relative_urls: false,
-        file_browser_callback : function(field_name, url, type, win) {
-            var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-            var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
 
-            var cmsURL = editor_config.path_absolute + 'filemanager?field_name=' + field_name;
-            if (type == 'image') {
-                cmsURL = cmsURL + "&type=Images";
-            } else {
-                cmsURL = cmsURL + "&type=Files";
+
+
+
+    if(editor.length > 0){
+        var editor_config = {
+            path_absolute : "/",
+            height : "300",
+            selector: "textarea.my-editor",
+            plugins: [
+                "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen",
+                "insertdatetime media nonbreaking save table contextmenu directionality",
+                "emoticons template paste textcolor colorpicker textpattern"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+            relative_urls: false,
+            file_browser_callback : function(field_name, url, type, win) {
+                var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+                var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+
+                var cmsURL = editor_config.path_absolute + 'filemanager?field_name=' + field_name;
+                if (type == 'image') {
+                    cmsURL = cmsURL + "&type=Images";
+                } else {
+                    cmsURL = cmsURL + "&type=Files";
+                }
+
+                console.log('cmsURL');
+
+                tinyMCE.activeEditor.windowManager.open({
+                    file : cmsURL,
+                    title : 'Filemanager',
+                    width : x * 0.8,
+                    height : y * 0.8,
+                    resizable : "yes",
+                    close_previous : "no"
+                });
             }
+        };
 
-            console.log('cmsURL');
+        tinymce.init(editor_config);
+    }
 
-            tinyMCE.activeEditor.windowManager.open({
-                file : cmsURL,
-                title : 'Filemanager',
-                width : x * 0.8,
-                height : y * 0.8,
-                resizable : "yes",
-                close_previous : "no"
-            });
-        }
-    };
 
-    tinymce.init(editor_config);
 
 
 
@@ -344,7 +434,8 @@ $(function(){
         return opt.lowercase ? s.toLowerCase() : s;
     }
 
-    $("#cpanel_title").on("blur", function () {
+    $("#cpanel_title").on("blur keyup", function () {
+        console.log('salam');
         var new_title = $(this).val();
         var translitted_slug = url_slug(new_title);
         $("#cpanel_slug").val(translitted_slug);

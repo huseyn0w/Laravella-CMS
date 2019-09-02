@@ -78,8 +78,10 @@
                                         <span class="user_actions">
                                          @if (Auth::user()->can('manage_user_roles', 'App\Http\Models\UserRoles'))
                                                 <a href="{{route('cpanel_edit_user_role', $role->id)}}" target="_blank">Edit</a>
+                                                @if($role->id !== 1 && $role->id !== 2)
                                                 <input type="hidden" class="deleted_role_id" value="{{$role->id}}" name="deleted_role_id">
                                                 <button type="button" class="delete_role">Delete</button>
+                                                @endif
                                          @endif
                                         </span>
                                     </td>
@@ -93,7 +95,7 @@
                             {{ $roles_list->links() }}
                         </div>
                         <div class="col-md-12">
-                            <a href="{{route('cpanel_add_user_role')}}" class="btn btn-info btn-fill pull-right">Add new rone</a>
+                            <a href="{{route('cpanel_add_user_role')}}" class="btn btn-info btn-fill pull-right">Add new role</a>
                         </div>
                     </div>
                 </div>

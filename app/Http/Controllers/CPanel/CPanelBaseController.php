@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cpanel;
+namespace App\Http\Controllers\CPanel;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,6 +13,8 @@ class CPanelBaseController extends Controller
 
     protected $users_per_page = 10;
     protected $user;
+
+    protected $result;
 
     public function __construct()
     {
@@ -39,8 +41,13 @@ class CPanelBaseController extends Controller
         return redirect()->route('unathorized');
     }
 
-    public function deleteAjax($id)
+    protected function deleteAjax(int $id)
     {
+        if($id <= 0){
+            echo "ID should be integer and more than 0";
+            return;
+        }
+
         $result = $this->repository->delete($id);
 
         if($result){
@@ -54,7 +61,7 @@ class CPanelBaseController extends Controller
     }
 
 
-    public function delete($id)
+    protected function delete($id)
     {
         $result = $this->repository->delete($id);
 
@@ -66,6 +73,30 @@ class CPanelBaseController extends Controller
         }
 
         return back()->with('message', $message);
+    }
+
+    protected function edit($id)
+    {
+        $this->result = $this->repository->getBy('id', $id);
+
+        if(!$this->result) abort(404);
+
+    }
+
+    protected function update($id, $data)
+    {
+        $this->result = $this->repository->update($id, $data);
+
+        if(!$this->result) return back()->with('error', '-');
+
+        return back()->with('message', " ");
+    }
+
+    protected function create($request)
+    {
+        $this->result = $this->repository->create($request);
+
+        if(!$this->result) return back()->with('message', " ");
     }
 
 }

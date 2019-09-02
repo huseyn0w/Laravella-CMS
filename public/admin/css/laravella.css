@@ -207,3 +207,17 @@ input[type="file"] {
 ul.mfb-component__list li a#add-folder{
     display: none !important;
 }
+
+.field-desc{
+    margin: 10px 0;
+}
+
+.field-desc p{
+    font-style: italic;
+    font-size: 14px;
+    color: #868e96;
+}
+
+.footer .copyright {
+    float: none;
+}

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Cpanel;
+namespace App\Http\Controllers\CPanel;
 
 use App\Http\Requests\ValidateGeneralSettings;
 use App\Repositories\CPanelGeneralSettingRepository;
-use App\Http\Models\Cpanel\CPanelGeneralSettings;
+use App\Http\Models\CPanel\CPanelGeneralSettings;
 use Illuminate\Support\Facades\Auth;
 
 class CPanelGeneralSettingController extends CPanelBaseController

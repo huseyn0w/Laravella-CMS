@@ -101,7 +101,7 @@
                                             {{$page->title}}
 
                                             <span class="user_actions">
-                                             @if (Auth::user()->can('manage_users', 'App\Http\Models\Pages'))
+                                             @if (Auth::user()->can('manage_users', 'App\Http\Models\Page'))
                                                 <a href="{{route('cpanel_edit_page', $page->id)}}" target="_blank">Edit</a>
                                                 <input type="hidden" class="deleted_page_id" value="{{$page->id}}" name="deleted_page_id">
                                                 <button type="button" class="delete_page">Delete</button>

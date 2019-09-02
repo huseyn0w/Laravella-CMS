@@ -20,14 +20,6 @@ class CPanelUserRepository extends BaseRepository
         $this->model = $model;
     }
 
-    public function create($request)
-    {
-        $result = false;
-        if($this->model::create($request->all())) $result = true;
-
-        return $result;
-    }
-
     public function getUserInfo(int $id)
     {
         $user_fields = [
@@ -70,7 +62,7 @@ class CPanelUserRepository extends BaseRepository
         return $data;
     }
 
-    public function update($updatedRequest, $id = 1)
+    public function update($id, $updatedRequest)
     {
         try {
 

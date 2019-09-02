@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
                     'city' => "Baku",
                     'country' => "AZ",
                     'role_id' => 1,
+                    'gender'  => "male",
                     'about_me' => "Founder of CMS Laravella",
                     'linkedin_url' => "https://linkedin.com/in/huseyn0w",
                     'password' => bcrypt('elman123'),
@@ -34,6 +35,7 @@ class UsersTableSeeder extends Seeder
                     'city' => "Berlin",
                     'country' => "DE",
                     'role_id' => 1,
+                    'gender'  => "male",
                     'about_me' => "Contributor of CMS Laravella",
                     'linkedin_url' => "https://www.linkedin.com/in/ilkin-alibayli/",
                     'password' => bcrypt('ilkin123'),
@@ -41,6 +43,6 @@ class UsersTableSeeder extends Seeder
             ]
         );
 
-        $users = factory(User::class, 30)->create();
+        factory(User::class, 30)->create();
     }
 }

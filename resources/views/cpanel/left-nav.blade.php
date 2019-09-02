@@ -29,29 +29,43 @@
                 <p>Media</p>
             </a>
         </li>
-        @if (Auth::user()->can('manage_pages', 'App\Http\Models\Pages'))
+        @if (Auth::user()->can('manage_pages', 'App\Http\Models\Page'))
             <li>
             <a class="nav-link" href="{{route('cpanel_pages_list')}}">
-                <i class="nc-icon nc-bullet-list-67"></i>
+                <i class="nc-icon nc-paper-2"></i>
                 <p>Pages</p>
             </a>
         </li>
         @endif
         <li>
-            <a class="nav-link" href="#">
+            <a data-toggle="collapse" href="#posts" class="collapsed nav-link" aria-expanded="false">
                 <i class="nc-icon nc-notes"></i>
                 <p>Posts</p>
             </a>
-        </li>
-        <li>
-            <a class="nav-link" href="#">
-                <i class="nc-icon nc-credit-card"></i>
-                <p>Categories</p>
-            </a>
+            <div class="collapse" id="posts" aria-expanded="false" style="height: 0px;">
+                <ul class="nav">
+                    @if (Auth::user()->can('manage_post_categories', 'App\Http\Models\CPanel\CPanelCategory'))
+                    <li>
+                        <a class="nav-link sub-nav-link" href="{{route('cpanel_category_list')}}">
+                            <i class="nc-icon nc-credit-card"></i>
+                            <p>Categories</p>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->can('manage_posts', 'App\Http\Models\Post'))
+                    <li>
+                        <a class="nav-link sub-nav-link" href="{{route('cpanel_posts_list')}}">
+                            <i class="nc-icon nc-single-copy-04"></i>
+                            <p>All Posts</p>
+                        </a>
+                    </li>
+                    @endif
+                </ul>
+            </div>
         </li>
         <li>
             <a class="nav-link" href="{{route('cpanel_all_users_list')}}">
-                <i class="nc-icon nc-atom"></i>
+                <i class="nc-icon nc-single-02"></i>
                 <p>Users</p>
             </a>
         </li>
@@ -63,20 +77,23 @@
 
             <div class="collapse" id="siteSettings" aria-expanded="false" style="height: 0px;">
                 <ul class="nav">
-                    @if (Auth::user()->can('manage_general_settings', 'App\Http\Models\Cpanel\CPanelGeneralSettings'))
+                    @if (Auth::user()->can('manage_general_settings', 'App\Http\Models\CPanel\CPanelGeneralSettings'))
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_general_settings')}}">
+                            <i class="nc-icon nc-settings-tool-66"></i>
                             <p>General Settings</p>
                         </a>
                     </li>
                     @endif
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_menus')}}">
+                            <i class="nc-icon nc-bullet-list-67"></i>
                             <p>Menus</p>
                         </a>
                     </li>
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_user_roles')}}">
+                            <i class="nc-icon nc-lock-circle-open"></i>
                             <p>User Roles</p>
                         </a>
                     </li>

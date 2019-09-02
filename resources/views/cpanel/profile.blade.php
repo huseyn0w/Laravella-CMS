@@ -38,7 +38,7 @@
             <div class="col-12">
                 @if ($update_message)
                     <div class="alert alert-success">
-                        <strong>Settings has been updated</strong>
+                        <strong>User has been updated</strong>
                     </div>
                 @else
                     <div class="alert alert-danger">
@@ -213,7 +213,7 @@
             <div class="col-md-4">
                 <div class="card card-user">
                     <div class="card-image">
-                        <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="...">
+                        <img src="{{asset('admin')}}/img/avatar-bg.jpg" alt="...">
                     </div>
                     <div class="card-body">
                         <div class="author uploader">

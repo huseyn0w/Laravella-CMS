@@ -23,7 +23,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
     public function create($request)
     {
         $result = false;
-        if($this->model::create($request)) $result = true;
+        if($this->model::create($request->all())) $result = true;
 
         return $result;
     }
@@ -88,11 +88,14 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
         return $data;
     }
-    public function update($newData, $id = 1)
+
+
+
+
+    public function update($id, $newData)
     {
         try {
-
-            $this->model::where('id', $id)->update($newData);
+            $this->model::where('id', $id)->update($newData->except(["_token", "_method"]));
             $result = true;
 
         } catch (QueryException $e) {

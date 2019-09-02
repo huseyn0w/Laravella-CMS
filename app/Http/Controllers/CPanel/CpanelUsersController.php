@@ -29,7 +29,7 @@ class CPanelUsersController extends CPanelBaseController
     }
 
 
-    public function edit( int $id = null )
+    public function editUser($id = null)
     {
 
         if(is_null($id)) $id = $this->user->id;
@@ -40,11 +40,13 @@ class CPanelUsersController extends CPanelBaseController
     }
 
 
-    public function update($id, ValidateUserSettings $request)
+    public function updateUser($id, ValidateUserSettings $request)
     {
-        $result = $this->repository->update($request, $id);
-
-        return back()->with('message', $result);
+        return parent::update($id, $request);
+//
+//        $result = $this->repository->update($request, $id);
+//
+//        return back()->with('message', $result);
     }
 
 
@@ -60,13 +62,11 @@ class CPanelUsersController extends CPanelBaseController
         return view('cpanel.new_user');
     }
 
-    public function saveUser(ValidateUserSettings $request)
+    public function createUser(ValidateUserSettings $request)
     {
-        $result = $this->repository->create($request);
+        parent::create($request);
 
-        if(!$result) return back()->with('message', $result);
-
-        return redirect()->route('cpanel_all_users_list')->with('user_added', "New User has been added");
+        return redirect()->route('cpanel_all_users_list')->with('user_added', " ");
     }
 
 }

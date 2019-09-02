@@ -1,9 +1,9 @@
 <?php
 /**
  * Laravella CMS
- * File: users.blade.php
+ * File: posts.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
- * Date: 09.08.2019
+ * Date: 01.09.2019
  */
 ?>
 
@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <h4 class="card-title">Users Table</h4>
+                        <h4 class="card-title">Posts</h4>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         @if ($errors->any())
@@ -37,7 +37,7 @@
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>Users has been deleted</strong>
+                                        <strong>Posts has been deleted</strong>
                                     </div>
                                 @else
                                     <div class="alert alert-danger">
@@ -46,20 +46,20 @@
                                 @endif
                             </div>
                         @endif
-                        @if ($update_message = Session::get('user_added'))
+                        @if ($update_message = Session::get('post_added'))
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>User has been added.</strong>
+                                        <strong>Post has been created successfully</strong>
                                     </div>
                                 @endif
                             </div>
                         @endif
-                        <form method="POST" action="{{route('cpanel_users_bulk_delete')}}">
+                        <form method="POST" action="{{route('cpanel_posts_bulk_delete')}}">
                             @csrf
                             @method('DELETE')
                             <div class="select-cover">
-                                <select id="inputState" name="users_action" required="" class="form-control">
+                                <select id="inputState" name="posts_action" required="" class="form-control">
                                     <option selected="selected">Bulk action</option>
                                     <option value="delete">Delete</option>
                                 </select>
@@ -70,66 +70,60 @@
                                     <tr>
                                         <th>
                                            <div class="form-check">
-                                               <label for="selectAllUsers" class="form-check-label form-checkbox">
-                                                   <input class="form-check-input" id="selectAllUsers" name="allusers" type="checkbox" >
+                                               <label for="selectAllPosts" class="form-check-label form-checkbox">
+                                                   <input class="form-check-input" id="selectAllPosts" name="allposts" type="checkbox" >
                                                    <span class="form-check-sign"></span>
                                                </label>
                                            </div>
                                         </th>
                                         <th>№</th>
-                                        <th>username</th>
-                                        <th>Email</th>
                                         <th>Name</th>
-                                        <th>Surname</th>
-                                        <th>Country</th>
-                                        <th>City</th>
-                                        <th>Role</th>
+                                        <th>Author</th>
+                                        <th>Publish date</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @php($users_count = 0)
-                                @forelse($users_list as $user)
-                                    @php($users_count++)
+                                @php($posts_count = 0)
+                                @forelse($posts_list as $post)
+                                    @php($posts_count++)
                                     <tr>
                                         <td>
                                             <div class="form-check">
-                                                <label for="user_{{$user->id}}" class="form-check-label form-checkbox">
-                                                    <input class="form-check-input users-checkbox-input" id="user_{{$user->id}}" name="users[]" type="checkbox" value="{{$user->id}}" >
+                                                <label for="page_{{$post->id}}" class="form-check-label form-checkbox">
+                                                    <input class="form-check-input users-checkbox-input" id="page_{{$post->id}}" name="post[]" type="checkbox" value="{{$post->id}}" >
                                                     <span class="form-check-sign"></span>
                                                 </label>
                                             </div>
                                         </td>
-                                        <td>{{$users_count}}</td>
+                                        <td>{{$posts_count}}</td>
                                         <td>
-                                            {{$user->username}}
+                                            {{$post->title}}
 
                                             <span class="user_actions">
-                                             @if (Auth::user()->can('manage_users', 'App\User'))
-                                                <a href="{{route('cpanel_edit_user_profile', $user->id)}}" target="_blank">Edit</a>
-                                                <input type="hidden" class="deleted_user_id" value="{{$user->id}}" name="deleted_user_id">
-                                                <button type="button" class="delete_user">Delete</button>
+                                             @if (Auth::user()->can('manage_posts', 'App\Http\Models\Post'))
+                                                <a href="{{route('cpanel_edit_post', $post->id)}}" target="_blank">Edit</a>
+                                                <input type="hidden" class="deleted_post_id" value="{{$post->id}}" name="deleted_post_id">
+                                                <button type="button" class="delete_post">Delete</button>
                                              @endif
                                             </span>
 
                                         </td>
-                                        <td>{{$user->email}}</td>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->surname}}</td>
-                                        <td>{{$user->country}}</td>
-                                        <td>{{$user->city}}</td>
-                                        <td>{{$user->role->name}}</td>
+                                        <td>{{$post->author->username}}</td>
+                                        <td>{{$post->created_at}}</td>
+                                        <td>{{$post->status == 1 ? 'published' : 'private'}}</td>
                                     </tr>
                                 @empty
-                                    <td colspan="7">No users</td>
+                                    <td colspan="7">No posts has been found</td>
                                 @endforelse
                                 </tbody>
                             </table>
                         </form>
                         <div class="col-md-12">
-                            {{ $users_list->links() }}
+                            {{ $posts_list->links() }}
                         </div>
                         <div class="col-md-12">
-                            <a href="{{route('cpanel_add_new_user')}}" class="btn btn-info btn-fill pull-right">Add new user</a>
+                            <a href="{{route('cpanel_add_new_post')}}" class="btn btn-info btn-fill pull-right">Add new post</a>
                         </div>
                     </div>
                 </div>

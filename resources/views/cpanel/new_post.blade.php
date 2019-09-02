@@ -1,7 +1,7 @@
 <?php
 /**
  * Laravella CMS
- * File: edit_page.blade.php
+ * File: new_post.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 16.08.2019
  */
@@ -21,9 +21,8 @@
 
     @endphp
 
-    <form action="{{ route('cpanel_update_page', ['id' => $page->id]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('cpanel_save_new_post') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method("PUT")
         <div class="container-fluid">
             <div class="row">
                 @if ($errors->any())
@@ -37,36 +36,31 @@
                         </div>
                     </div>
                 @endif
-                @if ($update_message = Session::get('message'))
-                    <div class="col-12">
-                        @if ($update_message)
-                            <div class="alert alert-success">
-                                <strong>Page has been updated</strong>
-                            </div>
-                        @else
-                            <div class="alert alert-danger">
-                                <strong>Some problem has been occured. Please try again later.</strong>
-                            </div>
-                        @endif
-                    </div>
-                @endif
                 <div class="col-xs-12 col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Page</h4>
+                            <h4 class="card-title">Add new Post</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="username">Title</label>
-                                        <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title', $page->title) }}" >
+                                        <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title') }}" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="slug">Slug</label>
-                                        <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug',$page->slug) }}">
+                                        <label for="cpanel_slug">Slug</label>
+                                        <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Preview</label>
+                                        <textarea name="preview" id="editor"  class="my-editor form-control">{{old('preview')}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +68,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Content</label>
-                                        <textarea name="content"  id="editor"  class="my-editor form-control">{{old('content',$page->content)}}</textarea>
+                                        <textarea name="content" id="editor"  class="my-editor form-control">{{old('content')}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -90,33 +84,33 @@
                                     <div class="form-group">
                                         <label>Author</label>
                                         <select name="author_id" id="author_id" class="form-control">
-                                         @foreach($users_list as $user)
-                                            @if($user->id === $page->author_id)
-                                                 <option value="{{$user->id}}" selected>{{$user->username}}</option>
-                                            @else
-                                                 <option value="{{$user->id}}">{{$user->username}}</option>
-                                            @endif
-                                         @endforeach
+                                            @foreach($users_list as $user)
+                                                @if($user->username === Auth::user()->username)
+                                                    <option value="{{$user->id}}" selected>{{$user->username}}</option>
+                                                @else
+                                                    <option value="{{$user->id}}">{{$user->username}}</option>
+                                                @endif
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Publish date</label>
-                                        <input class="form-control" value="{{old('created_at', $page->created_at)}}" autocomplete="off" name="created_at" required id="date_time_picker" type="text" />
+                                        <input class="form-control" autocomplete="off" name="created_at" value="{{ \Carbon\Carbon::now() }}" required id="date_time_picker" type="text" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" id="user_role" class="form-control">
-                                            <option value="0" {{$page->status === "0" ? 'selected' :null}}>Private</option>
-                                            <option value="1" {{$page->status === "1" ? 'selected' :null}}>Published</option>
+                                            <option value="0">Private</option>
+                                            <option value="1" selected>Published</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Update</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">Publish</button>
                             <div class="clearfix"></div>
                         </div>
                     </div>

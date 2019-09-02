@@ -7,11 +7,11 @@
 
 namespace App\Repositories;
 
-use App\Http\Models\Page;
+use App\Http\Models\Post;
 
-class PagesRepository extends BaseRepository
+class CPanelPostRepository extends BaseRepository
 {
-    public function __construct(Page $model)
+    public function __construct(Post $model)
     {
         parent::__construct();
         $this->model = $model;
@@ -27,18 +27,4 @@ class PagesRepository extends BaseRepository
         return $data;
     }
 
-    public function create($data)
-    {
-
-        $result = parent::create($data);
-
-        return $result;
-    }
-
-    public function update($newData, $id = 1)
-    {
-        $result = parent::update($newData, $id);
-
-        return $result;
-    }
 }

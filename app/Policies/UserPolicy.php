@@ -54,6 +54,24 @@ class UserPolicy
         return $result;
     }
 
+    public function manage_post_categories()
+    {
+        $result = false;
+
+        if($this->user_permissions->manage_post_categories === 1) $result = true;
+
+        return $result;
+    }
+
+    public function manage_posts()
+    {
+        $result = false;
+
+        if($this->user_permissions->manage_posts === 1) $result = true;
+
+        return $result;
+    }
+
 
 
 

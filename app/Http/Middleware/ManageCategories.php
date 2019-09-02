@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Models\Page;
+use App\Http\Models\CPanel\CPanelCategory;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class ManagePages
+class ManageCategories
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,7 @@ class ManagePages
     public function handle($request, Closure $next)
     {
 
-        if(Auth::user()->cannot('manage_pages', Page::class)){
+        if(Auth::user()->cannot('manage_post_categories', CPanelCategory::class)){
             abort(401);
         }
         return $next($request);
