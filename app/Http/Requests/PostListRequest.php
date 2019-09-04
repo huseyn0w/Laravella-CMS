@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PostListRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class PostListRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,16 @@ class PostListRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'posts_action'  => ["required" , "string", "regex:(delete)"],
+            'posts'         => 'array|required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'posts_action.regex' => 'You should use action "Delete"',
+            'posts.required'  => 'You should choose at least 1 post to delete'
         ];
     }
 }

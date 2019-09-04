@@ -9,7 +9,7 @@
 use App\Http\Models\UserRoles;
 use App\Http\Models\UserPermissions;
 use App\Http\Models\User;
-use App\Http\Models\CPanel\CPanelCategory;
+use App\Http\Models\Category;
 
 function get_front_templates_array():array
 {
@@ -38,7 +38,7 @@ function get_user_roles():object
 
 function get_post_categories_list():object
 {
-    $roles = CPanelCategory::select('id', 'name')->get();
+    $roles = Category::select('id', 'name')->orderBy('id', 'ASC')->get();
 
     return $roles;
 

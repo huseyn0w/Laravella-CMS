@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rule;
 
 class ValidatePostData extends FormRequest
 {
@@ -13,7 +16,7 @@ class ValidatePostData extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -23,8 +26,45 @@ class ValidatePostData extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $route_name = Route::currentRouteName();
+        $post_id = (int) $this->route('id');
+
+        $rules = [
+            'author_id' => 'required|string|exists:users,id',
+            'created_at' => 'required|string',
+            'content' => 'required|string',
+            'category' => 'required|array',
+            'status' => 'required|numeric',
         ];
+
+
+        if($route_name === "cpanel_update_post")
+        {
+
+            $title = ['required',
+                'string',
+                'required',
+                'max:50',
+                Rule::unique('posts','title')->ignore($post_id)
+            ];
+
+            $slug = ['required',
+                'string',
+                'required',
+                'max:20',
+                Rule::unique('posts','slug')->ignore($post_id)
+            ];
+        }
+        else
+        {
+            $title = 'required|string|max:50|unique:posts,title';
+            $slug = 'required|string|max:20|unique:posts,slug';
+        }
+
+        $rules['title'] = $title;
+        $rules['slug'] = $slug;
+
+
+        return $rules;
     }
 }

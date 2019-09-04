@@ -50,10 +50,13 @@ class CPanelBaseController extends Controller
 
         $result = $this->repository->delete($id);
 
+
+
         if($result){
             echo 'OK';
         }
         else{
+            echo $result;
             echo "Problem";
         }
 

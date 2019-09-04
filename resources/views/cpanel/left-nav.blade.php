@@ -44,7 +44,7 @@
             </a>
             <div class="collapse" id="posts" aria-expanded="false" style="height: 0px;">
                 <ul class="nav">
-                    @if (Auth::user()->can('manage_post_categories', 'App\Http\Models\CPanel\CPanelCategory'))
+                    @if (Auth::user()->can('manage_post_categories', 'App\Http\Models\Category'))
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_category_list')}}">
                             <i class="nc-icon nc-credit-card"></i>

@@ -59,4 +59,6 @@ class CPanelPostController extends CPanelBaseController
     {
         return view('cpanel.new_post');
     }
+
+
 }

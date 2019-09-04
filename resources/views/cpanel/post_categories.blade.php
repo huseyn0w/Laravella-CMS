@@ -71,7 +71,7 @@
                                         <th>
                                            <div class="form-check">
                                                <label for="selectAllUsers" class="form-check-label form-checkbox">
-                                                   <input class="form-check-input" id="selectAllUsers" name="allcategories" type="checkbox" >
+                                                   <input class="form-check-input" id="selectAll" name="allcategories" type="checkbox" >
                                                    <span class="form-check-sign"></span>
                                                </label>
                                            </div>

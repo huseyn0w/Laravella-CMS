@@ -20,8 +20,8 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('users');
             $table->integer('status');
-            $table->integer('likes');
-            $table->integer('dislikes');
+            $table->integer('likes')->unsigned()->default(0);
+            $table->integer('dislikes')->unsigned()->default(0);
             $table->mediumText('preview')->nullable();
             $table->mediumText('content')->nullable();
             $table->timestamps();

@@ -19,6 +19,8 @@
 
         $users_list = get_authors_list();
 
+        $categories_list = get_post_categories_list();
+
     @endphp
 
     <form action="{{ route('cpanel_save_new_post') }}" method="POST" enctype="multipart/form-data">
@@ -80,6 +82,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Category</label>
+                                        <select name="category[]" multiple class="form-control category_list" id="post_category">
+                                        @foreach($categories_list as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Author</label>

@@ -212,6 +212,10 @@ ul.mfb-component__list li a#add-folder{
     margin: 10px 0;
 }
 
+select.category_list{
+    height: 150px;
+}
+
 .field-desc p{
     font-style: italic;
     font-size: 14px;

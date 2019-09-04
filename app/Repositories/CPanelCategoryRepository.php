@@ -7,11 +7,11 @@
 
 namespace App\Repositories;
 
-use App\Http\Models\CPanel\CPanelCategory;
+use App\Http\Models\Category;
 
 class CPanelCategoryRepository extends BaseRepository
 {
-    public function __construct(CPanelCategory $model)
+    public function __construct(Category $model)
     {
         parent::__construct();
         $this->model = $model;

@@ -18,6 +18,11 @@
     @php
 
         $users_list = get_authors_list();
+        $categories_list = get_post_categories_list();
+
+        $categories_ids = [];
+
+        foreach($post->categories as $category) $categories_ids[] = $category->id;
 
     @endphp
 
@@ -53,7 +58,8 @@
                 <div class="col-xs-12 col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Post</h4>
+                            <h4 class="card-title">Edit Post  </h4>
+
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -74,7 +80,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Preview</label>
-                                        <textarea name="content"  id="editor"  class="my-editor form-control">{{old('preview',$post->preview)}}</textarea>
+                                        <textarea name="preview"  id="editor"  class="my-editor form-control">{{old('preview',$post->preview)}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -108,6 +114,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Category</label>
+                                        <select name="category[]" multiple class="form-control category_list" id="post_category">
+                                            @foreach($categories_list as $category)
+                                                <option value="{{$category->id}}" {{in_array($category->id, $categories_ids) ? 'selected': null}} >{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Author</label>
@@ -132,8 +148,8 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" id="user_role" class="form-control">
-                                            <option value="0" {{$post->status === "0" ? 'selected' :null}}>Private</option>
-                                            <option value="1" {{$post->status === "1" ? 'selected' :null}}>Published</option>
+                                            <option value="0" {{$post->status === 0 ? 'selected' :null}}>Private</option>
+                                            <option value="1" {{$post->status === 1 ? 'selected' :null}}>Published</option>
                                         </select>
                                     </div>
                                 </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Models\CPanel\CPanelCategory;
+use App\Http\Models\Category;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +18,7 @@ class ManageCategories
     public function handle($request, Closure $next)
     {
 
-        if(Auth::user()->cannot('manage_post_categories', CPanelCategory::class)){
+        if(Auth::user()->cannot('manage_post_categories', Category::class)){
             abort(401);
         }
         return $next($request);

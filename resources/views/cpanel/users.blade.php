@@ -70,8 +70,8 @@
                                     <tr>
                                         <th>
                                            <div class="form-check">
-                                               <label for="selectAllUsers" class="form-check-label form-checkbox">
-                                                   <input class="form-check-input" id="selectAllUsers" name="allusers" type="checkbox" >
+                                               <label for="selectAll" class="form-check-label form-checkbox">
+                                                   <input class="form-check-input" id="selectAll" name="allusers" type="checkbox" >
                                                    <span class="form-check-sign"></span>
                                                </label>
                                            </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Models\Category;
 
 class Post extends Model
 {
@@ -21,5 +22,10 @@ class Post extends Model
     public function author()
     {
         return $this->hasOne('App\Http\Models\User','id', 'author_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }

@@ -70,8 +70,8 @@
                                     <tr>
                                         <th>
                                            <div class="form-check">
-                                               <label for="selectAllPosts" class="form-check-label form-checkbox">
-                                                   <input class="form-check-input" id="selectAllPosts" name="allposts" type="checkbox" >
+                                               <label for="selectAll" class="form-check-label form-checkbox">
+                                                   <input class="form-check-input" id="selectAll" name="allposts" type="checkbox" >
                                                    <span class="form-check-sign"></span>
                                                </label>
                                            </div>
@@ -90,8 +90,8 @@
                                     <tr>
                                         <td>
                                             <div class="form-check">
-                                                <label for="page_{{$post->id}}" class="form-check-label form-checkbox">
-                                                    <input class="form-check-input users-checkbox-input" id="page_{{$post->id}}" name="post[]" type="checkbox" value="{{$post->id}}" >
+                                                <label for="post_{{$post->id}}" class="form-check-label form-checkbox">
+                                                    <input class="form-check-input users-checkbox-input" id="post_{{$post->id}}" name="posts[]" type="checkbox" value="{{$post->id}}" >
                                                     <span class="form-check-sign"></span>
                                                 </label>
                                             </div>

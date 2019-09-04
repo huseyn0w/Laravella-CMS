@@ -1,6 +1,6 @@
 $(function(){
 
-    var AllUsersCheckbox    = $("#selectAllUsers"),
+    var AllUsersCheckbox    = $("#selectAll"),
         users_checkbox      = $(".users-checkbox-input"),
         delete_user         = $(".delete_user"),
         delete_page         = $(".delete_page"),
@@ -8,7 +8,6 @@ $(function(){
         delete_category     = $(".delete_category"),
         date_time_input     = $("#date_time_picker"),
         editor              = $(".my-editor"),
-        media_upload_form   = $("#laravellaDropzone"),
         delete_role         = $(".delete_role");
 
 
@@ -182,6 +181,7 @@ $(function(){
                 },
                 success: function (data)
                 {
+                    console.log(data);
                     if(data === "OK")
                     {
                         var message = "Post has been successfully deleted";

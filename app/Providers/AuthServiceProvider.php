@@ -8,7 +8,7 @@ use App\Http\Models\Page;
 use App\Http\Models\Post;
 use App\Http\Models\User;
 use App\Http\Models\UserRoles;
-use App\Http\Models\CPanel\CPanelCategory;
+use App\Http\Models\Category;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class => UserPolicy::class,
         UserRoles::class => UserPolicy::class,
         Page::class => UserPolicy::class,
-        CPanelCategory::class => UserPolicy::class,
+        Category::class => UserPolicy::class,
         Post::class => UserPolicy::class,
     ];
 

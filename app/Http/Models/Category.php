@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Models\CPanel;
+namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CPanelCategory extends Model
+class Category extends Model
 {
-    protected $table = 'categories';
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -16,4 +14,9 @@ class CPanelCategory extends Model
         'parent_category',
         'description'
     ];
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
+    }
 }
