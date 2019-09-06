@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class CPanelPostController extends CPanelBaseController
 {
-    private $posts_per_page = 10;
 
     public function __construct(CPanelPostRepository $repository)
     {
@@ -20,9 +19,9 @@ class CPanelPostController extends CPanelBaseController
 
     public function index()
     {
-        $posts_list = $this->repository->only($this->posts_per_page);
+        $posts_list = $this->repository->only($this->per_page);
 
-        return view('cpanel.posts', compact("posts_list"));
+        return view('cpanel.posts.posts_list', compact("posts_list"));
     }
 
     public function multipleDelete(PostListRequest $request)
@@ -37,7 +36,7 @@ class CPanelPostController extends CPanelBaseController
     {
         parent::edit($id);
 
-        return view('cpanel.edit_post', ["post" => $this->result]);
+        return view('cpanel.posts.edit_post', ["post" => $this->result]);
     }
 
     public function createPost(ValidatePostData $request)
@@ -57,7 +56,7 @@ class CPanelPostController extends CPanelBaseController
 
     public function addPost()
     {
-        return view('cpanel.new_post');
+        return view('cpanel.posts.new_post');
     }
 
 

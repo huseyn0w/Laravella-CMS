@@ -25,5 +25,5 @@
 <html lang="en">
 
 <head>
-@include('cpanel.header-styles')
+@include('cpanel.core.header-styles')
 </head>

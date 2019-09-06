@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class CPanelCategoryController extends CPanelBaseController
 {
-    private $categories_per_page = 10;
 
     public function __construct(CPanelCategoryRepository $repository)
     {
@@ -28,19 +27,19 @@ class CPanelCategoryController extends CPanelBaseController
     public function edit($id)
     {
        parent::edit($id);
-       return view('cpanel.edit_category', ['category' => $this->result]);
+       return view('cpanel.post_categories.edit_category', ['category' => $this->result]);
     }
 
     public function index()
     {
-        $categories_list = $this->repository->only($this->categories_per_page);
+        $categories_list = $this->repository->only($this->per_page);
 
-        return view('cpanel.post_categories', compact("categories_list"));
+        return view('cpanel.post_categories.post_categories_list', compact("categories_list"));
     }
 
     public function addCategory()
     {
-        return view('cpanel.new_category');
+        return view('cpanel.post_categories.new_category');
     }
 
     public function multipleDelete(CategoryListRequest $request)

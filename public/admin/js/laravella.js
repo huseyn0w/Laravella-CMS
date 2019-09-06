@@ -8,6 +8,20 @@ $(function(){
         delete_category     = $(".delete_category"),
         date_time_input     = $("#date_time_picker"),
         editor              = $(".my-editor"),
+        link_label          = $("#link_label"),
+        link_url            = $("#link_url"),
+        add_menu_item       = $(".add_menu_item"),
+        delete_menu         = $(".delete_menu"),
+        menu_list           = $(".menu-list"),
+        sortable            = $(".sortable"),
+        pages_list          = $("#pages_list"),
+        posts_list          = $("#posts_list"),
+        categories_list     = $("#categories_list"),
+        cpanel_title        = $("#cpanel_title"),
+        cpanel_slug         = $("#cpanel_slug"),
+        add_menu_form       = $("#add_menu_form"),
+        menuContent         = $("#menuContent"),
+        create_menu         = $(".create_menu"),
         delete_role         = $(".delete_role");
 
 
@@ -19,9 +33,6 @@ $(function(){
             'timeFormat':'hh:ii:00'
         });
     }
-
-
-
 
 
 
@@ -103,6 +114,46 @@ $(function(){
                     if(data === "OK")
                     {
                         var message = "Role has been successfully deleted";
+                        that.closest('tr').fadeOut(1000, function () {
+                            that.remove();
+                            showNotification('top','right', message, 'success');
+                        });
+                    }
+                    else{
+                        var message = "Error has been occured. Please try again later";
+                        showNotification('top','right', message, 'error');
+                    }
+                },
+                error:function(data)
+                {
+                    var message = data;
+                    showNotification('top','right', message, 'error');
+                }
+            });
+
+        }
+    });
+
+    delete_menu.on('click', function () {
+        var deleted_menu_id = $(this).prev('.deleted_menu_id').val();
+        var that = $(this);
+
+        var delete_confirmation = confirm('Are you sure? Role will be deleted');
+        if(delete_confirmation){
+            $.ajax({
+                url: "/cpanel/menus/" + deleted_menu_id + "/delete/",
+                type: 'DELETE',
+                data: {
+                    "id": deleted_menu_id
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data)
+                {
+                    if(data === "OK")
+                    {
+                        var message = "Menu has been successfully deleted";
                         that.closest('tr').fadeOut(1000, function () {
                             that.remove();
                             showNotification('top','right', message, 'success');
@@ -314,10 +365,6 @@ $(function(){
         tinymce.init(editor_config);
     }
 
-
-
-
-
     function url_slug(s, opt)
     {
         s = String(s);
@@ -430,16 +477,97 @@ $(function(){
         // Remove delimiter from ends
         s = s.replace(RegExp('(^' + opt.delimiter + '|' + opt.delimiter + '$)', 'g'), '');
 
-        console.log(opt.lowercase ? s.toLowerCase() : s);
         return opt.lowercase ? s.toLowerCase() : s;
     }
 
-    $("#cpanel_title").on("blur keyup", function () {
-        console.log('salam');
+    cpanel_title.on("blur keyup", function () {
         var new_title = $(this).val();
         var translitted_slug = url_slug(new_title);
-        $("#cpanel_slug").val(translitted_slug);
+        cpanel_slug.val(translitted_slug);
     });
+
+    if(sortable.length > 0)
+    {
+        sortable.nestedSortable({
+            forcePlaceholderSize: true,
+            items: 'li',
+            handle: 'a',
+            placeholder: 'menu-highlight',
+            listType: 'ul',
+            maxLevels: 5,
+            opacity: .6,
+        });
+    }
+
+
+
+    add_menu_item.on("click", function () {
+        //var test = [];
+        //test.push(pages_list.find('option:selected').text());
+        getPagesFromSelects(pages_list);
+        getPagesFromSelects(posts_list);
+        getPagesFromSelects(categories_list);
+
+        if(link_label.val() !== "" && link_url.val() !== ""){
+            var li = '<li data-type="custom_link" data-title="'+ link_label.val() + '" data-link="'+ link_url.val() +'"><a href="javascript:void(0)"><span>'+ link_label.val() + '</span><button class="remove_menu_item" type="button">X</button></a></li>';
+            console.log('hehey');
+            menu_list.append(li);
+            link_label.val("");
+            link_url.val("");
+        }
+    });
+
+
+    $(document).on("click", ".remove_menu_item", function(){
+        $(this).closest("li").fadeOut(500, function(){
+          $(this).remove();
+        })
+    });
+
+    function FetchChild(){
+        var data =[];
+        $('.sortable > li').each(function(){
+            data.push(buildJSON($(this)));
+        });
+
+        return data;
+    }
+    function buildJSON($li) {
+        var subObj = { "title": $li.data('title'), 'slug':$li.data('link'), 'type':$li.data('type') };
+        $li.children('ul').children().each(function() {
+            if (!subObj.children) {
+                subObj.children = [];
+            }
+            subObj.children.push(buildJSON($(this)));
+        });
+        return subObj;
+    }
+
+
+    function getPagesFromSelects(select)
+    {
+        var dataType = select.data('type');
+        select.find('option:selected').each(function (ind,el) {
+            var link = $(el).val();
+            if(link == "") link = "/";
+            var label = $(el).text();
+            var li = '<li data-type="'+dataType+'" data-title="'+ label + '" data-link="'+ link +'"><a href="javascript:void(0)"><span>'+ label + '</span><button class="remove_menu_item" type="button">X</button></a></li>';
+
+            menu_list.append(li);
+        })
+        select.val([]);
+    }
+
+    create_menu.on("click", function (e) {
+        e.preventDefault();
+        var obj = FetchChild();
+        var json = JSON.stringify(obj, null);
+        menuContent.val(json);
+        console.log(json);
+        add_menu_form.submit();
+    })
+
+
 
 
 

@@ -8,7 +8,7 @@
 ?>
 <div class="sidebar-wrapper">
     <div class="logo">
-        <span>Laravella CMS</span>
+        <span class="simple-text">Laravella CMS</span>
     </div>
     <ul class="nav">
         <li class="nav-item active">
@@ -85,12 +85,14 @@
                         </a>
                     </li>
                     @endif
+                    @if (Auth::user()->can('manage_menus', 'App\Http\Models\Menu'))
                     <li>
-                        <a class="nav-link sub-nav-link" href="{{route('cpanel_menus')}}">
+                        <a class="nav-link sub-nav-link" href="{{route('cpanel_menu_list')}}">
                             <i class="nc-icon nc-bullet-list-67"></i>
                             <p>Menus</p>
                         </a>
                     </li>
+                    @endif
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_user_roles')}}">
                             <i class="nc-icon nc-lock-circle-open"></i>

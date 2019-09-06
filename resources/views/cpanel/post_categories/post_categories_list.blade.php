@@ -1,13 +1,13 @@
 <?php
 /**
  * Laravella CMS
- * File: posts.blade.php
+ * File: post_categories_list.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
- * Date: 01.09.2019
+ * Date: 31.08.2019
  */
 ?>
 
-@extends('cpanel.index')
+@extends('cpanel.core.index')
 @push('extrastyles')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <h4 class="card-title">Posts</h4>
+                        <h4 class="card-title">Categories</h4>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         @if ($errors->any())
@@ -37,7 +37,7 @@
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>Posts has been deleted</strong>
+                                        <strong>Categories has been deleted</strong>
                                     </div>
                                 @else
                                     <div class="alert alert-danger">
@@ -46,20 +46,20 @@
                                 @endif
                             </div>
                         @endif
-                        @if ($update_message = Session::get('post_added'))
+                        @if ($update_message = Session::get('category_added'))
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>Post has been created successfully</strong>
+                                        <strong>Category has been created successfully</strong>
                                     </div>
                                 @endif
                             </div>
                         @endif
-                        <form method="POST" action="{{route('cpanel_posts_bulk_delete')}}">
+                        <form method="POST" action="{{route('cpanel_category_bulk_delete')}}">
                             @csrf
                             @method('DELETE')
                             <div class="select-cover">
-                                <select id="inputState" name="posts_action" required="" class="form-control">
+                                <select id="inputState" name="categories_action"  class="form-control">
                                     <option selected="selected">Bulk action</option>
                                     <option value="delete">Delete</option>
                                 </select>
@@ -70,60 +70,61 @@
                                     <tr>
                                         <th>
                                            <div class="form-check">
-                                               <label for="selectAll" class="form-check-label form-checkbox">
-                                                   <input class="form-check-input" id="selectAll" name="allposts" type="checkbox" >
+                                               <label for="selectAllUsers" class="form-check-label form-checkbox">
+                                                   <input class="form-check-input" id="selectAll" name="allcategories" type="checkbox" >
                                                    <span class="form-check-sign"></span>
                                                </label>
                                            </div>
                                         </th>
                                         <th>№</th>
                                         <th>Name</th>
-                                        <th>Author</th>
-                                        <th>Publish date</th>
-                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @php($posts_count = 0)
-                                @forelse($posts_list as $post)
-                                    @php($posts_count++)
+                                @php($category_count = 0)
+                                @forelse($categories_list as $category)
+                                    @php($category_count++)
                                     <tr>
                                         <td>
+                                            @if($category->id !== 1)
                                             <div class="form-check">
-                                                <label for="post_{{$post->id}}" class="form-check-label form-checkbox">
-                                                    <input class="form-check-input users-checkbox-input" id="post_{{$post->id}}" name="posts[]" type="checkbox" value="{{$post->id}}" >
+                                                <label for="category_{{$category->id}}" class="form-check-label form-checkbox">
+                                                    <input class="form-check-input users-checkbox-input" id="category_{{$category->id}}" name="categories[]" type="checkbox" value="{{$category->id}}" >
                                                     <span class="form-check-sign"></span>
                                                 </label>
                                             </div>
+                                                @else
+
+                                            @endif
                                         </td>
-                                        <td>{{$posts_count}}</td>
+                                        <td>{{$category_count}}</td>
                                         <td>
-                                            {{$post->title}}
-
-                                            <span class="user_actions">
-                                             @if (Auth::user()->can('manage_posts', 'App\Http\Models\Post'))
-                                                <a href="{{route('cpanel_edit_post', $post->id)}}" target="_blank">Edit</a>
-                                                <input type="hidden" class="deleted_post_id" value="{{$post->id}}" name="deleted_post_id">
-                                                <button type="button" class="delete_post">Delete</button>
-                                             @endif
-                                            </span>
-
+                                            {{$category->title}}
                                         </td>
-                                        <td>{{$post->author->username}}</td>
-                                        <td>{{$post->created_at}}</td>
-                                        <td>{{$post->status == 1 ? 'published' : 'private'}}</td>
+                                        <td>
+                                            <span class="user_actions">
+                                            @if($category->id !== 1)
+                                                <a href="{{route('cpanel_edit_category', $category->id)}}" target="_blank">Edit</a>
+                                                <input type="hidden" class="deleted_category_id" value="{{$category->id}}" name="deleted_category_id">
+                                                <button type="button" class="delete_category">Delete</button>
+                                            @else
+                                                -
+                                            @endif
+                                            </span>
+                                        </td>
                                     </tr>
                                 @empty
-                                    <td colspan="7">No posts has been found</td>
+                                    <td colspan="7">No categories has been found</td>
                                 @endforelse
                                 </tbody>
                             </table>
                         </form>
                         <div class="col-md-12">
-                            {{ $posts_list->links() }}
+                            {{ $categories_list->links() }}
                         </div>
                         <div class="col-md-12">
-                            <a href="{{route('cpanel_add_new_post')}}" class="btn btn-info btn-fill pull-right">Add new post</a>
+                            <a href="{{route('cpanel_add_new_category')}}" class="btn btn-info btn-fill pull-right">Add new category</a>
                         </div>
                     </div>
                 </div>

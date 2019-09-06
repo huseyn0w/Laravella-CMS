@@ -7,7 +7,7 @@
  */
 ?>
 
-@extends('cpanel.index')
+@extends('cpanel.core.index')
 
 @push('extrastyles')
     <link rel="stylesheet" href="{{asset('admin')}}/css/datepicker.min.css" rel="stylesheet">
@@ -65,7 +65,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="username">Title</label>
+                                        <label for="cpanel_title">Title</label>
                                         <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title', $post->title) }}" >
                                     </div>
                                 </div>

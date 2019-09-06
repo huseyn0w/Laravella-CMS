@@ -7,7 +7,7 @@
  */
 ?>
 
-@extends('cpanel.index')
+@extends('cpanel.core.index')
 
 @push('extrastyles')
     <link rel="stylesheet" href="{{asset('admin')}}/css/datepicker.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="username">Title</label>
+                                        <label for="cpanel_title">Title</label>
                                         <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title') }}" >
                                     </div>
                                 </div>
@@ -85,9 +85,9 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Category</label>
-                                        <select name="category[]" multiple class="form-control category_list" id="post_category">
+                                        <select name="category[]" multiple class="form-control multiple_list" id="post_category">
                                         @foreach($categories_list as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                            <option value="{{$category->id}}">{{$category->title}}</option>
                                         @endforeach
                                         </select>
                                     </div>

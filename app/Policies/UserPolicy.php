@@ -72,6 +72,15 @@ class UserPolicy
         return $result;
     }
 
+    public function manage_menus()
+    {
+        $result = false;
+
+        if($this->user_permissions->manage_menus === 1) $result = true;
+
+        return $result;
+    }
+
 
 
 

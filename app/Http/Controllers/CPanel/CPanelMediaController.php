@@ -9,11 +9,9 @@ use Illuminate\Http\Request;
 class CPanelMediaController extends CPanelBaseController
 {
 
-
     public function index()
     {
-        return view('cpanel.media');
+        return view('cpanel.media.media');
     }
-
 
 }

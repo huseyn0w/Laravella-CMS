@@ -7,7 +7,7 @@
  */
 ?>
 
-@extends('cpanel.index')
+@extends('cpanel.core.index')
 @push('extrastyles')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.css">

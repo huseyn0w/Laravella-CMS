@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class CPanelPageController extends CPanelBaseController
 {
-    private $pages_per_page = 10;
 
     public function __construct(CPanelPageRepository $repository)
     {
@@ -20,9 +19,9 @@ class CPanelPageController extends CPanelBaseController
 
     public function index()
     {
-        $pages_list = $this->repository->only($this->pages_per_page);
+        $pages_list = $this->repository->only($this->per_page);
 
-        return view('cpanel.pages', compact("pages_list"));
+        return view('cpanel.pages.pages_list', compact("pages_list"));
     }
 
     public function multipleDelete(PageListRequest $request)
@@ -37,7 +36,7 @@ class CPanelPageController extends CPanelBaseController
     {
         parent::edit($id);
 
-        return view('cpanel.edit_page', ["page" => $this->result]);
+        return view('cpanel.pages.edit_page', ["page" => $this->result]);
     }
 
     public function createPage(ValidatePageData $request)
@@ -57,7 +56,7 @@ class CPanelPageController extends CPanelBaseController
 
     public function addPage()
     {
-        return view('cpanel.new_page');
+        return view('cpanel.pages.new_page');
     }
 
 

@@ -7,7 +7,7 @@
  */
 ?>
 
-@extends('cpanel.index')
+@extends('cpanel.core.index')
 
 
 
@@ -43,8 +43,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="username">Title</label>
-                                        <input type="text" id="cpanel_title" required class="form-control" name="name" value="{{ old('name') }}" >
+                                        <label for="cpanel_title">Title</label>
+                                        <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title') }}" >
                                         <div class="field-desc">
                                             <p>
                                                 The name is how it appears on your site.
@@ -71,7 +71,7 @@
                                         <select name="parent_category" class="form-control">
                                             <option value="">No</option>
                                             @foreach($categories_list as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                <option value="{{$category->id}}">{{$category->title}}</option>
                                             @endforeach
                                         </select>
                                         <div class="field-desc">

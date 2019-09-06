@@ -11,10 +11,11 @@ class CPanelBaseController extends Controller
 {
     protected $repository;
 
-    protected $users_per_page = 10;
+    protected $per_page = 10;
     protected $user;
 
     protected $result;
+
 
     public function __construct()
     {

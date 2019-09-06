@@ -13,11 +13,11 @@ Demo soon...
 
 ## Features
 
-* General CMS Features like: Posts,Pages,Users,Statuses and etc...
+* General CMS Features;
 * Social media authentication possibility
 * Fast working
 * Easy to extend
-* Flexible templates system
+* Flexible template changing system
 * Multiple languages extension (soon)
 * E-Commerce extension (soon)
 
@@ -31,8 +31,8 @@ Why it is easy to extend? Because it was written by using best practices and tec
 * Middlewares
 * Observers
 * Policies
-* Easy text editor in backend (Summernote)
-* Media Library Opportunity (Spatie)
+* Beautiful text editor (TinyMCE)
+* Perfect File Manager (Laravel FileManager)
 
 
 
@@ -46,11 +46,11 @@ Current Version of Laravel Framework is 5.8
 
 Current version of CMS is pre~alpha 0.0.1
 
-## Authors
+## Author
 
 * **Elman Hüseynov** - [huseyn0w](https://linkedin.com/in/huseyn0w)
 
-## Contributors
+## Contributor
 
 * **Ilkin Alibayli** - [ilkinalibayli](https://www.linkedin.com/in/ilkin-alibayli/)
 

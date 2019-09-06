@@ -96,6 +96,6 @@
 </div> -->
 
 </body>
-@include('cpanel.footer-scripts')
+@include('cpanel.core.footer-scripts')
 </html>
 

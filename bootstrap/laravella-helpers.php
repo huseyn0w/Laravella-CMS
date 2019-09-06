@@ -10,6 +10,9 @@ use App\Http\Models\UserRoles;
 use App\Http\Models\UserPermissions;
 use App\Http\Models\User;
 use App\Http\Models\Category;
+use App\Http\Models\Post;
+use App\Http\Models\Page;
+use App\Http\Models\Menu;
 
 function get_front_templates_array():array
 {
@@ -36,9 +39,33 @@ function get_user_roles():object
 
 }
 
-function get_post_categories_list():object
+function get_post_categories_list($fields = []):object
 {
-    $roles = Category::select('id', 'name')->orderBy('id', 'ASC')->get();
+    if(empty($fields)){
+        $roles = Category::select('id', 'title')->orderBy('id', 'ASC')->get();
+    }
+    else
+    {
+        $roles = Category::select($fields)->orderBy('id', 'ASC')->get();
+    }
+
+
+
+    return $roles;
+
+}
+
+function get_post_list():object
+{
+    $roles = Post::select('id', 'title', 'slug')->orderBy('id', 'ASC')->get();
+
+    return $roles;
+
+}
+
+function get_pages_list():object
+{
+    $roles = Page::select('id', 'title', 'slug')->orderBy('id', 'ASC')->get();
 
     return $roles;
 
@@ -56,6 +83,11 @@ function get_authors_list()
     $list = User::select('id', 'username')->get();
 
     return $list;
+}
+
+function registration_status():bool
+{
+    return false;
 }
 
 function get_countries_array():array
@@ -308,3 +340,105 @@ function get_countries_array():array
     return $countries;
 }
 
+
+
+function render_menu($menu_data, $params)
+{
+    if(!$menu_data) return false;
+
+    $route_name = Route::currentRouteName();
+
+
+
+
+    $menu_type  = $params['menu_type'] ?? "list";
+    $menu_class = $params['menu_class'] ?? "menu";
+    $item_class = $params['item_class'] ?? "menu-item";
+    $item_class_with_submenu = $params['item_class_with_submenu'] ?? "";
+    $link_class = $params['link_class'] ?? "menu-item-link";
+    $item_link_class_with_submenu = $params['item_link_class_with_submenu'] ?? "";
+    $submenu_type = $params['submenu_type'] ?? "list";
+    $submenu_class = $params['submenu_class'] ?? "sub-menu";
+    $subitem_class = $params['subitem_class'] ?? "sub-menu-item";
+    $sub_link_class = $params['sublink_class'] ?? "sub-menu-item-link";
+
+    $html = "";
+
+
+    $html .= $menu_type === "list" ? "<ul class='$menu_class'>" : "<div class=".$menu_class.">";
+
+    foreach($menu_data as $menu_item){
+
+        switch ($menu_item->type){
+            case "posts": $type ="posts/";
+                break;
+            case "categories": $type ="category/";
+                break;
+            default: $type ="";
+                break;
+        }
+
+        $slug  = $menu_item->slug === "/" ? " " : $menu_item->slug;
+
+        $link_part = strpos($slug, "https") !== false ? $type.$slug : env("APP_URL").$type.$slug;
+
+        $link = $route_name === "cpanel_edit_menu" ? "javascript:void()": $link_part;
+
+        $label = $route_name === "cpanel_edit_menu" ? "<span>{$menu_item->title}</span>" : $menu_item->title;
+
+        if($route_name === "cpanel_edit_menu")
+        {
+            $html .= $menu_type === "list" ? "<li class='$item_class' data-type='$menu_item->type' data-title='$menu_item->title' data-link='$menu_item->slug'>" : null;
+            $html.= "<a href='$link' class='$link_class'>".$label;
+        }
+        else
+        {
+            if(isset($menu_item->children) && is_array($menu_item->children) && !empty($menu_item->children))
+            {
+                $html .= $menu_type === "list" ? "<li class='$item_class $item_class_with_submenu'>" : null;
+                $html.= "<a href='$link' class='$link_class $item_link_class_with_submenu'>".$label;
+            }
+            else
+            {
+                $html .= $menu_type === "list" ? "<li class='$item_class'>" : null;
+                $html.= "<a href='$link' class='$link_class'>".$label;
+            }
+        }
+
+
+
+        if($route_name === "cpanel_edit_menu"){
+            $html .= "<button class='remove_menu_item' type='button'>X</button>";
+        }
+
+        $html.= "</a>";
+
+        if(isset($menu_item->children) && is_array($menu_item->children) && !empty($menu_item->children))
+        {
+            $submenu_params = [
+                'menu_type' => $submenu_type,
+                'menu_class' => $submenu_class,
+                'item_class' => $subitem_class,
+                'link_class' => $sub_link_class
+            ];
+            $html.= render_menu($menu_item->children, $submenu_params);
+        }
+
+        $html .= $menu_type === "list" ? "</li>" : null;
+
+    }
+
+    $html .= $menu_type === "list" ? "</ul>" : "</div>";
+    return $html;
+}
+
+function get_menu_data($menu_title, $data)
+{
+    $menu = Menu::select('content')->where('title', $menu_title)->first();
+
+    if(!$menu) return false;
+
+    $html = render_menu(json_decode($menu->content), $data);
+
+    return $html;
+}

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 
 use App\Http\Models\CPanel\CPanelGeneralSettings;
+use App\Http\Models\Menu;
 use App\Http\Models\Page;
 use App\Http\Models\Post;
 use App\Http\Models\User;
@@ -29,6 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         Page::class => UserPolicy::class,
         Category::class => UserPolicy::class,
         Post::class => UserPolicy::class,
+        Menu::class => UserPolicy::class,
     ];
 
     /**

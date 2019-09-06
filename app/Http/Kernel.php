@@ -55,6 +55,7 @@ class Kernel extends HttpKernel
         'manage_posts' => \App\Http\Middleware\ManagePosts::class,
         'manage_roles' => \App\Http\Middleware\ManageRoles::class,
         'manage_pages' => \App\Http\Middleware\ManagePages::class,
+        'manage_menus' => \App\Http\Middleware\ManageMenu::class,
         'manage_categories' => \App\Http\Middleware\ManageCategories::class,
         'manage_general_settings' => \App\Http\Middleware\ManageGeneralSettings::class,
         'auth' => \App\Http\Middleware\Authenticate::class,

@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class CPanelUsersController extends CPanelBaseController
 {
 
-
     public function __construct(CPanelUserRepository $repository)
     {
         parent::__construct();
@@ -23,9 +22,9 @@ class CPanelUsersController extends CPanelBaseController
     public function index()
     {
 
-        $users_list = $this->repository->only($this->users_per_page);
+        $users_list = $this->repository->only($this->per_page);
 
-        return view('cpanel.users', compact("users_list"));
+        return view('cpanel.users.users_list', compact("users_list"));
     }
 
 
@@ -36,7 +35,7 @@ class CPanelUsersController extends CPanelBaseController
 
         $user = $this->repository->getUserInfo($id);
 
-        return view('cpanel.profile', compact('user'));
+        return view('cpanel.users.profile', compact('user'));
     }
 
 
@@ -59,7 +58,7 @@ class CPanelUsersController extends CPanelBaseController
 
     public function addUser()
     {
-        return view('cpanel.new_user');
+        return view('cpanel.users.new_user');
     }
 
     public function createUser(ValidateUserSettings $request)

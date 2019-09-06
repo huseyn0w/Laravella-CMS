@@ -44,8 +44,6 @@ Route::prefix('cpanel')->middleware(['auth'])->namespace('cpanel')->group(functi
     });
 
 
-    Route::get('/menus', 'CPanelMenuController@index')->name('cpanel_menus');
-
     Route::prefix('roles')->middleware('manage_roles')->group(function(){
         Route::get('/', 'CPanelRoleController@index')->name('cpanel_user_roles');
         Route::get('/{id}', 'CPanelRoleController@editRole')->name('cpanel_edit_user_role')->where('id', '[0-9]+');
@@ -86,6 +84,17 @@ Route::prefix('cpanel')->middleware(['auth'])->namespace('cpanel')->group(functi
         Route::delete('/multipleDelete', 'CPanelPostController@multipleDelete')->name('cpanel_posts_bulk_delete');
         Route::get('/new', 'CPanelPostController@addPost')->name('cpanel_add_new_post');
         Route::post('/new', 'CPanelPostController@createPost')->name('cpanel_save_new_post');
+    });
+
+    Route::prefix('menus')->middleware('manage_menus')->group(function(){
+        Route::get('/', 'CPanelMenuController@index')->name('cpanel_menu_list');
+        Route::get('/{id}', 'CPanelMenuController@editMenu')->name('cpanel_edit_menu')->where('id', '[0-9]+');
+        Route::put('/{id}/update', 'CPanelMenuController@updateMenu')->name('cpanel_update_menu')->where('id', '[0-9]+');
+        Route::delete('/multipleDelete', 'CPanelMenuController@multipleDelete')->name('cpanel_menus_bulk_delete');
+        Route::delete('/{id}/delete', 'CPanelMenuController@deleteAjax')->name('cpanel_ajax_soft_delete_menu')->where('id', '[0-9]+');
+        Route::delete('/multipleDelete', 'CPanelMenuController@multipleDelete')->name('cpanel_menus_bulk_delete');
+        Route::get('/new', 'CPanelMenuController@addMenu')->name('cpanel_add_new_menu');
+        Route::post('/new', 'CPanelMenuController@createMenu')->name('cpanel_save_new_menu');
     });
 
     Route::prefix('media')->group(function(){

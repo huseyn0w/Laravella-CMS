@@ -48,30 +48,18 @@ CSS
             </button>
 
             <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#news">News</a></li>
-                    <li><a href="#travel">Travel</a></li>
-                    <!-- Dropdown -->
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="single.html">Single</a>
-                            <a class="dropdown-item" href="category.html">Category</a>
-                            <a class="dropdown-item" href="search.html">Search</a>
-                            <a class="dropdown-item" href="archive.html">Archive</a>
-                            <a class="dropdown-item" href="generic.html">Generic</a>
-                            <a class="dropdown-item" href="elements.html">Elements</a>
-                        </div>
-                    </li>
-                @guest
-                    <li><a href="{{ url('/login') }}">cPanel Area</a></li>
-                @endguest
-                @auth
-                    <li><a href="{{ url('/cpanel') }}">cPanel Area</a></li>
-                    <li><a href="{{ url('/logout') }}">Logout</a></li>
-                @endauth
-                </ul>
+                @php
+                $menu_params = [
+                    'menu_type' => "list",
+                    'menu_class' => "navbar-nav",
+                    "item_class_with_submenu" => 'dropdown',
+                    "item_link_class_with_submenu" => 'dropdown-toggle',
+                    "submenu_class" => "dropdown-menu",
+                    "sublink_class" => "dropdown-item"
+                ];
+                $header_menu = get_menu_data("Header Menu", $menu_params);
+                @endphp
+                {!! $header_menu !!}
             </div>
         </div>
     </nav>

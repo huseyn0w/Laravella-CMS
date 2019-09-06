@@ -7,7 +7,7 @@
  */
 ?>
 
-@extends('cpanel.index')
+@extends('cpanel.core.index')
 
 
 
@@ -57,8 +57,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="username">Title</label>
-                                        <input type="text" id="cpanel_title" required class="form-control" name="name" value="{{ old('name', $category->name) }}" >
+                                        <label for="cpanel_title">Title</label>
+                                        <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title', $category->title) }}" >
                                         <div class="field-desc">
                                             <p>
                                                 The name is how it appears on your site.

@@ -21,6 +21,7 @@ class UserPermissionsSeeder extends Seeder
                 ['name' => 'manage_post_categories'],
                 ['name' => 'manage_menus'],
                 ['name' => 'manage_comments'],
+                ['name' => 'see_admin_panel'],
             ]
         );
     }

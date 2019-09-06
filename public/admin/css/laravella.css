@@ -14,7 +14,7 @@ textarea.form-control{
 
 .sidebar .nav li .nav-link.sub-nav-link{
     background-color: transparent;
-    padding: 5px 15px 5px 45px;
+    padding: 5px 15px 5px 30px;
 }
 
 ul,ol {
@@ -212,7 +212,7 @@ ul.mfb-component__list li a#add-folder{
     margin: 10px 0;
 }
 
-select.category_list{
+select.multiple_list{
     height: 150px;
 }
 
@@ -225,3 +225,77 @@ select.category_list{
 .footer .copyright {
     float: none;
 }
+
+.menu-box {
+    margin-bottom: 30px;
+}
+
+.menu-box ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu-box ul.menu-list li {
+    display: block;
+    margin-bottom: 5px;
+    border: 1px solid #eee;
+    background: #fff;
+}
+
+.menu-box ul.menu-list > li a {
+    background: #fff;
+    font-size: 14px;
+    color: #000;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-box ul.menu-list > li a:hover {
+    cursor: move;
+}
+
+.menu-box ul.menu-list ul {
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.menu-box ul.menu-list ul li a {
+    color: #000;
+}
+
+ul.menu-list li a button{
+    cursor: pointer;
+}
+
+.menu-box li.menu-highlight {
+    border: 1px dashed red !important;
+    background: #f5f5f5;
+}
+
+ul.pagination{
+    margin-bottom: 20px;
+}
+
+.card-body table{
+    margin-bottom: 10px;
+}
+
+.accordion h2{
+    margin: 0;
+}
+
+.accordion h2 button{
+    width: 100%;
+}
+
+.accordion .card-header{
+    padding: 15px;
+}
+

@@ -94,6 +94,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function update($id, $newData)
     {
+
         try {
             $this->model::where('id', $id)->update($newData->except(["_token", "_method"]));
             $result = true;

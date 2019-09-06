@@ -13,7 +13,7 @@ class CPanelCategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             [
-                'name' => "Main parent category",
+                'title' => "Main parent category",
                 'slug' => "parent_category",
                 'description' => "This is main category",
             ]

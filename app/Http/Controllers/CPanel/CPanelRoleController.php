@@ -16,14 +16,14 @@ class CPanelRoleController extends CPanelBaseController
 
     public function index()
     {
-        $roles_list = $this->repository->only($this->users_per_page);
+        $roles_list = $this->repository->only($this->per_page);
 
-        return view('cpanel.roles', compact("roles_list"));
+        return view('cpanel.roles.roles_list', compact("roles_list"));
     }
 
     public function addRole()
     {
-        return view('cpanel.new_role');
+        return view('cpanel.roles.new_role');
     }
 
     public function createRole(ValidateUserRoles $request)
@@ -36,7 +36,7 @@ class CPanelRoleController extends CPanelBaseController
     public function editRole($id)
     {
         parent::edit($id);
-        return view('cpanel.edit_role', ["role" => $this->result]);
+        return view('cpanel.roles.edit_role', ["role" => $this->result]);
     }
 
     public function updateRole($id, ValidateUserRoles $request)

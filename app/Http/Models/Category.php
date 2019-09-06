@@ -9,7 +9,7 @@ class Category extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
+        'title',
         'slug',
         'parent_category',
         'description'

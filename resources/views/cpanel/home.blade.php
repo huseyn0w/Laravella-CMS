@@ -6,7 +6,7 @@
  * Date: 21.07.2019
  */
 ?>
-@extends('cpanel.index')
+@extends('cpanel.core.index')
 
 @section('content')
 <div class="container-fluid">

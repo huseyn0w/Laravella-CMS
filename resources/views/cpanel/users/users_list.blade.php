@@ -1,13 +1,13 @@
 <?php
 /**
  * Laravella CMS
- * File: users.blade.php
+ * File: users_list.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 09.08.2019
  */
 ?>
 
-@extends('cpanel.index')
+@extends('cpanel.core.index')
 @push('extrastyles')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush

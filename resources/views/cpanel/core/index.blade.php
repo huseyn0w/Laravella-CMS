@@ -6,7 +6,7 @@
  * Date: 19.07.2019
  */
 ?>
-@include('cpanel.header')
+@include('cpanel.core.header')
 <body>
 <div class="wrapper">
     <div class="sidebar" data-image="{{asset('admin')}}/img/sidebar-5.jpg">
@@ -15,12 +15,12 @@
 
     Tip 2: you can also add an image using data-image tag
 -->
-     @include('cpanel.left-nav')
+     @include('cpanel.nav.left-nav')
     </div>
     <div class="main-panel">
-        @include('cpanel.top-nav')
+        @include('cpanel.nav.top-nav')
         <!-- End Navbar -->
         <div class="content">
             @yield('content')
         </div>
-@include('cpanel.footer')
+@include('cpanel.core.footer')

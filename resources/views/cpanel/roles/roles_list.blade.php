@@ -1,13 +1,13 @@
 <?php
 /**
  * Laravella CMS
- * File: users.blade.php
+ * File: users_list.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 09.08.2019
  */
 ?>
 
-@extends('cpanel.index')
+@extends('cpanel.core.index')
 @push('extrastyles')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <h4 class="card-title">Roles Table</h4>
+                        <h4 class="card-title">Roles</h4>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         @if ($errors->any())
@@ -87,7 +87,7 @@
                                     </td>
                                 </tr>
                             @empty
-                                <td colspan="7">No users</td>
+                                <td colspan="7">No roles</td>
                             @endforelse
                             </tbody>
                         </table>
