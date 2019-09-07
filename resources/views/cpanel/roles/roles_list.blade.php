@@ -104,3 +104,7 @@
     </div>
 
 @endsection
+
+@push('finalscripts')
+    <script src="{{asset('admin')}}/js/role.js"></script>
+@endpush

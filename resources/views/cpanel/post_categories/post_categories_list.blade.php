@@ -70,7 +70,7 @@
                                     <tr>
                                         <th>
                                            <div class="form-check">
-                                               <label for="selectAllUsers" class="form-check-label form-checkbox">
+                                               <label for="selectAll" class="form-check-label form-checkbox">
                                                    <input class="form-check-input" id="selectAll" name="allcategories" type="checkbox" >
                                                    <span class="form-check-sign"></span>
                                                </label>
@@ -90,7 +90,7 @@
                                             @if($category->id !== 1)
                                             <div class="form-check">
                                                 <label for="category_{{$category->id}}" class="form-check-label form-checkbox">
-                                                    <input class="form-check-input users-checkbox-input" id="category_{{$category->id}}" name="categories[]" type="checkbox" value="{{$category->id}}" >
+                                                    <input class="form-check-input categories-checkbox-input" id="category_{{$category->id}}" name="categories[]" type="checkbox" value="{{$category->id}}" >
                                                     <span class="form-check-sign"></span>
                                                 </label>
                                             </div>
@@ -133,3 +133,7 @@
     </div>
 
 @endsection
+
+@push('finalscripts')
+    <script src="{{asset('admin')}}/js/category.js"></script>
+@endpush

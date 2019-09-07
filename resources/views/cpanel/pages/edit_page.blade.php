@@ -132,3 +132,7 @@
     <script src="{{asset('admin')}}/js/datepicker.min.js"></script>
     <script src="{{asset('admin')}}/js/i18n/datepicker.en.js"></script>
 @endpush
+
+@push('finalscripts')
+    <script src="{{asset('admin')}}/js/page.js"></script>
+@endpush

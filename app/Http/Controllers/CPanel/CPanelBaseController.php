@@ -100,7 +100,27 @@ class CPanelBaseController extends Controller
     {
         $this->result = $this->repository->create($request);
 
-        if(!$this->result) return back()->with('message', " ");
+        if(!$this->result) return back()->with('error', '-');
+
+        return back()->with('message', " ");
+    }
+
+    protected function restore($id)
+    {
+        $this->result = $this->repository->restore($id);
+
+        if(!$this->result) return back()->with('error', '-');
+
+        return back()->with('post_restored', " ");
+    }
+
+    protected function destroy($id)
+    {
+        $this->result = $this->repository->destroy($id);
+
+        if(!$this->result) return back()->with('error', '-');
+
+        return back()->with('post_destroyed', " ");
     }
 
 }

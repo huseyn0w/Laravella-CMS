@@ -29,7 +29,7 @@
                 <p>Media</p>
             </a>
         </li>
-        @if (Auth::user()->can('manage_pages', 'App\Http\Models\Page'))
+        @if (Auth::user()->can('manage_pages', 'App\Http\Models\UserRoles'))
             <li>
             <a class="nav-link" href="{{route('cpanel_pages_list')}}">
                 <i class="nc-icon nc-paper-2"></i>
@@ -44,7 +44,7 @@
             </a>
             <div class="collapse" id="posts" aria-expanded="false" style="height: 0px;">
                 <ul class="nav">
-                    @if (Auth::user()->can('manage_post_categories', 'App\Http\Models\Category'))
+                    @if (Auth::user()->can('manage_post_categories', 'App\Http\Models\UserRoles'))
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_category_list')}}">
                             <i class="nc-icon nc-credit-card"></i>
@@ -52,7 +52,7 @@
                         </a>
                     </li>
                     @endif
-                    @if (Auth::user()->can('manage_posts', 'App\Http\Models\Post'))
+                    @if (Auth::user()->can('manage_posts', 'App\Http\Models\UserRoles'))
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_posts_list')}}">
                             <i class="nc-icon nc-single-copy-04"></i>
@@ -77,7 +77,7 @@
 
             <div class="collapse" id="siteSettings" aria-expanded="false" style="height: 0px;">
                 <ul class="nav">
-                    @if (Auth::user()->can('manage_general_settings', 'App\Http\Models\CPanel\CPanelGeneralSettings'))
+                    @if (Auth::user()->can('manage_general_settings', 'App\Http\Models\UserRoles'))
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_general_settings')}}">
                             <i class="nc-icon nc-settings-tool-66"></i>
@@ -85,7 +85,7 @@
                         </a>
                     </li>
                     @endif
-                    @if (Auth::user()->can('manage_menus', 'App\Http\Models\Menu'))
+                    @if (Auth::user()->can('manage_menus', 'App\Http\Models\UserRoles'))
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_menu_list')}}">
                             <i class="nc-icon nc-bullet-list-67"></i>
@@ -93,12 +93,14 @@
                         </a>
                     </li>
                     @endif
+                    @if (Auth::user()->can('manage_user_roles', 'App\Http\Models\UserRoles'))
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_user_roles')}}">
                             <i class="nc-icon nc-lock-circle-open"></i>
                             <p>User Roles</p>
                         </a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </li>

@@ -30,6 +30,10 @@ ul,ol {
     margin-bottom: 0;
 }
 
+.trashed-posts{
+    margin-left: 15px;
+}
+
 /*.card .card-body{*/
     /*padding: 15px 15px 0 15px;*/
 /*}*/

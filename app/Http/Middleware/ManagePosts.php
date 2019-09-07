@@ -2,7 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Models\Post;
+
+use App\Http\Models\UserRoles;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,7 @@ class ManagePosts
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->cannot('manage_posts', Post::class)){
+        if(Auth::user()->cannot('manage_posts', UserRoles::class)){
             abort(401);
         }
         return $next($request);

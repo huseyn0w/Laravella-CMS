@@ -176,3 +176,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="{{asset('admin')}}/js/jquery.mjs.nestedSortable.js"></script>
 @endpush
+
+@push('finalscripts')
+    <script src="{{asset('admin')}}/js/menu.js"></script>
+@endpush

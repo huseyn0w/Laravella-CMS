@@ -6,7 +6,7 @@ use App\Http\Models\UserRoles;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class ManagePages
+class AdminPanelMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,11 +17,9 @@ class ManagePages
      */
     public function handle($request, Closure $next)
     {
-
-        if(Auth::user()->cannot('manage_pages', UserRoles::class)){
+        if(Auth::user()->cannot('see_admin_panel', UserRoles::class)){
             abort(401);
         }
         return $next($request);
-
     }
 }

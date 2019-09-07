@@ -123,6 +123,21 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     }
 
+    public function restore($id)
+    {
+        $result = false;
+        if($this->model::withTrashed()->where('id', $id)->restore()) $result = true;
+        return $result;
+    }
+
+    public function destroy($id)
+    {
+        $result = false;
+        if($this->model::where('id', $id)->forceDelete()) $result = true;
+
+        return $result;
+    }
+
 
 
 

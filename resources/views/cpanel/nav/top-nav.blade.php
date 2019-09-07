@@ -27,9 +27,15 @@
                         <span class="no-icon">Settings</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        @if (Auth::user()->can('manage_general_settings', 'App\Http\Models\UserRoles'))
                         <a class="dropdown-item" href="{{route('cpanel_general_settings')}}">General Settings</a>
+                        @endif
+                        @if (Auth::user()->can('manage_menus', 'App\Http\Models\UserRoles'))
                         <a class="dropdown-item" href="{{route('cpanel_menu_list')}}">Menus</a>
+                        @endif
+                        @if (Auth::user()->can('manage_user_roles', 'App\Http\Models\UserRoles'))
                         <a class="dropdown-item" href="{{route('cpanel_user_roles')}}">User Roles</a>
+                        @endif
                     </div>
                 </li>
                 <li class="nav-item">

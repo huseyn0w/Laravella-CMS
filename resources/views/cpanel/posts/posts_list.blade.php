@@ -12,6 +12,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
 
+@php
+$route_name = Route::current()->getName();
+@endphp
+
 @section('content')
 
     <div class="container-fluid">
@@ -46,6 +50,32 @@
                                 @endif
                             </div>
                         @endif
+                        @if ($update_message = Session::get('post_restored'))
+                            <div class="col-12">
+                                @if ($update_message)
+                                    <div class="alert alert-success">
+                                        <strong>Posts has been restored</strong>
+                                    </div>
+                                @else
+                                    <div class="alert alert-danger">
+                                        <strong>Some problem has been occured. Please try again later.</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
+                        @if ($update_message = Session::get('post_destroyed'))
+                            <div class="col-12">
+                                @if ($update_message)
+                                    <div class="alert alert-success">
+                                        <strong>Posts has been totally removed</strong>
+                                    </div>
+                                @else
+                                    <div class="alert alert-danger">
+                                        <strong>Some problem has been occured. Please try again later.</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
                         @if ($update_message = Session::get('post_added'))
                             <div class="col-12">
                                 @if ($update_message)
@@ -64,6 +94,8 @@
                                     <option value="delete">Delete</option>
                                 </select>
                                 <button type="submit" class="btn btn-info btn-fill">Apply</button>
+                                <a href="{{route('cpanel_posts_list')}}" class="btn btn-success btn-fill trashed-posts">General posts</a>
+                                <a href="{{route('cpanel_trashed_posts_list')}}" class="btn btn-warning btn-fill trashed-posts">Trashed posts</a>
                             </div>
                             <table class="table table-hover table-striped users-table">
                                 <thead>
@@ -91,7 +123,7 @@
                                         <td>
                                             <div class="form-check">
                                                 <label for="post_{{$post->id}}" class="form-check-label form-checkbox">
-                                                    <input class="form-check-input users-checkbox-input" id="post_{{$post->id}}" name="posts[]" type="checkbox" value="{{$post->id}}" >
+                                                    <input class="form-check-input posts-checkbox-input" id="post_{{$post->id}}" name="posts[]" type="checkbox" value="{{$post->id}}" >
                                                     <span class="form-check-sign"></span>
                                                 </label>
                                             </div>
@@ -101,10 +133,15 @@
                                             {{$post->title}}
 
                                             <span class="user_actions">
-                                             @if (Auth::user()->can('manage_posts', 'App\Http\Models\Post'))
+                                             @if (Auth::user()->can('manage_posts', 'App\Http\Models\UserRoles'))
                                                 <a href="{{route('cpanel_edit_post', $post->id)}}" target="_blank">Edit</a>
                                                 <input type="hidden" class="deleted_post_id" value="{{$post->id}}" name="deleted_post_id">
-                                                <button type="button" class="delete_post">Delete</button>
+                                                @if($route_name === "cpanel_posts_list")
+                                                    <button type="button" class="delete_post">Delete</button>
+                                                @else
+                                                    <a href="{{route('cpanel_restore_post', $post->id)}}" class="restore_post">Restore</a>
+                                                    <a href="{{route('cpanel_destroy_post', $post->id)}}" class="destroy_post">Destroy</a>
+                                                @endif
                                              @endif
                                             </span>
 
@@ -132,3 +169,6 @@
     </div>
 
 @endsection
+@push('finalscripts')
+    <script src="{{asset('admin')}}/js/post.js"></script>
+@endpush

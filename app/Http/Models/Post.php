@@ -4,9 +4,12 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Models\Category;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'title',
         'slug',

@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Models\Menu;
+use App\Http\Models\UserRoles;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +17,7 @@ class ManageMenu
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->cannot('manage_menus', Menu::class)){
+        if(Auth::user()->cannot('manage_menus', UserRoles::class)){
             abort(401);
         }
         return $next($request);

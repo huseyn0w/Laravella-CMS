@@ -24,7 +24,7 @@ class CreatePostsTable extends Migration
             $table->integer('dislikes')->unsigned()->default(0);
             $table->mediumText('preview')->nullable();
             $table->mediumText('content')->nullable();
-            //$table->softDeletes('trashed');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

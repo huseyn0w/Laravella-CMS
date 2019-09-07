@@ -72,6 +72,6 @@
 
 @endsection
 
-@push('extrascripts')
-<script src="{{asset('admin')}}/js/userprofile.js"></script>
+@push('finalscripts')
+    <script src="{{asset('admin')}}/js/role.js"></script>
 @endpush

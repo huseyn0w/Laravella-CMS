@@ -104,7 +104,7 @@
                                             {{$user->username}}
 
                                             <span class="user_actions">
-                                             @if (Auth::user()->can('manage_users', 'App\User'))
+                                             @if (Auth::user()->can('manage_users', 'App\Http\Models\UserRoles'))
                                                 <a href="{{route('cpanel_edit_user_profile', $user->id)}}" target="_blank">Edit</a>
                                                 <input type="hidden" class="deleted_user_id" value="{{$user->id}}" name="deleted_user_id">
                                                 <button type="button" class="delete_user">Delete</button>
@@ -138,3 +138,7 @@
     </div>
 
 @endsection
+
+@push('finalscripts')
+    <script src="{{asset('admin')}}/js/user.js"></script>
+@endpush

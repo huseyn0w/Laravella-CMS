@@ -24,6 +24,14 @@ class CPanelPostController extends CPanelBaseController
         return view('cpanel.posts.posts_list', compact("posts_list"));
     }
 
+    public function trashedPosts()
+    {
+        $posts_list = $this->repository->trashedPosts($this->per_page);
+
+        return view('cpanel.posts.posts_list', compact("posts_list"));
+    }
+
+
     public function multipleDelete(PostListRequest $request)
     {
         $result = $this->repository->delete($request->posts);
@@ -51,6 +59,8 @@ class CPanelPostController extends CPanelBaseController
     {
         return parent::update($id, $request);
     }
+
+
 
 
 

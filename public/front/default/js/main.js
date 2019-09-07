@@ -102,7 +102,7 @@ $(document).ready(function(){
   ) {
     // Figure out element to scroll to
     var target = $(this.hash);
-    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+    target = target.length ? target :"";
     // Does a scroll target exist?
     if (target.length) {
       // Only prevent default if animation is actually gonna happen
@@ -165,3 +165,19 @@ $(document).ready(function(){
       });   
 
  });
+
+$(document).ready(function() {
+
+    triggerMobileMenu();
+
+    $(window).on('resize', triggerMobileMenu);
+
+    function triggerMobileMenu(){
+        $(".navbar-nav a.dropdown-toggle").on("click", function(e){
+            e.preventDefault();
+            if($(window).width() <= 991){
+                $(this).next('.dropdown-menu').toggleClass('show');
+            }
+        });
+    }
+});

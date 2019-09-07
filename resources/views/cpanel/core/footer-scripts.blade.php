@@ -25,6 +25,7 @@
 <script src="{{asset('admin')}}/js/demo.js"></script>
 @stack('extrascripts')
 <script src="{{asset('admin')}}/js/laravella.js"></script>
+@stack('finalscripts')
 <script type="text/javascript">
     // $(document).ready(function() {
     //     // Javascript method's body can be found in assets/js/demos.js

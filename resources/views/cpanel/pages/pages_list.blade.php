@@ -91,7 +91,7 @@
                                         <td>
                                             <div class="form-check">
                                                 <label for="page_{{$page->id}}" class="form-check-label form-checkbox">
-                                                    <input class="form-check-input users-checkbox-input" id="page_{{$page->id}}" name="pages[]" type="checkbox" value="{{$page->id}}" >
+                                                    <input class="form-check-input pages-checkbox-input" id="page_{{$page->id}}" name="pages[]" type="checkbox" value="{{$page->id}}" >
                                                     <span class="form-check-sign"></span>
                                                 </label>
                                             </div>
@@ -101,7 +101,7 @@
                                             {{$page->title}}
 
                                             <span class="user_actions">
-                                             @if (Auth::user()->can('manage_users', 'App\Http\Models\Page'))
+                                             @if (Auth::user()->can('manage_users', 'App\Http\Models\UserRoles'))
                                                 <a href="{{route('cpanel_edit_page', $page->id)}}" target="_blank">Edit</a>
                                                 <input type="hidden" class="deleted_page_id" value="{{$page->id}}" name="deleted_page_id">
                                                 <button type="button" class="delete_page">Delete</button>
@@ -132,3 +132,7 @@
     </div>
 
 @endsection
+
+@push('finalscripts')
+    <script src="{{asset('admin')}}/js/page.js"></script>
+@endpush

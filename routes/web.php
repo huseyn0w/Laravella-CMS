@@ -18,7 +18,7 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name
 
 
 //CPanel Routes
-Route::prefix('cpanel')->middleware(['auth'])->namespace('cpanel')->group(function () {
+Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpanel')->group(function () {
 
     Route::get('/', 'CPanelHomeController@index')->name('cpanel_home');
 
@@ -77,8 +77,11 @@ Route::prefix('cpanel')->middleware(['auth'])->namespace('cpanel')->group(functi
 
     Route::prefix('posts')->middleware('manage_posts')->group(function(){
         Route::get('/', 'CPanelPostController@index')->name('cpanel_posts_list');
+        Route::get('/trashed', 'CPanelPostController@trashedPosts')->name('cpanel_trashed_posts_list');
         Route::get('/{id}', 'CPanelPostController@editPost')->name('cpanel_edit_post')->where('id', '[0-9]+');
         Route::put('/{id}/update', 'CPanelPostController@updatePost')->name('cpanel_update_post')->where('id', '[0-9]+');
+        Route::get('/{id}/restore', 'CPanelPostController@restore')->name('cpanel_restore_post')->where('id', '[0-9]+');
+        Route::get('/{id}/destroy', 'CPanelPostController@destroy')->name('cpanel_destroy_post')->where('id', '[0-9]+');
         Route::delete('/multipleDelete', 'CPanelPostController@multipleDelete')->name('cpanel_posts_bulk_delete');
         Route::delete('/{id}/delete', 'CPanelPostController@deleteAjax')->name('cpanel_ajax_soft_delete_post')->where('id', '[0-9]+');
         Route::delete('/multipleDelete', 'CPanelPostController@multipleDelete')->name('cpanel_posts_bulk_delete');

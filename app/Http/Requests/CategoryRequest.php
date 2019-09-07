@@ -41,7 +41,7 @@ class CategoryRequest extends FormRequest
                 'string',
                 'required',
                 'max:50',
-                Rule::unique('categories','name')->ignore($category_id)
+                Rule::unique('categories','title')->ignore($category_id)
             ];
 
             $slug = ['required',
@@ -57,7 +57,7 @@ class CategoryRequest extends FormRequest
         }
         else
         {
-            $title = 'required|string|max:50|unique:categories,name';
+            $title = 'required|string|max:50|unique:categories,title';
             $slug = 'required|string|max:20|unique:categories,slug';
             $parent_category = 'nullable|numeric';
         }

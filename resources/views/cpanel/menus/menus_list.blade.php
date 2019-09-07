@@ -76,7 +76,7 @@
                                     </td>
                                     <td>
                                         <span class="user_actions">
-                                         @if (Auth::user()->can('manage_menus', 'App\Http\Models\Menu'))
+                                         @if (Auth::user()->can('manage_menus', 'App\Http\Models\UserRoles'))
                                                 <a href="{{route('cpanel_edit_menu', $menu->id)}}" target="_blank">Edit</a>
                                                 <input type="hidden" class="deleted_menu_id" value="{{$menu->id}}" name="deleted_menu_id">
                                                 <button type="button" class="delete_menu">Delete</button>
@@ -102,3 +102,7 @@
     </div>
 
 @endsection
+
+@push('finalscripts')
+    <script src="{{asset('admin')}}/js/menu.js"></script>
+@endpush

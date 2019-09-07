@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Http\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
@@ -80,6 +79,17 @@ class UserPolicy
 
         return $result;
     }
+
+    public function see_admin_panel()
+    {
+        $result = false;
+
+        if($this->user_permissions->see_admin_panel === 1) $result = true;
+
+        return false;
+    }
+
+
 
 
 

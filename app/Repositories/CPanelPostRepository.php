@@ -28,6 +28,16 @@ class CPanelPostRepository extends BaseRepository
         return $data;
     }
 
+    public function trashedPosts($count, $fields = [])
+    {
+        $fields = ['id', 'title', 'slug', 'status', 'author_id', 'created_at'];
+        $data = $this->model->select($fields)->with('author')->onlyTrashed()->paginate($count);
+
+        if(empty($data)) return false;
+
+        return $data;
+    }
+
     public function create($request)
     {
         $result = false;

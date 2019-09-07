@@ -348,19 +348,17 @@ function render_menu($menu_data, $params)
 
     $route_name = Route::currentRouteName();
 
-
-
-
-    $menu_type  = $params['menu_type'] ?? "list";
-    $menu_class = $params['menu_class'] ?? "menu";
-    $item_class = $params['item_class'] ?? "menu-item";
-    $item_class_with_submenu = $params['item_class_with_submenu'] ?? "";
-    $link_class = $params['link_class'] ?? "menu-item-link";
+    $menu_type                    = $params['menu_type'] ?? "list";
+    $menu_class                   = $params['menu_class'] ?? "menu";
+    $menu_id                      = $params['menu_id'] ?? "menu";
+    $item_class                   = $params['item_class'] ?? "menu-item";
+    $item_class_with_submenu      = $params['item_class_with_submenu'] ?? "";
+    $link_class                   = $params['link_class'] ?? "menu-item-link";
     $item_link_class_with_submenu = $params['item_link_class_with_submenu'] ?? "";
-    $submenu_type = $params['submenu_type'] ?? "list";
-    $submenu_class = $params['submenu_class'] ?? "sub-menu";
-    $subitem_class = $params['subitem_class'] ?? "sub-menu-item";
-    $sub_link_class = $params['sublink_class'] ?? "sub-menu-item-link";
+    $submenu_type                 = $params['submenu_type'] ?? "list";
+    $submenu_class                = $params['submenu_class'] ?? "sub-menu";
+    $subitem_class                = $params['subitem_class'] ?? "sub-menu-item";
+    $sub_link_class               = $params['sublink_class'] ?? "sub-menu-item-link";
 
     $html = "";
 
@@ -404,7 +402,6 @@ function render_menu($menu_data, $params)
                 $html.= "<a href='$link' class='$link_class'>".$label;
             }
         }
-
 
 
         if($route_name === "cpanel_edit_menu"){

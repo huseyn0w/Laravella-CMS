@@ -194,3 +194,7 @@
 @push('extrascripts')
 <script src="{{asset('admin')}}/js/userprofile.js"></script>
 @endpush
+
+@push('finalscripts')
+    <script src="{{asset('admin')}}/js/user.js"></script>
+@endpush
