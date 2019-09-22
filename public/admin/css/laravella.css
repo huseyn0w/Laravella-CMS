@@ -17,7 +17,11 @@ textarea.form-control{
     padding: 5px 15px 5px 30px;
 }
 
-ul,ol {
+.sidebar .nav li .nav-link, body>.navbar-collapse .nav li .nav-link{
+    margin: 0 15px;
+}
+
+ul,ol .sidebar .nav li .nav-link.sub-nav-link{
     padding-left: 15px;
     margin-bottom: 0;
 }

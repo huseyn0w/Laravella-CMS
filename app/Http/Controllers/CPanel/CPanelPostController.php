@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\CPanel;
 
+use App\Http\Models\Post;
 use App\Http\Requests\PostListRequest;
 use App\Http\Requests\ValidatePostData;
 use App\Repositories\CPanelPostRepository;
@@ -34,11 +35,42 @@ class CPanelPostController extends CPanelBaseController
 
     public function multipleDelete(PostListRequest $request)
     {
-        $result = $this->repository->delete($request->posts);
+        $this->repository->delete($request->posts);
 
-        return back()->with('message', $result);
+        return back()->with("deleted", true);
     }
 
+    public function multipleDestroy(PostListRequest $request)
+    {
+        $this->repository->destroy($request->posts);
+
+        return back()->with("destroyed", true);
+    }
+
+    public function multipleRestore(PostListRequest $request)
+    {
+
+        $this->repository->restore($request->posts);
+
+        return back()->with("restored", true);
+    }
+
+    public function multipleActions(PostListRequest $request)
+    {
+        $action = $request->posts_action;
+        switch ($action)
+        {
+            case "restore":
+                return $this->multipleRestore($request);
+                break;
+            case "destroy":
+                return $this->multipleDestroy($request);
+                break;
+            default:
+                return redirect()->back();
+                break;
+        }
+    }
 
     public function editPost($id)
     {
@@ -50,8 +82,8 @@ class CPanelPostController extends CPanelBaseController
     public function createPost(ValidatePostData $request)
     {
         parent::create($request);
-        return redirect()->route('cpanel_posts_list')->with('post_added', " ");
 
+        return redirect()->route('cpanel_posts_list')->with('post_added', true);
     }
 
 
@@ -59,9 +91,6 @@ class CPanelPostController extends CPanelBaseController
     {
         return parent::update($id, $request);
     }
-
-
-
 
 
     public function addPost()

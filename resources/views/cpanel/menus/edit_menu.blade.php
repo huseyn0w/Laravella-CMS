@@ -176,7 +176,12 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="menu-box">
+                                        @if($existing_menu)
                                         {!! $existing_menu !!}
+                                        @else
+                                        <ul class="menu-list sortable" id="sortable">
+                                        </ul>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

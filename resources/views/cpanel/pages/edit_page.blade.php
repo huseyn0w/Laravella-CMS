@@ -54,6 +54,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Edit Page</h4>
+                            <p>Page url: <strong><a href="{{env('APP_URL')}}{{ old('slug',$page->slug) }}">{{env('APP_URL')}}{{ old('slug',$page->slug) }}</a></strong></p>
                         </div>
                         <div class="card-body">
                             <div class="row">

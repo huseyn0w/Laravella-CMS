@@ -37,7 +37,16 @@ $route_name = Route::current()->getName();
                                 </div>
                             </div>
                         @endif
-                        @if ($update_message = Session::get('message'))
+                        @if ($update_message = Session::get('post_added'))
+                            <div class="col-12">
+                                @if ($update_message)
+                                    <div class="alert alert-success">
+                                        <strong>Post has been created successfully</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
+                        @if ($update_message = Session::get('deleted'))
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
@@ -50,7 +59,8 @@ $route_name = Route::current()->getName();
                                 @endif
                             </div>
                         @endif
-                        @if ($update_message = Session::get('post_restored'))
+
+                        @if ($update_message = Session::get('restored'))
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
@@ -63,7 +73,7 @@ $route_name = Route::current()->getName();
                                 @endif
                             </div>
                         @endif
-                        @if ($update_message = Session::get('post_destroyed'))
+                        @if ($update_message = Session::get('destroyed'))
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
@@ -76,22 +86,28 @@ $route_name = Route::current()->getName();
                                 @endif
                             </div>
                         @endif
-                        @if ($update_message = Session::get('post_added'))
-                            <div class="col-12">
-                                @if ($update_message)
-                                    <div class="alert alert-success">
-                                        <strong>Post has been created successfully</strong>
-                                    </div>
-                                @endif
-                            </div>
+
+                        @if($route_name == "cpanel_trashed_posts_list")
+                            <form method="POST" action="{{route('cpanel_posts_bulk_action')}}">
+                        @else
+                            <form method="POST" action="{{route('cpanel_posts_bulk_delete')}}">
                         @endif
-                        <form method="POST" action="{{route('cpanel_posts_bulk_delete')}}">
                             @csrf
+                        @if($route_name == "cpanel_trashed_posts_list")
+                            @method('POST')
+                        @else
                             @method('DELETE')
+                        @endif
                             <div class="select-cover">
                                 <select id="inputState" name="posts_action" required="" class="form-control">
                                     <option selected="selected">Bulk action</option>
+
+                                @if($route_name == "cpanel_trashed_posts_list")
+                                    <option value="destroy">Destroy</option>
+                                    <option value="restore">Restore</option>
+                                    @else
                                     <option value="delete">Delete</option>
+                                @endif
                                 </select>
                                 <button type="submit" class="btn btn-info btn-fill">Apply</button>
                                 <a href="{{route('cpanel_posts_list')}}" class="btn btn-success btn-fill trashed-posts">General posts</a>
@@ -139,8 +155,8 @@ $route_name = Route::current()->getName();
                                                 @if($route_name === "cpanel_posts_list")
                                                     <button type="button" class="delete_post">Delete</button>
                                                 @else
-                                                    <a href="{{route('cpanel_restore_post', $post->id)}}" class="restore_post">Restore</a>
-                                                    <a href="{{route('cpanel_destroy_post', $post->id)}}" class="destroy_post">Destroy</a>
+                                                    <button type="button" class="destroy_post">Destroy</button>
+                                                    <a href="{{route('cpanel_restore_post', $post->id)}}" class="restore_post btn-success">Restore</a>
                                                 @endif
                                              @endif
                                             </span>

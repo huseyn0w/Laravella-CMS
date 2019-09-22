@@ -81,8 +81,10 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
         Route::get('/{id}', 'CPanelPostController@editPost')->name('cpanel_edit_post')->where('id', '[0-9]+');
         Route::put('/{id}/update', 'CPanelPostController@updatePost')->name('cpanel_update_post')->where('id', '[0-9]+');
         Route::get('/{id}/restore', 'CPanelPostController@restore')->name('cpanel_restore_post')->where('id', '[0-9]+');
-        Route::get('/{id}/destroy', 'CPanelPostController@destroy')->name('cpanel_destroy_post')->where('id', '[0-9]+');
+        Route::delete('/{id}/destroy', 'CPanelPostController@destroyAjax')->name('cpanel_destroy_post')->where('id', '[0-9]+');
         Route::delete('/multipleDelete', 'CPanelPostController@multipleDelete')->name('cpanel_posts_bulk_delete');
+        //Route::delete('/multipleDestroy', 'CPanelPostController@multipleDestroy')->name('cpanel_posts_bulk_action');
+        Route::post('/multiple', 'CPanelPostController@multipleActions')->name('cpanel_posts_bulk_action');
         Route::delete('/{id}/delete', 'CPanelPostController@deleteAjax')->name('cpanel_ajax_soft_delete_post')->where('id', '[0-9]+');
         Route::delete('/multipleDelete', 'CPanelPostController@multipleDelete')->name('cpanel_posts_bulk_delete');
         Route::get('/new', 'CPanelPostController@addPost')->name('cpanel_add_new_post');

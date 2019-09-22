@@ -41,12 +41,11 @@ interface BaseRepositoryInterface
 
 
     /**
-     * Get one record by id
-     * @param $count
-     * @param array $fields
+     * Get one record by $param
+     * @param $param
      * @return mixed
      */
-    public function get($count, $fields = []);
+    public function get($param);
 
 
     /**

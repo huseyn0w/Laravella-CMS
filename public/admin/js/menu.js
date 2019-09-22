@@ -78,7 +78,6 @@ $(function () {
 
         if(link_label.val() !== "" && link_url.val() !== ""){
             var li = '<li data-type="custom_link" data-title="'+ link_label.val() + '" data-link="'+ link_url.val() +'"><a href="javascript:void(0)"><span>'+ link_label.val() + '</span><button class="remove_menu_item" type="button">X</button></a></li>';
-            console.log('hehey');
             menu_list.append(li);
             link_label.val("");
             link_url.val("");
@@ -131,7 +130,6 @@ $(function () {
         var obj = FetchChild();
         var json = JSON.stringify(obj, null);
         menuContent.val(json);
-        console.log(json);
         add_menu_form.submit();
     })
 

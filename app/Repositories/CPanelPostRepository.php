@@ -23,7 +23,7 @@ class CPanelPostRepository extends BaseRepository
         $fields = ['id', 'title', 'slug', 'status', 'author_id', 'created_at'];
         $data = $this->model->select($fields)->with('author')->paginate($count);
 
-        if(empty($data)) return false;
+        if(empty($data)) abort(403, 'Some problem occured');
 
         return $data;
     }
@@ -33,15 +33,28 @@ class CPanelPostRepository extends BaseRepository
         $fields = ['id', 'title', 'slug', 'status', 'author_id', 'created_at'];
         $data = $this->model->select($fields)->with('author')->onlyTrashed()->paginate($count);
 
-        if(empty($data)) return false;
+        if(empty($data)) abort(403, 'Some problem occured');
+
+        return $data;
+    }
+
+    public function getBy($paramName, $paramValue, $fields = [])
+    {
+
+        if(!empty($fields)){
+            $data = $this->model::select($fields)->where($paramName, $paramValue)->withTrashed()->first();
+        }
+        else{
+            $data = $this->model::where($paramName, $paramValue)->withTrashed()->first();
+        }
+
+        if(!$data) return $this->throwAbort();
 
         return $data;
     }
 
     public function create($request)
     {
-        $result = false;
-
         $post = new Post();
         $post->title = $request->title;
         $post->slug = $request->slug;
@@ -58,16 +71,14 @@ class CPanelPostRepository extends BaseRepository
 
         if($post_saved) $category_saved = $post->categories()->attach($category);
 
-        if($post_saved && is_null($category_saved)) $result = true;
+        if($post_saved && is_null($category_saved)) return true;
 
-        return $result;
+        abort(403, 'Some problem occured');
 
     }
 
     public function update($id, $request)
     {
-        $result = false;
-
         $post = Post::find($id);
         $post->title = $request->title;
         $post->slug = $request->slug;
@@ -80,7 +91,8 @@ class CPanelPostRepository extends BaseRepository
 
         $category = Category::find($categories_list);
 
-        if($category){
+        if($category)
+        {
             $post->categories()->detach();
 
             $post_updated = $post->save();
@@ -88,18 +100,19 @@ class CPanelPostRepository extends BaseRepository
 
         if($post_updated) $category_saved = $post->categories()->attach($category);
 
-        if($post_updated && is_null($category_saved)) $result = true;
+        if($post_updated && is_null($category_saved)) return true;
 
-        return $result;
+        abort(403, 'Some problem occured');
 
     }
 
     public function delete($id)
     {
-        $result = false;
 
-        if(is_array($id)){
-            foreach($id as $post_id){
+        if(is_array($id))
+        {
+            foreach($id as $post_id)
+            {
                 $result = $this->deletePost($post_id);
             }
         }
@@ -108,18 +121,88 @@ class CPanelPostRepository extends BaseRepository
 
         }
 
+        if(!$result) abort(403, 'Some problem occured');
+
+        return $result;
+
+
+    }
+
+    private function deletePost($id)
+    {
+
+        $result = false;
+        $post = Post::find($id);
+        if($post && $post->delete()) $result = true;
+
+        return $result;
+
+    }
+
+    public function destroy($id)
+    {
+        if(is_array($id))
+        {
+            foreach($id as $post_id)
+            {
+                $result = $this->destroyPost($post_id);
+            }
+        }
+        else{
+            $result = $this->destroyPost($id);
+
+        }
+
+        if(!$result) abort(403, 'Some problem occured');
+
+        return $result;
+
+
+    }
+
+    public function restore($id)
+    {
+
+        if(is_array($id))
+        {
+            foreach($id as $post_id)
+            {
+                $result = $this->restorePost($post_id);
+            }
+        }
+        else{
+            $result = $this->restorePost($id);
+
+        }
+
+        if(!$result) abort(403, 'Some problem occured');
+
+        return $result;
+
+    }
+
+    public function restorePost($id)
+    {
+
+        if($this->model::withTrashed()->where('id', $id)->restore()) $result = true;
+
+        if(!$result) return $this->throwAbort();
+
         return $result;
     }
 
 
-    private function deletePost($id)
+
+
+    private function destroyPost($id)
     {
         $deleted_post = false;
 
         $result = false;
-        $post = Post::find($id);
-        if($post && $post->delete()) $deleted_post = true;
-        if($deleted_post) {
+        $post = Post::withTrashed()->find($id);
+        if($post && $post->forceDelete()) $deleted_post = true;
+        if($deleted_post)
+        {
             $post->categories()->detach();
             $result = true;
         }
@@ -127,5 +210,7 @@ class CPanelPostRepository extends BaseRepository
         return $result;
 
     }
+
+
 
 }

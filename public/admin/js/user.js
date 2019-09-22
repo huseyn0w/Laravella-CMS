@@ -9,12 +9,19 @@ $(function () {
         users_checkbox.each(function(index,el){
 
             if(AllUsersCheckbox.hasClass('all-checked')){
-                $(el).attr('checked', 'checked');
+                $(el).prop('checked', 'checked');
             }
             else {
-                $(el).removeAttr('checked');
+                $(el).prop('checked', false);
             }
         });
+    });
+
+    users_checkbox.on('click', function () {
+        if(!$(this).prop('checked')){
+            AllUsersCheckbox.removeClass('all-checked');
+            AllUsersCheckbox.prop('checked', false);
+        }
     });
 
 

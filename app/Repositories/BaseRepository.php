@@ -22,29 +22,38 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function create($request)
     {
-        $result = false;
-        if($this->model::create($request->all())) $result = true;
+        $result = $this->model::create($request->all());
+
+        if(!$result) return $this->throwAbort();
 
         return $result;
+
     }
 
     public function all()
     {
-        $result = false;
+        $data = $this->model::all();
 
-        $result = $this->model::all();
+        if(!$data) return $this->throwAbort();
 
-        return $result;
+        return $data;
     }
-    public function get($id, $fields = [])
-    {
 
+    public function get($param)
+    {
+        $data = $this->model::find($param)->first()->get();
+
+        if(!$data) return $this->throwAbort();
+
+        return $data;
     }
 
     public function selectBy($fields)
     {
 
-        $data = $this->model::select($fields)->get;
+        $data = $this->model::select($fields)->get();
+
+        if(!$data) return $this->throwAbort();
 
         return $data;
 
@@ -59,6 +68,8 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
             $data = $e->errorInfo;
         }
 
+        if(!$data) return $this->throwAbort();
+
         return $data;
     }
 
@@ -70,6 +81,8 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         catch (QueryException $e){
             $data = $e->errorInfo;
         }
+
+        if(!$data) return $this->throwAbort();
 
         return $data;
     }
@@ -84,7 +97,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
             $data = $this->model::where($paramName, $paramValue)->first();
         }
 
-        if(!$data) return false;
+        if(!$data) return $this->throwAbort();
 
         return $data;
     }
@@ -103,6 +116,8 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
             $result = $e->errorInfo;
         }
 
+        if(!$result) return $this->throwAbort();
+
         return $result;
 
     }
@@ -115,6 +130,8 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         $result = false;
         if($this->model::destroy($id)) $result = true;
 
+        if(!$result) return $this->throwAbort();
+
         return $result;
     }
 
@@ -125,8 +142,11 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function restore($id)
     {
-        $result = false;
+
         if($this->model::withTrashed()->where('id', $id)->restore()) $result = true;
+
+        if(!$result) return $this->throwAbort();
+
         return $result;
     }
 
@@ -135,7 +155,14 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         $result = false;
         if($this->model::where('id', $id)->forceDelete()) $result = true;
 
+        if(!$result) return $this->throwAbort();
+
         return $result;
+    }
+
+    protected function throwAbort($message = "Some problem occured")
+    {
+        return abort(403, 'Some problem occured');
     }
 
 

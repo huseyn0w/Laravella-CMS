@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class PostListRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class PostListRequest extends FormRequest
     public function rules()
     {
         return [
-            'posts_action'  => ["required" , "string", "regex:(delete)"],
+            'posts_action'  => ["required" , "string", Rule::in(['delete', 'destroy', 'restore']),],
             'posts'         => 'array|required'
         ];
     }

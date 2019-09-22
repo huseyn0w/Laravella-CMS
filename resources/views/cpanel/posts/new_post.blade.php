@@ -23,6 +23,15 @@
 
     @endphp
 
+    @if ($update_message = Session::get('post_added'))
+        <div class="col-12">
+            @if ($update_message)
+                <div class="alert alert-success">
+                    <strong>Post has been created successfully</strong>
+                </div>
+            @endif
+        </div>
+    @endif
     <form action="{{ route('cpanel_save_new_post') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="container-fluid">

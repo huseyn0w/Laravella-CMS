@@ -10,12 +10,19 @@ $(function () {
         categories_checkbox.each(function(index,el){
 
             if(AllUsersCategories.hasClass('all-checked')){
-                $(el).attr('checked', 'checked');
+                $(el).prop('checked', 'checked');
             }
             else {
-                $(el).removeAttr('checked');
+                $(el).prop('checked', false);
             }
         });
+    });
+
+    categories_checkbox.on('click', function () {
+        if(!$(this).prop('checked')){
+            AllUsersCategories.removeClass('all-checked');
+            AllUsersCategories.prop('checked', false);
+        }
     });
 
     delete_category.on('click', function () {

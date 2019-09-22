@@ -20,6 +20,7 @@
         $users_list = get_authors_list();
         $categories_list = get_post_categories_list();
 
+
         $categories_ids = [];
 
         foreach($post->categories as $category) $categories_ids[] = $category->id;
@@ -58,8 +59,8 @@
                 <div class="col-xs-12 col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Post  </h4>
-
+                            <h4 class="card-title">Edit Post</h4>
+                            <p>Post url: <strong><a href="{{env('APP_URL')}}posts/{{ old('slug',$post->slug) }}">{{env('APP_URL')}}posts/{{ old('slug',$post->slug) }}</a></strong></p>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -119,7 +120,7 @@
                                         <label>Category</label>
                                         <select name="category[]" multiple class="form-control category_list" id="post_category">
                                             @foreach($categories_list as $category)
-                                                <option value="{{$category->id}}" {{in_array($category->id, $categories_ids) ? 'selected': null}} >{{$category->name}}</option>
+                                                <option value="{{$category->id}}" {{in_array($category->id, $categories_ids) ? 'selected': null}} >{{$category->title}}</option>
                                             @endforeach
                                         </select>
                                     </div>

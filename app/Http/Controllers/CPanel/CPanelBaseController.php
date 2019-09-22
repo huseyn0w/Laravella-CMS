@@ -91,8 +91,6 @@ class CPanelBaseController extends Controller
     {
         $this->result = $this->repository->update($id, $data);
 
-        if(!$this->result) return back()->with('error', '-');
-
         return back()->with('message', " ");
     }
 
@@ -100,27 +98,38 @@ class CPanelBaseController extends Controller
     {
         $this->result = $this->repository->create($request);
 
-        if(!$this->result) return back()->with('error', '-');
-
-        return back()->with('message', " ");
+        return $this->result;
     }
+
 
     protected function restore($id)
     {
         $this->result = $this->repository->restore($id);
 
-        if(!$this->result) return back()->with('error', '-');
-
         return back()->with('post_restored', " ");
     }
 
-    protected function destroy($id)
+
+
+    protected function destroyAjax(int $id)
     {
-        $this->result = $this->repository->destroy($id);
+        if($id <= 0){
+            echo "ID should be integer and more than 0";
+            return;
+        }
 
-        if(!$this->result) return back()->with('error', '-');
+        $result = $this->repository->destroy($id);
 
-        return back()->with('post_destroyed', " ");
+
+        if($result){
+            echo 'OK';
+        }
+        else{
+            echo $result;
+            echo "Problem";
+        }
+
+        return;
     }
 
 }

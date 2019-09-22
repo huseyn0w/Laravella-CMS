@@ -10,12 +10,19 @@ $(function () {
         pages_checkbox.each(function(index,el){
 
             if(AllPages.hasClass('all-checked')){
-                $(el).attr('checked', 'checked');
+                $(el).prop('checked', 'checked');
             }
             else {
-                $(el).removeAttr('checked');
+                $(el).prop('checked', false);
             }
         });
+    });
+
+    pages_checkbox.on('click', function () {
+       if(!$(this).prop('checked')){
+           AllPages.removeClass('all-checked');
+           AllPages.prop('checked', false);
+       }
     });
 
     delete_page.on('click', function () {
