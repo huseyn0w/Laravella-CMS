@@ -64,6 +64,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('cpanel.core.custom-fields')
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -110,14 +111,21 @@
             </div>
         </div>
     </form>
-
+    @include('cpanel.core.modals')
 @endsection
 
 @push('extrascripts')
     <script src="https://cdn.tiny.cloud/1/4vyoa49f4irghhao6v5lpc7z5z2hvhgau8wsjj1y9g65ovse/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="{{asset('admin')}}/js/datepicker.min.js"></script>
     <script src="{{asset('admin')}}/js/i18n/datepicker.en.js"></script>
+
 @endpush
 @push('finalscripts')
+    <script src="{{asset('')}}/vendor/laravel-filemanager/js/lfm.js"></script>
     <script src="{{asset('admin')}}/js/page.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-text.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-textarea.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-image.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-link.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-repeater.js"></script>
 @endpush

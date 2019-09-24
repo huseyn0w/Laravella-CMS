@@ -41,6 +41,7 @@ class CPanelPageController extends CPanelBaseController
 
     public function createPage(ValidatePageData $request)
     {
+        dd($request->all());
         parent::create($request);
         return redirect()->route('cpanel_pages_list')->with('page_added', " ");
 

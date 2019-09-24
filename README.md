@@ -12,11 +12,11 @@ See deployment for notes on how to deploy the project on a live system.
 Demo soon...
 
 ## Features
-
 * General CMS Features;
 * Social media authentication possibility
 * Fast working
 * Easy to extend
+* Custom fields
 * Flexible template changing system
 * Multiple languages extension (soon)
 * E-Commerce extension (soon)

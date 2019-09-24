@@ -307,3 +307,26 @@ ul.pagination{
     padding: 15px;
 }
 
+.custom-form-group label{
+    width: 100%;
+}
+
+.custom-form-group {
+    position: relative;
+}
+
+.custom-form-group .remove_field{
+    position: absolute;
+    top: 8px;
+    right: -8px;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.choose-image {
+    width: 100%;
+    margin-bottom: 30px;
+}

@@ -6,6 +6,11 @@ $(function(){
         cpanel_slug         = $("#cpanel_slug");
 
 
+    $(document).on('click', ".remove_field", function(){
+       $(this).parents('.inputRow').hide().remove();
+    });
+
+
     if(date_time_input.length){
         date_time_input.datepicker({
             'timepicker':true,
@@ -27,7 +32,7 @@ $(function(){
     if(editor.length > 0){
         var editor_config = {
             path_absolute : "/",
-            height : "300",
+            height : "150",
             selector: "textarea.my-editor",
             plugins: [
                 "advlist autolink lists link image charmap print preview hr anchor pagebreak",
@@ -48,7 +53,6 @@ $(function(){
                     cmsURL = cmsURL + "&type=Files";
                 }
 
-                console.log('cmsURL');
 
                 tinyMCE.activeEditor.windowManager.open({
                     file : cmsURL,
