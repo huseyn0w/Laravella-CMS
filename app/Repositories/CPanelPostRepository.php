@@ -62,6 +62,8 @@ class CPanelPostRepository extends BaseRepository
         $post->content = clean($request->content);
         $post->author_id = $request->author_id;
         $post->status = $request->status;
+        if(isset($post->custom_fields)) $post->custom_fields = json_encode($request->custom_fields);
+
 
         $categories_list = $request->category;
 

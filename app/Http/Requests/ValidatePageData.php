@@ -33,6 +33,7 @@ class ValidatePageData extends FormRequest
             'author_id' => 'required|string|exists:users,id',
             'created_at' => 'required|string',
             'content' => 'required|string',
+            'custom_fields' => 'array',
             'status' => 'required|numeric',
         ];
 

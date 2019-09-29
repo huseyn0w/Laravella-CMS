@@ -34,6 +34,7 @@ class ValidatePostData extends FormRequest
             'created_at' => 'required|string',
             'content' => 'required|string',
             'category' => 'required|array',
+            'custom_fields' => 'array',
             'status' => 'required|numeric',
         ];
 

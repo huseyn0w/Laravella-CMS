@@ -10,12 +10,18 @@ $(function(){
             custom_text_name_value = url_slug(custom_textarea_name.val());
 
         if(custom_text_label_value !== "" && custom_text_name_value !== ""){
+
+            tinymce.remove();
+
+
             var   form_input = `
            <div class="row inputRow">
               <div class="col-md-12">
                    <div class="form-group custom-form-group">
                        <label>${custom_text_label_value}
-                           <textarea name="custom_fields[${custom_text_name_value}]" class="form-control my-editor" value=""></textarea>
+                           <textarea name="custom_fields[${custom_text_name_value}][value]" required class="form-control my-editor"></textarea>
+                           <input type="hidden" name="custom_fields[${custom_text_name_value}][type]" value="textarea">
+                           <input type="hidden" name="custom_fields[${custom_text_name_value}][admin_label]" value="${custom_text_label_value}">
                        </label>
                        <button type="button" class="remove_field">X</button>
                    </div>
@@ -47,7 +53,6 @@ $(function(){
                         cmsURL = cmsURL + "&type=Files";
                     }
 
-                    console.log('cmsURL');
 
                     tinyMCE.activeEditor.windowManager.open({
                         file : cmsURL,

@@ -307,6 +307,36 @@ ul.pagination{
     padding: 15px;
 }
 
+.group_headline{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.repeater_item{
+    margin-bottom: 15px;
+}
+
+/*.toogleGroup{*/
+    /*outline: none !important;*/
+    /*background: none;*/
+    /*border: 1px solid #000;*/
+    /*width: 35px;*/
+    /*height: 20px;*/
+    /*line-height: 15px;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*display: block;*/
+    /*cursor: pointer;*/
+    /*font-size: 20px;*/
+/*}*/
+
+.group_headline h4{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .custom-form-group label{
     width: 100%;
 }
@@ -315,17 +345,55 @@ ul.pagination{
     position: relative;
 }
 
-.custom-form-group .remove_field{
+.repeater-group{
+    position: relative;
+}
+
+.duplicate_group{
+    margin-top: 20px;
+}
+
+.remove_repeater_field{
     position: absolute;
-    top: 8px;
-    right: -8px;
-    outline: none;
+    top: 0;
+    right: 0;
+    outline: none !important;
     border: none;
     border-radius: 50%;
     font-size: 11px;
     cursor: pointer;
 }
+.custom-form-group .remove_field{
+    position: absolute;
+    top: 8px;
+    right: -8px;
+    outline: none !important;
+    border: none;
+    border-radius: 50%;
+    font-size: 11px;
+    cursor: pointer;
+}
+.choose_field{
+    margin-bottom: 20px;
+}
+.repeater_cover{
+    padding: 20px 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #000;
+}
+#custom_repeater_cover,
+#custom_repeater_buttons{
+    display: none;
+}
 
+#custom_repeater_buttons{
+    margin-bottom: 20px;
+}
+
+.add-repeater-field-btn,
+.insert-repeater-fields-btn{
+    margin-top: 20px;
+}
 .choose-image {
     width: 100%;
     margin-bottom: 30px;

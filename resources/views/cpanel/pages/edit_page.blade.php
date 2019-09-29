@@ -79,6 +79,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('cpanel.core.custom-fields')
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -125,7 +126,7 @@
             </div>
         </div>
     </form>
-
+    @include('cpanel.core.modals')
 @endsection
 
 @push('extrascripts')
@@ -135,5 +136,11 @@
 @endpush
 
 @push('finalscripts')
+    <script src="{{asset('')}}/vendor/laravel-filemanager/js/lfm.js"></script>
     <script src="{{asset('admin')}}/js/page.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-text.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-textarea.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-image.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-link.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-repeater.js"></script>
 @endpush

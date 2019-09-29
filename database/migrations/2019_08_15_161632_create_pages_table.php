@@ -22,6 +22,7 @@ class CreatePagesTable extends Migration
             $table->foreign('author_id')->references('id')->on('users');
             $table->integer('status');
             $table->mediumText('content')->nullable();
+            $table->mediumText('custom_fields')->json()->nullable();
             $table->timestamps();
 
         });

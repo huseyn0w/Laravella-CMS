@@ -19,7 +19,8 @@ class Post extends Model
         'likes',
         'dislikes',
         'preview',
-        'content'
+        'content',
+        'custom_fields'
     ];
 
     public function author()

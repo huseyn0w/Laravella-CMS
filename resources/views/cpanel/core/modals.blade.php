@@ -72,6 +72,12 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
+                        <label for="admin_text_label">Cpanel Label</label>
+                        <input type="text" id="admin_text_label" required="" class="form-control" name="input_admin_label">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
                         <label for="custom_textarea_label">Label</label>
                         <input type="text" id="custom_link_label" required="" class="form-control" name="input_label">
                     </div>
@@ -80,12 +86,6 @@
                     <div class="form-group">
                         <label for="custom_link_url">URL</label>
                         <input type="text" id="custom_link_url" required="" class="form-control" name="input_name">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="custom_link_new_tab">Open in new tab?</label>
-                        <input type="checkbox" id="custom_link_new_tab" required="" class="form-control" name="input_new_tab">
                     </div>
                 </div>
             </div>
@@ -132,6 +132,8 @@
         </div>
     </div>
 </div>
+
+
 
 <script>
     var site_url = "<?php echo env('APP_URL'); ?>";

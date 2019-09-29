@@ -27,4 +27,38 @@ class CPanelPageRepository extends BaseRepository
         return $data;
     }
 
+    public function create($request)
+    {
+        $newData = $request->except('custom_fields');
+
+        if(isset($request->custom_fields)) $newData['custom_fields'] = json_encode($request->custom_fields);
+
+
+        try{
+            $post_saved = $this->model::create($newData);
+            if($post_saved) return true;
+        }
+        catch (\Exception $e){
+            abort(403, 'Some problem occured');
+        }
+
+    }
+
+    public function update($id,$request)
+    {
+//        dd($request->custom_fields);
+        $newData = $request->except(["_token", "_method", "custom_fields"]);
+
+        if(isset($request->custom_fields)) $newData['custom_fields'] = json_encode($request->custom_fields);
+
+
+        try{
+            $post_saved = $this->model::where('id', $id)->update($newData);
+            if($post_saved) return true;
+        }
+        catch (\Exception $e){
+            abort(403, 'Some problem occured');
+        }
+    }
+
 }

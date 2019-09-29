@@ -12,6 +12,7 @@ class Page extends Model
         'author_id',
         'status',
         'content',
+        'custom_fields',
         'created_at'
     ];
 
