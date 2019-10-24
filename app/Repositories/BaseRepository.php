@@ -97,10 +97,12 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
             $data = $this->model::where($paramName, $paramValue)->first();
         }
 
-        if(!$data) return $this->throwAbort();
+        if(!$data) return $this->throwNotFound();
 
         return $data;
     }
+
+
 
 
 
@@ -160,9 +162,17 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         return $result;
     }
 
+
+
+
     protected function throwAbort($message = "Some problem occured")
     {
-        return abort(403, 'Some problem occured');
+        return abort(403, $message);
+    }
+
+    protected function throwNotFound($message = "Page is not found")
+    {
+        return abort(404, $message);
     }
 
 

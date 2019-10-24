@@ -32,7 +32,7 @@ class ValidatePageData extends FormRequest
         $rules = [
             'author_id' => 'required|string|exists:users,id',
             'created_at' => 'required|string',
-            'content' => 'required|string',
+            'content' => 'nullable|string',
             'custom_fields' => 'array',
             'status' => 'required|numeric',
         ];

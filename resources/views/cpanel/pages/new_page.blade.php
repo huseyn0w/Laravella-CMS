@@ -19,6 +19,7 @@
 
         $users_list = get_authors_list();
 
+
     @endphp
 
     <form action="{{ route('cpanel_save_new_page') }}" method="POST" enctype="multipart/form-data">

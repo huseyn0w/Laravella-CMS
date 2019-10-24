@@ -9,6 +9,7 @@
 .env
 .editorconfig
 .env.backup
+TODOLIST.md
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

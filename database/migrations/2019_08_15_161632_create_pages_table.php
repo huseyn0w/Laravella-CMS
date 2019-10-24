@@ -23,6 +23,7 @@ class CreatePagesTable extends Migration
             $table->integer('status');
             $table->mediumText('content')->nullable();
             $table->mediumText('custom_fields')->json()->nullable();
+            $table->string('template')->default('standart');
             $table->timestamps();
 
         });

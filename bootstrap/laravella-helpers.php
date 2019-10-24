@@ -13,6 +13,7 @@ use App\Http\Models\Category;
 use App\Http\Models\Post;
 use App\Http\Models\Page;
 use App\Http\Models\Menu;
+use \App\Http\Controllers\CPanel\CPanelPageController as PagesController;
 
 function get_front_templates_array():array
 {
@@ -438,4 +439,22 @@ function get_menu_data($menu_title, $data)
     $html = render_menu(json_decode($menu->content), $data);
 
     return $html;
+}
+
+
+function get_taxonomy_name()
+{
+    $request = app('request')->route()->getAction();
+    $controller_name = $request['as'];
+
+    return $controller_name;
+}
+
+function get_field($field_key)
+{
+    if(!is_array($field_key) || empty($field_key)) return false;
+
+
+    return $field_key['value'];
+
 }

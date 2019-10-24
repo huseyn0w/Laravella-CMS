@@ -1,25 +1,30 @@
 # Laravella CMS
 
-My CMS Project based on Laravel PHP Framework
+The CMS Project based on Laravel PHP Framework
 
 ## Getting Started
-Laravella CMS is the analog to such popular CMS as Wordpress, DLE, Joomla and etc, but based on framework Laravel.
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Laravella CMS is developed as analog to such popular CMS as Wordpress, DLE, Joomla and etc, but based on framework Laravel.
+These instructions will get you a copy of the project up and running on your local machine / server for using or testing it.
 See deployment for notes on how to deploy the project on a live system.
 
+## Installation instructions
+Soon...
 
+## Demo
+soon...
 
-Demo soon...
-
-## Features
+## General features
 * General CMS Features;
 * Social media authentication possibility
-* Fast working
-* Easy to extend
+* Website search possibility
+* Users with different statuses
+* REST API for posts and pages
 * Custom fields
 * Flexible template changing system
-* Multiple languages extension (soon)
-* E-Commerce extension (soon)
+* Multiple languages possibility
+
+##Planning additional features
+* E-Commerce extension
 
 
 
@@ -33,12 +38,6 @@ Why it is easy to extend? Because it was written by using best practices and tec
 * Policies
 * Beautiful text editor (TinyMCE)
 * Perfect File Manager (Laravel FileManager)
-
-
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Versioning
 

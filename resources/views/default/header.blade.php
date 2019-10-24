@@ -5,6 +5,9 @@
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 19.07.2019
  */
+
+$author = $page_data->author->name. ' '.$page_data->author->surname;
+
 ?>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -14,7 +17,7 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="{{asset('front/'.env('TEMPLATE_NAME').'/img/fav.png')}}">
     <!-- Author Meta -->
-    <meta name="author" content="colorlib">
+    <meta name="author" content="{{$author}}">
     <!-- Meta Description -->
     <meta name="description" content="">
     <!-- Meta Keyword -->
@@ -22,7 +25,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>Laravella</title>
+    <title>{{$page_data['title']}}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
     <!--
@@ -49,6 +52,7 @@ CSS
 
             <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
                 @php
+
                 $menu_params = [
                     'menu_type' => "list",
                     'menu_class' => "navbar-nav",
@@ -58,6 +62,7 @@ CSS
                     "sublink_class" => "dropdown-item"
                 ];
                 $header_menu = get_menu_data("Header Menu", $menu_params);
+
                 @endphp
                 {!! $header_menu !!}
             </div>

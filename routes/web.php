@@ -16,7 +16,6 @@ Auth::routes();
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('cpanel-logout');
 
 
-
 //CPanel Routes
 Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpanel')->group(function () {
 
@@ -108,13 +107,12 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
 //        Route::post('/new', 'CPanelMediaController@store')->name('cpanel_upload_media');
     });
 
-
-
 });
 
+Route::get('/{slug?}', 'PagesController@index')->name('front_pages');
+Route::get('/posts/{slug}', 'PostsController@index')->name('posts');
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/unathorized', 'Auth\UserPermissionsController@index')->name('unathorized');
+
 
 
 

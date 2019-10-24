@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             PagesTableSeeder::class,
             CPanelCategorySeeder::class,
             CPanelPostsSeeder::class,
+            MenusTableSeeder::class,
         ]);
     }
 }

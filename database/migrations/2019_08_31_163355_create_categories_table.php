@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('title', 50)->unique()->nullable();
             $table->string('slug', 50)->unique();
             $table->integer('parent_category')->nullable();
+            $table->string('template')->default('standart');
             $table->text('description')->nullable();
         });
     }
