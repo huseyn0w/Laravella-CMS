@@ -21,6 +21,10 @@
 
         $users_list = get_authors_list();
 
+        $page_templates = get_page_templates_list();
+
+        $page_slug = $page->slug === "/" ? '' : $page->slug;
+
     @endphp
 
     <form action="{{ route('cpanel_update_page', ['id' => $page->id]) }}" method="POST" enctype="multipart/form-data">
@@ -56,7 +60,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Edit Page</h4>
-                            <p>Page url: <strong><a href="{{env('APP_URL')}}{{ old('slug',$page->slug) }}">{{env('APP_URL')}}{{ old('slug',$page->slug) }}</a></strong></p>
+                            <p>Page url: <strong><a href="{{env('APP_URL')}}{{ old('slug',$page_slug) }}">{{env('APP_URL')}}{{ old('slug',$page_slug) }}</a></strong></p>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -120,6 +124,19 @@
                                         </select>
                                     </div>
                                 </div>
+                                @if(!empty($page_templates) && $page_templates)
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Page Template</label>
+                                            <select name="template" class="form-control">
+                                                <option value="page">Standart</option>
+                                                @foreach($page_templates as $file_name => $template_header)
+                                                    <option value="{{$file_name}}" {{$page->template === $file_name ? 'selected' : null}} >{{$template_header}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                             <button type="submit" class="btn btn-info btn-fill pull-right">Update</button>
                             <div class="clearfix"></div>

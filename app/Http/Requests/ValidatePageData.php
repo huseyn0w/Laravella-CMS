@@ -36,6 +36,7 @@ class ValidatePageData extends FormRequest
             'meta_keywords' => 'string|nullable',
             'meta_description' => 'string|nullable',
             'custom_fields' => 'array',
+            'template' => 'required|string',
             'status' => 'required|numeric',
         ];
 

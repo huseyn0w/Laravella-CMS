@@ -4,6 +4,7 @@
  * File: home.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 21.07.2019
+ * Template Name: "Home Page";
  */
 ?>
 
@@ -13,21 +14,26 @@
 
     @php
 
-        $header_text = isset($custom_fields['header-text']) ? get_field($custom_fields['header-text']) : null;
+        $headline = get_field('headline', $custom_fields);
+        $headline_background = get_field('headline-image', $custom_fields);
+        $about_headline = get_field('about-headline', $custom_fields);
+        $about_description = get_field('about-description', $custom_fields);
+        $about_big_description = get_field('about-big-text', $custom_fields);
+        $authors = get_field('authors', $custom_fields);
 
-        //extract($custom_fields);
+
 
 
     @endphp
 
 <!-- start banner Area -->
-<section class="banner-area relative" id="home" data-parallax="scroll" data-image-src="{{asset('front/'.env('TEMPLATE_NAME').'/img/header-bg.jpg')}}">
+<section class="banner-area relative" id="home" data-parallax="scroll" data-image-src="{{$headline_background}}">
     <div class="overlay-bg overlay"></div>
     <div class="container">
         <div class="row fullscreen">
             <div class="banner-content d-flex align-items-center col-lg-12 col-md-12">
                 <h1>
-                    {!! $header_text  !!}
+                    {!! $headline  !!}
                 </h1>
             </div>
         </div>
@@ -230,50 +236,39 @@
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-70 col-lg-8">
                 <div class="title text-center">
-                    <h1 class="mb-10">About Blogger Team</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
+                    <h1 class="mb-10">{{$about_headline}}</h1>
+                    <p>{{$about_description}}</p>
                 </div>
             </div>
         </div>
         <div class="row justify-content-center d-flex align-items-center">
             <div class="col-lg-6 team-left">
-                <p>
-                    inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that.
-                </p>
-                <p>
-                    inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women.
-                </p>
+                {!! $about_big_description  !!}
             </div>
             <div class="col-lg-6 team-right d-flex justify-content-center">
                 <div class="row active-team-carusel">
+                @foreach($authors as $author)
+                    @php
+                        $author_name = get_field('author-name', $author);
+                        $author_image = get_field('author-image', $author);
+                        $author_position = get_field('author-position', $author);
+                        $author_linkedin = get_field('author-linkedin', $author);
+                    @endphp
+
+
                     <div class="single-team">
                         <div class="thumb">
-                            <img class="img-fluid" src="{{asset('front/'.env('TEMPLATE_NAME').'/img/team1.jpg')}}" alt="">
+                            <img class="img-fluid" src="{{$author_image}}" alt="{{$author_name}}">
                             <div class="align-items-center justify-content-center d-flex">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="{{$author_linkedin['url']}}" target="{{$author_linkedin['target'] === "1" ? '_blank' : null}}"><i class="fa fa-linkedin"></i></a>
                             </div>
                         </div>
                         <div class="meta-text mt-30 text-center">
-                            <h4>Dora Walker</h4>
-                            <p>Senior Core Developer</p>
+                            <h4>{{$author_name}}</h4>
+                            <p>{{$author_position}}</p>
                         </div>
                     </div>
-                    <div class="single-team">
-                        <div class="thumb">
-                            <img class="img-fluid" src="{{asset('front/'.env('TEMPLATE_NAME').'/img/team2.jpg')}}" alt="">
-                            <div class="align-items-center justify-content-center d-flex">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                            </div>
-                        </div>
-                        <div class="meta-text mt-30 text-center">
-                            <h4>Lena Keller</h4>
-                            <p>Creative Content Developer</p>
-                        </div>
-                    </div>
+                @endforeach
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@ use App\Http\Models\Category;
 use App\Http\Models\Post;
 use App\Http\Models\Page;
 use App\Http\Models\Menu;
-use \App\Http\Controllers\CPanel\CPanelPageController as PagesController;
+use Illuminate\Support\Facades\Storage;
 
 function get_front_templates_array():array
 {
@@ -450,11 +450,56 @@ function get_taxonomy_name()
     return $controller_name;
 }
 
-function get_field($field_key)
+function get_field($field_key, $custom_fields_array)
 {
-    if(!is_array($field_key) || empty($field_key)) return false;
+    if(!is_array($custom_fields_array) || empty($custom_fields_array)) return false;
+
+    if(!isset($custom_fields_array[$field_key]['value'])) return;
 
 
-    return $field_key['value'];
+    return $custom_fields_array[$field_key]['value'];
+
+}
+
+
+function get_page_templates_list()
+{
+    $files  = Storage::disk('views')->files('default/pages');
+    if(empty($files)) return false;
+
+    $final_array = [];
+
+    foreach ($files as $key => $file)
+    {
+        $filename = str_replace("default/pages/", "", $file);
+        $filename = str_replace(".blade.php", "", $filename);
+
+        $file_content  = Storage::disk('views')->get($file);
+        $tokens = token_get_all( $file_content );
+
+        foreach($tokens as $token) {
+            if($token[0] == T_COMMENT || $token[0] == T_DOC_COMMENT) {
+                $comments[$filename] = $token[1];
+            }
+        }
+
+    }
+
+    foreach($comments as $filename => $comment){
+
+        $start_position = strpos($comment, "Template Name:") + 15;
+        $end_position = strpos($comment, ";");
+
+        $string = mb_substr($comment, $start_position, $end_position);
+
+        $string = str_replace('"', "", $string);
+        $string = trim(preg_replace('/\s+/', ' ', $string));
+        $string = str_replace('; */', "", $string);
+
+        $final_array[$filename] = $string;
+    }
+
+
+    return $final_array;
 
 }

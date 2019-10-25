@@ -18,6 +18,7 @@
     @php
 
         $users_list = get_authors_list();
+        $page_templates = get_page_templates_list();
 
 
     @endphp
@@ -104,6 +105,19 @@
                                         </select>
                                     </div>
                                 </div>
+                                @if(!empty($page_templates) && $page_templates)
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Page Template</label>
+                                        <select name="template" class="form-control">
+                                            <option value="page">Standart</option>
+                                        @foreach($page_templates as $file_name => $template_header)
+                                                <option value="{{$file_name}}">{{$template_header}}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                             <button type="submit" class="btn btn-info btn-fill pull-right">Publish</button>
                             <div class="clearfix"></div>

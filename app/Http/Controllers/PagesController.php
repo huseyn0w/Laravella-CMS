@@ -20,15 +20,18 @@ class PagesController extends BaseController
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($page_slug = "/"){
+    public function index($page_slug = "/")
+    {
 
        $page_data = $this->repository->getBy('slug', $page_slug);
 
-       if(empty($page_data->custom_fields)) return view('default/pages/home', compact('page_data'));
+       if(empty($page_data->custom_fields)) return view('default/pages/'.$page_data->template, compact('page_data'));
 
        $custom_fields = json_decode($page_data->custom_fields, true);
 
-       return view('default/pages/home', compact('page_data', 'custom_fields'));
+
+
+       return view('default/pages/'.$page_data->template, compact('page_data', 'custom_fields'));
     }
 
 

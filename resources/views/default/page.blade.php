@@ -1,9 +1,8 @@
 <?php
 /**
  * Laravella CMS
- * File: contacts.blade.php
+ * File: page.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
- * Date: 08.10.2019
- * Template Name: "Contact Page";
+ * Date: 25.10.2019
  */
 ?>
