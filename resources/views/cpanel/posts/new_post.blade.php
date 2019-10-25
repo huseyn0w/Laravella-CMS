@@ -83,6 +83,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('cpanel.core.seo')
                             <div class="clearfix"></div>
                         </div>
                     </div>

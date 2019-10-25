@@ -7,6 +7,12 @@
  */
 
 $author = $page_data->author->name. ' '.$page_data->author->surname;
+$title = $page_data->title;
+
+$meta_description = $page_data->meta_description;
+$meta_keywords = $page_data->meta_keywords;
+
+//extract($page_data);
 
 ?>
 <!DOCTYPE html>
@@ -19,13 +25,13 @@ $author = $page_data->author->name. ' '.$page_data->author->surname;
     <!-- Author Meta -->
     <meta name="author" content="{{$author}}">
     <!-- Meta Description -->
-    <meta name="description" content="">
+    <meta name="description" content="{{$meta_description}}">
     <!-- Meta Keyword -->
-    <meta name="keywords" content="">
+    <meta name="keywords" content="{{$meta_keywords}}">
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>{{$page_data['title']}}</title>
+    <title>{{$title}}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
     <!--

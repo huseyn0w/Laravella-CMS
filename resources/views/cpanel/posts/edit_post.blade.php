@@ -20,6 +20,7 @@
         $users_list = get_authors_list();
         $categories_list = get_post_categories_list();
 
+        $entity =  $post;
 
         $categories_ids = [];
 
@@ -107,6 +108,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('cpanel.core.seo')
                             <div class="clearfix"></div>
                         </div>
                     </div>

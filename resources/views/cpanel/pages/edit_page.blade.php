@@ -17,6 +17,8 @@
 
     @php
 
+        $entity = $page;
+
         $users_list = get_authors_list();
 
     @endphp
@@ -79,6 +81,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('cpanel.core.seo')
                             @include('cpanel.core.custom-fields')
                             <div class="clearfix"></div>
                         </div>
@@ -112,8 +115,8 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" id="user_role" class="form-control">
-                                            <option value="0" {{$page->status === "0" ? 'selected' :null}}>Private</option>
-                                            <option value="1" {{$page->status === "1" ? 'selected' :null}}>Published</option>
+                                            <option value="0" {{$page->status === 0 ? 'selected' :null}}>Private</option>
+                                            <option value="1" {{$page->status === 1 ? 'selected' :null}}>Published</option>
                                         </select>
                                     </div>
                                 </div>

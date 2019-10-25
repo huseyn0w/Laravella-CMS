@@ -18,6 +18,8 @@ class PagesTableSeeder extends Seeder
                 'slug' => '/',
                 'author_id' => 1,
                 'status' => 1,
+                'meta_keywords' => 'page, homepage',
+                'meta_description' => 'This is homepage of CMS Laravella',
                 'created_at' => Carbon::now()
             ],
             [
@@ -25,6 +27,8 @@ class PagesTableSeeder extends Seeder
                 'slug' => 'contact',
                 'author_id' => 1,
                 'status' => 1,
+                'meta_keywords' => 'page, contact',
+                'meta_description' => 'Contact page',
                 'created_at' => Carbon::now()
             ],
         ]);

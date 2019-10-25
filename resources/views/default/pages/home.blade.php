@@ -13,7 +13,10 @@
 
     @php
 
-        $header_text = get_field($custom_fields['header-text']);
+        $header_text = isset($custom_fields['header-text']) ? get_field($custom_fields['header-text']) : null;
+
+        //extract($custom_fields);
+
 
     @endphp
 

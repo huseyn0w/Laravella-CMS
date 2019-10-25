@@ -20,6 +20,8 @@ class CreateCategoriesTable extends Migration
             $table->integer('parent_category')->nullable();
             $table->string('template')->default('standart');
             $table->text('description')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
         });
     }
 

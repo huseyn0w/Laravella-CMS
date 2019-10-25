@@ -104,12 +104,10 @@
                                         </td>
                                         <td>
                                             <span class="user_actions">
+                                            <a href="{{route('cpanel_edit_category', $category->id)}}" target="_blank">Edit</a>
                                             @if($category->id !== 1)
-                                                <a href="{{route('cpanel_edit_category', $category->id)}}" target="_blank">Edit</a>
                                                 <input type="hidden" class="deleted_category_id" value="{{$category->id}}" name="deleted_category_id">
                                                 <button type="button" class="delete_category">Delete</button>
-                                            @else
-                                                -
                                             @endif
                                             </span>
                                         </td>

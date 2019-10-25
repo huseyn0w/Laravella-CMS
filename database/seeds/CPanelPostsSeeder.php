@@ -22,6 +22,8 @@ class CPanelPostsSeeder extends Seeder
                 'dislikes' => 0,
                 'preview' => "Preview of the first post",
                 'content' => "Content of the first post",
+                'meta_keywords' => "post, first post, description of first post",
+                'meta_description' => "First post meta description",
                 'created_at' => Carbon::now()
             ]
         ]);

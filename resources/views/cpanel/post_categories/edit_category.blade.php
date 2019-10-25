@@ -15,6 +15,8 @@
 
     @php
 
+        $entity = $category;
+
         $categories_list = get_post_categories_list();
 
     @endphp
@@ -110,6 +112,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('cpanel.core.seo')
                             <button type="submit" class="btn btn-info btn-fill pull-right">Update</button>
                             <div class="clearfix"></div>
                         </div>

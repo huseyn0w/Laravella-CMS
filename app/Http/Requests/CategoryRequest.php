@@ -31,6 +31,8 @@ class CategoryRequest extends FormRequest
 
         $rules = [
             'description' => 'string|nullable',
+            'meta_description' => 'string|nullable',
+            'meta_keywords' => 'string|nullable'
         ];
 
 

@@ -26,6 +26,8 @@ class CreatePostsTable extends Migration
             $table->mediumText('content')->nullable();
             $table->string('template')->default('standart');
             $table->mediumText('custom_fields')->json()->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

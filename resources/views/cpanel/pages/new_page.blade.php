@@ -65,6 +65,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('cpanel.core.seo')
                             @include('cpanel.core.custom-fields')
                             <div class="clearfix"></div>
                         </div>

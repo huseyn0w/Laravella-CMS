@@ -16,6 +16,8 @@ class CPanelCategorySeeder extends Seeder
                 'title' => "Main parent category",
                 'slug' => "parent_category",
                 'description' => "This is main category",
+                'meta_description' => 'Main parent category',
+                'meta_keywords' => 'main category, category, parent category',
             ]
         ]);
     }

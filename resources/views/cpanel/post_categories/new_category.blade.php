@@ -95,6 +95,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('cpanel.core.seo')
                             <button type="submit" class="btn btn-info btn-fill pull-right">Create</button>
                             <div class="clearfix"></div>
                         </div>
