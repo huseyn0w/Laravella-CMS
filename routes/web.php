@@ -26,7 +26,10 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
         Route::post('/', 'CPanelGeneralSettingController@store')->name('cpanel_update_general_settings');
     });
 
-
+    Route::prefix('site-options')->middleware('manage_general_settings')->group(function(){
+        Route::get('/', 'CPanelSiteOptionsController@index')->name('cpanel_site_options');
+        Route::post('/', 'CPanelSiteOptionsController@store')->name('cpanel_update_site_options');
+    });
 
     Route::prefix('myprofile')->group(function(){
         Route::get('/', 'CPanelUsersController@editUser')->name('cpanel_myprofile');

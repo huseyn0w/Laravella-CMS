@@ -1,0 +1,12 @@
+.footer-area{
+    padding: 50px 0;
+}
+
+.footer-bottom{
+    padding-top: 0;
+    align-items: center;
+}
+
+.footer-bottom p {
+    margin-bottom: 0;
+}

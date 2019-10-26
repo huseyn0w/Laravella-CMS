@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CPanelPostsSeeder::class,
             CPanelPostCategorySeeder::class,
             MenusTableSeeder::class,
+            SiteOptionsTableSeeder::class,
         ]);
     }
 }

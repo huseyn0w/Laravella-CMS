@@ -4,7 +4,6 @@ namespace App\Http\Controllers\CPanel;
 
 use App\Http\Requests\ValidateGeneralSettings;
 use App\Repositories\CPanelGeneralSettingRepository;
-use App\Http\Models\CPanel\CPanelGeneralSettings;
 use Illuminate\Support\Facades\Auth;
 
 class CPanelGeneralSettingController extends CPanelBaseController
@@ -17,7 +16,7 @@ class CPanelGeneralSettingController extends CPanelBaseController
     }
 
 
-    public function index(CPanelGeneralSettings $general_settings)
+    public function index()
     {
         $general_settings = $this->repository->first();
 

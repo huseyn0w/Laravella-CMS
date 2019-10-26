@@ -14,7 +14,6 @@ class CreateGeneralSettingsTable extends Migration
     public function up()
     {
         Schema::create('general_settings', function (Blueprint $table) {
-            $table->bigIncrements('id');
             $table->string('website_name');
             $table->string('tagline', 100);
             $table->string('contact_email');

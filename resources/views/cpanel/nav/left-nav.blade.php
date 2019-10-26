@@ -85,6 +85,14 @@
                         </a>
                     </li>
                     @endif
+                    @if (Auth::user()->can('manage_general_settings', 'App\Http\Models\UserRoles'))
+                        <li>
+                            <a class="nav-link sub-nav-link" href="{{route('cpanel_site_options')}}">
+                                <i class="nc-icon nc-preferences-circle-rotate"></i>
+                                <p>Site options</p>
+                            </a>
+                        </li>
+                    @endif
                     @if (Auth::user()->can('manage_menus', 'App\Http\Models\UserRoles'))
                     <li>
                         <a class="nav-link sub-nav-link" href="{{route('cpanel_menu_list')}}">

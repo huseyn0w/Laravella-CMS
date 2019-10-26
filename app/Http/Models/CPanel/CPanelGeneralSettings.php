@@ -8,6 +8,11 @@ class CPanelGeneralSettings extends Model
 {
     protected $table = 'general_settings';
 
+    protected $primaryKey = null;
+
+    public $incrementing = false;
+
+
     public $timestamps = false;
 
     protected $fillable = [

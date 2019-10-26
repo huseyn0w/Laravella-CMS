@@ -13,6 +13,7 @@ use App\Http\Models\Category;
 use App\Http\Models\Post;
 use App\Http\Models\Page;
 use App\Http\Models\Menu;
+use App\Http\Models\CPanel\CPanelSiteOptions;
 use Illuminate\Support\Facades\Storage;
 
 function get_front_templates_array():array
@@ -502,4 +503,22 @@ function get_page_templates_list()
 
     return $final_array;
 
+}
+
+
+function get_site_options($key = null)
+{
+
+    $data = null;
+    if(is_null($key))
+    {
+        $data = CPanelSiteOptions::first();
+    }
+    else{
+        $collection = CPanelSiteOptions::all($key);
+        $data = $collection[0]->$key;
+    }
+
+
+    return $data;
 }

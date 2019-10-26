@@ -42,37 +42,6 @@
 <!-- End banner Area -->
 
 
-<!-- Start category Area -->
-<section class="category-area section-gap" id="news">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-70 col-lg-8">
-                <div class="title text-center">
-                    <h1 class="mb-10">Latest News from all categories</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua.</p>
-                </div>
-            </div>
-        </div>
-        <div class="active-cat-carusel">
-            <div class="item single-cat">
-                <img src="{{asset('front/'.env('TEMPLATE_NAME').'/img/c1.jpg')}}" alt="">
-                <p class="date">10 Jan 2018</p>
-                <h4><a href="#">It S Hurricane Season Visiting Hilton</a></h4>
-            </div>
-            <div class="item single-cat">
-                <img src="{{asset('front/'.env('TEMPLATE_NAME').'/img/c2.jpg')}}" alt="">
-                <p class="date">10 Jan 2018</p>
-                <h4><a href="#">What Makes A Hotel Boutique</a></h4>
-            </div>
-            <div class="item single-cat">
-                <img src="{{asset('front/'.env('TEMPLATE_NAME').'/img/c3.jpg')}}" alt="">
-                <p class="date">10 Jan 2018</p>
-                <h4><a href="#">Les Houches The Hidden Gem Valley</a></h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End category Area -->
 
 <!-- Start travel Area -->
 <section class="travel-area section-gap" id="travel">
@@ -160,75 +129,6 @@
 </section>
 <!-- End travel Area -->
 
-<!-- Start fashion Area -->
-<section class="fashion-area section-gap" id="fashion">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-70 col-lg-8">
-                <div class="title text-center">
-                    <h1 class="mb-10">Fashion News This Week</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 single-fashion">
-                <img class="img-fluid" src="{{asset('front/'.env('TEMPLATE_NAME').'/img/f1.jpg')}}" alt="">
-                <p class="date">10 Jan 2018</p>
-                <h4><a href="#">Addiction When Gambling
-                        Becomes A Problem</a></h4>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 single-fashion">
-                <img class="img-fluid" src="{{asset('front/'.env('TEMPLATE_NAME').'/img/f2.jpg')}}" alt="">
-                <p class="date">10 Jan 2018</p>
-                <h4><a href="#">Addiction When Gambling
-                        Becomes A Problem</a></h4>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 single-fashion">
-                <img class="img-fluid" src="{{asset('front/'.env('TEMPLATE_NAME').'/img/f3.jpg')}}" alt="">
-                <p class="date">10 Jan 2018</p>
-                <h4><a href="#">Addiction When Gambling
-                        Becomes A Problem</a></h4>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 single-fashion">
-                <img class="img-fluid" src="{{asset('front/'.env('TEMPLATE_NAME').'/img/f4.jpg')}}" alt="">
-                <p class="date">10 Jan 2018</p>
-                <h4><a href="#">Addiction When Gambling
-                        Becomes A Problem</a></h4>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-            <a href="#" class="primary-btn load-more pbtn-2 text-uppercase mx-auto mt-60">Load More </a>
-        </div>
-    </div>
-</section>
-<!-- End fashion Area -->
 
 <!-- Start team Area -->
 <section class="team-area section-gap" id="team">

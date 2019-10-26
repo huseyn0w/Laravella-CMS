@@ -14,6 +14,10 @@ $meta_keywords = $page_data->meta_keywords;
 
 //extract($page_data);
 
+$logo_url = get_site_options('logo_url');
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -42,6 +46,7 @@ CSS
     <link rel="stylesheet" href="{{asset('front/'.env('TEMPLATE_NAME').'/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('front/'.env('TEMPLATE_NAME').'/css/owl.carousel.css')}}">
     <link rel="stylesheet" href="{{asset('front/'.env('TEMPLATE_NAME').'/css/main.css')}}">
+    <link rel="stylesheet" href="{{asset('front/'.env('TEMPLATE_NAME').'/css/custom.css')}}">
 </head>
 <body>
 
@@ -50,7 +55,7 @@ CSS
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img src="{{asset('front/'.env('TEMPLATE_NAME').'/img/logo.png')}}" alt="">
+                <img src="{{$logo_url}}" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
