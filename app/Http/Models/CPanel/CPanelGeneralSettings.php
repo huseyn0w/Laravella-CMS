@@ -19,6 +19,7 @@ class CPanelGeneralSettings extends Model
         'website_name',
         'tagline',
         'contact_email',
+        'posts_per_page',
         'membership',
         'active_template_name'
     ];

@@ -36,6 +36,7 @@ $github_url = $site_options->github_url;
 <script src="{{asset('front/'.env('TEMPLATE_NAME').'/js/owl.carousel.min.js')}}"></script>
 <script src="{{asset('front/'.env('TEMPLATE_NAME').'/js/jquery.sticky.js')}}"></script>
 <script src="{{asset('front/'.env('TEMPLATE_NAME').'/js/jquery.magnific-popup.min.js')}}"></script>
+@stack('extrascripts')
 <script src="{{asset('front/'.env('TEMPLATE_NAME').'/js/main.js')}}"></script>
 </body>
 </html>

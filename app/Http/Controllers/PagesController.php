@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\Page;
+use App\Mail\ContactMail;
 use App\Repositories\PageRepository;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\ContactMail as ContactRequest;
+
 
 class PagesController extends BaseController
 {
@@ -15,24 +17,36 @@ class PagesController extends BaseController
     }
 
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index($page_slug = "/")
     {
 
-       $page_data = $this->repository->getBy('slug', $page_slug);
+       $data = $this->repository->getBy('slug', $page_slug);
 
-       if(empty($page_data->custom_fields)) return view('default/pages/'.$page_data->template, compact('page_data'));
+       if(empty($data->custom_fields)) return view('default/pages/'.$data->template, compact('data'));
 
-       $custom_fields = json_decode($page_data->custom_fields, true);
+       $custom_fields = json_decode($data->custom_fields, true);
 
 
 
-       return view('default/pages/'.$page_data->template, compact('page_data', 'custom_fields'));
+       return view('default/pages/'.$data->template, compact('data', 'custom_fields'));
     }
+
+
+    public function sendMail(ContactRequest $request)
+    {
+        $data = array(
+            'first_name'      =>  $request->first_name,
+            'last_name'      =>  $request->last_name,
+            'subject'      =>  $request->subject,
+            'email'      =>  $request->email,
+            'message'   =>   $request->message
+        );
+
+        Mail::to('thehuseyn0w@gmail.com')->send(new ContactMail($data));
+
+        return back()->with('success', 'Your message has been sent! We will get back to you soon, thank you!');
+    }
+
 
 
 

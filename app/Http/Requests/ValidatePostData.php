@@ -36,7 +36,8 @@ class ValidatePostData extends FormRequest
             'meta_keywords' => 'string|nullable',
             'meta_description' => 'string|nullable',
             'category' => 'required|array',
-            'custom_fields' => 'array',
+            'likes'    => 'integer',
+            'thumbnail' => 'url',
             'status' => 'required|numeric',
         ];
 

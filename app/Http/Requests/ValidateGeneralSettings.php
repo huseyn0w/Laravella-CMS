@@ -37,6 +37,7 @@ class ValidateGeneralSettings extends FormRequest
         return [
             'website_name' => 'required|string',
             'tagline' => 'required|string',
+            'posts_per_page' => 'required|integer',
             'contact_email' => 'required|email',
             'active_template' => 'string',
         ];

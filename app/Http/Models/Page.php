@@ -13,6 +13,8 @@ class Page extends Model
         'status',
         'content',
         'custom_fields',
+        'meta_keywords',
+        'meta_description',
         'created_at'
     ];
 

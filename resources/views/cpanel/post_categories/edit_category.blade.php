@@ -88,7 +88,7 @@
                                             <option value="">No</option>
                                             @foreach($categories_list as $category_item)
                                                 @if($category_item->id === $category->id) @continue @endif
-                                                <option value="{{$category_item->id}}" {{$category_item->id === $category->parent_category ? 'selected': null}}>{{$category_item->name}}</option>
+                                                <option value="{{$category_item->id}}" {{$category_item->id === $category->parent_category ? 'selected': null}}>{{$category_item->title}}</option>
                                             @endforeach
                                         </select>
                                         <div class="field-desc">

@@ -14,6 +14,7 @@ use App\Http\Models\Post;
 use App\Http\Models\Page;
 use App\Http\Models\Menu;
 use App\Http\Models\CPanel\CPanelSiteOptions;
+use App\Http\Models\CPanel\CPanelGeneralSettings;
 use Illuminate\Support\Facades\Storage;
 
 function get_front_templates_array():array
@@ -32,6 +33,14 @@ function get_front_templates_array():array
 
     return $folders_array;
 }
+
+function is_logged_in():bool
+{
+    if(\Auth::check()) return true;
+
+    return false;
+}
+
 
 function get_user_roles():object
 {
@@ -522,3 +531,110 @@ function get_site_options($key = null)
 
     return $data;
 }
+
+function get_general_settings($key = null)
+{
+
+    $data = null;
+    if(is_null($key))
+    {
+        $data = CPanelGeneralSettings::first();
+    }
+    else{
+        $collection = CPanelGeneralSettings::all($key);
+        $data = $collection[0]->$key;
+    }
+
+
+    return $data;
+}
+
+function get_data(int $id, string $entity, $fields = [])
+{
+
+    if(empty($fields))
+    {
+        switch ($entity){
+            case 'page':
+                $data = Page::where('id', $id)->first();
+                break;
+            case 'post':
+                $data = Post::where('id', $id)->first();
+                break;
+            case 'category':
+                $data = Category::where('id', $id)->first();
+                break;
+            default:
+                break;
+        }
+    }
+    else
+    {
+        switch ($entity){
+            case 'page':
+                $data = Page::select($fields)->where('id', $id)->first();
+                break;
+            case 'post':
+                $data = Post::select($fields)->where('id', $id)->first();
+                break;
+            case 'category':
+                $data = Category::select($fields)->where('id', $id)->first();
+                break;
+            default:
+                break;
+        }
+    }
+
+    return $data;
+
+}
+
+
+function get_category_posts(array $args, $page =1)
+{
+    if(!is_array($args) || empty($args['id'])) return false;
+
+
+    if(!empty($args['id'])){
+        $id = $args['id'];
+
+        if(!empty($args['fields'])){
+            $fields = $args['fields'];
+        }
+
+
+        if(isset($args['count'])){
+            $count = (int) $args['count'];
+        }
+        else{
+            $count = get_general_settings('posts_per_page');
+        }
+
+
+        $data = Post::select($fields)
+            ->with('categories')
+            ->whereHas('categories', function($query) use($id) {
+                $query->select('category_id');
+                $query->where('category_id',$id);
+            })->paginate($count);
+
+
+        return $data;
+    }
+
+    return false;
+
+}
+
+function get_category_posts_count(int $category_id)
+{
+    if(!$category_id) return false;
+
+    $data = Category::select('id')->with('posts:title')->where('id', $category_id)->get();
+
+    $count = count($data[0]->posts);
+
+    return $count;
+}
+
+

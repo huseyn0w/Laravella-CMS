@@ -131,6 +131,21 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="custom_input_image">Post thumbnail</label>
+                                        <span class="input-group-btn">
+                                          <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary choose-image">
+                                            <i class="fa fa-picture-o"></i> Choose image
+                                          </a>
+                                        </span>
+                                        <input id="thumbnail" class="form-control" type="hidden" name="thumbnail" value="{{ old('thumbnail') }}">
+                                        <div class="post-thumbnail" style="display:none;">
+                                            <button type="button" class="remove_thumbnail">X</button>
+                                            <img src="{{ old('logo_url') }}" id="post-thumbnail" alt="Post Thumbnail">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-info btn-fill pull-right">Publish</button>
                             <div class="clearfix"></div>
@@ -149,5 +164,10 @@
     <script src="{{asset('admin')}}/js/i18n/datepicker.en.js"></script>
 @endpush
 @push('finalscripts')
+    <script src="{{asset('')}}/vendor/laravel-filemanager/js/lfm.js"></script>
     <script src="{{asset('admin')}}/js/post.js"></script>
+    <script>
+        var site_url = "<?php echo env('APP_URL'); ?>";
+    </script>
+    <script src="{{asset('admin')}}/js/thumbnail.js"></script>
 @endpush

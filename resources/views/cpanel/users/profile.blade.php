@@ -216,24 +216,20 @@
                         <img src="{{asset('admin')}}/img/avatar-bg.jpg" alt="...">
                     </div>
                     <div class="card-body">
-                        <div class="author uploader">
+                        <div class="author">
                             <span class="user-avatar">
-                                    <input id="file-upload" class type="file" name="avatar" accept="image/*" />
                                 @if(!empty($user->avatar))
-                                    <img id="file-image" class="avatar border-gray" src="{{env('APP_URL')}}uploads/avatars/{{$user->id}}/{{$user->avatar}}" type="file" name="fileUpload" accept="image/*" />
+                                    <img id="file-image" class="avatar border-gray" src="{{$user->avatar}}" alt="User profile" />
                                 @else
                                     <img id="file-image" class="avatar border-gray" src="{{asset('admin')}}/img/faces/noavatar.svg" type="file" name="fileUpload" accept="image/*" />
                                 @endif
-                                <label for="file-upload" id="file-drag">
-                                        Edit
-                                        <div id="start">
-                                          <div id="notimage" class="hidden">Please select an image</div>
-                                        </div>
-                                        <div id="response" class="hidden">
-                                          <div id="messages"></div>
-                                        </div>
-                                      </label>
+                                <span class="input-group-btn">
+                                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary choose-image">
+                                    Edit
+                                  </a>
                                 </span>
+                                <input id="file-upload" value="{{old('avatar', $user->avatar)}}" class type="hidden" name="avatar" />
+                            </span>
                             <h5 class="title">{{$user->name}} {{$user->surname}}</h5>
                             <p class="description">
                                 {{$user->username}}
@@ -285,9 +281,13 @@
 @endsection
 
 @push('extrascripts')
-<script src="{{asset('admin')}}/js/userprofile.js"></script>
+    <script src="{{asset('')}}/vendor/laravel-filemanager/js/lfm.js"></script>
 @endpush
 
 @push('finalscripts')
     <script src="{{asset('admin')}}/js/user.js"></script>
+    <script>
+        var site_url = "<?php echo env('APP_URL'); ?>";
+    </script>
+    <script src="{{asset('admin')}}/js/thumbnail.js"></script>
 @endpush

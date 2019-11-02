@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
                     'country' => "AZ",
                     'role_id' => 1,
                     'gender'  => "male",
+                    'avatar'  => 'http://laravella.loc/filemanager/images/5dbb536d16ce8.jpg',
                     'about_me' => "Founder of CMS Laravella",
                     'linkedin_url' => "https://linkedin.com/in/huseyn0w",
                     'password' => bcrypt('elman123'),
@@ -37,6 +38,7 @@ class UsersTableSeeder extends Seeder
                     'role_id' => 1,
                     'gender'  => "male",
                     'about_me' => "Contributor of CMS Laravella",
+                    'avatar'  => 'http://laravella.loc/filemanager/images/5db367b4093af.jpg',
                     'linkedin_url' => "https://www.linkedin.com/in/ilkin-alibayli/",
                     'password' => bcrypt('ilkin123'),
                 ]

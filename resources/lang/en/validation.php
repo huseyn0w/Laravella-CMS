@@ -144,7 +144,7 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
-
+    'recaptcha'=>'Please ensure that you are a human!',
     'attributes' => [],
 
 ];

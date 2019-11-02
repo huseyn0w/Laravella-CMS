@@ -54,7 +54,7 @@ inappropriate behavior is often laughed off as “boys will be boys,” women fa
                                 array (
                                     'author-image' =>
                                         array (
-                                            'value' => 'http://laravella.loc/filemanager/images/5d6a6e268e72c.jpg',
+                                            'value' => 'http://laravella.loc/filemanager/images/5dbb536d16ce8.JPG',
                                             'type' => 'image',
                                             'admin_label' => 'Author Image',
                                         ),
@@ -137,7 +137,7 @@ inappropriate behavior is often laughed off as “boys will be boys,” women fa
                 'status' => 1,
                 'meta_keywords' => 'page, contact',
                 'meta_description' => 'Contact page',
-                'template' => 'contact',
+                'template' => 'contacts',
                 'custom_fields' => json_encode([]),
                 'created_at' => Carbon::now()
             ],

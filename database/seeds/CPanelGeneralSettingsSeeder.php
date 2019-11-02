@@ -15,6 +15,7 @@ class CPanelGeneralSettingsSeeder extends Seeder
             'website_name' => "Laravella CMS",
             'tagline' => "Build your project on Laravella CMS and take an advantage of it",
             'contact_email' => 'thehuseyn0w@gmail.com',
+            'posts_per_page' => 10,
             'membership' => '1',
             'active_template_name' => 'default',
         ]);

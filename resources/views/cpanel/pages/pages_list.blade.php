@@ -110,7 +110,7 @@
 
                                         </td>
                                         <td>{{$page->author->username}}</td>
-                                        <td>{{$page->created_at}}</td>
+                                        <td>{{$page->created_at->format('d.m.Y')}}</td>
                                         <td>{{$page->status == 1 ? 'published' : 'private'}}</td>
                                     </tr>
                                 @empty

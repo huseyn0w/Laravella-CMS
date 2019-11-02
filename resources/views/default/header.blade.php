@@ -6,11 +6,14 @@
  * Date: 19.07.2019
  */
 
-$author = $page_data->author->name. ' '.$page_data->author->surname;
-$title = $page_data->title;
+if(isset($data->author)):
+$author = $data->author->name. ' '.$data->author->surname;
+endif;
 
-$meta_description = $page_data->meta_description;
-$meta_keywords = $page_data->meta_keywords;
+$title = $data->title;
+
+$meta_description = $data->meta_description;
+$meta_keywords = $data->meta_keywords;
 
 //extract($page_data);
 
@@ -20,14 +23,21 @@ $logo_url = get_site_options('logo_url');
 
 ?>
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="no-js">
 <head>
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="{{asset('front/'.env('TEMPLATE_NAME').'/img/fav.png')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('front/'.env('TEMPLATE_NAME').'/img/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('front/'.env('TEMPLATE_NAME').'/img/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('front/'.env('TEMPLATE_NAME').'/img/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{asset('front/'.env('TEMPLATE_NAME').'site.webmanifest')}}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+@if(isset($data->author))
     <!-- Author Meta -->
     <meta name="author" content="{{$author}}">
+    @endif
     <!-- Meta Description -->
     <meta name="description" content="{{$meta_description}}">
     <!-- Meta Keyword -->
@@ -54,7 +64,7 @@ CSS
 <header class="default-header">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{env('APP_URL')}}">
                 <img src="{{$logo_url}}" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

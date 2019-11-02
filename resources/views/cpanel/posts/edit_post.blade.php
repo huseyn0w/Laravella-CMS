@@ -120,7 +120,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Category</label>
-                                        <select name="category[]" multiple class="form-control category_list" id="post_category">
+                                        <select name="category[]" multiple class="form-control category_list multiple_list" id="post_category">
                                             @foreach($categories_list as $category)
                                                 <option value="{{$category->id}}" {{in_array($category->id, $categories_ids) ? 'selected': null}} >{{$category->title}}</option>
                                             @endforeach
@@ -156,6 +156,21 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="custom_input_image">Post thumbnail</label>
+                                        <span class="input-group-btn">
+                                          <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary choose-image">
+                                            <i class="fa fa-picture-o"></i> Choose image
+                                          </a>
+                                        </span>
+                                        <input id="thumbnail" class="form-control" type="hidden" name="thumbnail" value="{{ old('thumbnail', $post->thumbnail) }}">
+                                        <div class="post-thumbnail" {{ empty($post->thumbnail) ? "style=display:none;" : null}}>
+                                            <button type="button" class="remove_thumbnail">X</button>
+                                            <img src="{{ old('logo_url', $post->thumbnail) }}" id="post-thumbnail" alt="Post Thumbnail">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-info btn-fill pull-right">Update</button>
                             <div class="clearfix"></div>
@@ -175,5 +190,10 @@
 @endpush
 
 @push('finalscripts')
+    <script src="{{asset('')}}/vendor/laravel-filemanager/js/lfm.js"></script>
     <script src="{{asset('admin')}}/js/post.js"></script>
+    <script>
+        var site_url = "<?php echo env('APP_URL'); ?>";
+    </script>
+    <script src="{{asset('admin')}}/js/thumbnail.js"></script>
 @endpush

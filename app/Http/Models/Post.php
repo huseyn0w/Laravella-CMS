@@ -20,6 +20,7 @@ class Post extends Model
         'dislikes',
         'preview',
         'content',
+        'thumbnail',
         'custom_fields'
     ];
 
@@ -30,6 +31,6 @@ class Post extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class,'category_post');
     }
 }

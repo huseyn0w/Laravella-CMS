@@ -55,9 +55,9 @@ class ValidateUserSettings extends FormRequest
             'xing_url'                      => 'nullable|url',
             'role_id'                       => 'numeric',
             'gender'                        => 'nullable|in:male,female',
-            'avatar'                        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'password'                      => 'sometimes|nullable|min:6|same:password_confirmation',
-            'password_confirmation'         => 'sometimes|nullable|min:6',
+            'avatar'                        => 'nullable|string',
+            'password'                      => 'sometimes|nullable|min:8|same:password_confirmation',
+            'password_confirmation'         => 'sometimes|nullable|min:8',
         ];
 
         if($route_name === "cpanel_update_user_profile")
@@ -76,24 +76,15 @@ class ValidateUserSettings extends FormRequest
                 Rule::unique('users')->ignore($userId)
             ];
 
-            $password = 'nullable|min:6|same:password_confirmation';
-            $password_confirmation = 'nullable|min:6|same:password_confirmation';
-
-
-            $rules['avatar'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
         }
         else
         {
-            $password = 'required|min:6|same:password_confirmation';
-            $password_confirmation = 'required|min:6';
             $email =    'email|required|max:100|unique:users';
             $username = 'string|min:5|max:20|unique:users';
         }
 
         $rules['email'] = $email;
         $rules['username'] = $username;
-        $rules['password'] = $password;
-        $rules['password_confirmation'] = $password_confirmation;
 
         return $rules;
     }

@@ -69,15 +69,11 @@ class CPanelUserRepository extends BaseRepository
             $newData = $updatedRequest->except(["_token", "_method", "password_confirmation"]);
             $newData['password'] = bcrypt($updatedRequest->password);
 
-            if(is_null($updatedRequest->password)){
+            if(empty($updatedRequest->password)){
                 $newData = $updatedRequest->except(["_token", "_method", "password", "password_confirmation"]);
-                unset($newData['password']);
             }
 
 
-            if($updatedRequest->hasFile('avatar')){
-                $newData['avatar'] = $this->getImageName($updatedRequest, $id);
-            }
 
 
             $this->model::where('id', $id)->update($newData);

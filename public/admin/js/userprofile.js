@@ -80,4 +80,4 @@ function ekUpload(){
         document.getElementById('file-drag').style.display = 'none';
     }
 }
-ekUpload();
+//ekUpload();

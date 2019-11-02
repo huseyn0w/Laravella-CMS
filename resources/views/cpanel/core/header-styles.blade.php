@@ -7,8 +7,10 @@
  */
 ?>
 <meta charset="utf-8" />
-<link rel="apple-touch-icon" sizes="76x76" href="{{asset('admin')}}/img/apple-icon.png">
-<link rel="icon" type="image/png" href="{{asset('admin')}}/img/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="{{asset('front/'.env('TEMPLATE_NAME').'/img/apple-touch-icon.png')}}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{asset('front/'.env('TEMPLATE_NAME').'/img/favicon-32x32.png')}}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{asset('front/'.env('TEMPLATE_NAME').'/img/favicon-16x16.png')}}">
+<link rel="manifest" href="{{asset('front/'.env('TEMPLATE_NAME').'site.webmanifest')}}">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Laravella CMS Control Panel Area</title>
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />

@@ -17,6 +17,20 @@
           //set or change the preview image src
           var target_preview = $('#' + localStorage.getItem('target_preview'));
           target_preview.attr('src', url).trigger('change');
+
+
+          if($(".post-thumbnail").length > 0){
+
+              $("#post-thumbnail").attr('src', url).show(100, function(){
+                  $(".post-thumbnail").fadeIn();
+              });
+
+          }
+
+          if($("#file-image").length > 0){
+              $("#file-image").attr('src', url);
+              $("#file-upload").val(url);
+          }
       };
       return false;
     });

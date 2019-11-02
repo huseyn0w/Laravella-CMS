@@ -24,8 +24,8 @@ class CreatePagesTable extends Migration
             $table->mediumText('content')->nullable();
             $table->mediumText('custom_fields')->json()->nullable();
             $table->string('template')->default('page');
-            $table->string('meta_description')->nullable();
-            $table->string('meta_keywords')->nullable();
+            $table->string('meta_description');
+            $table->string('meta_keywords');
             $table->timestamps();
 
         });

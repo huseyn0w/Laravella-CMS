@@ -110,9 +110,8 @@
                                     <div class="form-group">
                                         <label>Page Template</label>
                                         <select name="template" class="form-control">
-                                            <option value="page">Standart</option>
                                         @foreach($page_templates as $file_name => $template_header)
-                                                <option value="{{$file_name}}">{{$template_header}}</option>
+                                                <option value="{{$file_name}}" {{$file_name === 'page' ? 'selected' : null}}>{{$template_header}}</option>
                                         @endforeach
                                         </select>
                                     </div>

@@ -26,6 +26,29 @@ ul,ol .sidebar .nav li .nav-link.sub-nav-link{
     margin-bottom: 0;
 }
 
+.post-thumbnail{
+    position: relative;
+}
+button.remove_thumbnail {
+    cursor: pointer;
+    height: 25px;
+    background-color: rgba(0,0,0,.5);
+    display: block;
+    border-radius: 50%;
+    font-size: 12px;
+    border: 0;
+    width: 25px;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    outline: 0;
+    position: absolute;
+}
+
+#post-thumbnail{
+    max-width: 100%;
+    height:auto;
+}
 .btn{
     cursor: pointer;
 }

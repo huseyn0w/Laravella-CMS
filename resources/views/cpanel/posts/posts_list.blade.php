@@ -163,7 +163,7 @@ $route_name = Route::current()->getName();
 
                                         </td>
                                         <td>{{$post->author->username}}</td>
-                                        <td>{{$post->created_at}}</td>
+                                        <td>{{$post->created_at->format('d.m.Y')}}</td>
                                         <td>{{$post->status == 1 ? 'published' : 'private'}}</td>
                                     </tr>
                                 @empty

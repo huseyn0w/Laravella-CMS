@@ -62,6 +62,9 @@ class CPanelPostRepository extends BaseRepository
         $post->content = clean($request->content);
         $post->author_id = $request->author_id;
         $post->status = $request->status;
+        $post->thumbnail = $request->thumbnail;
+        $post->meta_keywords = $request->meta_keywords;
+        $post->meta_description = $request->meta_description;
         if(isset($post->custom_fields)) $post->custom_fields = json_encode($request->custom_fields);
 
 
@@ -88,6 +91,9 @@ class CPanelPostRepository extends BaseRepository
         $post->content = clean($request->content);
         $post->author_id = $request->author_id;
         $post->status = $request->status;
+        $post->thumbnail = $request->thumbnail;
+        $post->meta_keywords = $request->meta_keywords;
+        $post->meta_description = $request->meta_description;
 
         $categories_list = $request->category;
 

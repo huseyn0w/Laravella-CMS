@@ -2,6 +2,9 @@
     padding: 50px 0;
 }
 
+.thumb img{
+    max-width: 197px;
+}
 .footer-bottom{
     padding-top: 0;
     align-items: center;
@@ -9,4 +12,44 @@
 
 .footer-bottom p {
     margin-bottom: 0;
+}
+
+.generic-banner .height{
+    height: 300px;
+}
+.pagination_cover{
+    text-align: center;
+}
+.pagination{
+    margin-bottom: 60px;
+    justify-content: center;
+}
+
+.contact_form{
+    margin-top: 30px;
+}
+
+.contact_row{
+    margin-bottom: 30px;
+}
+
+.breadcrumbs span{
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.lnr-arrow-right:before {
+    content: "\e87a";
+    position: relative;
+    top: 2px;
+}
+
+.post-thumbnail{
+    text-align: center;
+}
+
+.user-img img{
+    width: 40px;
+    height: 40px;
 }

@@ -114,6 +114,10 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
 
 Route::get('/{slug?}', 'PagesController@index')->name('front_pages');
 Route::get('/posts/{slug}', 'PostsController@index')->name('posts');
+Route::get('/category/{slug}', 'CategoryController@index')->name('categories_first_page');
+Route::get('/category/{slug}/page/{page?}', 'CategoryController@displayPosts')->name('categories_display_pages')->where('page', '[1-9]+[0-9]*');
+
+Route::post('/contact/sendform', 'PagesController@sendMail')->name('sendform');
 
 
 
