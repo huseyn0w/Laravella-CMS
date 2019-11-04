@@ -20,17 +20,29 @@ class CategoryRepository extends BaseRepository
         $this->model = $model;
     }
 
-    public function displayList(int $category_id)
+    public function displayList(int $category_id, int $page = 1)
     {
-        $fields = ['title', 'slug', 'thumbnail', 'preview', 'likes','created_at'];
+        $fields = ['title', 'slug', 'thumbnail', 'preview', 'likes', 'created_at'];
         $count = get_general_settings('posts_per_page');
 
-        $data = Post::select($fields)
-            ->with('categories')
-            ->whereHas('categories', function($query) use($category_id) {
-                $query->select('category_id');
-                $query->where('category_id',$category_id);
-            })->paginate($count);
+        if ($page === 1) {
+            $data = Post::select($fields)
+                ->with('categories')
+                ->whereHas('categories', function($query) use($category_id) {
+                    $query->select('category_id');
+                    $query->where('category_id',$category_id);
+                })->paginate($count);
+        }
+        else
+        {
+            $data = Post::select($fields)
+                ->with('categories')
+                ->whereHas('categories', function($query) use($category_id) {
+                    $query->select('category_id');
+                    $query->where('category_id',$category_id);
+                })->paginate($count, array('*'), 'page', $page);
+        }
+
 
         return $data;
     }

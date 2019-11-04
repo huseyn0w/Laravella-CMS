@@ -16,6 +16,8 @@
 
     $author = $data->author->name .' '.$data->author->surname;
 
+    $post_liked = check_if_post_liked_by_current_user($data->id);
+
 @endphp
 
 @extends(env('TEMPLATE_NAME').'/index')
@@ -68,11 +70,33 @@
                         <div class="single-post-content">
                             {!! $data->content !!}
                         </div>
-                        <div class="bottom-wrapper">
+                        <div class="bottom-wrapper {{$post_liked ? 'post_liked': null}}">
                             <div class="row">
                                 <div class="col-lg-4 single-b-wrap col-md-12">
-                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                    lily and 4 people like this
+                                @if(is_logged_in())
+                                    <span id="like_post">
+                                        @if($post_liked)
+                                            Dislike
+                                        @else
+                                            Like
+                                        @endif
+                                    </span>
+                                @endif
+                                <div id="like_count_cover" data-likes="{{$data->likes}}">
+                                    @if($post_liked)
+                                        @if($data->likes > 1)
+                                            <span id="post-like-content"> You and <span id="post-like-count">{{$data->likes - 1}}</span> people like this</span>
+                                        @else
+                                            <span id="post-like-content">You liked this post</span>
+                                        @endif
+                                    @else
+                                        @if($data->likes > 0)
+                                            <span id="post-like-content"> <span id="post-like-count">{{$data->likes}}</span> people like this</span>
+                                        @else
+                                            <span id="post-like-content">Nobody likes this post yet</span>
+                                        @endif
+                                    @endif
+                                </div>
                                 </div>
                                 <div class="col-lg-4 single-b-wrap col-md-12">
                                     <i class="fa fa-comment-o" aria-hidden="true"></i> 06 comments
@@ -223,3 +247,13 @@
 </div>
 
 @endsection
+
+@push('extrascripts')
+    <script>
+        var handle_url = "<?php echo route('handle_post_likes', ['id' => $data->id]) ?>",
+            post_id = "<?php echo $data->id ?>",
+            user_id = "<?php echo \Auth::user()->id ?>",
+            _token = '{{ csrf_token() }}';
+    </script>
+    <script src="{{asset('front')}}/default/js/like.js"></script>
+@endpush

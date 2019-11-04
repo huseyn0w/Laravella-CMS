@@ -12,10 +12,6 @@
 
     $category_posts = $data->posts;
 
-    $overall_posts_count = get_category_posts_count($data->id);
-
-    $loaded_posts_count = count($category_posts);
-
 
 
 @endphp
@@ -45,7 +41,7 @@
             <div class="row justify-content-center d-flex">
                 <div class="col-lg-12">
                     <div class="post-lists search-list">
-                    @if($loaded_posts_count > 0)
+                    @if(!empty($category_posts))
                         @foreach($category_posts as $post)
                             <div class="single-list flex-row d-flex salam">
                                 <div class="thumb">
@@ -59,13 +55,20 @@
                                     {!! $post->preview !!}
                                     <p class="footer pt-20">
                                         <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                        <span>{{$post->likes}} Likes</span>     <i class="ml-20 fa fa-comment-o" aria-hidden="true"></i> <span>02 Comments</span>
+                                        <span>{{$post->likes}} {{$post->likes > 1 ? "Likes" : "Like"}}</span>     <i class="ml-20 fa fa-comment-o" aria-hidden="true"></i> <span>02 Comments</span>
                                     </p>
                                 </div>
                             </div>
                         @endforeach
                         <div class="pagination_cover">
-                            {{ $category_posts->links() }}
+                            @php
+                                $links = $category_posts->links();
+
+
+                                $paginate_links = pretty_url($links);
+                                echo $paginate_links;
+
+                            @endphp
                         </div>
                     @else
                         <div class="no-posts mb-100">

@@ -17,11 +17,9 @@ class Post extends Model
         'status',
         'created_at',
         'likes',
-        'dislikes',
         'preview',
         'content',
         'thumbnail',
-        'custom_fields'
     ];
 
     public function author()
@@ -32,5 +30,11 @@ class Post extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class,'category_post');
+    }
+
+
+    public function likes()
+    {
+        return $this->belongsTo(Likes::class);
     }
 }

@@ -25,6 +25,22 @@
     justify-content: center;
 }
 
+.post_liked #like_post{
+    color:red;
+}
+
+.team-area .thumb img{
+    max-width: 100%;
+}
+
+#like_post{
+    color:blue;
+    display: block;
+    max-width: 50px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 .contact_form{
     margin-top: 30px;
 }

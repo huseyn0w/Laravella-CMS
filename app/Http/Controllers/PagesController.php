@@ -42,7 +42,11 @@ class PagesController extends BaseController
             'message'   =>   $request->message
         );
 
-        Mail::to('thehuseyn0w@gmail.com')->send(new ContactMail($data));
+        $contact_mail = get_contact_email();
+
+        if(!$contact_mail) $contact_mail = env('CONTACT_EMAIL');
+
+        Mail::to($contact_mail)->send(new ContactMail($data));
 
         return back()->with('success', 'Your message has been sent! We will get back to you soon, thank you!');
     }

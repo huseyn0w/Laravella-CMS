@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if (Auth::user()->can('manage_users', 'App\Http\Models\User'))
+                        @if (Auth::user()->can('manage_users', 'App\Http\Models\UserRoles'))
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">

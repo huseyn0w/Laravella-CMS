@@ -34,6 +34,9 @@ $logo_url = get_site_options('logo_url');
     <link rel="manifest" href="{{asset('front/'.env('TEMPLATE_NAME').'site.webmanifest')}}">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+@if(is_logged_in())
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endif
 @if(isset($data->author))
     <!-- Author Meta -->
     <meta name="author" content="{{$author}}">

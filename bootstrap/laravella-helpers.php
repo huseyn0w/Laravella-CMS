@@ -637,4 +637,34 @@ function get_category_posts_count(int $category_id)
     return $count;
 }
 
+function pretty_url($links)
+{
+    $patterns = '#\?page=#';
 
+    $replacements = '/page/';
+    $one = preg_replace($patterns, $replacements, $links);
+
+
+
+    $pattern2 = '#page/([1-9]+[0-9]*)/page/([1-9]+[0-9]*)#';
+    $replacements2 = 'page/$2';
+    $paginate_links = preg_replace($pattern2, $replacements2, $one);
+
+    return $paginate_links;
+}
+
+function check_if_post_liked_by_current_user($post_id):bool
+{
+    if(!is_logged_in()) return false;
+
+    $result = Auth::user()->likes()->where('post_id', $post_id)->first();
+
+    if(!empty($result)) return true;
+
+    return false;
+}
+
+function get_contact_email():string
+{
+    return get_general_settings('contact_email');
+}

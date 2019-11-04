@@ -13,15 +13,12 @@ class CategoryController extends BaseController
         $this->repository = $repository;
     }
 
-    public function index(string $category_slug,  int $page = 1)
+    public function index(string $category_slug, int $page = 1)
     {
-//        Paginator::setCurrentPage($page);
-//        Paginator::setBaseUrl('categories_list'); // use here route name and not the url
-//        Paginator::setPageName('page');
 
         $data = $this->repository->getBy('slug', $category_slug);
 
-        $data->posts = $this->repository->displayList($data->id);
+        $data->posts = $this->repository->displayList($data->id, $page);
 
         return view('default/categories/category', compact('data'));
     }
