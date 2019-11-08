@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
                 ],
                 [
                     'name' => "Ilkin",
-                    'surname' => "Alibeyli",
+                    'surname' => "Alibayli",
                     'email' => "ilkinalibeyli@gmail.com",
                     'username' => "ilkin007",
                     'city' => "Berlin",

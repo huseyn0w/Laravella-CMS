@@ -37,4 +37,16 @@ class Post extends Model
     {
         return $this->belongsTo(Likes::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comments::class)->whereNull('parent_id')->where('status', 1)->with('user')->with('replies');
+    }
+
+    public function allComments()
+    {
+        return $this->hasMany(Comments::class)->where('status', 1);
+    }
+
+
 }

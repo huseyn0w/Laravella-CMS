@@ -44,7 +44,11 @@
                     <h4 class="card-title">Last 5 comments</h4>
                 </div>
                 <div class="card-body ">
-                    Here will be last 5 comments
+                    @forelse($comments as $comment)
+                        <p>{{$comment->comment}}</p>
+                    @empty
+                        No comments
+                    @endforelse
                 </div>
             </div>
         </div>

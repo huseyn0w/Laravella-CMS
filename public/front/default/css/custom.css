@@ -33,12 +33,45 @@
     max-width: 100%;
 }
 
+.comment-buttons {
+    display: flex;
+    width: 220px;
+    height: 45px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.comment-sec-area .btn-reply.delete-comment{
+    background-color: red;
+    border: 1px solid red;
+}
+
+.comment-sec-area .btn-reply.delete-comment:hover{
+    background-color: #fff;
+    color:red;
+}
+
+.edit-comment,
+.reply-to-comment,
+.update-comment,
+button.close,
+.delete-comment{
+    outline: none !important;
+    cursor: pointer;
+}
+
+
+
 #like_post{
     color:blue;
     display: block;
     max-width: 50px;
     font-weight: 700;
     cursor: pointer;
+}
+
+.thumb.comment-author-thumbnail img{
+    max-width: 62px;
 }
 
 .contact_form{

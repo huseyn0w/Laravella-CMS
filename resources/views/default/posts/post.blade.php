@@ -18,6 +18,12 @@
 
     $post_liked = check_if_post_liked_by_current_user($data->id);
 
+    $post_comments_count = count($data->allComments);
+
+    if(is_logged_in()) $user_id = \Auth()->user()->id;
+
+
+
 @endphp
 
 @extends(env('TEMPLATE_NAME').'/index')
@@ -72,7 +78,7 @@
                         </div>
                         <div class="bottom-wrapper {{$post_liked ? 'post_liked': null}}">
                             <div class="row">
-                                <div class="col-lg-4 single-b-wrap col-md-12">
+                                <div class="col-lg-6 single-b-wrap col-md-12">
                                 @if(is_logged_in())
                                     <span id="like_post">
                                         @if($post_liked)
@@ -82,26 +88,25 @@
                                         @endif
                                     </span>
                                 @endif
+
                                 <div id="like_count_cover" data-likes="{{$data->likes}}">
                                     @if($post_liked)
                                         @if($data->likes > 1)
-                                            <span id="post-like-content"> You and <span id="post-like-count">{{$data->likes - 1}}</span> people like this</span>
+                                            <span id="post-like-content"> You and <span id="post-like-count">{{$data->likes - 1}}</span> people like this post</span>
                                         @else
                                             <span id="post-like-content">You liked this post</span>
                                         @endif
                                     @else
                                         @if($data->likes > 0)
-                                            <span id="post-like-content"> <span id="post-like-count">{{$data->likes}}</span> people like this</span>
+                                            <span id="post-like-content"> <span id="post-like-count">{{$data->likes}}</span> people like this post</span>
                                         @else
                                             <span id="post-like-content">Nobody likes this post yet</span>
                                         @endif
                                     @endif
                                 </div>
+
                                 </div>
-                                <div class="col-lg-4 single-b-wrap col-md-12">
-                                    <i class="fa fa-comment-o" aria-hidden="true"></i> 06 comments
-                                </div>
-                                <div class="col-lg-4 single-b-wrap col-md-12">
+                                <div class="col-lg-6 single-b-wrap col-md-12">
                                     <ul class="social-icons">
                                         <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
@@ -116,126 +121,131 @@
                         <section class="comment-sec-area pt-80 pb-80">
                             <div class="container">
                                 <div class="row flex-column">
-                                    <h5 class="text-uppercase pb-80">05 Comments</h5>
+                                    <h5 class="text-uppercase pb-80">{{$post_comments_count}} Comments</h5>
                                     <br>
+                            @if($post_comments_count > 0)
+                                @foreach($data->comments as $comment)
                                     <div class="comment-list">
                                         <div class="single-comment justify-content-between d-flex">
                                             <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="{{asset('front/'.env('TEMPLATE_NAME'))}}/img/asset/c1.jpg" alt="">
+                                                <div class="thumb comment-author-thumbnail">
+                                                    @if(!empty($comment->user->avatar))
+                                                    <img src="{{$comment->user->avatar}}" alt="{{$comment->user->name}}">
+                                                    @else
+                                                    <img src="{{asset('front/'.env('TEMPLATE_NAME').'/img/noavatar.jpg')}}" alt="{{$comment->user->name}}">
+                                                    @endif
                                                 </div>
                                                 <div class="desc">
-                                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
+                                                    <h5>{{$comment->user->name}}</h5>
+                                                    <p class="date">{{$comment->created_at->format('d.m.Y')}}</p>
                                                     <p class="comment">
-                                                        Never say goodbye till the end comes!
+                                                        {{$comment->comment}}
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="reply-btn">
-                                                <a href="" class="btn-reply text-uppercase">reply</a>
+                                            <div class="reply-btn comment-buttons">
+                                                @if(is_logged_in() && $user_id !== $comment->user->id)
+                                                    <button data-comment_id="{{$comment->id}}" data-username="{{$comment->user->name}}" class="btn-reply reply-to-comment text-uppercase">reply</button>
+                                                @endif
+                                                @if(is_logged_in() && $comment->user->id === $user_id)
+                                                    <button data-comment_id="{{$comment->id}}" data-toggle="modal" data-author="{{$comment->user->id}}" data-target="#editCommentModal" data-comment="{{$comment->comment}}" class="btn-reply edit-comment text-uppercase">edit</button>
+                                                @endif
+                                                @if( (is_logged_in() && \Auth()->user()->role->id == 1) || (is_logged_in() && $comment->user->id === $user_id) )
+                                                    <button data-comment_id="{{$comment->id}}" data-username="{{$comment->user->name}}" class="btn-reply delete-comment text-uppercase">Delete</button>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="comment-list left-padding">
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="{{asset('front/'.env('TEMPLATE_NAME'))}}/img/asset/c2.jpg" alt="">
+                                    @if(count($comment->replies) > 0)
+                                        <div class="comment-replies">
+                                            @foreach($comment->replies as $child_comment)
+                                                <div class="comment-list left-padding">
+                                                    <div class="single-comment justify-content-between d-flex">
+                                                        <div class="user justify-content-between d-flex">
+                                                            <div class="thumb comment-author-thumbnail">
+                                                                <img src="{{$child_comment->user->avatar}}" alt="{{$child_comment->user->name}}">
+                                                            </div>
+                                                            <div class="desc">
+                                                                <h5>{{$child_comment->user->username}}</h5>
+                                                                <p class="date">{{$child_comment->created_at->format('d.m.Y')}}</p>
+                                                                <p class="comment">
+                                                                    {{$child_comment->comment}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="reply-btn comment-buttons">
+                                                            @if(is_logged_in() && $user_id !== $child_comment->user->id)
+                                                                <button data-comment_id="{{$comment->id}}" data-username="{{$child_comment->user->name}}" class="btn-reply reply-to-comment text-uppercase">reply</button>
+                                                            @endif
+                                                            @if(is_logged_in() && $child_comment->user->id === $user_id)
+                                                                <button data-comment_id="{{$child_comment->id}}" data-author="{{$child_comment->user->id}}" data-toggle="modal" data-comment="{{$child_comment->comment}}" data-target="#editCommentModal" class="btn-reply edit-comment text-uppercase">edit</button>
+                                                            @endif
+                                                            @if( (is_logged_in() && \Auth()->user()->role->id == 1) || (is_logged_in() && $child_comment->user_id === $user_id) )
+                                                                <button data-comment_id="{{$child_comment->id}}" data-username="{{$child_comment->user->username}}" class="btn-reply delete-comment text-uppercase">Delete</button>
+                                                            @endif
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="desc">
-                                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                    <p class="comment">
-                                                        Never say goodbye till the end comes!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="" class="btn-reply text-uppercase">reply</a>
-                                            </div>
+                                            @endforeach
                                         </div>
-                                    </div>
-                                    <div class="comment-list left-padding">
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="{{asset('front/'.env('TEMPLATE_NAME'))}}/img/asset/c3.jpg" alt="">
-                                                </div>
-                                                <div class="desc">
-                                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                    <p class="comment">
-                                                        Never say goodbye till the end comes!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="" class="btn-reply text-uppercase">reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="comment-list">
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="{{asset('front/'.env('TEMPLATE_NAME'))}}/img/asset/c4.jpg" alt="">
-                                                </div>
-                                                <div class="desc">
-                                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                    <p class="comment">
-                                                        Never say goodbye till the end comes!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="" class="btn-reply text-uppercase">reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="comment-list">
-                                        <div class="single-comment justify-content-between d-flex">
-                                            <div class="user justify-content-between d-flex">
-                                                <div class="thumb">
-                                                    <img src="{{asset('front/'.env('TEMPLATE_NAME'))}}/img/asset/c5.jpg" alt="">
-                                                </div>
-                                                <div class="desc">
-                                                    <h5><a href="#">Emilly Blunt</a></h5>
-                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                                    <p class="comment">
-                                                        Never say goodbye till the end comes!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="" class="btn-reply text-uppercase">reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endif
+                                @endforeach
+                                {{ $data->comments->links() }}
+                            @else
+                                    <h3>No comments for this post</h3>
+                            @endif
                                 </div>
                             </div>
                         </section>
                         <!-- End comment-sec Area -->
 
-                        <!-- Start commentform Area -->
-                        <section class="commentform-area  pb-120 pt-80 mb-100">
-                            <div class="container">
-                                <h5 class="text-uppercas pb-50">Leave a Reply</h5>
-                                <div class="row flex-row d-flex">
-                                    <div class="col-lg-6">
-                                        <input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text">
-                                        <input name="email" placeholder="Enter your email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your email'" class="common-input mb-20 form-control" required="" type="email">
-                                        <input name="Subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your Subject'" class="common-input mb-20 form-control" required="" type="text">
 
+
+                        <!-- Start commentform Area -->
+                        <section class="commentform-area  pb-120 pt-80 mb-100" id="comment-area">
+                            <div class="container">
+                            @auth
+                                <h5 class="text-uppercas pb-50">Leave a Reply</h5>
+                                <form action="{{route('store_post_comments', ['id' => $data->id])}}" method="POST">
+                                    @csrf
+                                    <div class="row flex-row d-flex">
+                                        @if ($errors->any())
+                                            <div class="col-12">
+                                                <div class="alert alert-danger">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if ($update_message = Session::get('comment_added'))
+                                            <div class="col-12">
+                                                <div class="alert alert-success">
+                                                @if (Auth::user()->can('manage_comments', 'App\Http\Models\UserRoles'))
+                                                    <strong>Comment has been added.</strong>
+                                                @else
+                                                    <strong>Comment has been send for the approval</strong>
+                                                @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="col-12">
+                                            <textarea id="comment-field" class="form-control mb-10" name="comment" rows="10" placeholder="Comment" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Comment'" required=""></textarea>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <textarea class="form-control mb-10" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
-                                        <a class="primary-btn mt-20" href="#">Comment</a>
-                                    </div>
-                                </div>
+                                    <input type="hidden" name="parent_id" id="comment_parent_id" value="">
+                                    <input type="hidden" name="post_id" value="{{$data->id}}">
+                                    {!! app('captcha')->render(); !!}
+                                    <button type="submit" class="primary-btn mt-20">Comment</button>
+                                </form>
+                            @else
+                                <h5 class="text-uppercas pb-50">Please register/log in to leave a reply</h5>
+                            @endauth
                             </div>
                         </section>
+
                         <!-- End commentform Area -->
 
                     </div>
@@ -246,14 +256,23 @@
     <!-- End post Area -->
 </div>
 
+
+@auth
+    @include('default.posts.modal')
+@endauth
+
 @endsection
 
-@push('extrascripts')
-    <script>
-        var handle_url = "<?php echo route('handle_post_likes', ['id' => $data->id]) ?>",
+@auth
+    @push('extrascripts')
+        <script>
+        var handle_url_likes = "<?php echo route('handle_post_likes', ['id' => $data->id]) ?>",
+            handle_url_comments = "<?php echo route('delete_post_comments', ['id' => $data->id]) ?>",
             post_id = "<?php echo $data->id ?>",
             user_id = "<?php echo \Auth::user()->id ?>",
             _token = '{{ csrf_token() }}';
-    </script>
-    <script src="{{asset('front')}}/default/js/like.js"></script>
-@endpush
+        </script>
+        <script src="{{asset('front')}}/default/js/like.js"></script>
+        <script src="{{asset('front')}}/default/js/comment.js"></script>
+    @endpush
+@endauth

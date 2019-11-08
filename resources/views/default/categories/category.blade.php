@@ -14,6 +14,7 @@
 
 
 
+
 @endphp
 
 @extends(env('TEMPLATE_NAME').'/index')
@@ -43,19 +44,25 @@
                     <div class="post-lists search-list">
                     @if(!empty($category_posts))
                         @foreach($category_posts as $post)
+                            @php
+                                $comments_count = get_post_comments_count($post->id);
+                                $post_thumbnail = $post->thumbnail;
+
+                                if(!$post_thumbnail) $post_thumbnail = asset('front/'.env('TEMPLATE_NAME').'/img/asset/l2.jpg');
+                            @endphp
                             <div class="single-list flex-row d-flex salam">
                                 <div class="thumb">
                                     <div class="date">
                                         <span>{{$post->created_at->format('d')}}</span><br>{{$post->created_at->format('M')}}
                                     </div>
-                                    <img src="{{$post->thumbnail}}" alt="{{$post->title}}">
+                                    <img src="{{$post_thumbnail}}" alt="{{$post->title}}">
                                 </div>
                                 <div class="detail">
                                     <a href="{{env('APP_URL')}}posts/{{$post->slug}}"><h4 class="pb-20">{{$post->title}}</h4></a>
                                     {!! $post->preview !!}
                                     <p class="footer pt-20">
                                         <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                        <span>{{$post->likes}} {{$post->likes > 1 ? "Likes" : "Like"}}</span>     <i class="ml-20 fa fa-comment-o" aria-hidden="true"></i> <span>02 Comments</span>
+                                        <span>{{$post->likes}} {{$post->likes > 1 ? "Likes" : "Like"}}</span>     <i class="ml-20 fa fa-comment-o" aria-hidden="true"></i>{{$comments_count}}<span> Comments</span>
                                     </p>
                                 </div>
                             </div>

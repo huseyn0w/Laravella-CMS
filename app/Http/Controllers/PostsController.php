@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\Comments;
 use App\Http\Requests\LikesRequest;
+use App\Repositories\PostCommentsRepository;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
+use PhpParser\Comment;
 
 class PostsController extends BaseController
 {

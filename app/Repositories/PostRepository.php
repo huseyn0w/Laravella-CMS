@@ -9,6 +9,7 @@
 namespace App\Repositories;
 
 
+use App\Http\Models\Comments;
 use App\Http\Models\Likes;
 use App\Http\Models\Post;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +50,17 @@ class PostRepository extends BaseRepository
         }
 
         return $result;
+    }
+
+
+    public function getBy($paramName, $paramValue, $fields = [])
+    {
+        $comments_per_page = get_comments_count_per_page();
+        $data = parent::getBy($paramName, $paramValue, $fields);
+        $data->setRelation('comments', $data->comments()->with('replies')->with('user')->orderBy('id', 'DESC')->paginate($comments_per_page));
+
+        return $data;
+
 
     }
     

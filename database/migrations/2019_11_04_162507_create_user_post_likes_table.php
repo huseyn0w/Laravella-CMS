@@ -15,8 +15,12 @@ class CreateUserPostLikesTable extends Migration
     {
         Schema::create('user_post_likes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('post_id')->unsigned();
+            $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('user_id')->unsigned();
+
+
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -21,6 +21,7 @@ class CPanelGeneralSettings extends Model
         'contact_email',
         'posts_per_page',
         'membership',
+        'comments_per_page',
         'active_template_name'
     ];
 }

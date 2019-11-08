@@ -18,6 +18,7 @@ class CreateGeneralSettingsTable extends Migration
             $table->string('tagline', 100);
             $table->string('contact_email');
             $table->integer('posts_per_page');
+            $table->integer('comments_per_page');
             $table->boolean('membership');
             $table->string('active_template_name');
         });

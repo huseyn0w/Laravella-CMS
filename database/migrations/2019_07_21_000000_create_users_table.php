@@ -33,7 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->unsignedBigInteger('role_id')->default(2);
-            $table->foreign('role_id')->references('id')->on('user_roles');
+            $table->foreign('role_id')->references('id')->on('user_roles')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

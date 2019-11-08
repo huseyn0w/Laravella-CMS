@@ -61,7 +61,6 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
         Route::put('/{id}/update', 'CPanelPageController@updatePage')->name('cpanel_update_page')->where('id', '[0-9]+');
         Route::delete('/multipleDelete', 'CPanelPageController@multipleDelete')->name('cpanel_pages_bulk_delete');
         Route::delete('/{id}/delete', 'CPanelPageController@deleteAjax')->name('cpanel_ajax_soft_delete_page')->where('id', '[0-9]+');
-        Route::delete('/multipleDelete', 'CPanelPageController@multipleDelete')->name('cpanel_pages_bulk_delete');
         Route::get('/new', 'CPanelPageController@addPage')->name('cpanel_add_new_page');
         Route::post('/new', 'CPanelPageController@createPage')->name('cpanel_save_new_page');
     });
@@ -72,7 +71,6 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
         Route::put('/{id}/update', 'CPanelCategoryController@updateCategory')->name('cpanel_update_category')->where('id', '[0-9]+');
         Route::delete('/multipleDelete', 'CPanelCategoryController@multipleDelete')->name('cpanel_category_bulk_delete');
         Route::delete('/{id}/delete', 'CPanelCategoryController@deleteAjax')->name('cpanel_ajax_soft_delete_category')->where('id', '[0-9]+');
-        Route::delete('/multipleDelete', 'CPanelCategoryController@multipleDelete')->name('cpanel_category_bulk_delete');
         Route::get('/new', 'CPanelCategoryController@addCategory')->name('cpanel_add_new_category');
         Route::post('/new', 'CPanelCategoryController@createCategory')->name('cpanel_save_new_category');
     });
@@ -99,9 +97,16 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
         Route::put('/{id}/update', 'CPanelMenuController@updateMenu')->name('cpanel_update_menu')->where('id', '[0-9]+');
         Route::delete('/multipleDelete', 'CPanelMenuController@multipleDelete')->name('cpanel_menus_bulk_delete');
         Route::delete('/{id}/delete', 'CPanelMenuController@deleteAjax')->name('cpanel_ajax_soft_delete_menu')->where('id', '[0-9]+');
-        Route::delete('/multipleDelete', 'CPanelMenuController@multipleDelete')->name('cpanel_menus_bulk_delete');
         Route::get('/new', 'CPanelMenuController@addMenu')->name('cpanel_add_new_menu');
         Route::post('/new', 'CPanelMenuController@createMenu')->name('cpanel_save_new_menu');
+    });
+
+    Route::prefix('comments')->middleware('manage_comments')->group(function(){
+        Route::get('/', 'CpanelCommentController@index')->name('cpanel_comments_list');
+        Route::put('/{id}/approve', 'CpanelCommentController@approve')->name('cpanel_approve_comment')->where('id', '[0-9]+');
+        Route::put('/{id}/unapprove', 'CpanelCommentController@unapprove')->name('cpanel_unapprove_comment')->where('id', '[0-9]+');
+        Route::delete('/{id}/delete', 'CpanelCommentController@deleteAjax')->name('cpanel_delete_comment')->where('id', '[0-9]+');
+        Route::delete('/multipleDelete', 'CpanelCommentController@multipleDelete')->name('cpanel_comments_bulk_delete');
     });
 
     Route::prefix('media')->group(function(){
@@ -115,6 +120,9 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
 Route::get('/{slug?}', 'PagesController@index')->name('front_pages');
 Route::get('/posts/{slug}', 'PostsController@index')->name('posts');
 Route::post('/posts/handlelike/{id}', 'PostsController@handleLike')->name('handle_post_likes')->where('id', '[1-9]+[0-9]*');
+Route::put('/posts/handlecomment/', 'PostCommentsController@update')->name('update_post_comment');
+Route::post('/posts/handlecomment/{id}', 'PostCommentsController@store')->name('store_post_comments')->where('id', '[1-9]+[0-9]*');
+Route::delete('/posts/deletecomment/{id}', 'PostCommentsController@delete')->name('delete_post_comments')->where('id', '[1-9]+[0-9]*');
 Route::get('/category/{slug}', 'CategoryController@index')->name('categories_first_page');
 Route::get('/category/{slug}/page/{page?}', 'CategoryController@index')->name('categories_display_pages')->where('page', '[1-9]+[0-9]*');
 

@@ -60,6 +60,14 @@
                         </a>
                     </li>
                     @endif
+                    @if (Auth::user()->can('manage_comments', 'App\Http\Models\UserRoles'))
+                        <li>
+                            <a class="nav-link sub-nav-link" href="{{route('cpanel_comments_list')}}">
+                                <i class="nc-icon nc-chat-round"></i>
+                                <p>Comments</p>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </li>

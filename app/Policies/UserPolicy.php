@@ -80,13 +80,22 @@ class UserPolicy
         return $result;
     }
 
+    public function manage_comments()
+    {
+        $result = false;
+
+        if($this->user_permissions->manage_comments === 1) $result = true;
+
+        return $result;
+    }
+
     public function see_admin_panel()
     {
         $result = false;
 
         if($this->user_permissions->see_admin_panel === 1) $result = true;
 
-        return false;
+        return $result;
     }
 
 

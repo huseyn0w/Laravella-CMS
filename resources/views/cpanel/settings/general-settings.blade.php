@@ -19,6 +19,7 @@
         $membership = $general_settings->membership;
         $active_template_name = $general_settings->active_template_name;
         $posts_per_page = $general_settings->posts_per_page;
+        $comments_per_page = $general_settings->comments_per_page;
 
     @endphp
 
@@ -102,6 +103,10 @@
                                     <div class="form-group">
                                         <label>Posts per page</label>
                                         <input type="number" min="1" required name="posts_per_page" class="form-control" value="{{ old('posts_per_page', $posts_per_page) }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Comments per page</label>
+                                        <input type="number" min="1" required name="comments_per_page" class="form-control" value="{{ old('comments_per_page', $comments_per_page) }}">
                                     </div>
                                 </div>
                             </div>

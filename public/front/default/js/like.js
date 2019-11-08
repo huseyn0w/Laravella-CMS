@@ -6,7 +6,7 @@ var like_button = document.querySelector('#like_post'),
 
 like_button.addEventListener('click', function(e){
 
-    console.log(post_likes_content);
+
 
 
     var data = {
@@ -16,7 +16,7 @@ like_button.addEventListener('click', function(e){
 
     this.setAttribute('disabled', 'disabled');
 
-    fetch(handle_url, {
+    fetch(handle_url_likes, {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': _token,

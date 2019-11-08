@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\CPanel;
 
 
+use App\Http\Models\Comments;
 use App\Http\Models\Post;
 use App\Http\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class CPanelHomeController extends CPanelBaseController
     {
         $posts = Post::select('title')->orderBy('id', 'desc')->take(5)->get();
         $users = User::select('username')->orderBy('id', 'desc')->take(5)->get();
-        return view('cpanel.home', compact('posts','users'));
+        $comments = Comments::select('comment')->orderBy('id', 'desc')->take(5)->get();
+        return view('cpanel.home', compact('posts','users', 'comments'));
     }
 
 

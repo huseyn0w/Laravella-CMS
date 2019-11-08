@@ -12,6 +12,7 @@ use App\Http\Models\User;
 use App\Http\Models\Category;
 use App\Http\Models\Post;
 use App\Http\Models\Page;
+use App\Http\Models\Comments;
 use App\Http\Models\Menu;
 use App\Http\Models\CPanel\CPanelSiteOptions;
 use App\Http\Models\CPanel\CPanelGeneralSettings;
@@ -664,7 +665,19 @@ function check_if_post_liked_by_current_user($post_id):bool
     return false;
 }
 
+function get_post_comments_count($post_id):int
+{
+    $result = Comments::where('post_id', $post_id)->count();
+
+    return $result;
+}
+
 function get_contact_email():string
 {
     return get_general_settings('contact_email');
+}
+
+function get_comments_count_per_page():int
+{
+    return get_general_settings('comments_per_page');
 }

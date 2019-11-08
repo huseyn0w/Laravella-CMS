@@ -22,7 +22,7 @@ class CategoryRepository extends BaseRepository
 
     public function displayList(int $category_id, int $page = 1)
     {
-        $fields = ['title', 'slug', 'thumbnail', 'preview', 'likes', 'created_at'];
+        $fields = ['id','title', 'slug', 'thumbnail', 'preview', 'likes', 'created_at'];
         $count = get_general_settings('posts_per_page');
 
         if ($page === 1) {
