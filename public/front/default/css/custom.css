@@ -25,6 +25,10 @@
     justify-content: center;
 }
 
+.addthis_inline_share_toolbox{
+    text-align: right;
+}
+
 .post_liked #like_post{
     color:red;
 }

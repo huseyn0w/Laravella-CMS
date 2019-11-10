@@ -107,12 +107,7 @@
 
                                 </div>
                                 <div class="col-lg-6 single-b-wrap col-md-12">
-                                    <ul class="social-icons">
-                                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
-                                    </ul>
+                                    <div class="addthis_inline_share_toolbox"></div>
                                 </div>
                             </div>
                         </div>
@@ -274,5 +269,9 @@
         </script>
         <script src="{{asset('front')}}/default/js/like.js"></script>
         <script src="{{asset('front')}}/default/js/comment.js"></script>
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
     @endpush
 @endauth
+@push('extrascripts')
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5dc82ec69733ae4e"></script>
+@endpush
