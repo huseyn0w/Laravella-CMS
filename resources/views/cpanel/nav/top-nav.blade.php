@@ -39,7 +39,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cpanel-logout') }}">
+                    <a class="nav-link" href="{{ route('logout') }}">
                         <span class="no-icon">Log out</span>
                     </a>
                 </li>

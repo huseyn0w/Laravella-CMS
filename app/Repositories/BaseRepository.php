@@ -111,12 +111,16 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
     {
 
         try {
-            $this->model::where('id', $id)->update($newData->except(["_token", "_method"]));
+            $updated_except = ["_token", "_method"];
+            if(!empty($newData['g-recaptcha-response'])) $updated_except[] = 'g-recaptcha-response';
+            if(!empty($newData['password_confirmation'])) $updated_except[] = 'password_confirmation';
+            $this->model::where('id', $id)->update($newData->except($updated_except));
             $result = true;
 
         } catch (QueryException $e) {
             $result = $e->errorInfo;
         }
+
 
         if(!$result) return $this->throwAbort();
 

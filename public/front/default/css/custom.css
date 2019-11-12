@@ -37,6 +37,39 @@
     max-width: 100%;
 }
 
+.user-profile{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.radio-cover{
+    display: flex;
+    align-items: center;
+}
+
+.radio-cover p{
+    margin-bottom: 0;
+    margin-right: 15px;
+}
+
+.primary-radio input+label{
+    border:1px solid red;
+}
+
+input#file-upload{
+    display: none;
+}
+
+div#notimage{
+    cursor: pointer;
+}
+
+.img-profile {
+    max-width: 200px;
+    display: block;
+    margin: 15px auto;
+}
+
 .comment-buttons {
     display: flex;
     width: 220px;

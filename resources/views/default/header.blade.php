@@ -6,16 +6,25 @@
  * Date: 19.07.2019
  */
 
-if(isset($data->author)):
-$author = $data->author->name. ' '.$data->author->surname;
+
+if(isset($data)):
+    if(isset($data->author)):
+    $author = $data->author->name. ' '.$data->author->surname;
+    endif;
+
+    $title = $data->title;
+
+    $meta_description = $data->meta_description;
+    $meta_keywords = $data->meta_keywords;
+else:
+    $user = Auth::user();
+    $author = $user->name. ' '.$user->surname;
+    $title = "Edit Profile";
+
+    $meta_description = "Edit Profile";
+    $meta_keywords = "profile,interface,edit,user";
 endif;
 
-$title = $data->title;
-
-$meta_description = $data->meta_description;
-$meta_keywords = $data->meta_keywords;
-
-//extract($page_data);
 
 $logo_url = get_site_options('logo_url');
 
@@ -34,9 +43,10 @@ $logo_url = get_site_options('logo_url');
     <link rel="manifest" href="{{asset('front/'.env('TEMPLATE_NAME').'site.webmanifest')}}">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-@if(is_logged_in())
+@auth
     <meta name="csrf-token" content="{{ csrf_token() }}">
-@endif
+@endauth
+
 @if(isset($data->author))
     <!-- Author Meta -->
     <meta name="author" content="{{$author}}">
@@ -89,6 +99,21 @@ CSS
 
                 @endphp
                 {!! $header_menu !!}
+                <ul class="navbar-nav user-panel">
+                    @auth
+                    <li>
+                        @if (Auth::user()->can('see_admin_panel', 'App\Http\Models\UserRoles'))
+                            <a href="{{route('cpanel_home')}}">cPanel</a>
+                        @endif
+                        <a href="{{route('get_user_info')}}">Profile</a>
+                        <a href="{{route('logout')}}">Logout</a>
+                    </li>
+                    @else
+                    <li>
+                        <a href="{{route('login')}}">Login</a>
+                    </li>
+                    @endauth
+                </ul>
             </div>
         </div>
     </nav>

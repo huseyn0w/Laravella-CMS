@@ -681,3 +681,10 @@ function get_comments_count_per_page():int
 {
     return get_general_settings('comments_per_page');
 }
+
+function get_logged_user_id()
+{
+    if(is_logged_in()) return Auth()->user()->id;
+
+    return false;
+}

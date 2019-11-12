@@ -16,7 +16,11 @@ Auth::routes();
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('cpanel-logout');
 
 
-//CPanel Routes
+/*
+|--------------------------------------------------------------------------
+| Control Panel Routes
+|--------------------------------------------------------------------------
+*/
 Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpanel')->group(function () {
 
     Route::get('/', 'CPanelHomeController@index')->name('cpanel_home');
@@ -117,16 +121,40 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
 
 });
 
+
+
+/*
+|--------------------------------------------------------------------------
+| Front End Routes
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/{slug?}', 'PagesController@index')->name('front_pages');
-Route::get('/posts/{slug}', 'PostsController@index')->name('posts');
-Route::post('/posts/handlelike/{id}', 'PostsController@handleLike')->name('handle_post_likes')->where('id', '[1-9]+[0-9]*');
-Route::put('/posts/handlecomment/', 'PostCommentsController@update')->name('update_post_comment');
-Route::post('/posts/handlecomment/{id}', 'PostCommentsController@store')->name('store_post_comments')->where('id', '[1-9]+[0-9]*');
-Route::delete('/posts/deletecomment/{id}', 'PostCommentsController@delete')->name('delete_post_comments')->where('id', '[1-9]+[0-9]*');
-Route::get('/category/{slug}', 'CategoryController@index')->name('categories_first_page');
-Route::get('/category/{slug}/page/{page?}', 'CategoryController@index')->name('categories_display_pages')->where('page', '[1-9]+[0-9]*');
+
+Route::prefix('posts')->group(function(){
+    Route::get('/{slug}', 'PostsController@index')->name('posts');
+    Route::post('/handlelike/{id}', 'PostsController@handleLike')->middleware('auth')->name('handle_post_likes')->where('id', '[1-9]+[0-9]*');
+    Route::put('/handlecomment/', 'PostCommentsController@update')->middleware('auth')->name('update_post_comment');
+    Route::post('/handlecomment/{id}', 'PostCommentsController@store')->middleware('auth')->name('store_post_comments')->where('id', '[1-9]+[0-9]*');
+    Route::delete('/deletecomment/{id}', 'PostCommentsController@delete')->middleware('auth')->name('delete_post_comments')->where('id', '[1-9]+[0-9]*');
+
+});
 
 Route::post('/contact/sendform', 'PagesController@sendMail')->name('sendform');
+
+Route::prefix('category')->group(function(){
+    Route::get('/{slug}', 'CategoryController@index')->name('categories_first_page');
+    Route::get('/{slug}/page/{page?}', 'CategoryController@index')->name('categories_display_pages')->where('page', '[1-9]+[0-9]*');
+});
+
+Route::prefix('profile')->middleware('auth')->group(function(){
+    Route::get('/edit', 'UserController@index')->name('get_user_info');
+    Route::put('/update', 'UserController@update')->name('update_user_info');
+    Route::get('/change_password', 'UserController@password')->name('get_change_password_interface');
+    Route::put('/change_password', 'UserController@changePassword')->name('change_password_action');
+});
+
+
 
 
 
