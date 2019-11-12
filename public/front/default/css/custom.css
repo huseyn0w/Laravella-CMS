@@ -52,6 +52,15 @@
     margin-right: 15px;
 }
 
+.remember_checkbox{
+    padding: 0 35px;
+    text-align: center;
+}
+
+select.form-control:not([size]):not([multiple]){
+    height: auto;
+}
+
 .primary-radio input+label{
     border:1px solid red;
 }

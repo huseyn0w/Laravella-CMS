@@ -16,13 +16,19 @@ if(isset($data)):
 
     $meta_description = $data->meta_description;
     $meta_keywords = $data->meta_keywords;
-else:
+elseif(is_logged_in()):
     $user = Auth::user();
     $author = $user->name. ' '.$user->surname;
     $title = "Edit Profile";
 
     $meta_description = "Edit Profile";
     $meta_keywords = "profile,interface,edit,user";
+else:
+    $author = "Elman Huseynov";
+    $title = "Laravella CMS";
+
+    $meta_description = "Laravella CMS";
+    $meta_keywords = "page,laravella,cms";
 endif;
 
 
@@ -110,6 +116,7 @@ CSS
                     </li>
                     @else
                     <li>
+                        <a href="{{route('register')}}">Register</a>
                         <a href="{{route('login')}}">Login</a>
                     </li>
                     @endauth

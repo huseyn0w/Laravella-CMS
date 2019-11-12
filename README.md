@@ -23,7 +23,7 @@ soon...
 * Flexible template changing system
 * Multiple languages possibility
 
-##Planning additional features
+## Planning additional features
 * E-Commerce extension
 
 
