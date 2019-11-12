@@ -95,16 +95,9 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="likes">Likes</label>
-                                        {{$post->likes}}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="dislikes">Dislikes</label>
-                                        {{$post->dislikes}}
+                                        <label for="likes">Likes: {{$post->likes}}</label>
                                     </div>
                                 </div>
                             </div>

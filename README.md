@@ -41,7 +41,7 @@ Why it is easy to extend? Because it was written by using best practices and tec
 
 ## Versioning
 
-Current Version of Laravel Framework is 5.8
+Current Version of Laravel Framework is 6.0.4
 
 Current version of CMS is pre~alpha 0.0.1
 
