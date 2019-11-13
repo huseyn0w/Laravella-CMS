@@ -68,7 +68,7 @@ class UserRepository extends BaseRepository
                 $newData['avatar'] = $this->uploadImage($updatedRequest);
             }
 
-            $this->model::where('id', $id)->update($newData);
+            $this->model::where('id', $this->logged_user_id)->update($newData);
             $result = true;
 
         } catch (QueryException $e) {

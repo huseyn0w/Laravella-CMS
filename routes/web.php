@@ -154,6 +154,9 @@ Route::prefix('profile')->middleware('auth')->group(function(){
     Route::put('/change_password', 'UserController@changePassword')->name('change_password_action');
 });
 
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->where('provider','twitter|facebook|linkedin|google|github');;
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->where('provider','twitter|facebook|linkedin|google|github');;
+
 
 
 

@@ -12,6 +12,7 @@
 TODOLIST.md
 .phpunit.result.cache
 Homestead.json
+Apache-PHP-7.2-x64_vhost.conf
 Homestead.yaml
 npm-debug.log
 yarn-error.log

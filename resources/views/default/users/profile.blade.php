@@ -97,13 +97,19 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        @if($user->username)
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Username</label>
                                                 <p>{{$user->username}}</p>
                                             </div>
                                         </div>
+                                        @endif
+                                        @if($user->username)
                                         <div class="col-md-6">
+                                        @else
+                                        <div class="col-md-12">
+                                        @endif
                                             <div class="form-group">
                                                 <label for="email">Email address</label>
                                                 <input type="email" id="email" class="form-control" name="email" value="{{ old('email', $user->email) }}">

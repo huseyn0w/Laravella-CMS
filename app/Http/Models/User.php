@@ -29,6 +29,8 @@ class User extends Authenticatable
         'about_me',
         'linkedin_url',
         'xing_url',
+        'provider',
+        'provider_id',
         'facebook_url',
         'google_url'
     ];

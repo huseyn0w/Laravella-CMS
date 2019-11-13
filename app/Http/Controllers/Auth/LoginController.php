@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Auth;
+use Socialite;
+
 
 class LoginController extends Controller
 {
@@ -38,6 +43,96 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback($provider)
+    {
+        $user = Socialite::driver($provider)->user();
+        $authUser = $this->findUser($user);
+
+        if($authUser)
+        {
+            Auth::login($authUser, true);
+            return redirect($this->redirectTo);
+        }
+
+        $validator = $this->validateSocialUser($user);
+
+        if(gettype($validator) === "object")
+        {
+            return redirect('login')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $registered_user = $this->createUser($user, $provider);
+        Auth::login($registered_user, true);
+        return redirect($this->redirectTo);
+
+
+    }
+
+    private function findUser($user)
+    {
+
+        $authUser = User::where('provider_id', $user->id)->first();
+        if ($authUser) return $authUser;
+
+
+    }
+
+    /**
+     * If a user has registered before using social auth, return the user
+     * else, create a new user object.
+     * @param  $user Socialite user object
+     * @param $provider Social auth provider
+     * @return  User
+     */
+    public function createUser($user, $provider)
+    {
+
+        return User::create([
+            'name'     => $user->name,
+            'email'    => $user->email,
+            'provider' => $provider,
+            'provider_id' => $user->id
+        ]);
+
+
+    }
+
+    private function validateSocialUser($data)
+    {
+        $array_to_validate = [
+            "email" => $data->email,
+            "name" => $data->name
+        ];
+
+        $validator = Validator::make($array_to_validate, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+        ]);
+
+        if ($validator->fails()) {
+            return $validator;
+        }
+
+        return true;
+    }
 
     protected function credentials(Request $request)
     {

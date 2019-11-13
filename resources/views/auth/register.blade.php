@@ -20,7 +20,17 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-
+                            <div class="form-group">
+                                <div class="col-12 text-center">Register with:</div>
+                                <div class="col-md-12 text-center">
+                                    <a href="{{ url('/login/github') }}" class="btn btn-github"><i class="fa fa-github-square"></i> Github</a>
+                                    <a href="{{ url('/login/facebook') }}" class="btn btn-facebook" class="btn btn-facebook"><i class="fa fa-facebook-square"></i> Facebook</a>
+                                    <a href="{{ url('/login/linkedin') }}" class="btn btn-linkedin" class="btn btn-linkedin"><i class="fa fa-linkedin-square"></i> Linkedin</a>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <p>Or:</p>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 

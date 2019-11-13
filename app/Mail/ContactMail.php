@@ -31,6 +31,7 @@ class ContactMail extends Mailable
 
         $this->message =  (new MailMessage)
             ->greeting('Hello!')
+            ->subject("My mail title")
             ->line('You have got 1 message from contact page!')
             ->line('From: '.$data['email'])
             ->line('Subject: '.$data['subject'])
@@ -45,11 +46,6 @@ class ContactMail extends Mailable
      */
     public function build()
     {
-        //dd($this->data);
-//        return $this->from(env('MAIL_USERNAME'))
-//            ->subject($this->mail_subject)
-//            ->view('email.contactmail')
-//            ->with('data', $this->data);
         return $this->markdown('vendor.notifications.email', $this->message->data());
     }
 }

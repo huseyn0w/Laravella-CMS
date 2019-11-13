@@ -14,6 +14,24 @@ return [
     |
     */
 
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),  // Your Facebook App ID
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'), // Your Facebook App Secret
+        'redirect' => env('FACEBOOK_CALLBACK_URL'),
+    ],
+
+    'github' => [
+        'client_id' => env ( 'GITHUB_CLIENT_ID' ),
+        'client_secret' => env ( 'GITHUB_CLIENT_SECRET' ),
+        'redirect' => env ( 'GITHUB_CALLBACK_URL' )
+    ],
+
+    'linkedin' => [
+        'client_id' => env ( 'LINKEDIN_CLIENT_ID' ),
+        'client_secret' => env ( 'LINKEDIN_CLIENT_SECRET' ),
+        'redirect' => env ( 'LINKEDIN_CALLBACK_URL' )
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
