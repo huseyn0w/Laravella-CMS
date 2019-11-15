@@ -64,7 +64,7 @@
                                 </h2>
                                 <div class="col-lg-4 col-md-12 right-side d-flex justify-content-end">
                                     <div class="desc">
-                                        <h2>{{$author}}</h2>
+                                        <h2><a href="{{route('show_user',['username' => $data->author->username])}}">{{$author}}</a></h2>
                                         <h3>{{$data->created_at->format('d.m.Y')}}</h3>
                                     </div>
                                     <div class="user-img">
@@ -131,7 +131,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="desc">
-                                                    <h5>{{$comment->user->name}}</h5>
+                                                    <h5><a href="{{route('show_user',['username' => $comment->user->username])}}">{{$comment->user->name}}</a></h5>
                                                     <p class="date">{{$comment->created_at->format('d.m.Y')}}</p>
                                                     <p class="comment">
                                                         {{$comment->comment}}
@@ -161,7 +161,7 @@
                                                                 <img src="{{$child_comment->user->avatar}}" alt="{{$child_comment->user->name}}">
                                                             </div>
                                                             <div class="desc">
-                                                                <h5>{{$child_comment->user->username}}</h5>
+                                                                <h5><a href="{{route('show_user',['username' => $child_comment->user->username])}}">{{$child_comment->user->name}}</a></h5>
                                                                 <p class="date">{{$child_comment->created_at->format('d.m.Y')}}</p>
                                                                 <p class="comment">
                                                                     {{$child_comment->comment}}

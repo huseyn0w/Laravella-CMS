@@ -1,7 +1,7 @@
 <?php
 /**
  * Laravella CMS
- * File: profile.blade.php
+ * File: yourprofile.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 21.07.2019
  */
@@ -103,10 +103,10 @@
                                     <label>Country</label>
                                     <select name="country" id="country" class="form-control">
                                     @foreach($countries as $country)
-                                        @if($country['code'] === $user->country)
-                                            <option value="{{$country['code']}}" selected>{{$country['name']}}</option>
+                                        @if($country['name'] === $user->country)
+                                            <option value="{{$country['name']}}" selected>{{$country['name']}}</option>
                                         @else
-                                            <option value="{{$country['code']}}">{{$country['name']}}</option>
+                                            <option value="{{$country['name']}}">{{$country['name']}}</option>
                                         @endif
                                     @endforeach
                                     </select>

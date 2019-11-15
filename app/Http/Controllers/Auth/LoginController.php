@@ -79,6 +79,7 @@ class LoginController extends Controller
                 ->withInput();
         }
 
+
         $registered_user = $this->createUser($user, $provider);
         Auth::login($registered_user, true);
         return redirect($this->redirectTo);
@@ -105,11 +106,14 @@ class LoginController extends Controller
     public function createUser($user, $provider)
     {
 
+        $username = $this->get_user_name($user->email);
+
         return User::create([
             'name'     => $user->name,
             'email'    => $user->email,
             'provider' => $provider,
-            'provider_id' => $user->id
+            'provider_id' => $user->id,
+            'username' => $username
         ]);
 
 
@@ -117,14 +121,18 @@ class LoginController extends Controller
 
     private function validateSocialUser($data)
     {
+        $username = $this->get_user_name($data->email);
+
         $array_to_validate = [
             "email" => $data->email,
-            "name" => $data->name
+            "name" => $data->name,
+            "username" => $username
         ];
 
         $validator = Validator::make($array_to_validate, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
         ]);
 
         if ($validator->fails()) {
@@ -132,6 +140,14 @@ class LoginController extends Controller
         }
 
         return true;
+    }
+
+    private function get_user_name(string $email):string
+    {
+        $position = strpos( $email,"@");
+        $username =  substr($email,0, $position);
+
+        return $username;
     }
 
     protected function credentials(Request $request)

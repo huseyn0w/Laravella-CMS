@@ -23,12 +23,11 @@ class UserRepository extends BaseRepository
         $this->model = $model;
     }
 
-    public function getLoggedUserInfo()
+    public function getUserInfo($username = null)
     {
-        $this->get_logged_user_id();
+        if(!is_string($username)) $username = get_logged_user_username();
 
         $user_fields = [
-            'id',
             'email',
             'username',
             'name',
@@ -48,7 +47,7 @@ class UserRepository extends BaseRepository
             'avatar',
         ];
 
-        $userdata = $this->getBy('id', $this->logged_user_id, $user_fields);
+        $userdata = $this->getBy('username', $username, $user_fields);
 
         return $userdata;
     }

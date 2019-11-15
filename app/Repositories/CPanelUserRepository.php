@@ -53,6 +53,7 @@ class CPanelUserRepository extends BaseRepository
         $fields = ['id','username','email','name','surname','country', 'city', 'role_id'];
 
         try{
+
             !empty($fields) ? $data = $this->model::select($fields)->with('role')->paginate($count) : false;
         }
         catch (QueryException $e){

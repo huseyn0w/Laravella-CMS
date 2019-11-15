@@ -88,7 +88,7 @@
                                     <label>Country</label>
                                     <select name="country" id="country" class="form-control">
                                     @foreach($countries as $country)
-                                        <option value="{{$country['code']}}">{{$country['name']}}</option>
+                                        <option value="{{$country['name']}}">{{$country['name']}}</option>
                                     @endforeach
                                     </select>
                                 </div>

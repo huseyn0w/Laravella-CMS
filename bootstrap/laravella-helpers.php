@@ -654,6 +654,22 @@ function pretty_url($links)
     return $paginate_links;
 }
 
+function pretty_search_url($links, string $filter_type, string $string)
+{
+    $patterns = '#\?page=#';
+
+    $replacements = '/query/'.$string.'/filter/'.$filter_type.'/page/';
+    $one = preg_replace($patterns, $replacements, $links);
+
+
+
+    $pattern2 = '#/query/'.$string.'/filter/'.$filter_type.'/page/([1-9]+[0-9]*)/query/'.$string.'/filter/'.$filter_type.'/page/([1-9]+[0-9]*)#';
+    $replacements2 = '/query/'.$string.'/filter/'.$filter_type.'/page/$2';
+    $paginate_links = preg_replace($pattern2, $replacements2, $one);
+
+    return $paginate_links;
+}
+
 function check_if_post_liked_by_current_user($post_id):bool
 {
     if(!is_logged_in()) return false;
@@ -685,6 +701,13 @@ function get_comments_count_per_page():int
 function get_logged_user_id()
 {
     if(is_logged_in()) return Auth()->user()->id;
+
+    return false;
+}
+
+function get_logged_user_username()
+{
+    if(is_logged_in()) return Auth()->user()->username;
 
     return false;
 }

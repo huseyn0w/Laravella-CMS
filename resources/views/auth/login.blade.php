@@ -25,11 +25,7 @@
 
                             <div class="form-group">
                                 <div class="col-12 text-center">Login with:</div>
-                                <div class="col-md-12 text-center">
-                                    <a href="{{ url('/login/github') }}" class="btn btn-github"><i class="fa fa-github-square"></i> Github</a>
-                                    <a href="{{ url('/login/facebook') }}" class="btn btn-facebook" class="btn btn-facebook"><i class="fa fa-facebook-square"></i> Facebook</a>
-                                    <a href="{{ url('/login/linkedin') }}" class="btn btn-linkedin" class="btn btn-linkedin"><i class="fa fa-linkedin-square"></i> Linkedin</a>
-                                </div>
+                                @include('auth.social')
                                 <div class="col-md-12 text-center">
                                     <p>Or:</p>
                                 </div>
@@ -38,14 +34,23 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Username or E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <input id="email" type="text" class="form-control @error('username') is-invalid @enderror @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+
+                                    @error('username')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+
                                 </div>
+
                             </div>
 
                             <div class="form-group row">
@@ -75,7 +80,7 @@
                             </div>
 
                             <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
+                                <div class="col-md-12 text-center login-actions">
                                     <button type="submit" class="genric-btn primary e-large pull-right">
                                         {{ __('Login') }}
                                     </button>

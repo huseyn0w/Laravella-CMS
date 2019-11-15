@@ -74,6 +74,7 @@ CSS
     <link rel="stylesheet" href="{{asset('front/'.env('TEMPLATE_NAME').'/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('front/'.env('TEMPLATE_NAME').'/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('front/'.env('TEMPLATE_NAME').'/css/owl.carousel.css')}}">
+    @stack('extrastyles')
     <link rel="stylesheet" href="{{asset('front/'.env('TEMPLATE_NAME').'/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('front/'.env('TEMPLATE_NAME').'/css/custom.css')}}">
 </head>
@@ -106,6 +107,9 @@ CSS
                 @endphp
                 {!! $header_menu !!}
                 <ul class="navbar-nav user-panel">
+                    <li>
+                        <a href="{{route('get_search_page')}}">Search</a>
+                    </li>
                     @auth
                     <li>
                         @if (Auth::user()->can('see_admin_panel', 'App\Http\Models\UserRoles'))

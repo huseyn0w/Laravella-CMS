@@ -129,6 +129,12 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
 |--------------------------------------------------------------------------
 */
 
+Route::prefix('search')->group(function(){
+    Route::get('/', 'PagesController@search')->name('get_search_page');
+    Route::post('/', 'PagesController@searchResult')->name('get_search_result');
+    Route::get('/query/{searchstring}/filter/{searchtype}/page/{page}', 'PagesController@paginatedResult')->name('search_result_paginated');
+});
+
 Route::get('/{slug?}', 'PagesController@index')->name('front_pages');
 
 Route::prefix('posts')->group(function(){
@@ -153,6 +159,10 @@ Route::prefix('profile')->middleware('auth')->group(function(){
     Route::get('/change_password', 'UserController@password')->name('get_change_password_interface');
     Route::put('/change_password', 'UserController@changePassword')->name('change_password_action');
 });
+
+
+
+Route::get('/users/{username}', 'UserController@show')->name('show_user');
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->where('provider','twitter|facebook|linkedin|google|github');;
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->where('provider','twitter|facebook|linkedin|google|github');;

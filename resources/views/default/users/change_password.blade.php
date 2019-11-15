@@ -77,19 +77,19 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="current_password">Current password</label>
-                                                            <input type="password" id="current_password" class="form-control" name="current_password" >
+                                                            <input type="password" required id="current_password" class="form-control" name="current_password" >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="password">New Password</label>
-                                                            <input type="password" id="password" class="form-control" name="password">
+                                                            <input type="password" required id="password" class="form-control" name="password">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="confirm_password">Confirm New Password</label>
-                                                            <input type="password" id="confirm_password" class="form-control" name="password_confirmation">
+                                                            <input type="password" required id="confirm_password" class="form-control" name="password_confirmation">
                                                         </div>
                                                     </div>
                                                 </div>
