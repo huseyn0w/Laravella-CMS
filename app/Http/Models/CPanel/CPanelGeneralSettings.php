@@ -2,10 +2,13 @@
 
 namespace App\Http\Models\CPanel;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
 class CPanelGeneralSettings extends Model
 {
+    use Cachable;
+
     protected $table = 'general_settings';
 
     protected $primaryKey = null;

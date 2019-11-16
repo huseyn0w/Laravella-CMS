@@ -2,10 +2,13 @@
 
 namespace App\Http\Models\CPanel;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
 class CPanelSiteOptions extends Model
 {
+    use Cachable;
+
     public $timestamps = false;
     protected $primaryKey = null;
     public $incrementing = false;

@@ -2,12 +2,15 @@
 
 namespace App\Http\Models;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Models\Category;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use Cachable;
+
     use SoftDeletes;
 
     protected $fillable = [

@@ -11,6 +11,7 @@
         "php": "^7.2",
         "albertcht/invisible-recaptcha": "^1.9",
         "fideloper/proxy": "^4.0",
+        "genealabs/laravel-model-caching": "*",
         "guzzlehttp/guzzle": "^6.4",
         "intervention/image": "^2.5",
         "laravel/framework": "6.0.*",

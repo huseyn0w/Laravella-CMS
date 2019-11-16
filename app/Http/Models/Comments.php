@@ -2,10 +2,13 @@
 
 namespace App\Http\Models;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
 class Comments extends Model
 {
+    use Cachable;
+
     protected $table = 'posts_comments';
 
     protected $fillable = ['user_id', 'post_id', 'parent_id', 'comment', 'status'];

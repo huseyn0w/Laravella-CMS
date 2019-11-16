@@ -22,6 +22,7 @@ soon...
 * Custom fields
 * Flexible template changing system
 * Multiple languages possibility
+* Database caching
 
 ## Planning additional features
 * E-Commerce extension
