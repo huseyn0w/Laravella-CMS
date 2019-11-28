@@ -16,8 +16,8 @@ $(function () {
         var deleted_menu_id = $(this).prev('.deleted_menu_id').val();
         var that = $(this);
 
-        var delete_confirmation = confirm('Are you sure? Role will be deleted');
-        if(delete_confirmation){
+        var del_conf = confirm(delete_confirmation);
+        if(del_conf){
             $.ajax({
                 url: "/cpanel/menus/" + deleted_menu_id + "/delete/",
                 type: 'DELETE',
@@ -31,20 +31,20 @@ $(function () {
                 {
                     if(data === "OK")
                     {
-                        var message = "Menu has been successfully deleted";
+                        var message = delete_success;
                         that.closest('tr').fadeOut(1000, function () {
                             that.closest('tr').remove();
                             showNotification('top','right', message, 'success', 2);
                         });
                     }
                     else{
-                        var message = "Error has been occured. Please try again later";
+                        var message = error_message;
                         showNotification('top','right', message, 'error');
                     }
                 },
                 error:function(data)
                 {
-                    var message = data;
+                    var message = error_message;
                     showNotification('top','right', message, 'error');
                 }
             });

@@ -18,7 +18,9 @@ class PostsController extends BaseController
 
     public function index(string $post_slug)
     {
-        $data = $this->repository->getBy('slug', $post_slug);
+        $data = $this->repository->get_translated_by('slug', $post_slug);
+
+//        dd($data);
 
         return view('default/posts/post', compact('data'));
     }

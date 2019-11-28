@@ -42,10 +42,7 @@ class CPanelUsersController extends CPanelBaseController
     public function updateUser($id, ValidateUserSettings $request)
     {
         return parent::update($id, $request);
-//
-//        $result = $this->repository->update($request, $id);
-//
-//        return back()->with('message', $result);
+
     }
 
 

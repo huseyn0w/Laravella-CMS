@@ -9,34 +9,59 @@ namespace App\Repositories;
 
 use App\Http\Models\Category;
 use App\Http\Models\Post;
+use Doctrine\DBAL\Driver\PDOException;
+use Illuminate\Database\QueryException;
 
 class CPanelPostRepository extends BaseRepository
 {
+    protected $main_table = 'posts';
+
+    protected $translated_table = 'post_translations';
+
+    protected $translated_table_join_column = 'post_id';
+
+
     public function __construct(Post $model)
     {
         parent::__construct();
         $this->model = $model;
+
+
+        //Select and JOIN conditions (posts.id, posts.author.id) and etc...
+        $this->select = [
+            $this->main_table.'.id',
+            $this->translated_table.'.author_id',
+            $this->translated_table.'.title',
+            $this->translated_table.'.slug',
+            $this->translated_table.'.status',
+            $this->translated_table.'.created_at',
+            $this->translated_table.'.updated_at',
+        ];
     }
 
-    public function only($count, $fields = [])
+    public function get_translated_data($count)
     {
-        $fields = ['id', 'title', 'slug', 'status', 'author_id', 'created_at'];
-        $data = $this->model->select($fields)->with('author')->paginate($count);
+        return $this->translated_only($count, $this->main_table, $this->translated_table, $this->translated_table_join_column, $this->select);
+    }
 
-        if(empty($data)) abort(403, 'Some problem occured');
+    public function trashedPosts($count){
+        try{
+            $data = $this->model::join($this->translated_table, $this->main_table.'.id', '=', $this->translated_table.'.'.$this->translated_table_join_column)
+                ->select($this->select)
+                ->where($this->translated_table.'.locale', $this->locale)
+                ->with('author')->onlyTrashed()->paginate($count);
+
+        } catch (QueryException $e) {
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            $this->throwAbort();
+        } catch (\Error $e) {
+            $this->throwAbort();
+        }
 
         return $data;
     }
 
-    public function trashedPosts($count, $fields = [])
-    {
-        $fields = ['id', 'title', 'slug', 'status', 'author_id', 'created_at'];
-        $data = $this->model->select($fields)->with('author')->onlyTrashed()->paginate($count);
-
-        if(empty($data)) abort(403, 'Some problem occured');
-
-        return $data;
-    }
 
     public function getBy($paramName, $paramValue, $fields = [])
     {
@@ -55,64 +80,77 @@ class CPanelPostRepository extends BaseRepository
 
     public function create($request)
     {
-        $post = new Post();
-        $post->title = $request->title;
-        $post->slug = $request->slug;
-        $post->preview = clean($request->preview);
-        $post->content = clean($request->content);
-        $post->author_id = $request->author_id;
-        $post->status = $request->status;
-        $post->thumbnail = $request->thumbnail;
-        $post->meta_keywords = $request->meta_keywords;
-        $post->meta_description = $request->meta_description;
-        if(isset($post->custom_fields)) $post->custom_fields = json_encode($request->custom_fields);
 
 
-        $categories_list = $request->category;
+        $data[$this->locale] = $request->all();
 
-        $category = Category::find($categories_list);
 
-        $post_saved = $post->save();
+        try{
+            $categories_list = $request->category;
 
-        if($post_saved) $category_saved = $post->categories()->attach($category);
+            $created_post = $this->model->create($data);
 
-        if($post_saved && is_null($category_saved)) return true;
+            $category = Category::find($categories_list);
 
-        abort(403, 'Some problem occured');
+            if($created_post) $category_saved = $created_post->categories()->attach($category);
 
-    }
+            if($created_post && is_null($category_saved)) return true;
 
-    public function update($id, $request)
-    {
-        $post = Post::find($id);
-        $post->title = $request->title;
-        $post->slug = $request->slug;
-        $post->preview = clean($request->preview);
-        $post->content = clean($request->content);
-        $post->author_id = $request->author_id;
-        $post->status = $request->status;
-        $post->thumbnail = $request->thumbnail;
-        $post->meta_keywords = $request->meta_keywords;
-        $post->meta_description = $request->meta_description;
-
-        $categories_list = $request->category;
-
-        $category = Category::find($categories_list);
-
-        if($category)
-        {
-            $post->categories()->detach();
-
-            $post_updated = $post->save();
+        }catch (QueryException $e) {
+            $this->throwAbort();
+        }catch (PDOException $e) {
+            $this->throwAbort();
+        }catch (\Error $e) {
+            $this->throwAbort();
         }
 
-        if($post_updated) $category_saved = $post->categories()->attach($category);
-
-        if($post_updated && is_null($category_saved)) return true;
-
-        abort(403, 'Some problem occured');
 
     }
+
+
+    public function update(int $id, $request)
+    {
+        $post = $this->pre_update($id, $request);
+
+        $categories_list = $request->category;
+
+        $category = Category::find($categories_list);
+
+        try{
+            $post->categories()->detach();
+
+            $data[$this->locale] = $request->all();
+
+            $post_updated = $post->update($data);
+
+            if($post_updated) $category_saved = $post->categories()->attach($category);
+
+            if($post_updated && is_null($category_saved)) $result = true;
+
+        }catch (QueryException $e) {
+            $this->throwAbort();
+        }catch (PDOException $e) {
+            $this->throwAbort();
+        }catch (\Error $e) {
+            $this->throwAbort();
+        }
+
+        return $result;
+
+    }
+
+    private function pre_update(int $id, $request)
+    {
+        $post = $this->model::findOrFail($id);
+
+        $preview = clean($request->preview);
+        $content = clean($request->content);
+
+        if( $request->merge(['preview' => $preview, 'content' => $content]) ) return $post;
+
+        return $this->throwAbort();
+    }
+
 
     public function delete($id)
     {
@@ -129,7 +167,7 @@ class CPanelPostRepository extends BaseRepository
 
         }
 
-        if(!$result) abort(403, 'Some problem occured');
+        if(!$result) $this->throwAbort();
 
         return $result;
 
@@ -161,7 +199,7 @@ class CPanelPostRepository extends BaseRepository
 
         }
 
-        if(!$result) abort(403, 'Some problem occured');
+        if(!$result) $this->throwAbort();
 
         return $result;
 
@@ -183,7 +221,7 @@ class CPanelPostRepository extends BaseRepository
 
         }
 
-        if(!$result) abort(403, 'Some problem occured');
+        if(!$result) $this->throwAbort();
 
         return $result;
 

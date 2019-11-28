@@ -37,8 +37,8 @@ $(function(){
         console.log(deleted_comment_id);
         var that = $(this);
 
-        var delete_confirmation = confirm('Are you sure? Comment will be deleted');
-        if(delete_confirmation){
+        var delete_confirmed = confirm(delete_confirmation);
+        if(delete_confirmed){
 
             $.ajax({
                 url: "/cpanel/comments/" + deleted_comment_id + "/delete/",
@@ -53,20 +53,20 @@ $(function(){
                 {
                     if(data === "OK")
                     {
-                        var message = "Comment has been successfully deleted";
+                        var message = delete_success;
                         that.closest('tr').fadeOut(1000, function () {
                             that.closest('tr').remove();
                             showNotification('top','right', message, 'success', 2);
                         });
                     }
                     else{
-                        var message = data;
+                        var message = error_message;
                         showNotification('top','right', message, 'error');
                     }
                 },
                 error:function(data)
                 {
-                    var message = data;
+                    var message = error_message;
                     showNotification('top','right', message, 'error');
                 }
             });
@@ -80,7 +80,7 @@ $(function(){
 
         var that = $(this);
 
-        var approve_confirmation = confirm('Are you sure? Comment will be approved');
+        var approve_confirmation = confirm(approve_confirmation);
         if(approve_confirmation){
 
             $.ajax({
@@ -96,18 +96,18 @@ $(function(){
                 {
                     if(data === "OK")
                     {
-                        var message = "Comment has been successfully approved";
+                        var message = approve_success;
                         showNotification('top','right', message, 'success', 2);
                         that.hide().remove();
                     }
                     else{
-                        var message = data;
+                        var message = error_message;
                         showNotification('top','right', message, 'error');
                     }
                 },
                 error:function(data)
                 {
-                    var message = data;
+                    var message = error_message;
                     showNotification('top','right', message, 'error');
                 }
             });
@@ -120,7 +120,7 @@ $(function(){
 
         var that = $(this);
 
-        var approve_confirmation = confirm('Are you sure? Comment will be approved');
+        var approve_confirmation = confirm(unapprove_confirmation);
         if(approve_confirmation){
 
             $.ajax({
@@ -136,18 +136,18 @@ $(function(){
                 {
                     if(data === "OK")
                     {
-                        var message = "Comment has been successfully unapproved";
+                        var message = unapprove_success;
                         showNotification('top','right', message, 'success', 2);
                         that.hide().remove();
                     }
                     else{
-                        var message = data;
+                        var message = error_message;
                         showNotification('top','right', message, 'error');
                     }
                 },
                 error:function(data)
                 {
-                    var message = data;
+                    var message = error_message;
                     showNotification('top','right', message, 'error');
                 }
             });

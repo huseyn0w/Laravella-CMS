@@ -37,7 +37,7 @@ class UserController extends BaseController
     {
         $result = $this->repository->changePassword($request);
 
-        if(!$result) return redirect()->back()->withErrors('Your current password does not matches with the password you provided. Please try again.');
+        if(!$result) return redirect()->back()->withErrors(trans('cpanel/controller.password_match'));
 
         return back()->with('message', " ");
     }

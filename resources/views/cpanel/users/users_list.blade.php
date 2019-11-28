@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <h4 class="card-title">Users Table</h4>
+                        <h4 class="card-title">@lang('cpanel/users.list_headline')</h4>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         @if ($errors->any())
@@ -37,11 +37,11 @@
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>Users has been deleted</strong>
+                                        <strong>@lang('cpanel/users.bulky_deleted_message')</strong>
                                     </div>
                                 @else
                                     <div class="alert alert-danger">
-                                        <strong>Some problem has been occured. Please try again later.</strong>
+                                        <strong>@lang('cpanel/users.bulky_deleted_error_message')</strong>
                                     </div>
                                 @endif
                             </div>
@@ -50,7 +50,7 @@
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>User has been added.</strong>
+                                        <strong>@lang('cpanel/users.user_added')</strong>
                                     </div>
                                 @endif
                             </div>
@@ -60,10 +60,10 @@
                             @method('DELETE')
                             <div class="select-cover">
                                 <select id="inputState" name="users_action" required="" class="form-control">
-                                    <option selected="selected">Bulk action</option>
-                                    <option value="delete">Delete</option>
+                                    <option selected="selected">@lang('cpanel/users.bulk_action_label')</option>
+                                    <option value="delete">@lang('cpanel/users.bulk_action_delete_label')</option>
                                 </select>
-                                <button type="submit" class="btn btn-info btn-fill">Apply</button>
+                                <button type="submit" class="btn btn-info btn-fill">@lang('cpanel/users.bulk_action_apply')</button>
                             </div>
                             <table class="table table-hover table-striped users-table">
                                 <thead>
@@ -77,13 +77,13 @@
                                            </div>
                                         </th>
                                         <th>№</th>
-                                        <th>username</th>
-                                        <th>Email</th>
-                                        <th>Name</th>
-                                        <th>Surname</th>
-                                        <th>Country</th>
-                                        <th>City</th>
-                                        <th>Role</th>
+                                        <th>@lang('cpanel/users.table_username')</th>
+                                        <th>@lang('cpanel/users.table_email')</th>
+                                        <th>@lang('cpanel/users.table_name')</th>
+                                        <th>@lang('cpanel/users.table_surname')</th>
+                                        <th>@lang('cpanel/users.table_country')</th>
+                                        <th>@lang('cpanel/users.table_city')</th>
+                                        <th>@lang('cpanel/users.table_role')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,9 +105,9 @@
 
                                             <span class="user_actions">
                                              @if (Auth::user()->can('manage_users', 'App\Http\Models\UserRoles'))
-                                                <a href="{{route('cpanel_edit_user_profile', $user->id)}}" target="_blank">Edit</a>
+                                                <a href="{{route('cpanel_edit_user_profile', $user->id)}}" target="_blank">@lang('cpanel/users.edit_user')</a>
                                                 <input type="hidden" class="deleted_user_id" value="{{$user->id}}" name="deleted_user_id">
-                                                <button type="button" class="delete_user">Delete</button>
+                                                <button type="button" class="delete_user">@lang('cpanel/users.delete_user')</button>
                                              @endif
                                             </span>
 
@@ -120,7 +120,7 @@
                                         <td>{{$user->role->name}}</td>
                                     </tr>
                                 @empty
-                                    <td colspan="7">No users</td>
+                                    <td colspan="7">@lang('cpanel/users.not_found')</td>
                                 @endforelse
                                 </tbody>
                             </table>
@@ -129,7 +129,7 @@
                             {{ $users_list->links() }}
                         </div>
                         <div class="col-md-12">
-                            <a href="{{route('cpanel_add_new_user')}}" class="btn btn-info btn-fill pull-right">Add new user</a>
+                            <a href="{{route('cpanel_add_new_user')}}" class="btn btn-info btn-fill pull-right">@lang('cpanel/users.add_new_user')</a>
                         </div>
                     </div>
                 </div>
@@ -140,5 +140,10 @@
 @endsection
 
 @push('finalscripts')
+    <script>
+        var delete_confirmation = '@lang('cpanel/users.js_delete_confirmation')',
+            delete_success = '@lang('cpanel/users.js_delete_success')',
+            delete_error = '@lang('cpanel/users.js_delete_error')';
+    </script>
     <script src="{{asset('admin')}}/js/user.js"></script>
 @endpush

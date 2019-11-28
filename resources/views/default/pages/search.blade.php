@@ -4,6 +4,7 @@
  * File: search.blade.php
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 15.11.2019
+ * Template Name: "Search Page";
  */
 ?>
 @extends(env('TEMPLATE_NAME').'/index')
@@ -21,7 +22,7 @@
                         @csrf
                         <div id="imaginary_container">
                             <div class="input-group stylish-input-group">
-                                <input type="text" class="form-control" name="query" placeholder="Type keyword here and press ENTER" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Type keyword here and press ENTER '" required="">
+                                <input type="text" class="form-control" name="query" placeholder="@lang('default/page.search_placeholder')" required="">
                                 <span class="input-group-addon">
                                 <button type="submit">
                                     <span class="lnr lnr-magnifier"></span>
@@ -30,19 +31,20 @@
                             </div>
                         </div>
                         <div class="search-filter default-select" id="default-select">
-                            <h4>Filter By: </h4>
+                            <h4>@lang('default/page.filter_by') </h4>
                             <select style="display: none;" name="filter">
-                                <option value="post">Post</option>
-                                <option value="page">Page</option>
-                                <option value="user">User</option>
+                                <option value="post">@lang('default/page.filter_post')</option>
+                                <option value="page">@lang('default/page.filter_page')</option>
+                                <option value="user">@lang('default/page.filter_user')</option>
+                                <option value="category">@lang('default/page.filter_category')</option>
                             </select>
                         </div>
 
                         @if(isset($searchData) && count($searchData) > 0)
                             @php
-                                $results_word = $searchData['result']->total() >1 ? "results" : "result";
+                                $results_word = $searchData['result']->total() >1 ? trans('default/page.results') : trans('default/page.result');
                             @endphp
-                        <p class="mt-20 text-center text-white search-result-count">{{$searchData['result']->total()}} {{$results_word}} found for “{{$searchData['query']}}”</p>
+                        <p class="mt-20 text-center text-white search-result-count">{{$searchData['result']->total()}} {{$results_word}} @lang('default/page.found_for') “{{$searchData['query']}}”</p>
                         @endif
 
                         {!! app('captcha')->render(); !!}
@@ -76,6 +78,8 @@
                                             <a href="{{env('APP_URL').$item->slug}}"><h4 class="pb-20">{{$item->title}}</h4></a>
                                         @elseif($searchData['type'] === "user")
                                             <a href="{{env('APP_URL').'users/'.$item->username}}"><h4 class="pb-20">{{$item->username}}</h4></a>
+                                        @elseif($searchData['type'] === "category")
+                                            <a href="{{env('APP_URL').'category/'.$item->slug}}"><h4 class="pb-20">{{$item->title}}</h4></a>
                                         @endif
                                     </div>
                                 </div>
@@ -89,7 +93,7 @@
                             echo $search_pagination_links;
                         @endphp
                     @elseif(isset($searchData) && $searchData['result']->total() === 0)
-                        <h4>Nothing found</h4>
+                        <h4>@lang('default/page.search_nothing_found')</h4>
                     @endif
                 </div>
             </div>

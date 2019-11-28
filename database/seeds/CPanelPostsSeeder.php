@@ -13,18 +13,39 @@ class CPanelPostsSeeder extends Seeder
     public function run()
     {
         DB::table('posts')->insert([
+            []
+        ]);
+
+        DB::table('post_translations')->insert([
             [
-                'title' => 'First post',
-                'slug' => 'first-post',
+                'title' => 'Post example',
+                'slug' => 'post-example',
                 'author_id' => 1,
+                'post_id' => 1,
+                'locale' => 'en',
                 'status' => 1,
-                'likes' => 0,
                 'preview' => "Preview of the first post",
                 'content' => "Content of the first post",
                 'meta_keywords' => "post, first post, description of first post",
                 'meta_description' => "First post meta description",
-                'thumbnail' => 'http://laravella.loc/filemanager/images/5dbb5723de46f.jpg',
-                'created_at' => Carbon::now()
+                'thumbnail' => env('APP_URL').'filemanager/images/5dbb5723de46f.jpg',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Пример поста',
+                'slug' => 'primer-posta',
+                'author_id' => 1,
+                'post_id' => 1,
+                'locale' => 'ru',
+                'status' => 1,
+                'preview' => "Превью примерочного поста",
+                'content' => "Контент примерочного поста",
+                'meta_keywords' => "пост, примерочный пост",
+                'meta_description' => "описание примерочного поста",
+                'thumbnail' => env('APP_URL').'filemanager/images/5dbb5723de46f.jpg',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]
         ]);
     }

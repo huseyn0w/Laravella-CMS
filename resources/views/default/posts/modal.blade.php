@@ -13,7 +13,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Edit comment</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">@lang('default/modal.edit_comment')</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -44,7 +44,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary update-comment">Update comment</button>
+                    <button type="submit" class="btn btn-primary update-comment">@lang('default/modal.update_comment_btn')</button>
                 </div>
             </form>
         </div>

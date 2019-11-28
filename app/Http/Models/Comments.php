@@ -9,7 +9,7 @@ class Comments extends Model
 {
     use Cachable;
 
-    protected $table = 'posts_comments';
+    protected $table = 'post_comments';
 
     protected $fillable = ['user_id', 'post_id', 'parent_id', 'comment', 'status'];
 
@@ -20,7 +20,7 @@ class Comments extends Model
 
     public function replies()
     {
-        return $this->hasMany(Comments::class, 'parent_id')->with('user');
+        return $this->hasMany(Comments::class, 'parent_id')->where('status', 1)->with('user');
     }
 
     public static function boot() {

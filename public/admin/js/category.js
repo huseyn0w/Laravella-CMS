@@ -29,8 +29,8 @@ $(function () {
         var deleted_category_id = $(this).prev('.deleted_category_id').val();
         var that = $(this);
 
-        var delete_confirmation = confirm('Are you sure? Category will be deleted');
-        if(delete_confirmation){
+        var delete_conf = confirm(delete_confirmation);
+        if(delete_conf){
             $.ajax({
                 url: "/cpanel/categories/" + deleted_category_id + "/delete/",
                 type: 'DELETE',
@@ -44,20 +44,20 @@ $(function () {
                 {
                     if(data === "OK")
                     {
-                        var message = "Category has been successfully deleted";
+                        var message = delete_success;
                         that.closest('tr').fadeOut(1000, function () {
                             that.closest('tr').remove();
                             showNotification('top','right', message, 'success', 2);
                         });
                     }
                     else{
-                        var message = "Error has been occured. Please try again later";
+                        var message = error_message;
                         showNotification('top','right', message, 'error');
                     }
                 },
                 error:function(data)
                 {
-                    var message = data;
+                    var message = error_message;
                     showNotification('top','right', message, 'error');
                 }
             });

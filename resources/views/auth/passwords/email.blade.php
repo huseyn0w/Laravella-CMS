@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row justify-content-between align-items-center d-flex">
             <div class="col-lg-8 top-left">
-                <h1 class="text-white mb-20">Password Reset</h1>
+                <h1 class="text-white mb-20">@lang('custom-passwords.reset_page_headline')</h1>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Reset Password') }}</div>
+                    <div class="card-header">@lang('custom-passwords.reset_password')</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -28,7 +28,7 @@
                             @csrf
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                <label for="email" class="col-md-4 col-form-label text-md-right">@lang('custom-passwords.email')</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -44,7 +44,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 text-center">
                                     <button type="submit" class="genric-btn primary e-large">
-                                        {{ __('Send Password Reset Link') }}
+                                        @lang('custom-passwords.send_password_link')
                                     </button>
                                 </div>
                             </div>

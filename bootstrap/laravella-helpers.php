@@ -17,6 +17,8 @@ use App\Http\Models\Menu;
 use App\Http\Models\CPanel\CPanelSiteOptions;
 use App\Http\Models\CPanel\CPanelGeneralSettings;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\QueryException;
+use Doctrine\DBAL\Driver\PDOException;
 
 function get_front_templates_array():array
 {
@@ -53,33 +55,58 @@ function get_user_roles():object
 
 function get_post_categories_list($fields = []):object
 {
+    $locale = get_current_lang();
     if(empty($fields)){
-        $roles = Category::select('id', 'title')->orderBy('id', 'ASC')->get();
+        $categories = Category::join('category_translations', 'categories.id', '=', 'category_translations.category_id')
+            ->select(['categories.id', 'category_translations.title'])
+            ->where('category_translations.locale', $locale)->get();
     }
     else
     {
-        $roles = Category::select($fields)->orderBy('id', 'ASC')->get();
+        $categories = Category::join('category_translations', 'categories.id', '=', 'category_translations.category_id')
+            ->select($fields)
+            ->where('category_translations.locale', $locale)->get();
     }
 
 
 
-    return $roles;
+
+
+    return $categories;
 
 }
 
-function get_post_list():object
+function get_post_list($fields = []):object
 {
-    $roles = Post::select('id', 'title', 'slug')->orderBy('id', 'ASC')->get();
+    $locale = get_current_lang();
 
-    return $roles;
+    if(empty($fields)){
+        $posts = Post::join('post_translations', 'posts.id', '=','post_translations.post_id')
+        ->select('posts.id', 'post_translations.title', 'post_translations.slug')->orderBy('id', 'ASC')->get();
+    }
+    else{
+        $posts = Post::join('post_translations', 'posts.id', '=','post_translations.post_id')
+        ->select($fields)->orderBy('id', 'ASC')->where('locale', $locale)->get();
+    }
+
+    return $posts;
 
 }
 
-function get_pages_list():object
+function get_pages_list($fields = []):object
 {
-    $roles = Page::select('id', 'title', 'slug')->orderBy('id', 'ASC')->get();
+    $locale = get_current_lang();
 
-    return $roles;
+    if(empty($fields)){
+        $pages = Page::join('page_translations', 'pages.id', '=','page_translations.page_id')
+            ->select('pages.id', 'post_translations.title', 'post_translations.slug')->orderBy('id', 'ASC')->get();
+    }
+    else{
+        $pages = Page::join('page_translations', 'pages.id', '=','page_translations.page_id')
+            ->select($fields)->orderBy('id', 'ASC')->where('locale', $locale)->get();
+    }
+
+    return $pages;
 
 }
 
@@ -441,11 +468,35 @@ function render_menu($menu_data, $params)
     return $html;
 }
 
-function get_menu_data($menu_title, $data)
+function get_current_lang()
 {
-    $menu = Menu::select('content')->where('title', $menu_title)->first();
+    return app()->getLocale();
+}
 
-    if(!$menu) return false;
+function set_current_lang(string $string)
+{
+    return app()->setLocale($string);
+}
+
+function get_menu_data($menu_slug, $data)
+{
+
+    $locale = get_current_lang();
+
+    try{
+        $menu = Menu::join('menu_translations', 'menus.id', '=','menu_translations.menu_id')
+            ->select('menus.id', 'menu_translations.content')
+            ->where('menu_translations.locale', $locale)
+            ->where('menus.slug', $menu_slug)->first();
+
+    } catch (QueryException $e) {
+        return false;
+    } catch (PDOException $e) {
+        return false;
+    } catch (\Error $e) {
+        return false;
+    }
+
 
     $html = render_menu(json_decode($menu->content), $data);
 
@@ -536,58 +587,92 @@ function get_site_options($key = null)
 function get_general_settings($key = null)
 {
 
+
     $data = null;
     if(is_null($key))
     {
         $data = CPanelGeneralSettings::first();
     }
     else{
-        $collection = CPanelGeneralSettings::all($key);
-        $data = $collection[0]->$key;
+        $collection = CPanelGeneralSettings::select($key)->first();
+
+        $data = $collection->$key;
     }
 
 
     return $data;
 }
 
-function get_data(int $id, string $entity, $fields = [])
+function get_translated_data_params($entity)
 {
-
-    if(empty($fields))
-    {
-        switch ($entity){
-            case 'page':
-                $data = Page::where('id', $id)->first();
-                break;
-            case 'post':
-                $data = Post::where('id', $id)->first();
-                break;
-            case 'category':
-                $data = Category::where('id', $id)->first();
-                break;
-            default:
-                break;
-        }
-    }
-    else
-    {
-        switch ($entity){
-            case 'page':
-                $data = Page::select($fields)->where('id', $id)->first();
-                break;
-            case 'post':
-                $data = Post::select($fields)->where('id', $id)->first();
-                break;
-            case 'category':
-                $data = Category::select($fields)->where('id', $id)->first();
-                break;
-            default:
-                break;
-        }
+    $data = [];
+    switch ($entity){
+        case 'page':
+            $data['model'] = new Page;
+            $data['main_table'] = "pages";
+            $data['translated_table'] = "page_translations";
+            $data['join_column'] = "page_id";
+            break;
+        case 'post':
+            $data['model'] = new Post;
+            $data['main_table'] = "posts";
+            $data['translated_table'] = "post_translations";
+            $data['join_column'] = "post_id";
+            break;
+        case 'category':
+            $data['model'] = new Category;
+            $data['main_table'] = "categories";
+            $data['translated_table'] = "category_translations";
+            $data['join_column'] = "category_id";
+            break;
+        default:
+            break;
     }
 
     return $data;
+}
 
+function get_data(int $id, string $entity, $fields = [])
+{
+    $params = get_translated_data_params($entity);
+    $locale = get_current_lang();
+
+
+    try{
+        $data = $params['model']::join($params['translated_table'], $params['main_table'].'.id', '=', $params['translated_table'].'.'.$params['join_column'])
+            ->select($fields)
+            ->where($params['translated_table'].'.locale', $locale)
+            ->where($params['main_table'].'.id', $id)
+            ->with('author')->first();
+
+    } catch (QueryException $e) {
+//            dd($e->getMessage());
+        throwAbort();
+    } catch (PDOException $e) {
+//            dd($e->getMessage());
+        throwAbort();
+    } catch (\Error $e) {
+//            dd($e->getMessage());
+        throwAbort();
+    }
+
+
+
+    return $data;
+
+}
+
+function throwNotFound($message = null)
+{
+    if(is_null($message)) $message = trans('cpanel/controller.page_not_found');
+    return abort(404, $message);
+}
+
+
+function throwAbort($message = null)
+{
+    if(is_null($message)) $message = trans('cpanel/controller.problem_occurred');
+    return abort(403, $message);
 }
 
 
@@ -695,7 +780,9 @@ function get_contact_email():string
 
 function get_comments_count_per_page():int
 {
-    return get_general_settings('comments_per_page');
+    $count = get_general_settings('comments_per_page');
+
+    return $count;
 }
 
 function get_logged_user_id()

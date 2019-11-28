@@ -29,8 +29,8 @@ $(function () {
         var deleted_user_id = $(this).prev('.deleted_user_id').val();
         var that = $(this);
 
-        var delete_confirmation = confirm('Are you sure? User will be deleted');
-        if(delete_confirmation){
+        var delete_confirmed = confirm(delete_confirmation);
+        if(delete_confirmed){
             $.ajax({
                 url: "/cpanel/users/" + deleted_user_id + "/delete/",
                 type: 'DELETE',
@@ -44,14 +44,14 @@ $(function () {
                 {
                     if(data === "OK")
                     {
-                        var message = "User has been successfully deleted";
+                        var message = delete_success;
                         that.closest('tr').fadeOut(1000, function () {
                             that.closest('tr').remove();
                             showNotification('top','right', message, 'success', 2);
                         });
                     }
                     else{
-                        var message = "Error has been occured. Please try again later";
+                        var message = delete_error;
                         showNotification('top','right', message, 'error');
                     }
                 },

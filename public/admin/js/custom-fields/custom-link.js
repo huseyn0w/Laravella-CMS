@@ -26,15 +26,15 @@ $(function(){
                    <div class="form-group custom-form-group">
                        <label>${custom_text_label_value}</label>
                        <div class="form-group custom-form-group">
-                           <label>Link Label</label>
+                           <label>${link_label}</label>
                            <input type="text" class="form-control" name="custom_fields[${custom_link_key_value}][value][label]" value="${custom_link_label_value}">
                        </div>
                        <div class="form-group custom-form-group">
-                           <label>Link URL</label>
+                           <label>${link_url}</label>
                            <input type="text" class="form-control" name="custom_fields[${custom_link_key_value}][value][url]" value="${custom_link_url_value}">
                        </div>
                        <div class="form-group custom-form-group form-check">
-                            <label class="form-check-label form-checkbox" for="${custom_link_key_value}"> Open in new tab
+                            <label class="form-check-label form-checkbox" for="${custom_link_key_value}"> ${link_target}
                                 <input type="checkbox" id="${custom_link_key_value}" class="form-check-input exist-input-checkbox pages-checkbox-input form-tab" ${open_in_new_tab === "1" ? 'checked' : null}>
                                 <span class="form-check-sign"></span>
                             </label>

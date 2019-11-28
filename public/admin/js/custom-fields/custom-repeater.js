@@ -51,13 +51,13 @@ $(function(){
             <div class="row custom-repeater-group-key">
                <div class="col-md-12">
                     <div class="form-group label-group">
-                        <label>Headline</label>
+                        <label>${repeater_headline}</label>
                         <input type="text" required="" class="form-control custom-repeater-headline-name" name="custom-repeater-headline-name_${group_count}">
                     </div>
                </div>
                <div class="col-md-12">
                     <div class="form-group label-group">
-                        <label>Key</label>
+                        <label>${repeater_cover_key}</label>
                         <input type="text" required="" class="form-control custom-repeater-key-name" name="custom-repeater-key-name_${group_count}">
                     </div>
                </div>
@@ -88,13 +88,13 @@ $(function(){
         field_count++;
         var repeater_select = `
         <div class="form-group repeater-group" id="repeater_group_${field_count}">
-            <label for="choose_field_${field_count}">Field type</label>
+            <label for="choose_field_${field_count}">${field_type}</label>
             <select name="choose_field_${field_count}" id="choose_field_${field_count}" class="form-control choose_field">
-                <option value="">Choose field</option>
-                <option value="text">Text</option>
-                <option value="textarea">Textarea</option>
-                <option value="image">Image</option>
-                <option value="link">Link</option>
+                <option value="">${field_type_preview}</option>
+                <option value="text">${field_text}</option>
+                <option value="textarea">${field_textarea}</option>
+                <option value="image">${field_image}</option>
+                <option value="link">${field_link}</option>
             </select>
             <div class="repeater-group-content"></div>
             <button type="button" class="remove_repeater_field">X</button>
@@ -109,13 +109,13 @@ $(function(){
            <div class="row custom-repeater-group-row" data-type="${type}">
                <div class="col-md-12">
                     <div class="form-group label-group">
-                        <label>Label</label>
+                        <label>${text_label}</label>
                         <input type="text" required="" class="form-control custom-label" name="input_label_${field_count}">
                     </div>
                </div>
                <div class="col-md-12">
                     <div class="form-group">
-                        <label>Name</label>
+                        <label>${text_name}</label>
                         <input type="text" required="" class="form-control custom-input-name" name="input_name_${field_count}">
                     </div>
                </div>
@@ -141,7 +141,7 @@ $(function(){
     });
 
     $(document).on('click', ".deleteGroup", function () {
-        var delete_confirming = confirm("Are you sure? Group will be deleted!");
+        var delete_confirming = confirm(group_delete_conf);
         if(delete_confirming) {
             $(this).closest(".repeater_cover").hide().remove();
         }
@@ -238,8 +238,8 @@ $(function(){
             var repeater_group = `<div class="repeater_cover repeater_${group_count}_cover">
                     <div class="group_headline">
                         <h4>${group_headline}</h4>
-                        <button type="button" class="btn btn-danger deleteGroup">Delete group</button>
-                        <button type="button" class="btn btn-info toogleGroup">Toogle group</button>
+                        <button type="button" class="btn btn-danger deleteGroup">${delete_group_label}</button>
+                        <button type="button" class="btn btn-info toogleGroup">${toggle_group_label}</button>
                         <input type="hidden" name="custom_fields[${repeater_key}][type]" value="repeater">
                         <input type="hidden" name="custom_fields[${repeater_key}][admin_label]" value="${group_headline}">
                     </div>
@@ -273,10 +273,10 @@ $(function(){
 
             });
 
-            repeater_group += '<button type="button" class="btn btn-danger remove_item">Delete row</button>';
+            repeater_group += '<button type="button" class="btn btn-danger remove_item">'+ delete_row +'</button>';
 
 
-            repeater_group += '</div></div><button type="button" class="btn btn-info duplicate_group">Add row</button></div>';
+            repeater_group += '</div></div><button type="button" class="btn btn-info duplicate_group">'+ add_row +'</button></div>';
 
             custom_fields_cover.append(repeater_group);
 
@@ -353,15 +353,15 @@ $(function(){
               </div>
               <div class="col-md-12">
                    <div class="form-group custom-form-group">
-                       <label>Link Label</label>
+                       <label>${link_label}</label>
                        <input type="text" class="form-control form-label" name="custom_fields[${repeater_key}][value][row-0][${custom_text_name_value}][value][label]">
                    </div>
                    <div class="form-group custom-form-group">
-                       <label>Link URL</label>
+                       <label>${link_url}</label>
                        <input type="text" class="form-control form-url" name="custom_fields[${repeater_key}][value][row-0][${custom_text_name_value}][value][url]" value="">
                    </div>
                    <div class="form-group custom-form-group form-check">
-                        <label class="form-check-label form-checkbox" for="${repeater_key}"> Open in new tab
+                        <label class="form-check-label form-checkbox" for="${repeater_key}"> ${link_target}
                             <input id="${repeater_key}" class="form-check-input pages-checkbox-input form-tab exist-input-checkbox pages-checkbox-input" type="checkbox">
                             <span class="form-check-sign"></span>
                         </label>
@@ -391,10 +391,10 @@ $(function(){
               </div>
               <div class="col-md-12">
                    <div class="form-group custom-form-group">
-                       <label for="custom_input_image">Image</label>
+                       <label for="custom_input_image">${image_label}</label>
                        <span class="input-group-btn">
                           <a id="lfm" data-input="thumbnail_0" data-preview="holder" class="btn btn-primary choose-image">
-                            <i class="fa fa-picture-o"></i> Choose image
+                            <i class="fa fa-picture-o"></i> ${image_preview_label}
                           </a>
                         </span>
                       <input id="thumbnail_0" class="form-control form-image" type="text" name="custom_fields[${repeater_key}][value][row-0][${custom_text_name_value}][value]">

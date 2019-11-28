@@ -48,11 +48,11 @@
                     <div class="col-12">
                         @if ($update_message)
                             <div class="alert alert-success">
-                                <strong>Post has been updated</strong>
+                                <strong>@lang('cpanel/posts.updated_success')</strong>
                             </div>
                         @else
                             <div class="alert alert-danger">
-                                <strong>Some problem has been occured. Please try again later.</strong>
+                                <strong>@lang('cpanel/posts.updated_error')</strong>
                             </div>
                         @endif
                     </div>
@@ -60,20 +60,20 @@
                 <div class="col-xs-12 col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Post</h4>
-                            <p>Post url: <strong><a href="{{env('APP_URL')}}posts/{{ old('slug',$post->slug) }}">{{env('APP_URL')}}posts/{{ old('slug',$post->slug) }}</a></strong></p>
+                            <h4 class="card-title">@lang('cpanel/posts.edit_headline')</h4>
+                            <p>@lang('cpanel/posts.url_preview') <strong><a href="{{env('APP_URL')}}posts/{{ old('slug',$post->slug) }}">{{env('APP_URL')}}posts/{{ old('slug',$post->slug) }}</a></strong></p>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="cpanel_title">Title</label>
+                                        <label for="cpanel_title">@lang('cpanel/posts.title')</label>
                                         <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title', $post->title) }}" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="slug">Slug</label>
+                                        <label for="slug">@lang('cpanel/posts.slug')</label>
                                         <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug',$post->slug) }}">
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Preview</label>
+                                        <label>@lang('cpanel/posts.preview')</label>
                                         <textarea name="preview"  id="editor"  class="my-editor form-control">{{old('preview',$post->preview)}}</textarea>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Content</label>
+                                        <label>@lang('cpanel/posts.content')</label>
                                         <textarea name="content"  id="editor"  class="my-editor form-control">{{old('content',$post->content)}}</textarea>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="likes">Likes: {{$post->likes}}</label>
+                                        <label for="likes">@lang('cpanel/posts.likes') {{$post->likes}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Category</label>
+                                        <label>@lang('cpanel/posts.category')</label>
                                         <select name="category[]" multiple class="form-control category_list multiple_list" id="post_category">
                                             @foreach($categories_list as $category)
                                                 <option value="{{$category->id}}" {{in_array($category->id, $categories_ids) ? 'selected': null}} >{{$category->title}}</option>
@@ -122,7 +122,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Author</label>
+                                        <label>@lang('cpanel/posts.author')</label>
                                         <select name="author_id" id="author_id" class="form-control">
                                          @foreach($users_list as $user)
                                             @if($user->id === $post->author_id)
@@ -136,25 +136,25 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Publish date</label>
-                                        <input class="form-control" value="{{old('created_at', $post->created_at)}}" autocomplete="off" name="created_at" required id="date_time_picker" type="text" />
+                                        <label>@lang('cpanel/posts.publish_date')</label>
+                                        <input class="form-control" value="{{old('updated_at', $post->updated_at)}}" autocomplete="off" name="updated_at" required id="date_time_picker" type="text" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Status</label>
+                                        <label>@lang('cpanel/posts.status')</label>
                                         <select name="status" id="user_role" class="form-control">
-                                            <option value="0" {{$post->status === 0 ? 'selected' :null}}>Private</option>
-                                            <option value="1" {{$post->status === 1 ? 'selected' :null}}>Published</option>
+                                            <option value="0" {{$post->status === 0 ? 'selected' :null}}>@lang('cpanel/posts.status_private')</option>
+                                            <option value="1" {{$post->status === 1 ? 'selected' :null}}>@lang('cpanel/posts.status_published')</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="custom_input_image">Post thumbnail</label>
+                                        <label for="custom_input_image">@lang('cpanel/posts.thumbnail')</label>
                                         <span class="input-group-btn">
                                           <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary choose-image">
-                                            <i class="fa fa-picture-o"></i> Choose image
+                                            <i class="fa fa-picture-o"></i> @lang('cpanel/posts.thumbnail_label')
                                           </a>
                                         </span>
                                         <input id="thumbnail" class="form-control" type="hidden" name="thumbnail" value="{{ old('thumbnail', $post->thumbnail) }}">
@@ -165,7 +165,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Update</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">@lang('cpanel/posts.update_button_label')</button>
                             <div class="clearfix"></div>
                         </div>
                     </div>

@@ -37,28 +37,28 @@
                 <div class="col-xs-12 col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Add new Category</h4>
+                            <h4 class="card-title">@lang('cpanel/categories.new_category_headline')</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="cpanel_title">Title</label>
+                                        <label for="cpanel_title">@lang('cpanel/categories.title')</label>
                                         <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title') }}" >
                                         <div class="field-desc">
                                             <p>
-                                                The name is how it appears on your site.
+                                                @lang('cpanel/categories.title_desc')
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="cpanel_slug">Slug</label>
+                                        <label for="cpanel_slug">@lang('cpanel/categories.slug')</label>
                                         <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug') }}">
                                         <div class="field-desc">
                                             <p>
-                                                The “slug” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.
+                                                @lang('cpanel/categories.slug_desc')
                                             </p>
                                         </div>
                                     </div>
@@ -67,16 +67,16 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Parent Category</label>
+                                        <label>@lang('cpanel/categories.parent_category')</label>
                                         <select name="parent_category" class="form-control">
-                                            <option value="">No</option>
+                                            <option value="">@lang('cpanel/categories.no_parent_category')</option>
                                             @foreach($categories_list as $category)
                                                 <option value="{{$category->id}}">{{$category->title}}</option>
                                             @endforeach
                                         </select>
                                         <div class="field-desc">
                                             <p>
-                                                Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional.
+                                                @lang('cpanel/categories.parent_category_desc')
                                             </p>
                                         </div>
                                     </div>
@@ -85,18 +85,18 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Description</label>
+                                        <label>@lang('cpanel/categories.description')</label>
                                         <textarea name="description"  class="form-control">{{old('description')}}</textarea>
                                         <div class="field-desc">
                                             <p>
-                                                The description is not prominent by default; however, some themes may show it.
+                                                @lang('cpanel/categories.description_content')
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             @include('cpanel.core.seo')
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Create</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">@lang('cpanel/categories.create_button_label')</button>
                             <div class="clearfix"></div>
                         </div>
                     </div>

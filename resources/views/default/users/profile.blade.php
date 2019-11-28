@@ -20,10 +20,10 @@
     <div class="container">
         <div class="row justify-content-between align-items-center d-flex">
             <div class="col-lg-8 top-left">
-                <h1 class="text-white mb-20">Profile</h1>
+                <h1 class="text-white mb-20">@lang('default/profile.profile')</h1>
                 <ul class="breadcrumbs">
                     <li><a href="{{env('APP_URL')}}">{{$home_page_data->title}}</a><span class="lnr lnr-arrow-right"></span></li>
-                    <li><span>Profile info</span></li>
+                    <li><span>@lang('default/profile.profile_info')</span></li>
                 </ul>
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">User info</h4>
+                        <h4 class="card-title">@lang('default/profile.user_info')</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -53,19 +53,19 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label><strong>Username:</strong></label>
+                                    <label><strong>@lang('default/profile.username'):</strong></label>
                                     <p>{{$user->username}}</p>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label><strong>Email address:</strong></label>
+                                    <label><strong>@lang('default/profile.email'):</strong></label>
                                     <p>{{$user->email}}</p>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label><strong>Status:</strong></label>
+                                    <label><strong>@lang('default/profile.status'):</strong></label>
                                     <p>{{$user->role->name}}</p>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                             @if($user->name)
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="name"><strong>Name:</strong></label>
+                                    <label for="name"><strong>@lang('default/profile.name'):</strong></label>
                                     <p>{{$user->name}}</p>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                             @if($user->surname)
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="surname"><strong>Surname:</strong></label>
+                                    <label for="surname"><strong>@lang('default/profile.surname'):</strong></label>
                                     <p>{{$user->surname}}</p>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                             @if($user->country)
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label><strong>Country:</strong></label>
+                                    <label><strong>@lang('default/profile.country'):</strong></label>
                                     <p>{{$user->country}}</p>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                             @if($user->city)
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label><strong>City:</strong></label>
+                                    <label><strong>@lang('default/profile.city'):</strong></label>
                                     <p>{{$user->city}}</p>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                             @if($user->about_me)
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label><strong>About Me:</strong></label>
+                                    <label><strong>@lang('default/profile.about'):</strong></label>
                                     <p>{{$user->about_me}}</p>
                                 </div>
                             </div>
@@ -171,14 +171,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-check form-check-radio">
-                                    <label><strong>Gender:</strong></label>
+                                    <label><strong>@lang('default/profile.gender'):</strong></label>
                                     <p>{{$user->gender}}</p>
                                 </div>
                             </div>
                         </div>
                         @endif
                         @if($user->username === $logged_user_name)
-                            <a href="{{route('get_user_info')}}">Edit</a>
+                            <a href="{{route('get_user_info')}}">@lang('default/profile.edit')</a>
                         @endif
                         <div class="clearfix"></div>
                     </div>

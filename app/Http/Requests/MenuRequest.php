@@ -8,8 +8,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
 
-class MenuRequest extends FormRequest
+class MenuRequest extends LaravellaRequest
 {
+    protected $table = 'menu_translations';
+
+    protected $ignore_column = 'menu_id';
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,31 +31,23 @@ class MenuRequest extends FormRequest
      */
     public function rules()
     {
-        $route_name = Route::currentRouteName();
-        $menu_id = (int) $this->route('id');
 
         $rules = [
-            'content' => 'required|string'
+            'content' => 'required|string|min:3',
+            'slug'    => 'required|string',
+            'title'   => ['required', 'string', 'max:20']
         ];
 
+        $title = $this->newRecordRule('title');
 
-        if($route_name === "cpanel_update_menu")
+
+        if($this->route_name === "cpanel_update_menu")
         {
-
-            $title = ['required',
-                'string',
-                'required',
-                'max:50',
-                Rule::unique('menus','title')->ignore($menu_id)
-            ];
-
-        }
-        else
-        {
-            $title = 'required|string|max:50|unique:menus,title';
+            $title = $this->updateRecordRule('title');
         }
 
-        $rules['title'] = $title;
+
+        $rules['title'][] = $title;
 
 
         return $rules;

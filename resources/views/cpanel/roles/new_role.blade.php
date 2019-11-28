@@ -37,13 +37,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Add new Role</h4>
+                        <h4 class="card-title">@lang('cpanel/roles.new_role_headline')</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name">@lang('cpanel/roles.role_name')</label>
                                     <input type="text" id="name" required class="form-control" name="name" value="{{ old('name') }}">
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <button type="submit" class="btn btn-info btn-fill pull-right">Add New Role</button>
+                        <button type="submit" class="btn btn-info btn-fill pull-right">@lang('cpanel/roles.add_new_role')</button>
                         <div class="clearfix"></div>
                     </div>
                 </div>

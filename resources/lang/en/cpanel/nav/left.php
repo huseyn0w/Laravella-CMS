@@ -1,0 +1,26 @@
+<?php
+/**
+ * Laravella CMS
+ * File: left.php
+ * Created by Elman (https://linkedin.com/in/huseyn0w)
+ * Date: 17.11.2019
+ */
+
+return [
+
+    'dashboard'         => 'Dashboard',
+    'edit_profile'      => 'Edit Profile',
+    'media'             => 'Media',
+    'pages'             => 'Pages',
+    'posts'             => 'Posts',
+    'categories'        => 'Categories',
+    'all_posts'         => 'All Posts',
+    'comments'          => 'Comments',
+    'users'             => 'Users',
+    'settings'          => 'Settings',
+    'general_settings'  => 'General Settings',
+    'site_options'      => 'Site Options',
+    'menus'             => 'Menus',
+    'user_roles'        => 'User Roles'
+
+];

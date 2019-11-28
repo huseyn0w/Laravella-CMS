@@ -39,7 +39,7 @@ class PostCommentsRepository extends BaseRepository
             if($comment_saved) return true;
         }
         catch (\Exception $e){
-            abort(403, 'Some problem occured');
+            abort(403, trans('cpanel/controller.problem_occurred'));
         }
     }
 
@@ -84,7 +84,7 @@ class PostCommentsRepository extends BaseRepository
             if($post_updated) return true;
         }
         catch (\Exception $e){
-            abort(403, 'Some problem occured');
+            abort(403, trans('cpanel/controller.problem_occurred'));
         }
 
         return $post_updated;

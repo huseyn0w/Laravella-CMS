@@ -5,6 +5,8 @@
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 16.08.2019
  */
+
+
 ?>
 
 @extends('cpanel.core.index')
@@ -19,7 +21,7 @@
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <h4 class="card-title">Pages</h4>
+                        <h4 class="card-title">@lang('cpanel/pages.list_headline')</h4>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         @if ($errors->any())
@@ -37,11 +39,11 @@
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>Pages has been deleted</strong>
+                                        <strong>@lang('cpanel/pages.bulky_deleted_message')</strong>
                                     </div>
                                 @else
                                     <div class="alert alert-danger">
-                                        <strong>Some problem has been occured. Please try again later.</strong>
+                                        <strong>@lang('cpanel/pages.bulky_deleted_error_message')</strong>
                                     </div>
                                 @endif
                             </div>
@@ -50,7 +52,7 @@
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>Page has been created successfully</strong>
+                                        <strong>@lang('cpanel/pages.page_added')</strong>
                                     </div>
                                 @endif
                             </div>
@@ -60,10 +62,10 @@
                             @method('DELETE')
                             <div class="select-cover">
                                 <select id="inputState" name="pages_action" required="" class="form-control">
-                                    <option selected="selected">Bulk action</option>
-                                    <option value="delete">Delete</option>
+                                    <option selected="selected">@lang('cpanel/pages.bulk_action_label')</option>
+                                    <option value="delete">@lang('cpanel/pages.bulk_action_delete_label')</option>
                                 </select>
-                                <button type="submit" class="btn btn-info btn-fill">Apply</button>
+                                <button type="submit" class="btn btn-info btn-fill">@lang('cpanel/pages.bulk_action_apply')</button>
                             </div>
                             <table class="table table-hover table-striped users-table">
                                 <thead>
@@ -77,10 +79,10 @@
                                            </div>
                                         </th>
                                         <th>№</th>
-                                        <th>Name</th>
-                                        <th>Author</th>
-                                        <th>Publish date</th>
-                                        <th>Status</th>
+                                        <th>@lang('cpanel/pages.table_name')</th>
+                                        <th>@lang('cpanel/pages.table_author')</th>
+                                        <th>@lang('cpanel/pages.table_publish_date')</th>
+                                        <th>@lang('cpanel/pages.table_status')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,19 +104,19 @@
 
                                             <span class="user_actions">
                                              @if (Auth::user()->can('manage_users', 'App\Http\Models\UserRoles'))
-                                                <a href="{{route('cpanel_edit_page', $page->id)}}" target="_blank">Edit</a>
+                                                <a href="{{route('cpanel_edit_page', $page->id)}}" target="_blank">@lang('cpanel/pages.edit_page')</a>
                                                 <input type="hidden" class="deleted_page_id" value="{{$page->id}}" name="deleted_page_id">
-                                                <button type="button" class="delete_page">Delete</button>
+                                                <button type="button" class="delete_page">@lang('cpanel/pages.delete_page')</button>
                                              @endif
                                             </span>
 
                                         </td>
                                         <td>{{$page->author->username}}</td>
-                                        <td>{{$page->created_at->format('d.m.Y')}}</td>
-                                        <td>{{$page->status == 1 ? 'published' : 'private'}}</td>
+                                        <td>{{ Carbon\Carbon::parse($page->created_at)->format('d.m.Y')}}</td>
+                                        <td>@if($page->status == 1) @lang('cpanel/pages.page_published') @else @lang('cpanel/pages.page_pending') @endif</td>
                                     </tr>
                                 @empty
-                                    <td colspan="7">No pages has been found</td>
+                                    <td colspan="7">@lang('cpanel/pages.not_found')</td>
                                 @endforelse
                                 </tbody>
                             </table>
@@ -123,7 +125,7 @@
                             {{ $pages_list->links() }}
                         </div>
                         <div class="col-md-12">
-                            <a href="{{route('cpanel_add_new_page')}}" class="btn btn-info btn-fill pull-right">Add new page</a>
+                            <a href="{{route('cpanel_add_new_page')}}" class="btn btn-info btn-fill pull-right">@lang('cpanel/pages.add_new_page')</a>
                         </div>
                     </div>
                 </div>
@@ -134,5 +136,10 @@
 @endsection
 
 @push('finalscripts')
+    <script>
+        delete_confirmation = '@lang('cpanel/pages.js_delete_confirmation')',
+        delete_success = '@lang('cpanel/pages.js_delete')',
+        error_message = '@lang('cpanel/pages.js_error')';
+    </script>
     <script src="{{asset('admin')}}/js/page.js"></script>
 @endpush

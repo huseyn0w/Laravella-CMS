@@ -27,27 +27,28 @@ like_button.addEventListener('click', function(e){
         body: JSON.stringify(data)
     }).then(response => response.json())
     .then(message => {
-        if(message === "Like has been added")
+
+        if(message === like_added)
         {
             like_cover.classList.add('post_liked');
-            like_button.innerText = "Dislike";
+            like_button.innerText = dislike_post;
             post_likes_count++;
             like_count_cover.setAttribute('data-likes', post_likes_count);
 
             if(post_likes_count === 1)
             {
-                post_likes_content.innerText = "You liked this post";
+                post_likes_content.innerText = you_only_liked;
             }
             else if(post_likes_count > 1)
             {
-                post_likes_content.innerText = "You and " + post_likes_content.textContent;
+                post_likes_content.innerText = you_and + post_likes_content.textContent;
             }
 
         }
-        else if(message === "Like has been deleted")
+        else if(message === like_deleted)
         {
             like_cover.classList.remove('post_liked');
-            like_button.innerText = "Like";
+            like_button.innerText = like_post;
             if(post_likes_count >= 0)
             {
                 post_likes_count--;
@@ -56,11 +57,11 @@ like_button.addEventListener('click', function(e){
 
             if(post_likes_count == 0)
             {
-                post_likes_content.innerText = "Nobody likes this post";
+                post_likes_content.innerText = nobody_likes;
             }
             else{
                 var oldText = post_likes_content.textContent;
-                var newText = oldText.replace("You and ", "");
+                var newText = oldText.replace(you_and, "");
                 post_likes_content.innerText = newText;
             }
         }

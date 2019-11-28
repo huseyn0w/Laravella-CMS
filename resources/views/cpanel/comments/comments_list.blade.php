@@ -22,7 +22,7 @@
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <h4 class="card-title">Comments</h4>
+                        <h4 class="card-title">@lang('cpanel/comments.list_headline')</h4>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         @if ($errors->any())
@@ -41,11 +41,11 @@
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>Comments has been deleted</strong>
+                                        <strong>@lang('cpanel/comments.bulky_deleted_message')</strong>
                                     </div>
                                 @else
                                     <div class="alert alert-danger">
-                                        <strong>Some problem has been occured. Please try again later.</strong>
+                                        <strong>@lang('cpanel/comments.bulky_deleted_error_message')</strong>
                                     </div>
                                 @endif
                             </div>
@@ -58,10 +58,10 @@
                             @method('DELETE')
                             <div class="select-cover">
                                 <select id="inputState" name="comments_action" required="" class="form-control">
-                                    <option selected="selected">Bulk action</option>
-                                    <option value="delete">Delete</option>
+                                    <option selected="selected">@lang('cpanel/comments.bulk_action_label')</option>
+                                    <option value="delete">@lang('cpanel/comments.bulk_action_delete_label')</option>
                                 </select>
-                                <button type="submit" class="btn btn-info btn-fill">Apply</button>
+                                <button type="submit" class="btn btn-info btn-fill">@lang('cpanel/comments.bulk_action_apply')</button>
                             </div>
                             <table class="table table-hover table-striped users-table">
                                 <thead>
@@ -74,11 +74,11 @@
                                             </label>
                                         </div>
                                     </th>
-                                    <th>Post Title</th>
-                                    <th>Name</th>
-                                    <th>Author</th>
-                                    <th>Publish date</th>
-                                    <th>Status</th>
+                                    <th>@lang('cpanel/comments.table_title')</th>
+                                    <th>@lang('cpanel/comments.table_name')</th>
+                                    <th>@lang('cpanel/comments.table_author')</th>
+                                    <th>@lang('cpanel/comments.table_publish_date')</th>
+                                    <th>@lang('cpanel/comments.table_status')</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -100,11 +100,11 @@
 
                                             <span class="user_actions">
                                                 @if (Auth::user()->can('manage_comments', 'App\Http\Models\UserRoles'))
-                                                    <button type="button" class="delete_comment">Delete</button>
+                                                    <button type="button" class="delete_comment">@lang('cpanel/comments.delete')</button>
                                                     @if($comment->status !== 1)
-                                                        <button type="button" class="approve_comment">Approve comment</button>
+                                                        <button type="button" class="approve_comment">@lang('cpanel/comments.approve')</button>
                                                     @else
-                                                        <button type="button" class="unapprove_comment">Unapprove comment</button>
+                                                        <button type="button" class="unapprove_comment">@lang('cpanel/comments.unapprove')</button>
                                                     @endif
                                                     <input type="hidden" class="action_comment_id" value="{{$comment->id}}" name="deleted_comment_id">
                                                 @endif
@@ -113,10 +113,10 @@
                                         </td>
                                         <td>{{$comment->user->username}}</td>
                                         <td>{{$comment->created_at->format('d.m.Y')}}</td>
-                                        <td>{{$comment->status == 1 ? 'published' : 'pending'}}</td>
+                                        <td>@if($comment->status == 1)  @lang('cpanel/comments.status_approved') @else @lang('cpanel/comments.status_pending') @endif</td>
                                     </tr>
                                 @empty
-                                    <td colspan="7">No comments has been found</td>
+                                    <td colspan="7">@lang('cpanel/comments.not_found')</td>
                                 @endforelse
                                 </tbody>
                             </table>
@@ -134,7 +134,14 @@
 
 @push('finalscripts')
     <script>
-        var  _token = '{{ csrf_token() }}';
+        var  _token = '{{ csrf_token() }}',
+            delete_confirmation = '@lang('cpanel/comments.js_delete_confirmation')',
+            approve_confirmation = '@lang('cpanel/comments.js_approve_confirmation')',
+            unapprove_confirmation = '@lang('cpanel/comments.js_unapprove_confirmation')',
+            approve_success = '@lang('cpanel/comments.js_approve')',
+            delete_success = '@lang('cpanel/comments.js_delete')',
+            unapprove_success = '@lang('cpanel/comments.js_unapprove')',
+            error_message = '@lang('cpanel/comments.js_error')';
     </script>
     <script src="{{asset('admin')}}/js/comments.js"></script>
 @endpush

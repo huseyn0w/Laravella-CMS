@@ -21,11 +21,12 @@ class PagesController extends BaseController
     public function index($page_slug = "/")
     {
 
-       $data = $this->repository->getBy('slug', $page_slug);
+       $data = $this->repository->get_translated_by('slug', $page_slug);
 
        if(empty($data->custom_fields)) return view('default/pages/'.$data->template, compact('data'));
 
        $custom_fields = json_decode($data->custom_fields, true);
+
 
 
        return view('default.pages.'.$data->template, compact('data', 'custom_fields'));
@@ -58,11 +59,11 @@ class PagesController extends BaseController
         return view('default.pages.search');
     }
 
-    public function searchResult(SearchRequest $request, $count=1)
+    public function searchResult(SearchRequest $request, $page = 1, $count=10)
     {
         $searchData['query'] = $request->get('query');
         $searchData['type'] = $request->get('filter');
-        $result = $this->repository->getSearchResult($request, $count);
+        $result = $this->repository->getSearchResult($request, $page, $count);
         $searchData['result'] = $result;
 
         return view('default.pages.search', compact('searchData'));

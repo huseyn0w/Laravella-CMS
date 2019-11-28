@@ -36,7 +36,7 @@
                 @if(!empty($data->content))
                     {!! $data->content !!}
                 @else
-                    <h2>No content</h2>
+                    <h2>@lang('default/page.no_content')</h2>
                 @endif
                 </div>
             </div>

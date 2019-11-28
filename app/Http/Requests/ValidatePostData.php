@@ -2,13 +2,19 @@
 
 namespace App\Http\Requests;
 
+use Astrotomic\Translatable\Validation\RuleFactory;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
-class ValidatePostData extends FormRequest
+class ValidatePostData extends LaravellaRequest
 {
+
+    protected $table = 'post_translations';
+
+    protected $ignore_column = 'post_id';
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,46 +32,31 @@ class ValidatePostData extends FormRequest
      */
     public function rules()
     {
-        $route_name = Route::currentRouteName();
-        $post_id = (int) $this->route('id');
 
         $rules = [
-            'author_id' => 'required|string|exists:users,id',
-            'created_at' => 'required|string',
-            'content' => 'nullable|string',
-            'meta_keywords' => 'string|nullable',
-            'meta_description' => 'string|nullable',
-            'category' => 'required|array',
-            'thumbnail' => 'nullable|url',
-            'status' => 'required|numeric',
+            'title'             => ['string', 'required', 'max:20'],
+            'slug'              => ['required', 'string', 'max:20'],
+            'content'           => 'nullable|string',
+            'meta_keywords'     => 'required|string',
+            'meta_description'  => 'required|string',
+            'updated_at'        => 'required|string',
+            'category'          => 'required|array',
+            'thumbnail'         => 'nullable|url',
+            'status'            => 'required|numeric'
         ];
 
+        $title = $this->newRecordRule('title');
+        $slug = $this->newRecordRule('slug');
 
-        if($route_name === "cpanel_update_post")
+        if($this->route_name === "cpanel_update_post")
         {
-
-            $title = ['required',
-                'string',
-                'required',
-                'max:50',
-                Rule::unique('posts','title')->ignore($post_id)
-            ];
-
-            $slug = ['required',
-                'string',
-                'required',
-                'max:20',
-                Rule::unique('posts','slug')->ignore($post_id)
-            ];
-        }
-        else
-        {
-            $title = 'required|string|max:50|unique:posts,title';
-            $slug = 'required|string|max:20|unique:posts,slug';
+            $title = $this->updateRecordRule('title');
+            $slug = $this->updateRecordRule('slug');
         }
 
-        $rules['title'] = $title;
-        $rules['slug'] = $slug;
+
+        $rules['title'][] = $title;
+        $rules['slug'][] = $slug;
 
 
         return $rules;

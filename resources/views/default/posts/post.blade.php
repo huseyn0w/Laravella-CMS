@@ -18,10 +18,9 @@
 
     $post_liked = check_if_post_liked_by_current_user($data->id);
 
-    $post_comments_count = count($data->allComments);
+    $post_comments_count = count($data->comments);
 
     if(is_logged_in()) $user_id = \Auth()->user()->id;
-
 
 
 @endphp
@@ -65,7 +64,7 @@
                                 <div class="col-lg-4 col-md-12 right-side d-flex justify-content-end">
                                     <div class="desc">
                                         <h2><a href="{{route('show_user',['username' => $data->author->username])}}">{{$author}}</a></h2>
-                                        <h3>{{$data->created_at->format('d.m.Y')}}</h3>
+                                        <h3>{{Carbon\Carbon::parse($data->updated_at)->format('d.m.Y')}}</h3>
                                     </div>
                                     <div class="user-img">
                                         <img src="{{$data->author->avatar}}" alt="{{$author}}">
@@ -82,9 +81,9 @@
                                 @if(is_logged_in())
                                     <span id="like_post">
                                         @if($post_liked)
-                                            Dislike
+                                            @lang('default/post.dislike')
                                         @else
-                                            Like
+                                            @lang('default/post.like')
                                         @endif
                                     </span>
                                 @endif
@@ -92,15 +91,15 @@
                                 <div id="like_count_cover" data-likes="{{$data->likes}}">
                                     @if($post_liked)
                                         @if($data->likes > 1)
-                                            <span id="post-like-content"> You and <span id="post-like-count">{{$data->likes - 1}}</span> people like this post</span>
+                                            <span id="post-like-content">@lang('default/post.you_and_multiple_like_pre') <span id="post-like-count">{{$data->likes - 1}}</span> @lang('default/post.you_and_multiple_like_after')</span>
                                         @else
-                                            <span id="post-like-content">You liked this post</span>
+                                            <span id="post-like-content">@lang('default/post.you_only_liked')</span>
                                         @endif
                                     @else
                                         @if($data->likes > 0)
-                                            <span id="post-like-content"> <span id="post-like-count">{{$data->likes}}</span> people like this post</span>
+                                            <span id="post-like-content"> <span id="post-like-count">{{$data->likes}}</span> @lang('default/post.multiple_like_after')</span>
                                         @else
-                                            <span id="post-like-content">Nobody likes this post yet</span>
+                                            <span id="post-like-content">@lang('default/post.nobody_likes')</span>
                                         @endif
                                     @endif
                                 </div>
@@ -116,7 +115,7 @@
                         <section class="comment-sec-area pt-80 pb-80">
                             <div class="container">
                                 <div class="row flex-column">
-                                    <h5 class="text-uppercase pb-80">{{$post_comments_count}} Comments</h5>
+                                    <h5 class="text-uppercase pb-80">{{$post_comments_count}} @lang('default/post.comments')</h5>
                                     <br>
                             @if($post_comments_count > 0)
                                 @foreach($data->comments as $comment)
@@ -140,13 +139,13 @@
                                             </div>
                                             <div class="reply-btn comment-buttons">
                                                 @if(is_logged_in() && $user_id !== $comment->user->id)
-                                                    <button data-comment_id="{{$comment->id}}" data-username="{{$comment->user->name}}" class="btn-reply reply-to-comment text-uppercase">reply</button>
+                                                    <button data-comment_id="{{$comment->id}}" data-username="{{$comment->user->name}}" class="btn-reply reply-to-comment text-uppercase">@lang('default/post.reply')</button>
                                                 @endif
                                                 @if(is_logged_in() && $comment->user->id === $user_id)
-                                                    <button data-comment_id="{{$comment->id}}" data-toggle="modal" data-author="{{$comment->user->id}}" data-target="#editCommentModal" data-comment="{{$comment->comment}}" class="btn-reply edit-comment text-uppercase">edit</button>
+                                                    <button data-comment_id="{{$comment->id}}" data-toggle="modal" data-author="{{$comment->user->id}}" data-target="#editCommentModal" data-comment="{{$comment->comment}}" class="btn-reply edit-comment text-uppercase">@lang('default/post.edit')</button>
                                                 @endif
                                                 @if( (is_logged_in() && \Auth()->user()->role->id == 1) || (is_logged_in() && $comment->user->id === $user_id) )
-                                                    <button data-comment_id="{{$comment->id}}" data-username="{{$comment->user->name}}" class="btn-reply delete-comment text-uppercase">Delete</button>
+                                                    <button data-comment_id="{{$comment->id}}" data-username="{{$comment->user->name}}" class="btn-reply delete-comment text-uppercase">@lang('default/post.delete')</button>
                                                 @endif
                                             </div>
                                         </div>
@@ -158,7 +157,11 @@
                                                     <div class="single-comment justify-content-between d-flex">
                                                         <div class="user justify-content-between d-flex">
                                                             <div class="thumb comment-author-thumbnail">
-                                                                <img src="{{$child_comment->user->avatar}}" alt="{{$child_comment->user->name}}">
+                                                                @if(!empty($child_comment->user->avatar))
+                                                                    <img src="{{$child_comment->user->avatar}}" alt="{{$comment->user->name}}">
+                                                                @else
+                                                                    <img src="{{asset('front/'.env('TEMPLATE_NAME').'/img/noavatar.jpg')}}" alt="{{$child_comment->user->name}}">
+                                                                @endif
                                                             </div>
                                                             <div class="desc">
                                                                 <h5><a href="{{route('show_user',['username' => $child_comment->user->username])}}">{{$child_comment->user->name}}</a></h5>
@@ -170,13 +173,13 @@
                                                         </div>
                                                         <div class="reply-btn comment-buttons">
                                                             @if(is_logged_in() && $user_id !== $child_comment->user->id)
-                                                                <button data-comment_id="{{$comment->id}}" data-username="{{$child_comment->user->name}}" class="btn-reply reply-to-comment text-uppercase">reply</button>
+                                                                <button data-comment_id="{{$comment->id}}" data-username="{{$child_comment->user->name}}" class="btn-reply reply-to-comment text-uppercase">@lang('default/post.reply')</button>
                                                             @endif
                                                             @if(is_logged_in() && $child_comment->user->id === $user_id)
-                                                                <button data-comment_id="{{$child_comment->id}}" data-author="{{$child_comment->user->id}}" data-toggle="modal" data-comment="{{$child_comment->comment}}" data-target="#editCommentModal" class="btn-reply edit-comment text-uppercase">edit</button>
+                                                                <button data-comment_id="{{$child_comment->id}}" data-author="{{$child_comment->user->id}}" data-toggle="modal" data-comment="{{$child_comment->comment}}" data-target="#editCommentModal" class="btn-reply edit-comment text-uppercase">@lang('default/post.edit')</button>
                                                             @endif
                                                             @if( (is_logged_in() && \Auth()->user()->role->id == 1) || (is_logged_in() && $child_comment->user_id === $user_id) )
-                                                                <button data-comment_id="{{$child_comment->id}}" data-username="{{$child_comment->user->username}}" class="btn-reply delete-comment text-uppercase">Delete</button>
+                                                                <button data-comment_id="{{$child_comment->id}}" data-username="{{$child_comment->user->username}}" class="btn-reply delete-comment text-uppercase">@lang('default/post.delete')</button>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -187,7 +190,7 @@
                                 @endforeach
                                 {{ $data->comments->links() }}
                             @else
-                                    <h3>No comments for this post</h3>
+                                    <h3>@lang('default/post.no_comments')</h3>
                             @endif
                                 </div>
                             </div>
@@ -200,7 +203,7 @@
                         <section class="commentform-area  pb-120 pt-80 mb-100" id="comment-area">
                             <div class="container">
                             @auth
-                                <h5 class="text-uppercas pb-50">Leave a Reply</h5>
+                                <h5 class="text-uppercas pb-50">@lang('default/post.leave_reply')</h5>
                                 <form action="{{route('store_post_comments', ['id' => $data->id])}}" method="POST">
                                     @csrf
                                     <div class="row flex-row d-flex">
@@ -219,24 +222,24 @@
                                             <div class="col-12">
                                                 <div class="alert alert-success">
                                                 @if (Auth::user()->can('manage_comments', 'App\Http\Models\UserRoles'))
-                                                    <strong>Comment has been added.</strong>
+                                                    <strong>@lang('default/post.comment_added')</strong>
                                                 @else
-                                                    <strong>Comment has been send for the approval</strong>
+                                                    <strong>@lang('default/post.comment_send_to_approve')</strong>
                                                 @endif
                                                 </div>
                                             </div>
                                         @endif
                                         <div class="col-12">
-                                            <textarea id="comment-field" class="form-control mb-10" name="comment" rows="10" placeholder="Comment" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Comment'" required=""></textarea>
+                                            <textarea id="comment-field" class="form-control mb-10" name="comment" rows="10" placeholder="@lang('default/post.comment')"  required=""></textarea>
                                         </div>
                                     </div>
                                     <input type="hidden" name="parent_id" id="comment_parent_id" value="">
                                     <input type="hidden" name="post_id" value="{{$data->id}}">
                                     {!! app('captcha')->render(); !!}
-                                    <button type="submit" class="primary-btn mt-20">Comment</button>
+                                    <button type="submit" class="primary-btn mt-20">@lang('default/post.comment')</button>
                                 </form>
                             @else
-                                <h5 class="text-uppercas pb-50">Please register/log in to leave a reply</h5>
+                                <h5 class="text-uppercas pb-50">@lang('default/post.comment_auth')/h5>
                             @endauth
                             </div>
                         </section>
@@ -265,6 +268,13 @@
             handle_url_comments = "<?php echo route('delete_post_comments', ['id' => $data->id]) ?>",
             post_id = "<?php echo $data->id ?>",
             user_id = "<?php echo \Auth::user()->id ?>",
+            you_only_liked = '@lang("default/post.you_only_liked")',
+            nobody_likes = '@lang("default/post.nobody_likes")',
+            dislike_post = '@lang("default/post.dislike")',
+            like_post = '@lang("default/post.like")',
+            you_and = '@lang("default/post.you_and_multiple_like_pre")',
+            like_added = '@lang("default/post.like_added")',
+            like_deleted = '@lang("default/post.like_deleted")',
             _token = '{{ csrf_token() }}';
         </script>
         <script src="{{asset('front')}}/default/js/like.js"></script>

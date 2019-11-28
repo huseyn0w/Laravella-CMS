@@ -13,16 +13,6 @@
     <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 @endpush
 
-@php
-    $fields = ['id', 'title', 'slug'];
-
-    $posts_list = get_post_list($fields);
-    $categories_list = get_post_categories_list($fields);
-    $pages_list = get_pages_list($fields);
-
-
-@endphp
-
 @section('content')
 
     <form action="{{ route('cpanel_save_new_menu') }}" id="add_menu_form" method="POST">
@@ -43,14 +33,20 @@
                 <div class="col-xs-12 col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Add new menu</h4>
+                            <h4 class="card-title">@lang('cpanel/menus.new_menu_headline')</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="menu_title">Menu Name</label>
+                                        <label for="menu_title">@lang('cpanel/menus.menu_name')</label>
                                         <input type="text" id="menu_title" required class="form-control" name="title" value="{{ old('title') }}" >
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="cpanel_slug">@lang('cpanel/menus.menu_slug')</label>
+                                        <input type="text" required class="form-control" name="slug" value="{{ old('slug') }}">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -59,7 +55,7 @@
                                             <div class="card-header" id="headingOne">
                                                 <h2 class="mb-0">
                                                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#pages_tab" aria-expanded="false" aria-controls="collapseOne">
-                                                        Pages
+                                                        @lang('cpanel/menus.pages')
                                                     </button>
                                                 </h2>
                                             </div>
@@ -68,10 +64,10 @@
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                         <select name="pages" multiple class="form-control multiple_list menu_item" id="pages_list" data-type="pages">
-                                                            @forelse($pages_list as $page)
+                                                            @forelse($terms_list['pages'] as $page)
                                                                 <option value="{{$page->slug}}">{{$page->title}}</option>
                                                             @empty
-                                                                No pages
+                                                                @lang('cpanel/menus.no_pages')
                                                             @endforelse
                                                         </select>
                                                     </div>
@@ -82,17 +78,17 @@
                                             <div class="card-header" id="headingTwo">
                                                 <h2 class="mb-0">
                                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#posts_tab" aria-expanded="false" aria-controls="collapseTwo">
-                                                        Posts
+                                                        @lang('cpanel/menus.posts')
                                                     </button>
                                                 </h2>
                                             </div>
                                             <div id="posts_tab" class="collapse" aria-labelledby="headingTwo" data-parent="#menusAccordion">
                                                 <div class="card-body">
                                                     <select name="posts" multiple class="form-control multiple_list menu_item" id="posts_list" data-type="posts">
-                                                        @forelse($posts_list as $post)
+                                                        @forelse($terms_list['posts'] as $post)
                                                             <option value="{{$post->slug}}">{{$post->title}}</option>
                                                         @empty
-                                                            No posts
+                                                            @lang('cpanel/menus.no_posts')
                                                         @endforelse
                                                     </select>
                                                 </div>
@@ -102,7 +98,7 @@
                                             <div class="card-header" id="headingThree">
                                                 <h2 class="mb-0">
                                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#categories_tab" aria-expanded="false" aria-controls="collapseThree">
-                                                        Categories
+                                                        @lang('cpanel/menus.categories')
                                                     </button>
                                                 </h2>
                                             </div>
@@ -110,10 +106,10 @@
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                         <select name="category" multiple class="form-control multiple_list menu_item" id="categories_list" data-type="categories">
-                                                            @forelse($categories_list as $category)
+                                                            @forelse($terms_list['categories'] as $category)
                                                                 <option value="{{$category->slug}}">{{$category->title}}</option>
                                                             @empty
-                                                                No categories
+                                                                @lang('cpanel/menus.no_categories')
                                                             @endforelse
                                                         </select>
                                                     </div>
@@ -124,18 +120,18 @@
                                             <div class="card-header" id="headingFour">
                                                 <h2 class="mb-0">
                                                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#custom_link_tap" aria-expanded="false" aria-controls="collapseFour">
-                                                        Custom link
+                                                        @lang('cpanel/menus.custom_link')
                                                     </button>
                                                 </h2>
                                             </div>
                                             <div id="custom_link_tap" class="collapse" aria-labelledby="headingFour" data-parent="#menusAccordion">
                                                 <div class="card-body">
                                                     <div class="form-group">
-                                                        <label for="link_label">Label</label>
+                                                        <label for="link_label">@lang('cpanel/menus.custom_link_label')</label>
                                                         <input type="text" id="link_label" class="form-control menu_item" name="link_label" >
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="link_url">URL</label>
+                                                        <label for="link_url">@lang('cpanel/menus.custom_link_url')</label>
                                                         <input type="text" id="link_url" class="form-control menu_item" name="link_url" >
                                                     </div>
                                                 </div>
@@ -144,7 +140,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-info btn-fill pull-right add_menu_item">Add to Menu</button>
+                            <button type="button" class="btn btn-info btn-fill pull-right add_menu_item">@lang('cpanel/menus.add_to_menu')</button>
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -161,7 +157,7 @@
                                 </div>
                             </div>
                             <input type="hidden" name="content" id="menuContent">
-                            <button type="submit" class="btn btn-info btn-fill pull-right create_menu">Create menu</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-right create_menu">@lang('cpanel/menus.create_menu')</button>
                             <div class="clearfix"></div>
                         </div>
                     </div>

@@ -20,44 +20,10 @@
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <h4 class="card-title">Media</h4>
+                        <h4 class="card-title">@lang('cpanel/media.headline')</h4>
                     </div>
                     <div class="card-body">
-                        @if ($errors->any())
-                            <div class="col-12">
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        @endif
-                        @if ($update_message = Session::get('message'))
-                            <div class="col-12">
-                                @if ($update_message)
-                                    <div class="alert alert-success">
-                                        <strong>Pages has been deleted</strong>
-                                    </div>
-                                @else
-                                    <div class="alert alert-danger">
-                                        <strong>Some problem has been occured. Please try again later.</strong>
-                                    </div>
-                                @endif
-                            </div>
-                        @endif
-                        @if ($update_message = Session::get('page_added'))
-                            <div class="col-12">
-                                @if ($update_message)
-                                    <div class="alert alert-success">
-                                        <strong>Media has been created successfully</strong>
-                                    </div>
-                                @endif
-                            </div>
-                        @endif
-                            <iframe src="/filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
-
+                        <iframe src="/filemanager" style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
                     </div>
                 </div>
             </div>

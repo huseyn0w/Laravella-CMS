@@ -17,8 +17,6 @@
 
     @php
 
-        $entity = $page;
-
         $users_list = get_authors_list();
 
         $page_templates = get_page_templates_list();
@@ -47,11 +45,11 @@
                     <div class="col-12">
                         @if ($update_message)
                             <div class="alert alert-success">
-                                <strong>Page has been updated</strong>
+                                <strong>@lang('cpanel/pages.updated_success')</strong>
                             </div>
                         @else
                             <div class="alert alert-danger">
-                                <strong>Some problem has been occured. Please try again later.</strong>
+                                <strong>@lang('cpanel/pages.updated_error')</strong>
                             </div>
                         @endif
                     </div>
@@ -59,20 +57,20 @@
                 <div class="col-xs-12 col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Page</h4>
-                            <p>Page url: <strong><a href="{{env('APP_URL')}}{{ old('slug',$page_slug) }}">{{env('APP_URL')}}{{ old('slug',$page_slug) }}</a></strong></p>
+                            <h4 class="card-title">@lang('cpanel/pages.edit_page_headline')</h4>
+                            <p>@lang('cpanel/pages.url_preview') <strong><a href="{{env('APP_URL')}}{{ old('slug',$page_slug) }}">{{env('APP_URL')}}{{ old('slug',$page_slug) }}</a></strong></p>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="username">Title</label>
+                                        <label for="cpanel_title">@lang('cpanel/pages.title')</label>
                                         <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title', $page->title) }}" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="slug">Slug</label>
+                                        <label for="slug">@lang('cpanel/pages.slug')</label>
                                         <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug',$page->slug) }}">
                                     </div>
                                 </div>
@@ -80,7 +78,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Content</label>
+                                        <label>@lang('cpanel/pages.content')</label>
                                         <textarea name="content"  id="editor"  class="my-editor form-control">{{old('content',$page->content)}}</textarea>
                                     </div>
                                 </div>
@@ -97,7 +95,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Author</label>
+                                        <label>@lang('cpanel/pages.author')</label>
                                         <select name="author_id" id="author_id" class="form-control">
                                          @foreach($users_list as $user)
                                             @if($user->id === $page->author_id)
@@ -111,23 +109,23 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Publish date</label>
-                                        <input class="form-control" value="{{old('created_at', $page->created_at)}}" autocomplete="off" name="created_at" required id="date_time_picker" type="text" />
+                                        <label>@lang('cpanel/pages.publish_date')sss</label>
+                                        <input class="form-control" value="{{old('updated_at', $page->updated_at)}}" autocomplete="off" name="updated_at" required id="date_time_picker" type="text" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Status</label>
+                                        <label>@lang('cpanel/pages.status')</label>
                                         <select name="status" id="user_role" class="form-control">
-                                            <option value="0" {{$page->status === 0 ? 'selected' :null}}>Private</option>
-                                            <option value="1" {{$page->status === 1 ? 'selected' :null}}>Published</option>
+                                            <option value="0" {{$page->status === 0 ? 'selected' :null}}>@lang('cpanel/pages.status_private')</option>
+                                            <option value="1" {{$page->status === 1 ? 'selected' :null}}>@lang('cpanel/pages.status_published')</option>
                                         </select>
                                     </div>
                                 </div>
                                 @if(!empty($page_templates) && $page_templates)
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Page Template</label>
+                                            <label>@lang('cpanel/pages.page_template')</label>
                                             <select name="template" class="form-control">
                                                 @foreach($page_templates as $file_name => $template_header)
                                                     <option value="{{$file_name}}" {{$page->template === $file_name ? 'selected' : null}} >{{$template_header}}</option>
@@ -137,7 +135,7 @@
                                     </div>
                                 @endif
                             </div>
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Update</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">@lang('cpanel/pages.update_button_label')</button>
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -155,6 +153,7 @@
 @endpush
 
 @push('finalscripts')
+    @include('cpanel.core.custom-fields-variables')
     <script src="{{asset('')}}/vendor/laravel-filemanager/js/lfm.js"></script>
     <script src="{{asset('admin')}}/js/page.js"></script>
     <script src="{{asset('admin')}}/js/custom-fields/custom-text.js"></script>

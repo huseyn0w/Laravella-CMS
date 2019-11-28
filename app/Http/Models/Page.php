@@ -4,10 +4,18 @@ namespace App\Http\Models;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
-class Page extends Model
+class Page extends Model implements TranslatableContract
 {
-    use Cachable;
+//    use Cachable;
+
+    use Translatable;
+
+    public $timestamps = false;
+
+    public $translatedAttributes = ['title', 'updated_at', 'slug', 'author_id', 'status', 'custom_fields', 'content', 'meta_keywords', 'meta_description'];
 
     protected $fillable = [
         'title',
@@ -18,6 +26,7 @@ class Page extends Model
         'custom_fields',
         'meta_keywords',
         'meta_description',
+        'updated_at',
         'created_at'
     ];
 

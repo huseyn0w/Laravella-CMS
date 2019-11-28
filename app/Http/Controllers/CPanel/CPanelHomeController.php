@@ -19,7 +19,7 @@ class CPanelHomeController extends CPanelBaseController
 
     public function index(Request $request)
     {
-        $posts = Post::select('title')->orderBy('id', 'desc')->take(5)->get();
+        $posts = Post::listsTranslations('title')->orderBy('id', 'desc')->take(5)->get();
         $users = User::select('username')->orderBy('id', 'desc')->take(5)->get();
         $comments = Comments::select('comment')->orderBy('id', 'desc')->take(5)->get();
         return view('cpanel.home', compact('posts','users', 'comments'));

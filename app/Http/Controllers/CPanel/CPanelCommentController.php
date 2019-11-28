@@ -18,7 +18,6 @@ class CPanelCommentController extends CPanelBaseController
     public function index()
     {
         $comments_list = $this->repository->only($this->per_page);
-
         return view('cpanel.comments.comments_list', compact("comments_list"));
     }
 
@@ -31,7 +30,7 @@ class CPanelCommentController extends CPanelBaseController
         $result = $this->repository->approve($id);
 
         if($result){
-            echo 'OK';
+            echo trans('cpanel/controller.ok');
         }
         else{
             echo $result;
@@ -51,11 +50,11 @@ class CPanelCommentController extends CPanelBaseController
 
 
         if($result){
-            echo 'OK';
+            echo trans('cpanel/controller.ok');
         }
         else{
             echo $result;
-            echo "Problem";
+            echo trans('cpanel/controller.problem');
         }
 
         return;
@@ -71,7 +70,7 @@ class CPanelCommentController extends CPanelBaseController
     public function validateCommentID($id)
     {
         if($id <= 0){
-            echo "ID should be integer and more than 0";
+            echo trans('cpanel/controller.id_int');
             return false;
         }
 

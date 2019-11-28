@@ -12,9 +12,12 @@ class CPanelBaseController extends Controller
     protected $repository;
 
     protected $per_page = 10;
+
     protected $user;
 
     protected $result;
+
+    protected $locale;
 
 
     public function __construct()
@@ -27,6 +30,9 @@ class CPanelBaseController extends Controller
 
             return $next($request);
         });
+
+        $this->locale = app()->getLocale();
+
     }
 
     protected function checkUserPermission($permissionName, $modelName)
@@ -45,7 +51,7 @@ class CPanelBaseController extends Controller
     protected function deleteAjax(int $id)
     {
         if($id <= 0){
-            echo "ID should be integer and more than 0";
+            echo trans('cpanel/controller.id_int');
             return;
         }
 
@@ -54,11 +60,11 @@ class CPanelBaseController extends Controller
 
 
         if($result){
-            echo 'OK';
+            echo trans('cpanel/controller.ok');
         }
         else{
             echo $result;
-            echo "Problem";
+            echo trans('cpanel/controller.problem');;
         }
 
         return;
@@ -114,7 +120,7 @@ class CPanelBaseController extends Controller
     protected function destroyAjax(int $id)
     {
         if($id <= 0){
-            echo "ID should be integer and more than 0";
+            echo trans('cpanel/controller.id_int');;
             return;
         }
 
@@ -122,11 +128,10 @@ class CPanelBaseController extends Controller
 
 
         if($result){
-            echo 'OK';
+            echo trans('cpanel/controller.ok');
         }
         else{
-            echo $result;
-            echo "Problem";
+            echo trans('cpanel/controller.problem');
         }
 
         return;

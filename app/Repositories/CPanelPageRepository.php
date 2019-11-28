@@ -11,10 +11,28 @@ use App\Http\Models\Page;
 
 class CPanelPageRepository extends BaseRepository
 {
+    protected $main_table = 'pages';
+
+    protected $translated_table = 'page_translations';
+
+    protected $translated_table_join_column = 'page_id';
+
+
     public function __construct(Page $model)
     {
         parent::__construct();
         $this->model = $model;
+
+        //Select and JOIN conditions (posts.id, posts.author.id) and etc...
+        $this->select = [
+            $this->main_table.'.id',
+            $this->translated_table.'.author_id',
+            $this->translated_table.'.title',
+            $this->translated_table.'.slug',
+            $this->translated_table.'.status',
+            $this->translated_table.'.created_at',
+            $this->translated_table.'.updated_at',
+        ];
     }
 
     public function only($count, $fields = [])
@@ -22,43 +40,40 @@ class CPanelPageRepository extends BaseRepository
         $fields = ['id', 'title', 'slug', 'status', 'author_id', 'created_at'];
         $data = $this->model->select($fields)->with('author')->paginate($count);
 
-        if(empty($data)) abort(403, 'Some problem occured');
+        if(empty($data)) abort(403, trans('cpanel/controller.problem_occurred'));
 
         return $data;
     }
 
     public function create($request)
     {
-        $newData = $request->except('custom_fields');
+        $data[$this->locale] = $request->all();
 
-        if(isset($request->custom_fields)) $newData['custom_fields'] = json_encode($request->custom_fields);
-
-
-        try{
-            $post_saved = $this->model::create($newData);
-            if($post_saved) return true;
-        }
-        catch (\Exception $e){
-            abort(403, 'Some problem occured');
+        if(isset($request->custom_fields)){
+            $custom_fields = json_encode($request->custom_fields);
+            $request->merge(['custom_fields' => $custom_fields]);
         }
 
+        return parent::create($data);
     }
 
     public function update($id,$request)
     {
-//        dd($request->custom_fields);
-        $newData = $request->except(["_token", "_method", "custom_fields"]);
 
-        if(isset($request->custom_fields)) $newData['custom_fields'] = json_encode($request->custom_fields);
-
-
-        try{
-            $post_saved = $this->model::where('id', $id)->update($newData);
-            if($post_saved) return true;
+        if(isset($request->custom_fields)) {
+            $custom_fields = json_encode($request->custom_fields);
+            $request->merge(['custom_fields' => $custom_fields]);
         }
-        catch (\Exception $e){
-            abort(403, 'Some problem occured');
+
+        if(isset($request->content)){
+            $new_content = clean($request->content);
+            $request->merge(['content' => $new_content]);
         }
+
+        return parent::update($id,$request);
+
+
     }
+
 
 }

@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
             UserRolesSeeder::class,
             CPanelGeneralSettingsSeeder::class,
             UsersTableSeeder::class,
-            PagesTableSeeder::class,
+            CPanelPagesSeeder::class,
             CPanelCategorySeeder::class,
             CPanelPostsSeeder::class,
             CPanelPostCategorySeeder::class,
-            MenusTableSeeder::class,
+            CPanelMenusSeeder::class,
             SiteOptionsTableSeeder::class,
         ]);
     }

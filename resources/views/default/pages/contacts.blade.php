@@ -52,7 +52,7 @@
                         <strong>{{ $message }}</strong>
                     </div>
                 @endif
-                <h3>Have a question? Contact us</h3>
+                <h3>@lang('default/page.have_question')</h3>
                 <form action="{{route('sendform')}}" method="post" class="contact_form">
                     @csrf
                 @if(is_logged_in())
@@ -61,35 +61,35 @@
                     <input type="hidden" name="email" value="{{old('email',$email)}}">
                     <div class="row contact_row">
                         <div class="col-md-12">
-                            <input type="text" name="subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'" required="" class="single-input">
+                            <input type="text" name="subject" placeholder="@lang('default/page.subject')"  required="" class="single-input">
                         </div>
                     </div>
                 @else
                     <div class="row contact_row">
                         <div class="col-12 col-md-6">
-                            <input type="text" name="first_name" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required="" class="single-input">
+                            <input type="text" name="first_name" placeholder="@lang('default/page.first_name')" required="" class="single-input">
                         </div>
                         <div class="col-12 col-md-6">
-                            <input type="text" name="last_name" placeholder="Last Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" required="" class="single-input">
+                            <input type="text" name="last_name" placeholder="@lang('default/page.last_name')"  required="" class="single-input">
                         </div>
                     </div>
                     <div class="row contact_row">
                         <div class="col-12 col-md-6">
-                            <input type="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required="" class="single-input">
+                            <input type="email" name="email" placeholder="@lang('default/page.email')"  required="" class="single-input">
                         </div>
                         <div class="col-12 col-md-6">
-                            <input type="text" name="subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'" required="" class="single-input">
+                            <input type="text" name="subject" placeholder="@lang('default/page.subject')" required="" class="single-input">
                         </div>
                     </div>
                 @endif
                     <div class="row contact_row">
                         <div class="col-12">
-                            <textarea class="single-textarea" name="message" placeholder="Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'" required=""></textarea>
+                            <textarea class="single-textarea" name="message" placeholder="@lang('default/page.message')"  required=""></textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 button-group-area mt-40">
-                            <button type="submit" class="genric-btn primary  arrow e-large">Submit<span class="lnr lnr-arrow-right"></span></button>
+                            <button type="submit" class="genric-btn primary  arrow e-large">@lang('default/page.submit')<span class="lnr lnr-arrow-right"></span></button>
                         </div>
                         {!! app('captcha')->render(); !!}
                     </div>

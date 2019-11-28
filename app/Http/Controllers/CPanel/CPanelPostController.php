@@ -20,7 +20,7 @@ class CPanelPostController extends CPanelBaseController
 
     public function index()
     {
-        $posts_list = $this->repository->only($this->per_page);
+        $posts_list = $this->repository->get_translated_data($this->per_page);
 
         return view('cpanel.posts.posts_list', compact("posts_list"));
     }
@@ -81,7 +81,7 @@ class CPanelPostController extends CPanelBaseController
 
     public function createPost(ValidatePostData $request)
     {
-        parent::create($request);
+        $this->repository->create($request);
 
         return redirect()->route('cpanel_posts_list')->with('post_added', true);
     }

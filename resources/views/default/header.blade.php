@@ -19,15 +19,15 @@ if(isset($data)):
 elseif(is_logged_in()):
     $user = Auth::user();
     $author = $user->name. ' '.$user->surname;
-    $title = "Edit Profile";
+    $title = trans('default/header.edit_profile');
 
-    $meta_description = "Edit Profile";
+    $meta_description = trans('default/header.edit_profile');
     $meta_keywords = "profile,interface,edit,user";
 else:
     $author = "Elman Huseynov";
-    $title = "Laravella CMS";
+    $title = trans('default/header.homepage_title');
 
-    $meta_description = "Laravella CMS";
+    $meta_description = trans('default/header.homepage_title');
     $meta_keywords = "page,laravella,cms";
 endif;
 
@@ -102,26 +102,26 @@ CSS
                     "submenu_class" => "dropdown-menu",
                     "sublink_class" => "dropdown-item"
                 ];
-                $header_menu = get_menu_data("Header Menu", $menu_params);
+                $header_menu = get_menu_data("header_menu", $menu_params);
 
                 @endphp
                 {!! $header_menu !!}
                 <ul class="navbar-nav user-panel">
                     <li>
-                        <a href="{{route('get_search_page')}}">Search</a>
+                        <a href="{{route('get_search_page')}}">@lang('default/header.search')</a>
                     </li>
                     @auth
                     <li>
                         @if (Auth::user()->can('see_admin_panel', 'App\Http\Models\UserRoles'))
-                            <a href="{{route('cpanel_home')}}">cPanel</a>
+                            <a href="{{route('cpanel_home')}}">@lang('default/header.cpanel')</a>
                         @endif
-                        <a href="{{route('get_user_info')}}">Profile</a>
-                        <a href="{{route('logout')}}">Logout</a>
+                        <a href="{{route('get_user_info')}}">@lang('default/header.profile')</a>
+                        <a href="{{route('logout')}}">@lang('default/header.logout')</a>
                     </li>
                     @else
                     <li>
-                        <a href="{{route('register')}}">Register</a>
-                        <a href="{{route('login')}}">Login</a>
+                        <a href="{{route('register')}}">@lang('default/header.register')</a>
+                        <a href="{{route('login')}}">@lang('default/header.login')</a>
                     </li>
                     @endauth
                 </ul>
@@ -130,3 +130,4 @@ CSS
     </nav>
 </header>
 <!-- End Header Area -->
+

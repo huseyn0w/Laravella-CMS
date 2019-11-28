@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header ">
-                        <h4 class="card-title">Categories</h4>
+                        <h4 class="card-title">@lang('cpanel/categories.list_headline')</h4>
                     </div>
                     <div class="card-body table-full-width table-responsive">
                         @if ($errors->any())
@@ -37,11 +37,11 @@
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>Categories has been deleted</strong>
+                                        <strong>>@lang('cpanel/categories.bulky_deleted_message')</strong>
                                     </div>
                                 @else
                                     <div class="alert alert-danger">
-                                        <strong>Some problem has been occured. Please try again later.</strong>
+                                        <strong>@lang('cpanel/categories.bulky_deleted_error_message')</strong>
                                     </div>
                                 @endif
                             </div>
@@ -50,7 +50,7 @@
                             <div class="col-12">
                                 @if ($update_message)
                                     <div class="alert alert-success">
-                                        <strong>Category has been created successfully</strong>
+                                        <strong>@lang('cpanel/categories.category_added')</strong>
                                     </div>
                                 @endif
                             </div>
@@ -60,10 +60,10 @@
                             @method('DELETE')
                             <div class="select-cover">
                                 <select id="inputState" name="categories_action"  class="form-control">
-                                    <option selected="selected">Bulk action</option>
-                                    <option value="delete">Delete</option>
+                                    <option selected="selected">@lang('cpanel/categories.bulk_action_label')</option>
+                                    <option value="delete">@lang('cpanel/categories.bulk_action_delete_label')</option>
                                 </select>
-                                <button type="submit" class="btn btn-info btn-fill">Apply</button>
+                                <button type="submit" class="btn btn-info btn-fill">@lang('cpanel/categories.bulk_action_apply')</button>
                             </div>
                             <table class="table table-hover table-striped users-table">
                                 <thead>
@@ -77,8 +77,8 @@
                                            </div>
                                         </th>
                                         <th>№</th>
-                                        <th>Name</th>
-                                        <th>Action</th>
+                                        <th>@lang('cpanel/categories.table_name')</th>
+                                        <th>@lang('cpanel/categories.table_action')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -104,16 +104,16 @@
                                         </td>
                                         <td>
                                             <span class="user_actions">
-                                            <a href="{{route('cpanel_edit_category', $category->id)}}" target="_blank">Edit</a>
+                                            <a href="{{route('cpanel_edit_category', $category->id)}}" target="_blank">@lang('cpanel/categories.edit_category')</a>
                                             @if($category->id !== 1)
                                                 <input type="hidden" class="deleted_category_id" value="{{$category->id}}" name="deleted_category_id">
-                                                <button type="button" class="delete_category">Delete</button>
+                                                <button type="button" class="delete_category">@lang('cpanel/categories.delete_category')</button>
                                             @endif
                                             </span>
                                         </td>
                                     </tr>
                                 @empty
-                                    <td colspan="7">No categories has been found</td>
+                                    <td colspan="7">@lang('cpanel/categories.not_found')</td>
                                 @endforelse
                                 </tbody>
                             </table>
@@ -122,7 +122,7 @@
                             {{ $categories_list->links() }}
                         </div>
                         <div class="col-md-12">
-                            <a href="{{route('cpanel_add_new_category')}}" class="btn btn-info btn-fill pull-right">Add new category</a>
+                            <a href="{{route('cpanel_add_new_category')}}" class="btn btn-info btn-fill pull-right">@lang('cpanel/categories.add_new_category')</a>
                         </div>
                     </div>
                 </div>
@@ -133,5 +133,10 @@
 @endsection
 
 @push('finalscripts')
+    <script>
+        var delete_confirmation = '@lang('cpanel/categories.js_delete_confirmation')',
+            delete_success = '@lang('cpanel/categories.js_delete_success')',
+            error_message = '@lang('cpanel/categories.js_error')';
+    </script>
     <script src="{{asset('admin')}}/js/category.js"></script>
 @endpush

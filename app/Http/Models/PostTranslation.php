@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Http\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+
+class PostTranslation extends Model
+{
+    use Cachable;
+
+    protected $fillable = ['title', 'updated_at', 'created_at', 'likes', 'author_id', 'slug','thumbnail','preview','content', 'meta_description', 'status', 'meta_keywords'];
+}

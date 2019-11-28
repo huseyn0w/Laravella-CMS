@@ -13,8 +13,6 @@
     $category_posts = $data->posts;
 
 
-
-
 @endphp
 
 @extends(env('TEMPLATE_NAME').'/index')
@@ -53,7 +51,7 @@
                             <div class="single-list flex-row d-flex salam">
                                 <div class="thumb">
                                     <div class="date">
-                                        <span>{{$post->created_at->format('d')}}</span><br>{{$post->created_at->format('M')}}
+                                        <span>{{Carbon\Carbon::parse($post->updated_at)->format('d')}}</span><br>{{Carbon\Carbon::parse($post->updated_at)->format('M')}}
                                     </div>
                                     <img src="{{$post_thumbnail}}" alt="{{$post->title}}">
                                 </div>
@@ -62,7 +60,7 @@
                                     {!! $post->preview !!}
                                     <p class="footer pt-20">
                                         <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                        <span>{{$post->likes}} {{$post->likes > 1 ? "Likes" : "Like"}}</span>     <i class="ml-20 fa fa-comment-o" aria-hidden="true"></i>{{$comments_count}}<span> Comments</span>
+                                        <span>{{$post->likes}} {{$post->likes > 1 ? trans('default/category.likes') : trans('default/category.dislikes')}}</span>     <i class="ml-20 fa fa-comment-o" aria-hidden="true"></i>{{$comments_count}}<span> @lang('default/category.comments')</span>
                                     </p>
                                 </div>
                             </div>
@@ -79,7 +77,7 @@
                         </div>
                     @else
                         <div class="no-posts mb-100">
-                            <h2>No posts found</h2>
+                            <h2>@lang('default/category.not_found')</h2>
                         </div>
                     @endif
                     </div>

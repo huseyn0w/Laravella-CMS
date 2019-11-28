@@ -21,11 +21,11 @@
         <div class="container">
             <div class="row justify-content-between align-items-center d-flex">
                 <div class="col-lg-8 top-left">
-                    <h1 class="text-white mb-20">Profile</h1>
+                    <h1 class="text-white mb-20">@lang('default/change_password.headline')</h1>
                     <ul class="breadcrumbs">
                         <li><a href="{{env('APP_URL')}}">{{$home_page_data->title}}</a><span class="lnr lnr-arrow-right"></span></li>
-                        <li><a href="{{route('get_user_info')}}">Edit profile</a><span class="lnr lnr-arrow-right"></span></li>
-                        <li><span>Change password</span></li>
+                        <li><a href="{{route('get_user_info')}}">@lang('default/change_password.edit_profile')</a><span class="lnr lnr-arrow-right"></span></li>
+                        <li><span>@lang('default/change_password.change_password')</span></li>
                     </ul>
                 </div>
             </div>
@@ -55,11 +55,11 @@
                                 <div class="col-12">
                                     @if ($update_message)
                                         <div class="alert alert-success">
-                                            <strong>User password has been updated</strong>
+                                            <strong>@lang('default/change_password.password_updated')</strong>
                                         </div>
                                     @else
                                         <div class="alert alert-danger">
-                                            <strong>Some problem has been occured. Please try again later.</strong>
+                                            <strong>@lang('default/change_password.problem_occurred')</strong>
                                         </div>
                                     @endif
                                 </div>
@@ -68,7 +68,7 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Edit Profile</h4>
+                                        <h4 class="card-title">@lang('default/change_password.edit_profile')</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -76,19 +76,19 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="current_password">Current password</label>
+                                                            <label for="current_password">@lang('default/change_password.current_password')</label>
                                                             <input type="password" required id="current_password" class="form-control" name="current_password" >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="password">New Password</label>
+                                                            <label for="password">@lang('default/change_password.new_password')</label>
                                                             <input type="password" required id="password" class="form-control" name="password">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="confirm_password">Confirm New Password</label>
+                                                            <label for="confirm_password">@lang('default/change_password.confirm_new_password')</label>
                                                             <input type="password" required id="confirm_password" class="form-control" name="password_confirmation">
                                                         </div>
                                                     </div>
@@ -96,7 +96,7 @@
                                             </div>
                                         </div>
                                         {!! app('captcha')->render(); !!}
-                                        <button type="submit" class="genric-btn primary e-large pull-right">Change Password</button>
+                                        <button type="submit" class="genric-btn primary e-large pull-right">@lang('default/change_password.change_password')</button>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>

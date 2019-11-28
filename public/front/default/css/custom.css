@@ -72,9 +72,9 @@
 .login-actions a{
     color: #777777;
 }
-select.form-control:not([size]):not([multiple]){
-    height: auto;
-}
+/*select.form-control:not([size]):not([multiple]){*/
+    /*height: auto;*/
+/*}*/
 
 .primary-radio input+label{
     border:1px solid red;

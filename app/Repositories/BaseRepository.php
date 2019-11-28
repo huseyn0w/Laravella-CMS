@@ -10,50 +10,90 @@ namespace App\Repositories;
 
 
 use Illuminate\Database\QueryException;
+use Doctrine\DBAL\Driver\PDOException;
 
 abstract class BaseRepository implements  BaseRepositoryInterface{
 
     protected $model;
 
+    protected $locale;
+
+    protected $select;
+
+    protected $main_table;
+
+    protected $translated_table;
+
+    protected $translated_table_join_column;
+
+    protected $translated_table_model;
+
     public function __construct()
     {
-
+        $this->locale = get_current_lang();
     }
 
     public function create($request)
     {
-        $result = $this->model::create($request->all());
+        try{
+            $result = $this->model::create($request);
+        } catch (QueryException $e) {
+            dd($e->getMessage());
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            dd($e->getMessage());
+            $this->throwAbort();
+        } catch (\Error $e) {
+            dd($e->getMessage());
+            $this->throwAbort();
+        }
 
-        if(!$result) return $this->throwAbort();
 
         return $result;
 
     }
-
     public function all()
     {
-        $data = $this->model::all();
-
-        if(!$data) return $this->throwAbort();
+        try{
+            $data = $this->model::all();
+        } catch (QueryException $e) {
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            $this->throwAbort();
+        } catch (\Error $e) {
+            $this->throwAbort();
+        }
 
         return $data;
     }
 
     public function get($param)
     {
-        $data = $this->model::find($param)->first()->get();
+        try{
+            $data = $this->model::find($param)->first()->get();
+        } catch (QueryException $e) {
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            $this->throwAbort();
+        } catch (\Error $e) {
+            $this->throwAbort();
+        }
 
-        if(!$data) return $this->throwAbort();
 
         return $data;
     }
 
     public function selectBy($fields)
     {
-
-        $data = $this->model::select($fields)->get();
-
-        if(!$data) return $this->throwAbort();
+        try{
+            $data = $this->model::select($fields)->get();
+        } catch (QueryException $e) {
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            $this->throwAbort();
+        } catch (\Error $e) {
+            $this->throwAbort();
+        }
 
         return $data;
 
@@ -63,12 +103,13 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
     {
         try{
             $data = $this->model::first();
+        } catch (QueryException $e) {
+            $this->throwAbort();
+        }catch (PDOException $e) {
+            $this->throwAbort();
+        }catch (\Error $e) {
+            $this->throwAbort();
         }
-        catch (QueryException $e){
-            $data = $e->errorInfo;
-        }
-
-        if(!$data) return $this->throwAbort();
 
         return $data;
     }
@@ -77,14 +118,79 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
         try{
             empty($fields) ? $data = $this->model::paginate($count) : $data = $this->model::select($fields)->paginate($count);
+        } catch (QueryException $e) {
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            $this->throwAbort();
+        } catch (\Error $e) {
+            $this->throwAbort();
         }
-        catch (QueryException $e){
-            $data = $e->errorInfo;
-        }
-
-        if(!$data) return $this->throwAbort();
 
         return $data;
+    }
+
+    public function get_translated_data($count)
+    {
+        return $this->translated_only($count, $this->main_table, $this->translated_table, $this->translated_table_join_column, $this->select);
+    }
+
+    protected function pre_get_translated_by($model, $param, $value)
+    {
+//        dd($model, $param, $value, $this->locale);
+        return $model::where($param, $value)->firstOrFail();
+    }
+
+
+    public function get_translated_by($param, $value)
+    {
+
+        $this->pre_get_translated_by($this->translated_table_model, $param, $value);
+
+
+
+        try{
+            $data = $this->model::join($this->translated_table, $this->main_table.'.id', '=', $this->translated_table.'.'.$this->translated_table_join_column)
+                ->select($this->select)
+                ->where($this->translated_table.'.locale', $this->locale)
+                ->where($this->translated_table.'.'.$param, $value)
+                ->with('author')->first();
+
+        } catch (QueryException $e) {
+//            dd($e->getMessage());
+            $this->throwAbort();
+        } catch (PDOException $e) {
+//            dd($e->getMessage());
+            $this->throwAbort();
+        } catch (\Error $e) {
+//            dd($e->getMessage());
+            $this->throwAbort();
+        }
+
+        return $data;
+    }
+
+
+    public function translated_only($count, $main_table_name, $translated_table_name, $parent_table_join_column, $select, $page = 1){
+
+        try{
+            $data = $this->model::join($translated_table_name, $main_table_name.'.id', '=', $translated_table_name.'.'.$parent_table_join_column)
+                ->select($select)
+                ->where($translated_table_name.'.locale', $this->locale)
+                ->with('author')->paginate($count, array('*'), 'page', $page);
+
+        } catch (QueryException $e) {
+            dd($e->getMessage());
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            dd($e->getMessage());
+            $this->throwAbort();
+        } catch (\Error $e) {
+            dd($e->getMessage());
+            $this->throwAbort();
+        }
+
+        return $data;
+
     }
 
     public function getBy($paramName, $paramValue, $fields = [])
@@ -100,6 +206,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         if(!$data) return $this->throwNotFound();
 
         return $data;
+
     }
 
 
@@ -107,22 +214,27 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
 
 
-    public function update($id, $newData)
+
+
+    public function update(int $id, $request)
     {
 
         try {
-            $updated_except = ["_token", "_method"];
-            if(!empty($newData['g-recaptcha-response'])) $updated_except[] = 'g-recaptcha-response';
-            if(!empty($newData['password_confirmation'])) $updated_except[] = 'password_confirmation';
-            $this->model::where('id', $id)->update($newData->except($updated_except));
-            $result = true;
+            $instance = $this->model::findOrFail($id);
+            //$updated_except = ["_token", "_method"];
+            //if(!empty($newData['g-recaptcha-response'])) $updated_except[] = 'g-recaptcha-response';
+            //if(!empty($newData['password_confirmation'])) $updated_except[] = 'password_confirmation';
+            $instance->update($request->all());
+
+            if($instance) $result = true;
 
         } catch (QueryException $e) {
-            $result = $e->errorInfo;
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            $this->throwAbort();
+        } catch (\Error $e) {
+            $this->throwAbort();
         }
-
-
-        if(!$result) return $this->throwAbort();
 
         return $result;
 
@@ -134,9 +246,16 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
     public function delete($id)
     {
         $result = false;
-        if($this->model::destroy($id)) $result = true;
+        try{
+            if($this->model::destroy($id)) $result = true;
+        } catch (QueryException $e) {
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            $this->throwAbort();
+        } catch (\Error $e) {
+            $this->throwAbort();
+        }
 
-        if(!$result) return $this->throwAbort();
 
         return $result;
     }
@@ -148,10 +267,17 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function restore($id)
     {
+        $result = false;
 
-        if($this->model::withTrashed()->where('id', $id)->restore()) $result = true;
-
-        if(!$result) return $this->throwAbort();
+        try{
+            if($this->model::withTrashed()->where('id', $id)->restore()) $result = true;
+        } catch (QueryException $e) {
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            $this->throwAbort();
+        } catch (\Error $e) {
+            $this->throwAbort();
+        }
 
         return $result;
     }
@@ -159,9 +285,16 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
     public function destroy($id)
     {
         $result = false;
-        if($this->model::where('id', $id)->forceDelete()) $result = true;
+        try{
+            if($this->model::where('id', $id)->forceDelete()) $result = true;
+        } catch (QueryException $e) {
+            $this->throwAbort();
+        } catch (PDOException $e) {
+            $this->throwAbort();
+        } catch (\Error $e) {
+            $this->throwAbort();
+        }
 
-        if(!$result) return $this->throwAbort();
 
         return $result;
     }
@@ -169,13 +302,15 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
 
 
-    protected function throwAbort($message = "Some problem occured")
+    protected function throwAbort($message = null)
     {
+        if(is_null($message)) $message = trans('cpanel/controller.problem_occurred');
         return abort(403, $message);
     }
 
-    protected function throwNotFound($message = "Page is not found")
+    protected function throwNotFound($message = null)
     {
+        if(is_null($message)) $message = trans('cpanel/controller.page_not_found');
         return abort(404, $message);
     }
 

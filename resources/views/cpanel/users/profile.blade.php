@@ -38,11 +38,11 @@
             <div class="col-12">
                 @if ($update_message)
                     <div class="alert alert-success">
-                        <strong>User has been updated</strong>
+                        <strong>@lang('cpanel/users.updated_success')/strong>
                     </div>
                 @else
                     <div class="alert alert-danger">
-                        <strong>Some problem has been occured. Please try again later.</strong>
+                        <strong>@lang('cpanel/users.updated_error')</strong>
                     </div>
                 @endif
             </div>
@@ -51,20 +51,20 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Profile</h4>
+                        <h4 class="card-title">@lang('cpanel/users.profile_headline')</h4>
                     </div>
                     <div class="card-body">
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Username</label>
+                                    <label>@lang('cpanel/users.username')</label>
                                     <p>{{$user->username}}</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="email">Email address</label>
+                                    <label for="email">@lang('cpanel/users.email')</label>
                                     <input type="email" id="email" class="form-control" name="email" value="{{ old('email', $user->email) }}">
                                 </div>
                             </div>
@@ -72,13 +72,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="password">New Password</label>
+                                    <label for="password">@lang('cpanel/users.new_password')</label>
                                     <input type="password" id="password" class="form-control" name="password" value="">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="confirm_password">Confirm New Password</label>
+                                    <label for="confirm_password">@lang('cpanel/users.new_password_confirmation')</label>
                                     <input type="password" id="confirm_password" class="form-control" name="password_confirmation" value="">
                                 </div>
                             </div>
@@ -86,13 +86,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name">@lang('cpanel/users.name')</label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ old('name', $user->name) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="surname">Surname</label>
+                                    <label for="surname">@lang('cpanel/users.surname')</label>
                                     <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" value="{{ old('surname', $user->surname) }}">
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Country</label>
+                                    <label>@lang('cpanel/users.country')</label>
                                     <select name="country" id="country" class="form-control">
                                     @foreach($countries as $country)
                                         @if($country['name'] === $user->country)
@@ -114,7 +114,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>City</label>
+                                    <label>@lang('cpanel/users.city')</label>
                                     <input type="text" name="city" class="form-control" placeholder="City" value="{{ old('city', $user->city) }}">
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Status</label>
+                                    <label>@lang('cpanel/users.status')</label>
                                     <select name="role_id" id="user_role" class="form-control">
                                         @foreach($user_roles as $role)
                                             @if($user->role->name === $role->name)
@@ -140,7 +140,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>About Me</label>
+                                    <label>@lang('cpanel/users.about')</label>
                                     <textarea rows="4" cols="80" class="form-control" name="about_me" placeholder="Here can be your description">{{ old('about_me', $user->about_me) }}</textarea>
                                 </div>
                             </div>
@@ -148,13 +148,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Facebook</label>
+                                    <label>@lang('cpanel/users.facebook')</label>
                                     <input type="text" class="form-control" name="facebook_url" placeholder="https://" value="{{ old('facebook_url', $user->facebook_url) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Google</label>
+                                    <label>@lang('cpanel/users.google')</label>
                                     <input type="text" class="form-control" name="google_url" placeholder="https://" value="{{ old('google_url', $user->google_url) }}">
                                 </div>
                             </div>
@@ -162,13 +162,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Twitter</label>
+                                    <label>@lang('cpanel/users.twitter')</label>
                                     <input type="text" class="form-control" name="twitter_url" placeholder="https://" value="{{ old('twitter_url', $user->twitter_url) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Instagram</label>
+                                    <label>@lang('cpanel/users.instagram')</label>
                                     <input type="text" class="form-control" name="instagram_url" placeholder="https://" value="{{ old('instagram_url', $user->instagram_url) }}">
                                 </div>
                             </div>
@@ -176,13 +176,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Linkedin</label>
+                                    <label>@lang('cpanel/users.linkedin')</label>
                                     <input type="text" class="form-control" name="linkedin_url" placeholder="https://" value="{{ old('linkedin_url', $user->linkedin_url) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Xing</label>
+                                    <label>@lang('cpanel/users.xing')</label>
                                     <input type="text" class="form-control" name="xing_url" placeholder="https://" value="{{ old('xing_url', $user->xing_url) }}">
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-check form-check-radio">
-                                    <label>Gender</label>
+                                    <label>@lang('cpanel/users.gender')</label>
                                     <br>
                                     <label class="form-check-label form-checkbox-label">
                                         <input class="form-check-input" type="radio" name="gender" {{$user->gender === "male" ? 'checked' : null}} value="male" id="male">
@@ -205,7 +205,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                        <button type="submit" class="btn btn-info btn-fill pull-right">@lang('cpanel/users.update_button_label')</button>
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -225,7 +225,7 @@
                                 @endif
                                 <span class="input-group-btn">
                                   <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary choose-image">
-                                    Edit
+                                    @lang('cpanel/users.avatar_edit')
                                   </a>
                                 </span>
                                 <input id="file-upload" value="{{old('avatar', $user->avatar)}}" class type="hidden" name="avatar" />

@@ -25,7 +25,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Site options</h4>
+                        <h4 class="card-title">@lang('cpanel/settings.site_options_headline')</h4>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('cpanel_update_site_options') }}" method="POST">
@@ -46,7 +46,7 @@
                                     <div class="col-12">
                                         @if ($update_message)
                                             <div class="alert alert-success">
-                                                <strong>Options has been updated</strong>
+                                                <strong>@lang('cpanel/settings.site_options_updates_success')</strong>
                                             </div>
                                         @else
                                             <div class="alert alert-danger">
@@ -59,29 +59,29 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="custom_input_image">Logo</label>
+                                        <label for="custom_input_image">@lang('cpanel/settings.logo')</label>
                                         <span class="input-group-btn">
                                           <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary choose-image">
-                                            <i class="fa fa-picture-o"></i> Choose image
+                                            <i class="fa fa-picture-o"></i> @lang('cpanel/settings.choose_image')
                                           </a>
                                         </span>
                                         <input id="thumbnail" class="form-control" type="text" name="logo_url" value="{{ old('logo_url', $logo_url) }}">
                                     </div>
                                     <div class="form-group">
-                                        <label>Footer Copyright</label>
+                                        <label>@lang('cpanel/settings.footer_copyright')</label>
                                         <input type="text" required name="copyright" class="form-control" value="{{ old('copyright', $copyright) }}">
                                     </div>
                                     <div class="form-group">
-                                        <label>Linkedin URL</label>
+                                        <label>@lang('cpanel/settings.linkedin_url')</label>
                                         <input type="text" required name="linkedin_url" class="form-control" value="{{ old('linkedin_url', $linkedin_url) }}">
                                     </div>
                                     <div class="form-group">
-                                        <label>Github URL</label>
+                                        <label>@lang('cpanel/settings.github_url')</label>
                                         <input type="text" required name="github_url" class="form-control" value="{{ old('github_url', $github_url) }}">
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Settings</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">@lang('cpanel/settings.update_button_label')</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

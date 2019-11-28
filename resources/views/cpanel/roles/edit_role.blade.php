@@ -42,11 +42,11 @@
                 <div class="col-12">
                     @if ($update_message)
                         <div class="alert alert-success">
-                            <strong>Role has been updated</strong>
+                            <strong>@lang('cpanel/roles.role_updated')</strong>
                         </div>
                     @else
                         <div class="alert alert-danger">
-                            <strong>Some problem has been occured. Please try again later.</strong>
+                            <strong>@lang('cpanel/roles.role_error')</strong>
                         </div>
                     @endif
                 </div>
@@ -54,13 +54,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Role</h4>
+                        <h4 class="card-title">@lang('cpanel/roles.edit_role_headline')</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name">@lang('cpanel/roles.role_name')</label>
                                     <input type="text" id="name" required class="form-control" name="name" value="{{ old('name', $role->name) }}">
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Role</button>
+                        <button type="submit" class="btn btn-info btn-fill pull-right">@lang('cpanel/roles.update_role')</button>
                         <div class="clearfix"></div>
                     </div>
                 </div>

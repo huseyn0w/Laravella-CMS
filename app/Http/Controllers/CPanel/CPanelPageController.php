@@ -19,7 +19,7 @@ class CPanelPageController extends CPanelBaseController
 
     public function index()
     {
-        $pages_list = $this->repository->only($this->per_page);
+        $pages_list = $this->repository->get_translated_data($this->per_page);
 
         return view('cpanel.pages.pages_list', compact("pages_list"));
     }

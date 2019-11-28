@@ -9,26 +9,51 @@
 namespace App\Repositories;
 
 
+use App\Http\Models\Category;
 use App\Http\Models\Page;
+use App\Http\Models\PageTranslation;
 use App\Http\Models\Post;
 use App\Http\Models\User;
 
 class PageRepository extends BaseRepository
 {
+    protected $main_table = 'pages';
+
+    protected $translated_table = 'page_translations';
+
+    protected $translated_table_join_column = 'page_id';
+
+
     public function __construct(Page $model)
     {
         parent::__construct();
         $this->model = $model;
+        //Select and JOIN conditions (posts.id, posts.author.id) and etc...
+        $this->select = [
+            $this->main_table.'.id',
+            $this->translated_table.'.author_id',
+            $this->translated_table.'.title',
+            $this->translated_table.'.content',
+            $this->translated_table.'.custom_fields',
+            $this->translated_table.'.slug',
+            $this->translated_table.'.meta_description',
+            $this->translated_table.'.meta_keywords',
+            $this->translated_table.'.status',
+            $this->translated_table.'.template',
+            $this->translated_table.'.created_at'
+        ];
+
+        $this->translated_table_model = new PageTranslation;
     }
 
-    public function getSearchResult($request, $count = 1)
+    public function getSearchResult($request, $page = 1, $count =1)
     {
 
         $filter = $request->filter;
 
         $searched_string = $request->get('query');
 
-        $result = $this->getFilteredResult($searched_string, $filter, $count);
+        $result = $this->getFilteredResult($searched_string, $filter, $page, $count);
 
         return $result;
 
@@ -55,6 +80,9 @@ class PageRepository extends BaseRepository
             case "post":
                 $result = $this->filterByPost($searched_string, $count, $current_page);
                 break;
+            case "category":
+                $result = $this->filterByCategory($searched_string, $count, $current_page);
+                break;
             default:
                 $result = $this->throwAbort();
                 break;
@@ -65,14 +93,50 @@ class PageRepository extends BaseRepository
 
     private function FilterByPage($key, $count, $current_page)
     {
-        $pages = Page::select(['title', 'slug'])
-            ->where ('title', 'LIKE', '%' . $key . '%')
-            ->orWhere('slug', 'LIKE', '%' . $key . '%')
-            ->orWhere('content', 'LIKE', '%' . $key . '%')
-            ->orWhere('custom_fields', 'LIKE', '%' . $key . '%')
+        $pages = Page::join('page_translations', 'pages.id', '=', 'page_translations.page_id')
+            ->select(['page_translations.title', 'page_translations.slug'])
+            ->where ('page_translations.locale', $this->locale)
+            ->where(function($q) use($key) {
+                $q->where('page_translations.title', 'LIKE', '%' . $key . '%')
+                    ->orWhere('page_translations.slug', 'LIKE', '%' . $key . '%')
+                    ->orWhere('page_translations.content', 'LIKE', '%' . $key . '%')
+                    ->orWhere('page_translations.custom_fields', 'LIKE', '%' . $key . '%');
+            })
             ->paginate($count, ['*'], 'page', $current_page);
 
         return $pages;
+    }
+
+    private function filterByCategory($key, $count, $current_page)
+    {
+        $category = Category::join('category_translations', 'categories.id', '=', 'category_translations.category_id')
+            ->select(['category_translations.title', 'category_translations.slug'])
+            ->where('category_translations.locale', $this->locale)
+            ->where(function($q) use($key) {
+                $q->where('category_translations.title', 'LIKE', '%' . $key . '%')
+                    ->orWhere('category_translations.slug', 'LIKE', '%' . $key . '%')
+                    ->orWhere('category_translations.description', 'LIKE', '%' . $key . '%');
+            })
+            ->paginate($count, ['*'], 'page', $current_page);
+
+
+        return $category;
+    }
+
+    private function filterByPost($key, $count, $current_page)
+    {
+        $posts = Post::join('post_translations', 'posts.id', '=', 'post_translations.post_id')
+            ->select(['post_translations.title', 'post_translations.slug',])
+            ->where ('post_translations.locale', $this->locale)
+            ->where(function($q) use($key) {
+                $q->where('post_translations.title', 'LIKE', '%' . $key . '%')
+                ->orWhere('post_translations.slug', 'LIKE', '%' . $key . '%')
+                ->orWhere('post_translations.preview', 'LIKE', '%' . $key . '%')
+                ->orWhere('post_translations.content', 'LIKE', '%' . $key . '%');
+            })
+            ->paginate($count, ['*'], 'page', $current_page);
+
+        return $posts;
     }
 
     private function filterByUser($key, $count, $current_page)
@@ -87,18 +151,6 @@ class PageRepository extends BaseRepository
             ->paginate($count, ['*'], 'page', $current_page);
 
         return $users;
-    }
-
-    private function filterByPost($key, $count, $current_page)
-    {
-        $posts = Post::select(['title', 'slug',])
-            ->where ('title', 'LIKE', '%' . $key . '%')
-            ->orWhere('slug', 'LIKE', '%' . $key . '%')
-            ->orWhere('preview', 'LIKE', '%' . $key . '%')
-            ->orWhere('content', 'LIKE', '%' . $key . '%')
-            ->paginate($count, ['*'], 'page', $current_page);
-
-        return $posts;
     }
     
 }

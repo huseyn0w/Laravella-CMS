@@ -63,7 +63,7 @@ interface BaseRepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function update($newData, $id);
+    public function update(int $id, $newData);
 
     /**
      * Update one record by custom parameter

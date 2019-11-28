@@ -4,6 +4,7 @@ namespace App\Http\Controllers\CPanel;
 
 use App\Http\Requests\CategoryListRequest;
 use App\Http\Requests\CategoryRequest;
+use App\Repositories\CategoryRepository;
 use App\Repositories\CPanelCategoryRepository;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class CPanelCategoryController extends CPanelBaseController
 
     public function createCategory(CategoryRequest $request)
     {
-        parent::create($request);
+        $this->repository->create($request);
 
         return redirect()->route('cpanel_category_list')->with('category_added', " ");
 
@@ -32,7 +33,7 @@ class CPanelCategoryController extends CPanelBaseController
 
     public function index()
     {
-        $categories_list = $this->repository->only($this->per_page);
+        $categories_list = $this->repository->get_translated_data($this->per_page);
 
         return view('cpanel.post_categories.post_categories_list', compact("categories_list"));
     }

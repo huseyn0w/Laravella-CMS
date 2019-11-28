@@ -26,12 +26,12 @@ if(isset ($instance->custom_fields)  && !empty($instance->custom_fields)){
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <h4>Extra custom fields</h4>
-            <button type="button" data-toggle="modal" data-target="#custom_text_modal" class="btn custom-text">Text</button>
-            <button type="button" data-toggle="modal" data-target="#custom_textarea_modal" class="btn custom-textarea">Textarea</button>
-            <button type="button" data-toggle="modal" data-target="#custom_image_modal" class="btn custom-image">Image</button>
-            <button type="button" data-toggle="modal" data-target="#custom_link_modal" class="btn custom-link">Link</button>
-            <button type="button" id="custom_repeater" class="btn custom-repeater">Repeater</button>
+            <h4>@lang('cpanel/custom-fields.headline')</h4>
+            <button type="button" data-toggle="modal" data-target="#custom_text_modal" class="btn custom-text">@lang('cpanel/custom-fields.type_text')</button>
+            <button type="button" data-toggle="modal" data-target="#custom_textarea_modal" class="btn custom-textarea">@lang('cpanel/custom-fields.type_textarea')</button>
+            <button type="button" data-toggle="modal" data-target="#custom_image_modal" class="btn custom-image">@lang('cpanel/custom-fields.type_image')</button>
+            <button type="button" data-toggle="modal" data-target="#custom_link_modal" class="btn custom-link">@lang('cpanel/custom-fields.type_link')</button>
+            <button type="button" id="custom_repeater" class="btn custom-repeater">@lang('cpanel/custom-fields.type_repeater')</button>
         </div>
     </div>
 </div>
@@ -40,8 +40,8 @@ if(isset ($instance->custom_fields)  && !empty($instance->custom_fields)){
         <div id="custom_repeater_cover">
         </div>
         <div id="custom_repeater_buttons">
-            <button type="button" class="btn add-repeater-field-btn" id="add_repeater_field">Add Field</button>
-            <button type="button" class="btn btn-success insert-repeater-fields-btn" id="insert_repeater_fields">Insert Fields</button>
+            <button type="button" class="btn add-repeater-field-btn" id="add_repeater_field">@lang('cpanel/custom-fields.add_field')</button>
+            <button type="button" class="btn btn-success insert-repeater-fields-btn" id="insert_repeater_fields">@lang('cpanel/custom-fields.insert_field')</button>
         </div>
 
         <div id="custom_fields_cover">
@@ -63,8 +63,8 @@ if(isset ($instance->custom_fields)  && !empty($instance->custom_fields)){
                         <div class="repeater_cover repeater_{{$repeater_count}}_cover">
                             <div class="group_headline">
                                 <h4>{{$item->admin_label}}</h4>
-                                <button type="button" class="btn btn-danger deleteGroup">Delete group</button>
-                                <button type="button" class="btn btn-info toogleGroup">Toogle group</button>
+                                <button type="button" class="btn btn-danger deleteGroup">@lang('cpanel/custom-fields.delete_group')</button>
+                                <button type="button" class="btn btn-info toogleGroup">@lang('cpanel/custom-fields.toggle_group')</button>
                                 <input type="hidden" name="custom_fields[{{$key}}][type]" value="{{$item->type}}">
                                 <input type="hidden" name="custom_fields[{{$key}}][admin_label]" value="{{$item->admin_label}}">
                             </div>
@@ -109,15 +109,15 @@ if(isset ($instance->custom_fields)  && !empty($instance->custom_fields)){
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group custom-form-group">
-                                                            <label>Link Label</label>
+                                                            <label>@lang('cpanel/custom-fields.link_label')</label>
                                                             <input type="text" class="form-control form-label" name="custom_fields[{{$key}}][value][row-{{$checkbox_item_count}}][{{$row_item_key}}][value][label]" value="{{$row_item->value->label}}">
                                                         </div>
                                                         <div class="form-group custom-form-group">
-                                                            <label>Link URL</label>
+                                                            <label>@lang('cpanel/custom-fields.link_url')</label>
                                                             <input type="text" class="form-control form-url" name="custom_fields[{{$key}}][value][row-{{$checkbox_item_count}}][{{$row_item_key}}][value][url]" value="{{$row_item->value->url}}">
                                                         </div>
                                                         <div class="form-group custom-form-group form-check">
-                                                            <label class="form-check-label form-checkbox" for="{{$key.'__'.$row_item_count}}"> Open in new tab
+                                                            <label class="form-check-label form-checkbox" for="{{$key.'__'.$row_item_count}}"> @lang('cpanel/custom-fields.link_target')
                                                                 <input id="{{$key.'__'.$row_item_count}}" class="form-check-input pages-checkbox-input form-tab exist-input-checkbox pages-checkbox-input" {{$row_item->value->target === "1" ? "checked" : null}} type="checkbox">
                                                                 <span class="form-check-sign"></span>
                                                             </label>
@@ -127,7 +127,7 @@ if(isset ($instance->custom_fields)  && !empty($instance->custom_fields)){
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="button" class="btn btn-danger remove_item">Delete row</button>
+                                                <button type="button" class="btn btn-danger remove_item">@lang('cpanel/custom-fields.delete_row')</button>
                                         @elseif($row_item->type === "text")
                                                 <div class="row inputRow" data-type="{{$row_item->type}}" data-key="{{$key}}" data-row="{{$row_count}}" data-name="{{$row_item_key}}">
                                                     <div class="col-md-12">
@@ -157,10 +157,10 @@ if(isset ($instance->custom_fields)  && !empty($instance->custom_fields)){
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group custom-form-group">
-                                                            <label for="custom_input_image">Image</label>
+                                                            <label for="custom_input_image">@lang('cpanel/custom-fields.image_label')</label>
                                                             <span class="input-group-btn">
                                                               <a id="lfm" data-input="thumbnail_{{$row_item_count}}" data-preview="holder" class="btn btn-primary choose-image">
-                                                                <i class="fa fa-picture-o"></i> Choose image
+                                                                <i class="fa fa-picture-o"></i> @lang('cpanel/custom-fields.image_preview_label')
                                                               </a>
                                                             </span>
                                                             <input id="thumbnail_{{$row_item_count}}" class="form-control form-image" type="text" name="custom_fields[{{$key}}][value][row-{{$row_count}}][{{$row_item_key}}][value]" value="{{$row_item->value}}">
