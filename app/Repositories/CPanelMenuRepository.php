@@ -36,6 +36,7 @@ class CPanelMenuRepository extends BaseRepository
 
     public function create($request)
     {
+        $this->locale = get_current_lang();
 
         $data['slug'] = $request->slug;
 

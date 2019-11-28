@@ -67,7 +67,7 @@
                         </div>
                     @endif
                     @if(isset($searchData) && $searchData['result']->total() > 0)
-                        <h2>Results for: "{{$searchData['query']}}"</h2>
+                        <h2>@lang('default/page.search_result_headline'): "{{$searchData['query']}}"</h2>
                         <div class="search-items-cover mt-30">
                             @foreach($searchData['result'] as $item)
                                 <div class="single-list flex-row d-flex">

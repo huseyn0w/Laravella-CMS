@@ -15,6 +15,7 @@ return [
     'site_options'      => 'Опции сайтов',
     'menus'             => 'Меню',
     'user_roles'        => 'Статусы',
+    'change_language'   => 'Сменить язык',
     'log_out'           => 'Выход',
 
 ];

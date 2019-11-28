@@ -30,22 +30,24 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function __construct()
     {
-        $this->locale = get_current_lang();
+
     }
+
 
     public function create($request)
     {
+
         try{
             $result = $this->model::create($request);
         } catch (QueryException $e) {
-            dd($e->getMessage());
-            $this->throwAbort();
+//            dd($e->getMessage());
+            throwAbort();
         } catch (PDOException $e) {
-            dd($e->getMessage());
-            $this->throwAbort();
+//            dd($e->getMessage());
+            throwAbort();
         } catch (\Error $e) {
-            dd($e->getMessage());
-            $this->throwAbort();
+//            dd($e->getMessage());
+            throwAbort();
         }
 
 
@@ -57,11 +59,11 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         try{
             $data = $this->model::all();
         } catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
         return $data;
@@ -72,11 +74,11 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         try{
             $data = $this->model::find($param)->first()->get();
         } catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
 
@@ -88,11 +90,11 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         try{
             $data = $this->model::select($fields)->get();
         } catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
         return $data;
@@ -104,11 +106,11 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         try{
             $data = $this->model::first();
         } catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         }catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         }catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
         return $data;
@@ -119,11 +121,11 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         try{
             empty($fields) ? $data = $this->model::paginate($count) : $data = $this->model::select($fields)->paginate($count);
         } catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
         return $data;
@@ -143,10 +145,9 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function get_translated_by($param, $value)
     {
+        $this->locale = get_current_lang();
 
         $this->pre_get_translated_by($this->translated_table_model, $param, $value);
-
-
 
         try{
             $data = $this->model::join($this->translated_table, $this->main_table.'.id', '=', $this->translated_table.'.'.$this->translated_table_join_column)
@@ -157,13 +158,13 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
         } catch (QueryException $e) {
 //            dd($e->getMessage());
-            $this->throwAbort();
+            throwAbort();
         } catch (PDOException $e) {
 //            dd($e->getMessage());
-            $this->throwAbort();
+            throwAbort();
         } catch (\Error $e) {
 //            dd($e->getMessage());
-            $this->throwAbort();
+            throwAbort();
         }
 
         return $data;
@@ -172,6 +173,8 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function translated_only($count, $main_table_name, $translated_table_name, $parent_table_join_column, $select, $page = 1){
 
+        $this->locale = get_current_lang();
+
         try{
             $data = $this->model::join($translated_table_name, $main_table_name.'.id', '=', $translated_table_name.'.'.$parent_table_join_column)
                 ->select($select)
@@ -179,14 +182,14 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
                 ->with('author')->paginate($count, array('*'), 'page', $page);
 
         } catch (QueryException $e) {
-            dd($e->getMessage());
-            $this->throwAbort();
+//            dd($e->getMessage());
+            throwAbort();
         } catch (PDOException $e) {
-            dd($e->getMessage());
-            $this->throwAbort();
+//            dd($e->getMessage());
+            throwAbort();
         } catch (\Error $e) {
-            dd($e->getMessage());
-            $this->throwAbort();
+//            dd($e->getMessage());
+            throwAbort();
         }
 
         return $data;
@@ -229,11 +232,11 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
             if($instance) $result = true;
 
         } catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
         return $result;
@@ -249,11 +252,11 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         try{
             if($this->model::destroy($id)) $result = true;
         } catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
 
@@ -272,11 +275,11 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         try{
             if($this->model::withTrashed()->where('id', $id)->restore()) $result = true;
         } catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
         return $result;
@@ -288,31 +291,17 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         try{
             if($this->model::where('id', $id)->forceDelete()) $result = true;
         } catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
 
         return $result;
     }
 
-
-
-
-    protected function throwAbort($message = null)
-    {
-        if(is_null($message)) $message = trans('cpanel/controller.problem_occurred');
-        return abort(403, $message);
-    }
-
-    protected function throwNotFound($message = null)
-    {
-        if(is_null($message)) $message = trans('cpanel/controller.page_not_found');
-        return abort(404, $message);
-    }
 
 
 

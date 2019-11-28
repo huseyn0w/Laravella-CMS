@@ -84,7 +84,7 @@ class PageRepository extends BaseRepository
                 $result = $this->filterByCategory($searched_string, $count, $current_page);
                 break;
             default:
-                $result = $this->throwAbort();
+                $result = throwAbort();
                 break;
         }
 
@@ -93,6 +93,8 @@ class PageRepository extends BaseRepository
 
     private function FilterByPage($key, $count, $current_page)
     {
+        $this->locale = get_current_lang();
+
         $pages = Page::join('page_translations', 'pages.id', '=', 'page_translations.page_id')
             ->select(['page_translations.title', 'page_translations.slug'])
             ->where ('page_translations.locale', $this->locale)
@@ -109,6 +111,8 @@ class PageRepository extends BaseRepository
 
     private function filterByCategory($key, $count, $current_page)
     {
+        $this->locale = get_current_lang();
+
         $category = Category::join('category_translations', 'categories.id', '=', 'category_translations.category_id')
             ->select(['category_translations.title', 'category_translations.slug'])
             ->where('category_translations.locale', $this->locale)
@@ -125,6 +129,8 @@ class PageRepository extends BaseRepository
 
     private function filterByPost($key, $count, $current_page)
     {
+        $this->locale = get_current_lang();
+
         $posts = Post::join('post_translations', 'posts.id', '=', 'post_translations.post_id')
             ->select(['post_translations.title', 'post_translations.slug',])
             ->where ('post_translations.locale', $this->locale)

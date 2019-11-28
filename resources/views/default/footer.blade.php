@@ -12,6 +12,8 @@ $copyright = $site_options->copyright;
 $linkedin_url = $site_options->linkedin_url;
 $github_url = $site_options->github_url;
 
+$languages = get_languages();
+
 ?>
 <!-- start footer Area -->
 <footer class="footer-area section-gap">
@@ -23,6 +25,17 @@ $github_url = $site_options->github_url;
             <div class="col-lg-4 col-sm-12 footer-social">
                 <a href="{{$linkedin_url}}"><i class="fa fa-linkedin"></i></a>
                 <a href="{{$github_url}}"><i class="fa fa-github"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+               <ul class="languages-list">
+                   @foreach($languages as $code => $language)
+                       <li>
+                           <a href="{{route('lang_route', ['locale' => $code])}}">{{$language['title']}}</a>
+                       </li>
+                   @endforeach
+               </ul>
             </div>
         </div>
     </div>

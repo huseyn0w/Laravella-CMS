@@ -197,3 +197,15 @@ button.close,
     width: 40px;
     height: 40px;
 }
+
+.languages-list{
+    display: flex;
+}
+
+.languages-list li{
+    margin-right:15px;
+}
+
+.languages-list a{
+    color: #ffffff;
+}

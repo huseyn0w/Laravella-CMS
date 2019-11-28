@@ -46,17 +46,19 @@ class CPanelPostRepository extends BaseRepository
 
     public function trashedPosts($count){
         try{
+            $this->locale = get_current_lang();
+
             $data = $this->model::join($this->translated_table, $this->main_table.'.id', '=', $this->translated_table.'.'.$this->translated_table_join_column)
                 ->select($this->select)
                 ->where($this->translated_table.'.locale', $this->locale)
                 ->with('author')->onlyTrashed()->paginate($count);
 
         } catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         } catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
         return $data;
@@ -73,13 +75,15 @@ class CPanelPostRepository extends BaseRepository
             $data = $this->model::where($paramName, $paramValue)->withTrashed()->first();
         }
 
-        if(!$data) return $this->throwAbort();
+        if(!$data) return throwAbort();
 
         return $data;
     }
 
     public function create($request)
     {
+
+        $this->locale = get_current_lang();
 
 
         $data[$this->locale] = $request->all();
@@ -97,11 +101,11 @@ class CPanelPostRepository extends BaseRepository
             if($created_post && is_null($category_saved)) return true;
 
         }catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         }catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         }catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
 
@@ -117,6 +121,8 @@ class CPanelPostRepository extends BaseRepository
         $category = Category::find($categories_list);
 
         try{
+            $this->locale = get_current_lang();
+
             $post->categories()->detach();
 
             $data[$this->locale] = $request->all();
@@ -128,11 +134,11 @@ class CPanelPostRepository extends BaseRepository
             if($post_updated && is_null($category_saved)) $result = true;
 
         }catch (QueryException $e) {
-            $this->throwAbort();
+            throwAbort();
         }catch (PDOException $e) {
-            $this->throwAbort();
+            throwAbort();
         }catch (\Error $e) {
-            $this->throwAbort();
+            throwAbort();
         }
 
         return $result;
@@ -148,7 +154,7 @@ class CPanelPostRepository extends BaseRepository
 
         if( $request->merge(['preview' => $preview, 'content' => $content]) ) return $post;
 
-        return $this->throwAbort();
+        return throwAbort();
     }
 
 
@@ -167,7 +173,7 @@ class CPanelPostRepository extends BaseRepository
 
         }
 
-        if(!$result) $this->throwAbort();
+        if(!$result) throwAbort();
 
         return $result;
 
@@ -199,7 +205,7 @@ class CPanelPostRepository extends BaseRepository
 
         }
 
-        if(!$result) $this->throwAbort();
+        if(!$result) throwAbort();
 
         return $result;
 
@@ -221,7 +227,7 @@ class CPanelPostRepository extends BaseRepository
 
         }
 
-        if(!$result) $this->throwAbort();
+        if(!$result) throwAbort();
 
         return $result;
 
@@ -232,7 +238,7 @@ class CPanelPostRepository extends BaseRepository
 
         if($this->model::withTrashed()->where('id', $id)->restore()) $result = true;
 
-        if(!$result) return $this->throwAbort();
+        if(!$result) return throwAbort();
 
         return $result;
     }

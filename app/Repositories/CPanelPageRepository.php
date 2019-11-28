@@ -47,6 +47,8 @@ class CPanelPageRepository extends BaseRepository
 
     public function create($request)
     {
+        $this->locale = get_current_lang();
+
         $data[$this->locale] = $request->all();
 
         if(isset($request->custom_fields)){

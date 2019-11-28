@@ -5,6 +5,8 @@
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 21.07.2019
  */
+
+$languages = get_languages();
 ?>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg " color-on-scroll="500">
@@ -24,18 +26,12 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="no-icon">@lang('cpanel/nav/top.settings')</span>
+                        <span class="no-icon">@lang('cpanel/nav/top.change_language')</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        @if (Auth::user()->can('manage_general_settings', 'App\Http\Models\UserRoles'))
-                        <a class="dropdown-item" href="{{route('cpanel_general_settings')}}">@lang('cpanel/nav/top.general_settings')</a>
-                        @endif
-                        @if (Auth::user()->can('manage_menus', 'App\Http\Models\UserRoles'))
-                        <a class="dropdown-item" href="{{route('cpanel_menu_list')}}">@lang('cpanel/nav/top.menus')</a>
-                        @endif
-                        @if (Auth::user()->can('manage_user_roles', 'App\Http\Models\UserRoles'))
-                        <a class="dropdown-item" href="{{route('cpanel_user_roles')}}">@lang('cpanel/nav/top.user_roles')</a>
-                        @endif
+                        @foreach($languages as $code => $language)
+                            <a href="{{route('lang_route', ['locale' => $code])}}" class="dropdown-item">{{$language['title']}}</a>
+                        @endforeach
                     </div>
                 </li>
                 <li class="nav-item">

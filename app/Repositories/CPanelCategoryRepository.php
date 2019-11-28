@@ -36,6 +36,8 @@ class CPanelCategoryRepository extends BaseRepository
 
     public function create($request)
     {
+        $this->locale = get_current_lang();
+
         $data[$this->locale] = $request->all();
         $request->merge(['data' => $data]);
 
@@ -45,6 +47,8 @@ class CPanelCategoryRepository extends BaseRepository
 
     public function displayList(int $category_id, int $page = 1)
     {
+        $this->locale = get_current_lang();
+
         $fields = ['id','title', 'slug', 'thumbnail', 'preview', 'likes', 'created_at'];
         $count = get_general_settings('posts_per_page');
 

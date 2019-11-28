@@ -38,7 +38,7 @@ $logo_url = get_site_options('logo_url');
 
 ?>
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="no-js">
+<html lang="{{ app()->getLocale() }}" class="no-js">
 <head>
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

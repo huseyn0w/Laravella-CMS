@@ -20,6 +20,23 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException;
 use Doctrine\DBAL\Driver\PDOException;
 
+function lang_exist($code)
+{
+    $languages = get_languages();
+
+//    dd($languages);
+
+    if(array_key_exists($code,$languages)) return true;
+
+    return false;
+}
+
+function get_languages()
+{
+    return Config::get('app.languages_list');
+}
+
+
 function get_front_templates_array():array
 {
     $folders_array = [];

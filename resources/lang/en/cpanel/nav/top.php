@@ -15,6 +15,7 @@ return [
     'site_options'      => 'Site Options',
     'menus'             => 'Menus',
     'user_roles'        => 'User Roles',
+    'change_language'   => 'Change Language',
     'log_out'           => 'Log out',
 
 ];

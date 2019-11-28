@@ -46,6 +46,8 @@ class CategoryRepository extends BaseRepository
 
     public function displayList(int $category_id, int $page = 1)
     {
+        $this->locale = get_current_lang();
+
         $main_table_name = "posts";
         $translated_table_name= "post_translations";
         $join_column = "post_id";
@@ -73,14 +75,14 @@ class CategoryRepository extends BaseRepository
                 ->with('author')->paginate($count, array('*'), 'page', $page);
 
         } catch (QueryException $e) {
-            dd($e->getMessage());
-            $this->throwAbort();
+//            dd($e->getMessage());
+            throwAbort();
         } catch (PDOException $e) {
-            dd($e->getMessage());
-            $this->throwAbort();
+//            dd($e->getMessage());
+            throwAbort();
         } catch (\Error $e) {
-            dd($e->getMessage());
-            $this->throwAbort();
+//            dd($e->getMessage());
+            throwAbort();
         }
 
 
