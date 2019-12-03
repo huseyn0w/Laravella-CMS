@@ -21,7 +21,7 @@ class PagesController extends BaseController
     public function index($page_slug = "/")
     {
 
-       $data = $this->repository->get_translated_by('slug', $page_slug);
+       $data = $this->repository->getBy('slug', $page_slug);
 
        if(empty($data->custom_fields)) return view('default/pages/'.$data->template, compact('data'));
 

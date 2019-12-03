@@ -16,7 +16,7 @@ class CategoryController extends BaseController
     public function index(string $category_slug, int $page = 1)
     {
 
-        $data = $this->repository->get_translated_by('slug', $category_slug);
+        $data = $this->repository->getBy('slug', $category_slug);
 
         $data->posts = $this->repository->displayList($data->id, $page);
 

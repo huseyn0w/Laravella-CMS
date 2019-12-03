@@ -17,40 +17,32 @@ class UserRepository extends BaseRepository
 {
     private  $logged_user_id;
 
+    protected $select_fields = [
+        'email',
+        'username',
+        'name',
+        'surname',
+        'gender',
+        'country',
+        'city',
+        'role_id',
+        'facebook_url',
+        'twitter_url',
+        'google_url',
+        'instagram_url',
+        'linkedin_url',
+        'xing_url',
+        'about_me',
+        'created_at',
+        'avatar',
+    ];
+
     public function __construct(User $model)
     {
         parent::__construct();
         $this->model = $model;
     }
 
-    public function getUserInfo($username = null)
-    {
-        if(!is_string($username)) $username = get_logged_user_username();
-
-        $user_fields = [
-            'email',
-            'username',
-            'name',
-            'surname',
-            'gender',
-            'country',
-            'city',
-            'role_id',
-            'facebook_url',
-            'twitter_url',
-            'google_url',
-            'instagram_url',
-            'linkedin_url',
-            'xing_url',
-            'about_me',
-            'created_at',
-            'avatar',
-        ];
-
-        $userdata = $this->getBy('username', $username, $user_fields);
-
-        return $userdata;
-    }
 
     public function updateUser($updatedRequest)
     {

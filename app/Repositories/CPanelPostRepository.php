@@ -9,6 +9,7 @@ namespace App\Repositories;
 
 use App\Http\Models\Category;
 use App\Http\Models\Post;
+use App\Http\Models\PostTranslation;
 use Doctrine\DBAL\Driver\PDOException;
 use Illuminate\Database\QueryException;
 
@@ -20,29 +21,22 @@ class CPanelPostRepository extends BaseRepository
 
     protected $translated_table_join_column = 'post_id';
 
+    protected $select_fields = [
+        'id',
+        'author_id',
+        'slug',
+        'status',
+        'created_at',
+        'updated_at'
+    ];
+
 
     public function __construct(Post $model)
     {
         parent::__construct();
         $this->model = $model;
-
-
-        //Select and JOIN conditions (posts.id, posts.author.id) and etc...
-        $this->select = [
-            $this->main_table.'.id',
-            $this->translated_table.'.author_id',
-            $this->translated_table.'.title',
-            $this->translated_table.'.slug',
-            $this->translated_table.'.status',
-            $this->translated_table.'.created_at',
-            $this->translated_table.'.updated_at',
-        ];
     }
 
-    public function get_translated_data($count)
-    {
-        return $this->translated_only($count, $this->main_table, $this->translated_table, $this->translated_table_join_column, $this->select);
-    }
 
     public function trashedPosts($count){
         try{
@@ -80,82 +74,9 @@ class CPanelPostRepository extends BaseRepository
         return $data;
     }
 
-    public function create($request)
-    {
-
-        $this->locale = get_current_lang();
 
 
-        $data[$this->locale] = $request->all();
 
-
-        try{
-            $categories_list = $request->category;
-
-            $created_post = $this->model->create($data);
-
-            $category = Category::find($categories_list);
-
-            if($created_post) $category_saved = $created_post->categories()->attach($category);
-
-            if($created_post && is_null($category_saved)) return true;
-
-        }catch (QueryException $e) {
-            throwAbort();
-        }catch (PDOException $e) {
-            throwAbort();
-        }catch (\Error $e) {
-            throwAbort();
-        }
-
-
-    }
-
-
-    public function update(int $id, $request)
-    {
-        $post = $this->pre_update($id, $request);
-
-        $categories_list = $request->category;
-
-        $category = Category::find($categories_list);
-
-        try{
-            $this->locale = get_current_lang();
-
-            $post->categories()->detach();
-
-            $data[$this->locale] = $request->all();
-
-            $post_updated = $post->update($data);
-
-            if($post_updated) $category_saved = $post->categories()->attach($category);
-
-            if($post_updated && is_null($category_saved)) $result = true;
-
-        }catch (QueryException $e) {
-            throwAbort();
-        }catch (PDOException $e) {
-            throwAbort();
-        }catch (\Error $e) {
-            throwAbort();
-        }
-
-        return $result;
-
-    }
-
-    private function pre_update(int $id, $request)
-    {
-        $post = $this->model::findOrFail($id);
-
-        $preview = clean($request->preview);
-        $content = clean($request->content);
-
-        if( $request->merge(['preview' => $preview, 'content' => $content]) ) return $post;
-
-        return throwAbort();
-    }
 
 
     public function delete($id)
@@ -184,8 +105,8 @@ class CPanelPostRepository extends BaseRepository
     {
 
         $result = false;
-        $post = Post::find($id);
-        if($post && $post->delete()) $result = true;
+        $post = $this->model::findOrFail($id);
+        if($post->delete()) $result = true;
 
         return $result;
 
@@ -255,7 +176,6 @@ class CPanelPostRepository extends BaseRepository
         if($post && $post->forceDelete()) $deleted_post = true;
         if($deleted_post)
         {
-            $post->categories()->detach();
             $result = true;
         }
 

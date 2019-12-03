@@ -38,7 +38,7 @@
             <div class="col-12">
                 @if ($update_message)
                     <div class="alert alert-success">
-                        <strong>@lang('cpanel/users.updated_success')/strong>
+                        <strong>@lang('cpanel/users.updated_success')</strong>
                     </div>
                 @else
                     <div class="alert alert-danger">
@@ -87,13 +87,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">@lang('cpanel/users.name')</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ old('name', $user->name) }}">
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="surname">@lang('cpanel/users.surname')</label>
-                                    <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" value="{{ old('surname', $user->surname) }}">
+                                    <input type="text" class="form-control" id="surname" name="surname"  value="{{ old('surname', $user->surname) }}">
                                 </div>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>@lang('cpanel/users.city')</label>
-                                    <input type="text" name="city" class="form-control" placeholder="City" value="{{ old('city', $user->city) }}">
+                                    <input type="text" name="city" class="form-control"  value="{{ old('city', $user->city) }}">
                                 </div>
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>@lang('cpanel/users.about')</label>
-                                    <textarea rows="4" cols="80" class="form-control" name="about_me" placeholder="Here can be your description">{{ old('about_me', $user->about_me) }}</textarea>
+                                    <textarea rows="4" cols="80" class="form-control" name="about_me" >{{ old('about_me', $user->about_me) }}</textarea>
                                 </div>
                             </div>
                         </div>

@@ -23,23 +23,25 @@ class PostRepository extends BaseRepository
 
     protected $translated_table_join_column = 'post_id';
 
+    protected $select_fields = [
+        'id',
+        'author_id',
+        'title',
+        'content',
+        'likes',
+        'thumbnail',
+        'slug',
+        'meta_description',
+        'meta_keywords',
+        'status',
+        'created_at',
+        'updated_at'
+    ];
+
     public function __construct(Post $model)
     {
         parent::__construct();
         $this->model = $model;
-        $this->select = [
-            $this->main_table.'.id',
-            $this->translated_table.'.author_id',
-            $this->translated_table.'.title',
-            $this->translated_table.'.content',
-            $this->translated_table.'.likes',
-            $this->translated_table.'.thumbnail',
-            $this->translated_table.'.slug',
-            $this->translated_table.'.meta_description',
-            $this->translated_table.'.meta_keywords',
-            $this->translated_table.'.status',
-            $this->translated_table.'.created_at'
-        ];
 
         $this->translated_table_model = new PostTranslation;
     }

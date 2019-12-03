@@ -23,25 +23,24 @@ class CategoryRepository extends BaseRepository
 
     protected $translated_table_join_column = 'category_id';
 
+    protected $select_fields = [
+        'id',
+        'author_id',
+        'title',
+        'meta_description',
+        'meta_keywords',
+        'description',
+        'slug'
+    ];
+
     public function __construct(Category $model)
     {
         parent::__construct();
         $this->model = $model;
 
-        $this->select = [
-            $this->main_table.'.id',
-            $this->translated_table.'.author_id',
-            $this->translated_table.'.title',
-            $this->translated_table.'.meta_description',
-            $this->translated_table.'.meta_keywords',
-            $this->translated_table.'.description',
-            $this->translated_table.'.slug'
-        ];
-
         $this->translated_table_model = new CategoryTranslation;
 
     }
-
 
 
     public function displayList(int $category_id, int $page = 1)
@@ -52,17 +51,19 @@ class CategoryRepository extends BaseRepository
         $translated_table_name= "post_translations";
         $join_column = "post_id";
 
-        $select = [
-            $main_table_name.'.id',
-            $translated_table_name.'.title',
-            $translated_table_name.'.slug',
-            $translated_table_name.'.thumbnail',
-            $translated_table_name.'.preview',
-            $translated_table_name.'.likes',
-            $translated_table_name.'.created_at'];
+        $select_fields = [
+            'id',
+            'title',
+            'slug',
+            'thumbnail',
+            'preview',
+            'likes',
+            'created_at'
+        ];
+
+        $select = $this->generateSelectFieldsArray($select_fields, $main_table_name, $translated_table_name);
 
         $count = get_general_settings('posts_per_page');
-
 
         try{
             $data = Post::join($translated_table_name, $main_table_name.'.id', '=', $translated_table_name.'.'.$join_column)
@@ -87,8 +88,6 @@ class CategoryRepository extends BaseRepository
 
 
         return $data;
-
-
 
     }
     

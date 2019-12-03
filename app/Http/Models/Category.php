@@ -9,7 +9,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class Category extends Model implements TranslatableContract
 {
-//    use Cachable;
+    use Cachable;
 
     use Translatable;
 

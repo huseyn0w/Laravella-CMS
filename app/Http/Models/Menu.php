@@ -9,7 +9,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class Menu extends Model implements TranslatableContract
 {
-//    use Cachable;
+    use Cachable;
 
     use Translatable;
 

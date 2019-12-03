@@ -1,5 +1,7 @@
 # Laravella CMS
 
+![alt text](https://github.com/huseyn0w/Laravella-CMS/tree/master/public/front/default/img/readme.png)
+
 The CMS Project based on Laravel PHP Framework
 
 ## Getting Started
@@ -18,7 +20,6 @@ soon...
 * Social media authentication possibility
 * Website search possibility
 * Users with different statuses
-* REST API for posts and pages
 * Custom fields
 * Flexible template changing system
 * Multiple languages possibility
@@ -26,6 +27,7 @@ soon...
 
 ## Planning additional features
 * E-Commerce extension
+* REST API for posts and pages
 
 
 
@@ -40,7 +42,7 @@ Why it is easy to extend? Because it was written by using best practices and tec
 * Beautiful text editor (TinyMCE)
 * Perfect File Manager (Laravel FileManager)
 
-## Versioning
+## Version
 
 Current Version of Laravel Framework is 6.0.4
 

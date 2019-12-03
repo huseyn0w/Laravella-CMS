@@ -107,8 +107,9 @@ return [
     */
 
     'languages_list' => [
-        'en' => ['title' => 'English'],
-        'ru' => ['title' => 'Русский'],
+        'en'  => ['title' => 'English', 'icon' => env('APP_URL').'/admin/img/flags/en.png'],
+        'ru'  => ['title' => 'Русский', 'icon' => env('APP_URL').'/admin/img/flags/ru.png'],
+        'est' => ['title' => 'Eesti',   'icon' => env('APP_URL').'/admin/img/flags/et.png'],
     ],
 
     /*
@@ -189,6 +190,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+        App\Providers\ObserverServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,

@@ -33,7 +33,7 @@ class CPanelCategoryController extends CPanelBaseController
 
     public function index()
     {
-        $categories_list = $this->repository->get_translated_data($this->per_page);
+        $categories_list = $this->repository->only($this->per_page);
 
         return view('cpanel.post_categories.post_categories_list', compact("categories_list"));
     }

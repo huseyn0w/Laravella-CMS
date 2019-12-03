@@ -18,7 +18,7 @@ return [
     'comments'          => 'Comments',
     'users'             => 'Users',
     'settings'          => 'Settings',
-    'general_settings'  => 'General Settings',
+    'general_settings'  => 'General',
     'site_options'      => 'Site Options',
     'menus'             => 'Menus',
     'user_roles'        => 'User Roles'

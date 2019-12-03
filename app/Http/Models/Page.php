@@ -9,13 +9,13 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class Page extends Model implements TranslatableContract
 {
-//    use Cachable;
+    use Cachable;
 
     use Translatable;
 
     public $timestamps = false;
 
-    public $translatedAttributes = ['title', 'updated_at', 'slug', 'author_id', 'status', 'custom_fields', 'content', 'meta_keywords', 'meta_description'];
+    public $translatedAttributes = ['title', 'created_at', 'updated_at', 'slug', 'author_id', 'status', 'custom_fields', 'content', 'meta_keywords', 'meta_description'];
 
     protected $fillable = [
         'title',

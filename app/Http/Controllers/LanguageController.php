@@ -12,8 +12,9 @@ class LanguageController extends Controller
         \Session::put('locale',$lang);
 
         $previous_url = url()->previous();
+        $cpanel_url = env('APP_URL').'cpanel';
 
-        $position = strpos($previous_url, env('APP_URL').'cpanel');
+        $position = strpos($previous_url, $cpanel_url);
 
         if($position !== false) return redirect()->route('cpanel_home');
         return redirect('/');

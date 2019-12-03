@@ -23,25 +23,25 @@ class PageRepository extends BaseRepository
 
     protected $translated_table_join_column = 'page_id';
 
+    protected $select_fields = [
+        'id',
+        'author_id',
+        'title',
+        'content',
+        'custom_fields',
+        'slug',
+        'meta_description',
+        'meta_keywords',
+        'status',
+        'template',
+        'created_at',
+        'updated_at'
+    ];
 
     public function __construct(Page $model)
     {
         parent::__construct();
         $this->model = $model;
-        //Select and JOIN conditions (posts.id, posts.author.id) and etc...
-        $this->select = [
-            $this->main_table.'.id',
-            $this->translated_table.'.author_id',
-            $this->translated_table.'.title',
-            $this->translated_table.'.content',
-            $this->translated_table.'.custom_fields',
-            $this->translated_table.'.slug',
-            $this->translated_table.'.meta_description',
-            $this->translated_table.'.meta_keywords',
-            $this->translated_table.'.status',
-            $this->translated_table.'.template',
-            $this->translated_table.'.created_at'
-        ];
 
         $this->translated_table_model = new PageTranslation;
     }
@@ -69,6 +69,8 @@ class PageRepository extends BaseRepository
 
     private function getFilteredResult(string $searched_string, string $filter, $current_page=1, $count = 1)
     {
+
+
         switch ($filter)
         {
             case "page":
@@ -87,6 +89,8 @@ class PageRepository extends BaseRepository
                 $result = throwAbort();
                 break;
         }
+
+
 
         return $result;
     }
@@ -141,7 +145,7 @@ class PageRepository extends BaseRepository
                 ->orWhere('post_translations.content', 'LIKE', '%' . $key . '%');
             })
             ->paginate($count, ['*'], 'page', $current_page);
-
+//        dd($posts);
         return $posts;
     }
 

@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Validator as Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +28,5 @@ class AppServiceProvider extends ServiceProvider
             //...with this variable
             $view->with('current_user', \Auth::user());
         });
-
     }
 }

@@ -25,7 +25,7 @@ class CPanelMenuController extends CPanelBaseController
 
     public function index()
     {
-        $menus_list = $this->repository->get_translated_data($this->per_page);
+        $menus_list = $this->repository->only($this->per_page);
         return view('cpanel.menus.menus_list', compact("menus_list"));
     }
 

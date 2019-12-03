@@ -12,7 +12,8 @@ namespace App\Repositories;
 use Illuminate\Database\QueryException;
 use Doctrine\DBAL\Driver\PDOException;
 
-abstract class BaseRepository implements  BaseRepositoryInterface{
+abstract class BaseRepository implements  BaseRepositoryInterface
+{
 
     protected $model;
 
@@ -20,13 +21,16 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     protected $select;
 
+    protected $select_fields;
+
     protected $main_table;
 
     protected $translated_table;
 
     protected $translated_table_join_column;
 
-    protected $translated_table_model;
+    protected $select_fields_array;
+
 
     public function __construct()
     {
@@ -37,16 +41,17 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
     public function create($request)
     {
 
-        try{
-            $result = $this->model::create($request);
+        try {
+            $data = $request->all();
+            $result = $this->model::create($data);
         } catch (QueryException $e) {
-//            dd($e->getMessage());
+            dd($e->getMessage());
             throwAbort();
         } catch (PDOException $e) {
-//            dd($e->getMessage());
+            dd($e->getMessage());
             throwAbort();
         } catch (\Error $e) {
-//            dd($e->getMessage());
+            dd($e->getMessage());
             throwAbort();
         }
 
@@ -54,9 +59,10 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         return $result;
 
     }
+
     public function all()
     {
-        try{
+        try {
             $data = $this->model::all();
         } catch (QueryException $e) {
             throwAbort();
@@ -71,7 +77,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function get($param)
     {
-        try{
+        try {
             $data = $this->model::find($param)->first()->get();
         } catch (QueryException $e) {
             throwAbort();
@@ -87,7 +93,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function selectBy($fields)
     {
-        try{
+        try {
             $data = $this->model::select($fields)->get();
         } catch (QueryException $e) {
             throwAbort();
@@ -103,22 +109,37 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function first()
     {
-        try{
+        try {
             $data = $this->model::first();
         } catch (QueryException $e) {
             throwAbort();
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             throwAbort();
-        }catch (\Error $e) {
+        } catch (\Error $e) {
             throwAbort();
         }
 
         return $data;
     }
 
-    public function only($count, $fields = []){
+    public function only($count, $page = 1)
+    {
 
-        try{
+        if (!empty($this->translated_table && !empty($this->translated_table_join_column))) {
+            $data = $this->translated_only($count, $this->main_table, $this->translated_table, $this->translated_table_join_column, $page);
+        } else {
+            $data = $this->non_translated_only($count);
+        }
+
+
+        return $data;
+    }
+
+    protected function non_translated_only($count)
+    {
+        $fields = $this->select_fields;
+
+        try {
             empty($fields) ? $data = $this->model::paginate($count) : $data = $this->model::select($fields)->paginate($count);
         } catch (QueryException $e) {
             throwAbort();
@@ -131,54 +152,17 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
         return $data;
     }
 
-    public function get_translated_data($count)
-    {
-        return $this->translated_only($count, $this->main_table, $this->translated_table, $this->translated_table_join_column, $this->select);
-    }
 
-    protected function pre_get_translated_by($model, $param, $value)
+    protected function translated_only($count, $main_table_name, $translated_table_name, $parent_table_join_column, $page = 1)
     {
-//        dd($model, $param, $value, $this->locale);
-        return $model::where($param, $value)->firstOrFail();
-    }
 
-
-    public function get_translated_by($param, $value)
-    {
+        $this->select_fields_array = $this->generateSelectFieldsArray($this->select_fields);
         $this->locale = get_current_lang();
 
-        $this->pre_get_translated_by($this->translated_table_model, $param, $value);
-
-        try{
-            $data = $this->model::join($this->translated_table, $this->main_table.'.id', '=', $this->translated_table.'.'.$this->translated_table_join_column)
-                ->select($this->select)
-                ->where($this->translated_table.'.locale', $this->locale)
-                ->where($this->translated_table.'.'.$param, $value)
-                ->with('author')->first();
-
-        } catch (QueryException $e) {
-//            dd($e->getMessage());
-            throwAbort();
-        } catch (PDOException $e) {
-//            dd($e->getMessage());
-            throwAbort();
-        } catch (\Error $e) {
-//            dd($e->getMessage());
-            throwAbort();
-        }
-
-        return $data;
-    }
-
-
-    public function translated_only($count, $main_table_name, $translated_table_name, $parent_table_join_column, $select, $page = 1){
-
-        $this->locale = get_current_lang();
-
-        try{
-            $data = $this->model::join($translated_table_name, $main_table_name.'.id', '=', $translated_table_name.'.'.$parent_table_join_column)
-                ->select($select)
-                ->where($translated_table_name.'.locale', $this->locale)
+        try {
+            $data = $this->model::join($translated_table_name, $main_table_name . '.id', '=', $translated_table_name . '.' . $parent_table_join_column)
+                ->select($this->select_fields_array)
+                ->where($translated_table_name . '.locale', $this->locale)
                 ->with('author')->paginate($count, array('*'), 'page', $page);
 
         } catch (QueryException $e) {
@@ -198,22 +182,68 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
     public function getBy($paramName, $paramValue, $fields = [])
     {
-
-        if(!empty($fields)){
-            $data = $this->model::select($fields)->where($paramName, $paramValue)->first();
+        if (!empty($this->translated_table && !empty($this->translated_table_join_column))) {
+            $data = $this->get_translated_by($paramName, $paramValue);
+        } else {
+            $data = $this->get_non_translated_by($paramName, $paramValue, $fields);
         }
-        else{
+
+        return $data;
+    }
+
+    protected function get_non_translated_by($paramName, $paramValue, $fields = [])
+    {
+        if (!empty($fields)) {
+            $data = $this->model::select($fields)->where($paramName, $paramValue)->first();
+        } else {
             $data = $this->model::where($paramName, $paramValue)->first();
         }
 
-        if(!$data) return $this->throwNotFound();
+        if (!$data) return $this->throwNotFound();
 
         return $data;
-
     }
 
 
 
+//    protected function pre_get_translated_by($param, $value)
+//    {
+//        return $this->translated_table_model::where($param, $value)->firstOrFail();
+//    }
+
+
+    public function get_translated_by($param, $value)
+    {
+
+        $this->select_fields_array = $this->generateSelectFieldsArray($this->select_fields);
+
+        $this->locale = get_current_lang();
+
+        $searchColumn = $this->getSearchedTable($param);
+
+        if(is_null($searchColumn)) throwAbort();
+
+        try{
+            $data = $this->model::join($this->translated_table, $this->main_table.'.id', '=', $this->translated_table.'.'.$this->translated_table_join_column)
+                ->select($this->select_fields_array)
+                ->where($this->translated_table.'.locale', $this->locale)
+                ->where($searchColumn.'.'.$param, $value)
+                ->with('author')->firstOrFail();
+
+        } catch (QueryException $e) {
+            dd($e->getMessage());
+            throwAbort();
+        } catch (PDOException $e) {
+            dd($e->getMessage());
+            throwAbort();
+        } catch (\Error $e) {
+            dd($e->getMessage());
+            throwAbort();
+        }
+//        dd($data);
+
+        return $data;
+    }
 
 
 
@@ -223,19 +253,20 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
     {
 
         try {
+
             $instance = $this->model::findOrFail($id);
-            //$updated_except = ["_token", "_method"];
-            //if(!empty($newData['g-recaptcha-response'])) $updated_except[] = 'g-recaptcha-response';
-            //if(!empty($newData['password_confirmation'])) $updated_except[] = 'password_confirmation';
             $instance->update($request->all());
 
             if($instance) $result = true;
 
         } catch (QueryException $e) {
+            dd($e->getMessage());
             throwAbort();
         } catch (PDOException $e) {
+            dd($e->getMessage());
             throwAbort();
         } catch (\Error $e) {
+            dd($e->getMessage());
             throwAbort();
         }
 
@@ -300,6 +331,57 @@ abstract class BaseRepository implements  BaseRepositoryInterface{
 
 
         return $result;
+    }
+
+
+    protected function generateSelectFieldsArray($fields, $main_table_name = null, $translated_table_name = null)
+    {
+        if(empty($fields) || !is_array($fields)) return false;
+
+        if(is_null($main_table_name)) $main_table_name = $this->main_table;
+        if(is_null($translated_table_name)) $translated_table_name = $this->translated_table;
+
+        $fields_array = [];
+
+        $main_table_columns = $this->model->getConnection()->getSchemaBuilder()->getColumnListing($main_table_name);
+
+        if(!empty($translated_table_name))
+        {
+            $translated_table_columns = $this->model->getConnection()->getSchemaBuilder()->getColumnListing($translated_table_name);
+        }
+
+        foreach ($fields as $field) {
+            if(in_array($field, $main_table_columns))
+            {
+                $fields_array[] = $main_table_name.'.'.$field;
+            }
+            else if(!empty($translated_table_name) && in_array($field, $translated_table_columns))
+            {
+                $fields_array[] = $translated_table_name.'.'.$field;
+            }
+        }
+
+        return $fields_array;
+    }
+
+    protected function getSearchedTable($column)
+    {
+        $table_name = null;
+//        dd($this->select_fields_array);
+        if(in_array($this->main_table.'.'.$column, $this->select_fields_array))
+        {
+            $table_name = $this->main_table;
+        }
+
+
+        else if(isset($this->translated_table) && in_array($this->translated_table.'.'.$column, $this->select_fields_array))
+        {
+            $table_name = $this->translated_table;
+        }
+
+
+
+        return $table_name;
     }
 
 

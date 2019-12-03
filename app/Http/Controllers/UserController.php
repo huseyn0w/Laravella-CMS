@@ -17,7 +17,9 @@ class UserController extends BaseController
 
     public function index()
     {
-        $user = $this->repository->getUserInfo();
+        $username = get_logged_user_username();
+        $user = $this->repository->getBy('username', $username);
+
         return view('default.users.yourprofile', compact('user'));
     }
 
@@ -44,7 +46,7 @@ class UserController extends BaseController
 
     public function show($username)
     {
-        $user = $this->repository->getUserInfo($username);
+        $user = $this->repository->getBy('username',$username);
         return view('default.users.profile', compact('user'));
     }
 }

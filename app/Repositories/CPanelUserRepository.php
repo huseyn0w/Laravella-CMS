@@ -9,54 +9,53 @@ namespace App\Repositories;
 
 use Image;
 use App\Http\Models\User;
-use App\Http\Models\UserRoles;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
+use Doctrine\DBAL\Driver\PDOException;
 
 class CPanelUserRepository extends BaseRepository
 {
+    protected $select_fields = [
+        'id',
+        'email',
+        'username',
+        'name',
+        'surname',
+        'gender',
+        'country',
+        'city',
+        'role_id',
+        'facebook_url',
+        'twitter_url',
+        'google_url',
+        'instagram_url',
+        'linkedin_url',
+        'xing_url',
+        'about_me',
+        'created_at',
+        'avatar',
+    ];
+
     public function __construct(User $model)
     {
         parent::__construct();
         $this->model = $model;
     }
 
-    public function getUserInfo(int $id)
+
+    public function non_translated_only($count)
     {
-        $user_fields = [
-            'id',
-            'email',
-            'username',
-            'name',
-            'surname',
-            'gender',
-            'country',
-            'city',
-            'role_id',
-            'facebook_url',
-            'twitter_url',
-            'google_url',
-            'instagram_url',
-            'linkedin_url',
-            'xing_url',
-            'about_me',
-            'created_at',
-            'avatar',
+        $fields = [
+            'id','username','email','name','surname','country', 'city', 'role_id'
         ];
 
-        $userdata = $this->getBy('id', $id, $user_fields);
-
-        return $userdata;
-    }
-
-    public function only($count, $fields = [])
-    {
-        $fields = ['id','username','email','name','surname','country', 'city', 'role_id'];
-
         try{
-            !empty($fields) ? $data = $this->model::select($fields)->with('role')->paginate($count) : false;
-        }
-        catch (QueryException $e){
-            $data = $e->errorInfo;
+            $data = !empty($fields) ? $data = $this->model::select($fields)->with('role')->paginate($count) : false;
+        } catch (QueryException $e) {
+            throwAbort();
+        } catch (PDOException $e) {
+            throwAbort();
+        } catch (\Error $e) {
+            throwAbort();
         }
 
         return $data;
@@ -73,11 +72,10 @@ class CPanelUserRepository extends BaseRepository
                 $newData = $updatedRequest->except(["_token", "_method", "password", "password_confirmation"]);
             }
 
+            $user = $this->model::findOrFail($id);
 
+            if($user->update($newData)) $result = true;
 
-
-            $this->model::where('id', $id)->update($newData);
-            $result = true;
 
         } catch (QueryException $e) {
             $result = $e->errorInfo;
@@ -87,12 +85,4 @@ class CPanelUserRepository extends BaseRepository
     }
 
 
-    private function getImageName($request, $id)
-    {
-        $imageName = time().'.'.$request->avatar->getClientOriginalName();
-        Image::make($request->file('avatar'))
-            ->resize('200','200')
-            ->save(public_path('uploads/avatars/'.$id.'/'.$imageName));
-        return $imageName;
-    }
 }

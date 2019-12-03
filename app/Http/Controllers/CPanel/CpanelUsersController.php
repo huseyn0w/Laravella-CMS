@@ -21,7 +21,6 @@ class CPanelUsersController extends CPanelBaseController
 
     public function index()
     {
-
         $users_list = $this->repository->only($this->per_page);
 
         return view('cpanel.users.users_list', compact("users_list"));
@@ -33,7 +32,7 @@ class CPanelUsersController extends CPanelBaseController
 
         if(is_null($id)) $id = $this->user->id;
 
-        $user = $this->repository->getUserInfo($id);
+        $user = $this->repository->getBy('id',$id);
 
         return view('cpanel.users.profile', compact('user'));
     }

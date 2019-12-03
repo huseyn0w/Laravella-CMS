@@ -8,5 +8,5 @@ use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 class PageTranslation extends Model
 {
     use Cachable;
-    protected $fillable = ['title', 'updated_at', 'slug', 'author_id', 'status', 'custom_fields', 'content', 'meta_description', 'meta_keywords'];
+    protected $fillable = ['title', 'created_at', 'updated_at', 'slug', 'author_id', 'status', 'custom_fields', 'content', 'meta_description', 'meta_keywords'];
 }

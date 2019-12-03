@@ -39,7 +39,8 @@ class ValidatePostData extends LaravellaRequest
             'content'           => 'nullable|string',
             'meta_keywords'     => 'required|string',
             'meta_description'  => 'required|string',
-            'updated_at'        => 'required|string',
+            'created_at'        => 'sometimes|required|string',
+            'updated_at'        => 'sometimes|required|string',
             'category'          => 'required|array',
             'thumbnail'         => 'nullable|url',
             'status'            => 'required|numeric'

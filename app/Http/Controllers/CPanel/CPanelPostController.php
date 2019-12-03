@@ -20,7 +20,7 @@ class CPanelPostController extends CPanelBaseController
 
     public function index()
     {
-        $posts_list = $this->repository->get_translated_data($this->per_page);
+        $posts_list = $this->repository->only($this->per_page);
 
         return view('cpanel.posts.posts_list', compact("posts_list"));
     }

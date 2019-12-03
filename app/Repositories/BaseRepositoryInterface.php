@@ -28,10 +28,10 @@ interface BaseRepositoryInterface
 
     /**
      * Get only limited amount of records
-     * @param $postNum
+     * @param $count
      * @return mixed
      */
-    public function only($postNum, $fields = []);
+    public function only($count, $page = 1);
 
     /**
      * Get first value from database
@@ -86,5 +86,6 @@ interface BaseRepositoryInterface
      * @return mixed
      */
     public function deleteWhere($parameter);
+
 
 }
