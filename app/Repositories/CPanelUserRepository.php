@@ -11,6 +11,7 @@ use Image;
 use App\Http\Models\User;
 use Illuminate\Database\QueryException;
 use Doctrine\DBAL\Driver\PDOException;
+use Illuminate\Support\Facades\Hash;
 
 class CPanelUserRepository extends BaseRepository
 {
@@ -66,8 +67,8 @@ class CPanelUserRepository extends BaseRepository
         try {
 
             $newData = $updatedRequest->except(["_token", "_method", "password_confirmation"]);
-            $newData['password'] = bcrypt($updatedRequest->password);
-
+//            $newData['password'] = Hash::make($updatedRequest->password);
+//
             if(empty($updatedRequest->password)){
                 $newData = $updatedRequest->except(["_token", "_method", "password", "password_confirmation"]);
             }

@@ -49,14 +49,18 @@ class CPanelUserRolesRepository extends BaseRepository
         foreach($all_permissions as $permission){
             $data['permissions'][$permission->name] = 0;
         }
-        foreach($request['permissions'] as $key => $permission_name){
-            $data['permissions'][$permission_name] = 1;
+
+        if(isset($request['permissions']) && !empty($request['permissions']) && is_array($request['permissions']))
+        {
+            foreach($request['permissions'] as $key => $permission_name){
+                $data['permissions'][$permission_name] = 1;
+            }
         }
+
 
         $data['permissions'] = json_encode($data['permissions']);
 
         return $data;
-
 
     }
 }

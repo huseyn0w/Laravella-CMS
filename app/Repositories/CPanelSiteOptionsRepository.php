@@ -26,7 +26,8 @@ class CPanelSiteOptionsRepository extends BaseRepository
 
         try {
             $newData = $updatedRequest->except(['_token']);
-            $this->model::first()->update($newData);
+            $site_options = $this->model::firstOrFail();
+            $site_options->update($newData);
             $result = true;
 
         } catch (QueryException $e) {

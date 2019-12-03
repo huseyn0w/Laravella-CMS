@@ -59,26 +59,6 @@ class CPanelPostRepository extends BaseRepository
     }
 
 
-    public function getBy($paramName, $paramValue, $fields = [])
-    {
-
-        if(!empty($fields)){
-            $data = $this->model::select($fields)->where($paramName, $paramValue)->withTrashed()->first();
-        }
-        else{
-            $data = $this->model::where($paramName, $paramValue)->withTrashed()->first();
-        }
-
-        if(!$data) return throwAbort();
-
-        return $data;
-    }
-
-
-
-
-
-
     public function delete($id)
     {
 

@@ -9,7 +9,7 @@ class LanguageController extends Controller
 {
     public function index($lang)
     {
-        \Session::put('locale',$lang);
+        $this->setLang($lang);
 
         $previous_url = url()->previous();
         $cpanel_url = env('APP_URL').'cpanel';
@@ -18,5 +18,11 @@ class LanguageController extends Controller
 
         if($position !== false) return redirect()->route('cpanel_home');
         return redirect('/');
+    }
+
+
+    private function setLang($lang)
+    {
+        \Session::put('locale',$lang);
     }
 }

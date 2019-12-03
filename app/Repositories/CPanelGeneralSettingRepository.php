@@ -26,7 +26,8 @@ class CPanelGeneralSettingRepository extends BaseRepository
 
         try {
             $newData = $updatedRequest->except(['_token']);
-            $this->model::first()->update($newData);
+            $settings_column = $this->model::firstOrFail();
+            $settings_column->update($newData);
             $result = true;
 
         } catch (QueryException $e) {

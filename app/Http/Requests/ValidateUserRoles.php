@@ -44,7 +44,7 @@ class ValidateUserRoles extends FormRequest
             ];
         }
 
-        $rules['permissions'] = 'array|required';
+        $rules['permissions'] = 'array';
 
         return $rules;
     }

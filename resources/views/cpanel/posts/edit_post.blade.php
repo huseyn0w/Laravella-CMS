@@ -20,8 +20,6 @@
         $users_list = get_authors_list();
         $categories_list = get_post_categories_list();
 
-        $entity =  $post;
-
         $categories_ids = [];
 
         foreach($post->categories as $category) $categories_ids[] = $category->id;

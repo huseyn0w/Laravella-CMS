@@ -29,7 +29,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
     protected $translated_table_join_column;
 
-    protected $select_fields_array;
+    protected $select_fields_ready_array;
 
 
     public function __construct()
@@ -156,12 +156,12 @@ abstract class BaseRepository implements  BaseRepositoryInterface
     protected function translated_only($count, $main_table_name, $translated_table_name, $parent_table_join_column, $page = 1)
     {
 
-        $this->select_fields_array = $this->generateSelectFieldsArray($this->select_fields);
+        $this->select_fields_ready_array = $this->generateSelectFieldsArray($this->select_fields);
         $this->locale = get_current_lang();
 
         try {
             $data = $this->model::join($translated_table_name, $main_table_name . '.id', '=', $translated_table_name . '.' . $parent_table_join_column)
-                ->select($this->select_fields_array)
+                ->select($this->select_fields_ready_array)
                 ->where($translated_table_name . '.locale', $this->locale)
                 ->with('author')->paginate($count, array('*'), 'page', $page);
 
@@ -215,7 +215,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
     public function get_translated_by($param, $value)
     {
 
-        $this->select_fields_array = $this->generateSelectFieldsArray($this->select_fields);
+        $this->select_fields_ready_array = $this->generateSelectFieldsArray($this->select_fields);
 
         $this->locale = get_current_lang();
 
@@ -225,7 +225,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
         try{
             $data = $this->model::join($this->translated_table, $this->main_table.'.id', '=', $this->translated_table.'.'.$this->translated_table_join_column)
-                ->select($this->select_fields_array)
+                ->select($this->select_fields_ready_array)
                 ->where($this->translated_table.'.locale', $this->locale)
                 ->where($searchColumn.'.'.$param, $value)
                 ->with('author')->firstOrFail();
@@ -367,14 +367,13 @@ abstract class BaseRepository implements  BaseRepositoryInterface
     protected function getSearchedTable($column)
     {
         $table_name = null;
-//        dd($this->select_fields_array);
-        if(in_array($this->main_table.'.'.$column, $this->select_fields_array))
+//        dd($this->
+//);
+        if(in_array($this->main_table.'.'.$column, $this->select_fields_ready_array))
         {
             $table_name = $this->main_table;
         }
-
-
-        else if(isset($this->translated_table) && in_array($this->translated_table.'.'.$column, $this->select_fields_array))
+        else if(isset($this->translated_table) && in_array($this->translated_table.'.'.$column, $this->select_fields_ready_array))
         {
             $table_name = $this->translated_table;
         }

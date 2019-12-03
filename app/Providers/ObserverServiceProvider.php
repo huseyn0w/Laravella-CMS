@@ -7,7 +7,6 @@ use App\Http\Models\Post;
 use App\Http\Models\User;
 use App\Observers\PageObserver;
 use App\Observers\PostObserver;
-use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 
 class ObserverServiceProvider extends ServiceProvider
@@ -31,7 +30,6 @@ class ObserverServiceProvider extends ServiceProvider
     {
         Post::observe(PostObserver::class);
         Page::observe(PageObserver::class);
-        User::observe(UserObserver::class);
     }
 
 

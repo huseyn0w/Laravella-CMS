@@ -59,7 +59,8 @@ class UserRepository extends BaseRepository
                 $newData['avatar'] = $this->uploadImage($updatedRequest);
             }
 
-            $this->model::where('id', $this->logged_user_id)->update($newData);
+            $user = $this->model::where('id', $this->logged_user_id)->findOrFail();
+            $user->update($newData);
             $result = true;
 
         } catch (QueryException $e) {
@@ -135,10 +136,12 @@ class UserRepository extends BaseRepository
         if (!is_logged_in() || !(Hash::check($request->current_password, \Auth::user()->password))) return false;
 
         $this->get_logged_user_id();
+//        dd($this->logged_user_id);
 
-        $new_password = bcrypt($request->password);
+//        $new_password = bcrypt($request->password);
 
-        $result = User::where('id', $this->logged_user_id)->update(['password'=> $new_password]);
+        $user = $this->model->findOrFail($this->logged_user_id);
+        $result = $user->update(['password'=> $request->password]);
 
         return $result;
     }

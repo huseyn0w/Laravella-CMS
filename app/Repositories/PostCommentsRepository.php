@@ -54,10 +54,7 @@ class PostCommentsRepository extends BaseRepository
         $comment_id = $request['commentId'];
         $username = $request['username'];
 
-
         if($logged_username !== $username && Auth()->user()->role->id !== 1) return false;
-
-
 
         $comment_deleted = parent::delete($comment_id);
 
@@ -80,14 +77,15 @@ class PostCommentsRepository extends BaseRepository
         $comment_id = $request->updated_comment_id;
 
         try{
-            $post_updated = $this->model::where('id', $comment_id)->where('user_id', $logged_username_id)->update($newData);
-            if($post_updated) return true;
+            $comment = $this->model::where('id', $comment_id)->where('user_id', $logged_username_id)->findOrFail();
+            $comment_updated = $comment->update($newData);
+            if($comment_updated) return true;
         }
         catch (\Exception $e){
             abort(403, trans('cpanel/controller.problem_occurred'));
         }
 
-        return $post_updated;
+        return $comment_updated;
 
     }
 

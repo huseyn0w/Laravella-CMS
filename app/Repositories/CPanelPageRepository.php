@@ -33,7 +33,6 @@ class CPanelPageRepository extends BaseRepository
     {
         parent::__construct();
         $this->model = $model;
-
     }
 
 
