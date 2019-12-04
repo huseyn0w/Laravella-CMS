@@ -10,11 +10,13 @@ use Illuminate\Http\Request;
 
 class CPanelCategoryController extends CPanelBaseController
 {
+    private $categories_list;
 
     public function __construct(CPanelCategoryRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;
+        $this->categories_list = get_post_categories_list();
     }
 
     public function createCategory(CategoryRequest $request)
@@ -28,7 +30,7 @@ class CPanelCategoryController extends CPanelBaseController
     public function edit($id)
     {
        parent::edit($id);
-       return view('cpanel.post_categories.edit_category', ['category' => $this->result]);
+       return view('cpanel.post_categories.edit_category', ['entity' => $this->result, "categories_list" => $this->categories_list]);
     }
 
     public function index()
@@ -40,7 +42,7 @@ class CPanelCategoryController extends CPanelBaseController
 
     public function addCategory()
     {
-        return view('cpanel.post_categories.new_category');
+        return view('cpanel.post_categories.new_category', ["categories_list" => $this->categories_list]);
     }
 
     public function multipleDelete(CategoryListRequest $request)

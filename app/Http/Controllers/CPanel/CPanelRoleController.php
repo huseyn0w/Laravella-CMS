@@ -8,10 +8,17 @@ use Illuminate\Http\Request;
 
 class CPanelRoleController extends CPanelBaseController
 {
+    private $user_roles;
+    private $countries;
+    private $role_permissions;
+
     public function __construct(CPanelUserRolesRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;
+        $this->user_roles = get_user_roles();
+        $this->countries = get_countries_array();
+        $this->role_permissions = get_user_role_permissions();
     }
 
     public function index()
@@ -23,7 +30,7 @@ class CPanelRoleController extends CPanelBaseController
 
     public function addRole()
     {
-        return view('cpanel.roles.new_role');
+        return view('cpanel.roles.new_role', ["user_roles" => $this->user_roles, "countries" => $this->countries, "role_permissions" => $this->role_permissions]);
     }
 
     public function createRole(ValidateUserRoles $request)
@@ -36,7 +43,7 @@ class CPanelRoleController extends CPanelBaseController
     public function editRole($id)
     {
         parent::edit($id);
-        return view('cpanel.roles.edit_role', ["role" => $this->result]);
+        return view('cpanel.roles.edit_role', ["role" => $this->result, "user_roles" => $this->user_roles, "countries" => $this->countries, "role_permissions" => $this->role_permissions]);
     }
 
     public function updateRole($id, ValidateUserRoles $request)

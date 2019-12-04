@@ -11,13 +11,6 @@
 
 @section('content')
 
-    @php
-
-        $user_roles = get_user_roles();
-        $countries = get_countries_array();
-        $role_permissions = get_user_role_permissions();
-
-    @endphp
 
     <form action="{{ route('cpanel_save_user_role') }}" method="POST">
         @csrf

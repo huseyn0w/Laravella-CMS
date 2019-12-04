@@ -12,10 +12,15 @@ use Illuminate\Support\Facades\Auth;
 class CPanelUsersController extends CPanelBaseController
 {
 
+    private $user_roles;
+    private $countries;
+
     public function __construct(CPanelUserRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;
+        $this->user_roles = get_user_roles();
+        $this->countries = get_countries_array();
     }
 
 
@@ -34,7 +39,7 @@ class CPanelUsersController extends CPanelBaseController
 
         $user = $this->repository->getBy('id',$id);
 
-        return view('cpanel.users.profile', compact('user'));
+        return view('cpanel.users.profile', ['user' => $user, "countries" => $this->countries, "user_roles" => $this->user_roles]);
     }
 
 
@@ -54,7 +59,7 @@ class CPanelUsersController extends CPanelBaseController
 
     public function addUser()
     {
-        return view('cpanel.users.new_user');
+        return view('cpanel.users.new_user', ["countries" => $this->countries, "user_roles" => $this->user_roles]);
     }
 
     public function createUser(ValidateUserSettings $request)

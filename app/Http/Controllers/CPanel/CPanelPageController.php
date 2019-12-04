@@ -10,10 +10,15 @@ use Illuminate\Http\Request;
 class CPanelPageController extends CPanelBaseController
 {
 
+    private $users_list;
+    private $page_templates;
+
     public function __construct(CPanelPageRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;
+        $this->users_list = get_authors_list();
+        $this->page_templates = get_page_templates_list();
     }
 
 
@@ -36,7 +41,7 @@ class CPanelPageController extends CPanelBaseController
     {
         parent::edit($id);
 
-        return view('cpanel.pages.edit_page', ["page" => $this->result]);
+        return view('cpanel.pages.edit_page', ["entity" => $this->result, "users_list" => $this->users_list, "page_templates" => $this->page_templates]);
     }
 
     public function createPage(ValidatePageData $request)
@@ -56,7 +61,7 @@ class CPanelPageController extends CPanelBaseController
 
     public function addPage()
     {
-        return view('cpanel.pages.new_page');
+        return view('cpanel.pages.new_page', ["users_list" => $this->users_list, "page_templates" => $this->page_templates]);
     }
 
 

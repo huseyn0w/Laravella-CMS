@@ -13,6 +13,7 @@ class PostsController extends BaseController
 {
     public function __construct(PostRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 
@@ -22,7 +23,7 @@ class PostsController extends BaseController
 
 //        dd($data);
 
-        return view('default/posts/post', compact('data'));
+        return view('default/posts/post', ['data' => $data, 'home_page_data' => $this->home_page_data]);
     }
 
     public function handleLike(LikesRequest $request)

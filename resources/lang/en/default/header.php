@@ -7,12 +7,13 @@
  */
 
 return [
-   'edit_profile'   => 'Edit Profile',
-   'homepage_title' => 'Laravella CMS',
-   'search'         => 'Search',
-   'cpanel'         => 'cPanel',
-   'profile'        => 'Profile',
-   'logout'         => 'Logout',
-   'register'       => 'Register',
-   'login'          => 'Login'
+   'edit_profile'     => 'Edit Profile',
+   'homepage_title'   => 'Laravella CMS',
+   'searchpage_title' => 'Search',
+   'search'           => 'Search',
+   'cpanel'           => 'cPanel',
+   'profile'          => 'Profile',
+   'logout'           => 'Logout',
+   'register'         => 'Register',
+   'login'            => 'Login'
 ];

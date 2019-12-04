@@ -13,12 +13,6 @@
 
 @section('content')
 
-    @php
-
-        $categories_list = get_post_categories_list();
-
-    @endphp
-
     <form action="{{ route('cpanel_save_new_category') }}" method="POST">
         @csrf
         <div class="container-fluid">

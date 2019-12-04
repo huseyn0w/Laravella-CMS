@@ -11,13 +11,6 @@
 
 @section('content')
 
-    @php
-        $countries = get_countries_array();
-
-        $user_roles = get_user_roles();
-
-    @endphp
-
     <form action="{{ route('cpanel_update_user_profile', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf

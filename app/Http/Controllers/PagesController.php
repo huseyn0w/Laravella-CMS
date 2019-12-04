@@ -11,7 +11,6 @@ use App\Http\Requests\ContactMail as ContactRequest;
 
 class PagesController extends BaseController
 {
-
     public function __construct(PageRepository $repository)
     {
         $this->repository = $repository;

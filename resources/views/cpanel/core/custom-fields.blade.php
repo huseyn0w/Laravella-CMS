@@ -8,17 +8,9 @@
 
 $route_name = \Route::currentRouteName();
 
-if($route_name === "cpanel_edit_page"){
-    $instance = $page;
-}
-elseif($route_name === "cpanel_edit_post"){
-    $instance = $post;
-}
 
-if(isset ($instance->custom_fields)  && !empty($instance->custom_fields)){
-    $custom_fields = json_decode($instance->custom_fields);
-
-//    dd($custom_fields);
+if(isset ($entity->custom_fields)  && !empty($entity->custom_fields)){
+    $custom_fields = json_decode($entity->custom_fields);
 }
 
 ?>

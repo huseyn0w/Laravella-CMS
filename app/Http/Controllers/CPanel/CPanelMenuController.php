@@ -47,7 +47,7 @@ class CPanelMenuController extends CPanelBaseController
         parent::edit($id);
 
         return view('cpanel.menus.edit_menu', [
-            "menu" => $this->result,
+            "entity" => $this->result,
             "terms_list" => $this->get_terms_list_for_menu()
         ]);
     }

@@ -10,11 +10,15 @@ use Illuminate\Http\Request;
 
 class CPanelPostController extends CPanelBaseController
 {
+    private $users_list;
+    private $categories_list;
 
     public function __construct(CPanelPostRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;
+        $this->users_list = get_authors_list();
+        $this->categories_list = get_post_categories_list();
     }
 
 
@@ -76,7 +80,7 @@ class CPanelPostController extends CPanelBaseController
     {
         parent::edit($id);
 
-        return view('cpanel.posts.edit_post', ["post" => $this->result]);
+        return view('cpanel.posts.edit_post', ["entity" => $this->result, "users_list" => $this->users_list, "categories_list" => $this->categories_list]);
     }
 
     public function createPost(ValidatePostData $request)
@@ -95,7 +99,7 @@ class CPanelPostController extends CPanelBaseController
 
     public function addPost()
     {
-        return view('cpanel.posts.new_post');
+        return view('cpanel.posts.new_post', ["users_list" => $this->users_list, "categories_list" => $this->categories_list]);
     }
 
 

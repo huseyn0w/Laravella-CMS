@@ -11,13 +11,6 @@
 
 @section('content')
 
-    @php
-
-        $user_roles = get_user_roles();
-        $countries = get_countries_array();
-
-    @endphp
-
     <form action="{{ route('cpanel_save_new_user') }}" method="POST">
         @csrf
     <div class="container-fluid">

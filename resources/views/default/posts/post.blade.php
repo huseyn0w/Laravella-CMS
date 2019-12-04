@@ -9,7 +9,6 @@
 ?>
 
 @php
-    $home_page_data = get_data(1, 'page', ['slug', 'title']);
 
     $category_title = $data->categories[0]->title;
     $category_slug = $data->categories[0]->slug;

@@ -540,6 +540,12 @@ function get_field($field_key, $custom_fields_array)
 
 }
 
+function is_search_page()
+{
+    $request_route_name = app('request')->route()->getName();
+    return $request_route_name === "get_search_page";
+}
+
 
 function get_page_templates_list()
 {

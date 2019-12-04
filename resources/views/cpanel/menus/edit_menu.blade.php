@@ -20,13 +20,13 @@
         'menu_class' => "menu-list sortable ui-sortable",
     ];
 
-    $existing_menu = render_menu(json_decode($menu->content), $menu_params);
+    $existing_menu = render_menu(json_decode($entity->content), $menu_params);
 
 @endphp
 
 @section('content')
 
-    <form action="{{ route('cpanel_update_menu',['id' => $menu->id]) }}" id="add_menu_form" method="POST">
+    <form action="{{ route('cpanel_update_menu',['id' => $entity->id]) }}" id="add_menu_form" method="POST">
         @csrf
         @method("PUT")
         <div class="container-fluid">
@@ -65,13 +65,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="menu_title">@lang('cpanel/menus.menu_name')</label>
-                                        <input type="text" id="menu_title" required class="form-control" name="title" value="{{ old('title',$menu->title) }}" >
+                                        <input type="text" id="menu_title" required class="form-control" name="title" value="{{ old('title',$entity->title) }}" >
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="cpanel_slug">@lang('cpanel/menus.menu_slug')</label>
-                                        <input type="text" required class="form-control" name="slug" value="{{ old('slug', $menu->slug) }}">
+                                        <input type="text" required class="form-control" name="slug" value="{{ old('slug', $entity->slug) }}">
                                     </div>
                                 </div>
                                 <div class="col-12">

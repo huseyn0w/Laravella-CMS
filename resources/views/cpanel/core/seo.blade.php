@@ -5,6 +5,7 @@
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 25.10.2019
  */
+
 ?>
 
 <div class="row">

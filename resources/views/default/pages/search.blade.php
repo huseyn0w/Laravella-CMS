@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{asset('front/'.env('TEMPLATE_NAME').'/css/nice-select.css')}}">
 @endpush
 
+
+
 @section('content')
     <section class="top-section-area section-gap">
         <div class="container">

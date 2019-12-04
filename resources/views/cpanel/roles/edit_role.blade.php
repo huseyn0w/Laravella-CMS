@@ -13,12 +13,7 @@
 
     @php
 
-        $user_roles = get_user_roles();
-        $countries = get_countries_array();
-        $role_all_permissions = get_user_role_permissions();
         $user_permissions = json_decode($role->permissions, true);
-
-
 
     @endphp
 
@@ -66,7 +61,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            @foreach($role_all_permissions as $permission)
+                            @foreach($role_permissions as $permission)
                                 @php($permission_name = str_replace('_', " ", $permission->name))
                                 <div class="col-12 col-md-4">
                                     <div class="form-check">

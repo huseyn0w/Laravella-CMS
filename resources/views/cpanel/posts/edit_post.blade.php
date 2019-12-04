@@ -17,16 +17,14 @@
 
     @php
 
-        $users_list = get_authors_list();
-        $categories_list = get_post_categories_list();
 
         $categories_ids = [];
 
-        foreach($post->categories as $category) $categories_ids[] = $category->id;
+        foreach($entity->categories as $category) $categories_ids[] = $category->id;
 
     @endphp
 
-    <form action="{{ route('cpanel_update_post', ['id' => $post->id]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('cpanel_update_post', ['id' => $entity->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method("PUT")
         <div class="container-fluid">
@@ -59,20 +57,20 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">@lang('cpanel/posts.edit_headline')</h4>
-                            <p>@lang('cpanel/posts.url_preview') <strong><a href="{{env('APP_URL')}}posts/{{ old('slug',$post->slug) }}">{{env('APP_URL')}}posts/{{ old('slug',$post->slug) }}</a></strong></p>
+                            <p>@lang('cpanel/posts.url_preview') <strong><a href="{{env('APP_URL')}}posts/{{ old('slug',$entity->slug) }}">{{env('APP_URL')}}posts/{{ old('slug',$entity->slug) }}</a></strong></p>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="cpanel_title">@lang('cpanel/posts.title')</label>
-                                        <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title', $post->title) }}" >
+                                        <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title', $entity->title) }}" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="slug">@lang('cpanel/posts.slug')</label>
-                                        <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug',$post->slug) }}">
+                                        <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug',$entity->slug) }}">
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +78,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>@lang('cpanel/posts.preview')</label>
-                                        <textarea name="preview"  id="editor"  class="my-editor form-control">{{old('preview',$post->preview)}}</textarea>
+                                        <textarea name="preview"  id="editor"  class="my-editor form-control">{{old('preview',$entity->preview)}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -88,14 +86,14 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>@lang('cpanel/posts.content')</label>
-                                        <textarea name="content"  id="editor"  class="my-editor form-control">{{old('content',$post->content)}}</textarea>
+                                        <textarea name="content"  id="editor"  class="my-editor form-control">{{old('content',$entity->content)}}</textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="likes">@lang('cpanel/posts.likes') {{$post->likes}}</label>
+                                        <label for="likes">@lang('cpanel/posts.likes') {{$entity->likes}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +121,7 @@
                                         <label>@lang('cpanel/posts.author')</label>
                                         <select name="author_id" id="author_id" class="form-control">
                                          @foreach($users_list as $user)
-                                            @if($user->id === $post->author_id)
+                                            @if($user->id === $entity->author_id)
                                                  <option value="{{$user->id}}" selected>{{$user->username}}</option>
                                             @else
                                                  <option value="{{$user->id}}">{{$user->username}}</option>
@@ -135,15 +133,15 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>@lang('cpanel/posts.publish_date')</label>
-                                        <input class="form-control" value="{{old('updated_at', $post->updated_at)}}" autocomplete="off" name="updated_at" required id="date_time_picker" type="text" />
+                                        <input class="form-control" value="{{old('updated_at', $entity->updated_at)}}" autocomplete="off" name="updated_at" required id="date_time_picker" type="text" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>@lang('cpanel/posts.status')</label>
                                         <select name="status" id="user_role" class="form-control">
-                                            <option value="0" {{$post->status === 0 ? 'selected' :null}}>@lang('cpanel/posts.status_private')</option>
-                                            <option value="1" {{$post->status === 1 ? 'selected' :null}}>@lang('cpanel/posts.status_published')</option>
+                                            <option value="0" {{$entity->status === 0 ? 'selected' :null}}>@lang('cpanel/posts.status_private')</option>
+                                            <option value="1" {{$entity->status === 1 ? 'selected' :null}}>@lang('cpanel/posts.status_published')</option>
                                         </select>
                                     </div>
                                 </div>
@@ -155,10 +153,10 @@
                                             <i class="fa fa-picture-o"></i> @lang('cpanel/posts.thumbnail_label')
                                           </a>
                                         </span>
-                                        <input id="thumbnail" class="form-control" type="hidden" name="thumbnail" value="{{ old('thumbnail', $post->thumbnail) }}">
-                                        <div class="post-thumbnail" {{ empty($post->thumbnail) ? "style=display:none;" : null}}>
+                                        <input id="thumbnail" class="form-control" type="hidden" name="thumbnail" value="{{ old('thumbnail', $entity->thumbnail) }}">
+                                        <div class="post-thumbnail" {{ empty($entity->thumbnail) ? "style=display:none;" : null}}>
                                             <button type="button" class="remove_thumbnail">X</button>
-                                            <img src="{{ old('logo_url', $post->thumbnail) }}" id="post-thumbnail" alt="Post Thumbnail">
+                                            <img src="{{ old('logo_url', $entity->thumbnail) }}" id="post-thumbnail" alt="Post Thumbnail">
                                         </div>
                                     </div>
                                 </div>

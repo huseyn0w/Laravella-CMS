@@ -13,15 +13,7 @@
 
 @section('content')
 
-    @php
-
-        $entity = $category;
-
-        $categories_list = get_post_categories_list();
-
-    @endphp
-
-    <form action="{{ route('cpanel_update_category', ['id' => $category->id]) }}" method="POST">
+    <form action="{{ route('cpanel_update_category', ['id' => $entity->id]) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="container-fluid">
@@ -60,7 +52,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="cpanel_title">@lang('cpanel/categories.title')</label>
-                                        <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title', $category->title) }}" >
+                                        <input type="text" id="cpanel_title" required class="form-control" name="title" value="{{ old('title', $entity->title) }}" >
                                         <div class="field-desc">
                                             <p>
                                                 @lang('cpanel/categories.title_desc')
@@ -71,7 +63,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="cpanel_slug">@lang('cpanel/categories.slug')</label>
-                                        <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug', $category->slug) }}">
+                                        <input type="text" id="cpanel_slug" required class="form-control" name="slug" value="{{ old('slug', $entity->slug) }}">
                                         <div class="field-desc">
                                             <p>
                                                 @lang('cpanel/categories.slug_desc')
@@ -87,8 +79,8 @@
                                         <select name="parent_category" class="form-control">
                                             <option value="">@lang('cpanel/categories.no_parent_category')</option>
                                             @foreach($categories_list as $category_item)
-                                                @if($category_item->id === $category->id) @continue @endif
-                                                <option value="{{$category_item->id}}" {{$category_item->id === $category->parent_category ? 'selected': null}}>{{$category_item->title}}</option>
+                                                @if($category_item->id === $entity->id) @continue @endif
+                                                <option value="{{$category_item->id}}" {{$category_item->id === $entity->parent_category ? 'selected': null}}>{{$category_item->title}}</option>
                                             @endforeach
                                         </select>
                                         <div class="field-desc">
@@ -103,7 +95,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>@lang('cpanel/categories.description')</label>
-                                        <textarea name="description"  class="form-control">{{ old('description', $category->description) }}</textarea>
+                                        <textarea name="description"  class="form-control">{{ old('description', $entity->description) }}</textarea>
                                         <div class="field-desc">
                                             <p>
                                                 @lang('cpanel/categories.description_content')

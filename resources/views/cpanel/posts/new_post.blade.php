@@ -15,14 +15,6 @@
 
 @section('content')
 
-    @php
-
-        $users_list = get_authors_list();
-
-        $categories_list = get_post_categories_list();
-
-    @endphp
-
     @if ($update_message = Session::get('post_added'))
         <div class="col-12">
             @if ($update_message)
@@ -32,6 +24,7 @@
             @endif
         </div>
     @endif
+
     <form action="{{ route('cpanel_save_new_post') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="container-fluid">

@@ -10,6 +10,7 @@ class CategoryController extends BaseController
 {
     public function __construct(CategoryRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 
@@ -21,7 +22,7 @@ class CategoryController extends BaseController
         $data->posts = $this->repository->displayList($data->id, $page);
 
 
-        return view('default/categories/category', compact('data'));
+        return view('default/categories/category', ['data' => $data, 'home_page_data' => $this->home_page_data]);
     }
 
 }

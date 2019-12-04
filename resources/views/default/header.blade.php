@@ -6,29 +6,34 @@
  * Date: 19.07.2019
  */
 
-
-if(isset($data)):
-    if(isset($data->author)):
-    $author = $data->author->name. ' '.$data->author->surname;
-    endif;
-
-    $title = $data->title;
-
-    $meta_description = $data->meta_description;
-    $meta_keywords = $data->meta_keywords;
-elseif(is_logged_in()):
-    $user = Auth::user();
-    $author = $user->name. ' '.$user->surname;
-    $title = trans('default/header.edit_profile');
-
-    $meta_description = trans('default/header.edit_profile');
-    $meta_keywords = "profile,interface,edit,user";
-else:
+if(is_search_page()):
+    $title = trans('default/header.searchpage_title');
     $author = "Elman Huseynov";
-    $title = trans('default/header.homepage_title');
-
-    $meta_description = trans('default/header.homepage_title');
     $meta_keywords = "page,laravella,cms";
+    $meta_description = trans('default/header.searchpage_title');
+else:
+    if(isset($data)):
+        if(isset($data->author)):
+        $author = $data->author->name. ' '.$data->author->surname;
+        endif;
+
+        $title = $data->title;
+        $meta_description = $data->meta_description;
+        $meta_keywords = $data->meta_keywords;
+
+    elseif(is_logged_in()):
+        $user = Auth::user();
+        $author = $user->name. ' '.$user->surname;
+        $title = trans('default/header.edit_profile');
+
+        $meta_description = trans('default/header.edit_profile');
+        $meta_keywords = "profile,interface,edit,user";
+    else:
+        $author = "Elman Huseynov";
+        $title = trans('default/header.homepage_title');
+        $meta_description = trans('default/header.homepage_title');
+        $meta_keywords = "page,laravella,cms";
+    endif;
 endif;
 
 

@@ -8,7 +8,6 @@
 ?>
 
 @php
-    $home_page_data = get_data(1, 'page', ['slug', 'title']);
 
     $category_posts = $data->posts;
 

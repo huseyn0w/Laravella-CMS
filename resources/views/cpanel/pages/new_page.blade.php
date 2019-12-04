@@ -15,13 +15,6 @@
 
 @section('content')
 
-    @php
-
-        $users_list = get_authors_list();
-        $page_templates = get_page_templates_list();
-
-
-    @endphp
 
     <form action="{{ route('cpanel_save_new_page') }}" method="POST" enctype="multipart/form-data">
         @csrf
