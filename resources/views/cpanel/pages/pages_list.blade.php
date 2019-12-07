@@ -104,7 +104,7 @@
 
                                             <span class="user_actions">
                                              @if (Auth::user()->can('manage_users', 'App\Http\Models\UserRoles'))
-                                                <a href="{{route('cpanel_edit_page', $page->id)}}" target="_blank">@lang('cpanel/pages.edit_page')</a>
+                                                <a href="{{route('cpanel_edit_page', ['id' => $page->id, 'lang' => get_current_lang()])}}" target="_blank">@lang('cpanel/pages.edit_page')</a>
                                                 <input type="hidden" class="deleted_page_id" value="{{$page->id}}" name="deleted_page_id">
                                                 <button type="button" class="delete_page">@lang('cpanel/pages.delete_page')</button>
                                              @endif

@@ -18,11 +18,10 @@ $(function(){
            <div class="row inputRow">
               <div class="col-md-12">
                    <div class="form-group custom-form-group">
-                       <label>${custom_text_label_value}
-                           <textarea name="custom_fields[${custom_text_name_value}][value]" required class="form-control my-editor"></textarea>
-                           <input type="hidden" name="custom_fields[${custom_text_name_value}][type]" value="textarea">
-                           <input type="hidden" name="custom_fields[${custom_text_name_value}][admin_label]" value="${custom_text_label_value}">
-                       </label>
+                       <label>${custom_text_label_value}</label>
+                       <textarea name="custom_fields[${custom_text_name_value}][value]" required class="form-control my-editor"></textarea>
+                       <input type="hidden" name="custom_fields[${custom_text_name_value}][type]" value="textarea">
+                       <input type="hidden" name="custom_fields[${custom_text_name_value}][admin_label]" value="${custom_text_label_value}">
                        <button type="button" class="remove_field">X</button>
                    </div>
                </div>

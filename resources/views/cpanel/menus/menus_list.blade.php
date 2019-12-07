@@ -64,7 +64,7 @@
                                     <td>
                                         <span class="user_actions">
                                          @if (Auth::user()->can('manage_menus', 'App\Http\Models\UserRoles'))
-                                                <a href="{{route('cpanel_edit_menu', $menu->id)}}" target="_blank">@lang('cpanel/menus.edit')</a>
+                                                <a href="{{route('cpanel_edit_menu', ['id' => $menu->id, 'lang' => get_current_lang()])}}" target="_blank">@lang('cpanel/menus.edit')</a>
                                                 <input type="hidden" class="deleted_menu_id" value="{{$menu->id}}" name="deleted_menu_id">
                                             @if($menu->id > 1)
                                                 <button type="button" class="delete_menu">@lang('cpanel/menus.delete')</button>

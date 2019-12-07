@@ -34,6 +34,7 @@ class CPanelCategoryRepository extends BaseRepository
     {
         parent::__construct();
         $this->model = $model;
+        $this->translated_model = new CategoryTranslation;
     }
 
     

@@ -10,13 +10,11 @@ use Illuminate\Http\Request;
 
 class CPanelCategoryController extends CPanelBaseController
 {
-    private $categories_list;
 
     public function __construct(CPanelCategoryRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;
-        $this->categories_list = get_post_categories_list();
     }
 
     public function createCategory(CategoryRequest $request)
@@ -29,8 +27,17 @@ class CPanelCategoryController extends CPanelBaseController
 
     public function edit($id)
     {
-       parent::edit($id);
-       return view('cpanel.post_categories.edit_category', ['entity' => $this->result, "categories_list" => $this->categories_list]);
+        $this->result = $this->repository->getBy('id', $id);
+
+        if(is_null($this->result)) return $this->addCategory();
+
+       return view('cpanel.post_categories.edit_category',
+           [
+               'entity' => $this->result,
+               "categories_list" => get_post_categories_list(),
+               "translation_links" => get_entity_translation_links('categories', $id)
+           ]
+       );
     }
 
     public function index()
@@ -42,7 +49,16 @@ class CPanelCategoryController extends CPanelBaseController
 
     public function addCategory()
     {
-        return view('cpanel.post_categories.new_category', ["categories_list" => $this->categories_list]);
+        $array = [
+            "categories_list" => get_post_categories_list()
+        ];
+
+        if(request()->route('lang'))
+        {
+            $array['translation_links'] = get_entity_translation_links('categories', request()->id);
+        }
+
+        return view('cpanel.post_categories.new_category', $array);
     }
 
     public function multipleDelete(CategoryListRequest $request)

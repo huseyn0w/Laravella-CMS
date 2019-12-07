@@ -133,6 +133,30 @@
     </div>
 </div>
 
+<div class="modal fade modal-mini modal-primary" id="custom_category_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="custom_category_label">@lang('cpanel/custom-fields.text_label')</label>
+                        <input type="text" id="custom_category_label" required="" class="form-control" name="category_label">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="custom_category_name">@lang('cpanel/custom-fields.text_name')</label>
+                        <input type="text" id="custom_category_name" required="" class="form-control" name="category_name">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link btn-simple" id="add_custom_category_text">@lang('cpanel/custom-fields.add_button_label')</button>
+                <button type="button" class="btn btn-link btn-simple" data-dismiss="modal">@lang('cpanel/custom-fields.close_button_label')</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>

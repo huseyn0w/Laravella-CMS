@@ -17,8 +17,8 @@ class CPanelMenuController extends CPanelBaseController
         $this->repository = $repository;
 
         $this->post_fields = ['posts.id', 'post_translations.title', 'post_translations.slug'];
-        $this->pages_fields = ['posts.id', 'post_translations.title', 'post_translations.slug'];
-        $this->categories_fields = ['posts.id', 'post_translations.title', 'post_translations.slug'];
+        $this->pages_fields = ['pages.id', 'page_translations.title', 'page_translations.slug'];
+        $this->categories_fields = ['category_translations.category_id', 'category_translations.title', 'category_translations.slug'];
     }
 
 
@@ -31,24 +31,36 @@ class CPanelMenuController extends CPanelBaseController
 
     public function addMenu()
     {
-        return view('cpanel.menus.new_menu', [
+        $array = [
             "terms_list" => $this->get_terms_list_for_menu()
-        ]);
+        ];
+
+        if(request()->route('lang'))
+        {
+            $array['translation_links'] = get_entity_translation_links('menus', request()->id);
+        }
+
+        return view('cpanel.menus.new_menu', $array);
     }
 
     public function createMenu(MenuRequest $request)
     {
+        if(!empty($request->route('id'))) unset($request['slug']);
+
         parent::create($request);
         return redirect()->route('cpanel_menu_list')->with('menu_added', " ");
     }
 
     public function editMenu($id)
     {
-        parent::edit($id);
+        $this->result = $this->repository->getBy('id', $id);
+
+        if(is_null($this->result)) return $this->addMenu();
 
         return view('cpanel.menus.edit_menu', [
             "entity" => $this->result,
-            "terms_list" => $this->get_terms_list_for_menu()
+            "terms_list" => $this->get_terms_list_for_menu(),
+            "translation_links" => get_entity_translation_links('menus', $id)
         ]);
     }
 
@@ -56,8 +68,8 @@ class CPanelMenuController extends CPanelBaseController
     {
         return [
             'posts' => get_post_list($this->post_fields),
-            'pages' => get_post_list($this->pages_fields),
-            'categories' => get_post_list($this->categories_fields),
+            'pages' => get_pages_list($this->pages_fields),
+            'categories' => get_post_categories_list($this->categories_fields),
         ];
     }
 

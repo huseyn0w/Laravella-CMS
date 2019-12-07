@@ -28,13 +28,12 @@ class CPanelPageRepository extends BaseRepository
         'updated_at'
     ];
 
-
     public function __construct(Page $model)
     {
         parent::__construct();
         $this->model = $model;
+        $this->translated_model = new PageTranslation;
     }
-
 
 
 

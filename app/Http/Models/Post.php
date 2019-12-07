@@ -19,7 +19,7 @@ class Post extends Model implements TranslatableContract
 
     public $timestamps = false;
 
-    public $translatedAttributes = ['title', 'created_at', 'updated_at', 'author_id', 'slug', 'thumbnail', 'preview', 'status', 'content', 'meta_keywords', 'meta_description'];
+    public $translatedAttributes = ['title', 'post_id', 'created_at', 'updated_at', 'author_id', 'slug', 'thumbnail', 'preview', 'status', 'content', 'meta_keywords', 'meta_description'];
 
     protected $fillable = [
         'created_at',

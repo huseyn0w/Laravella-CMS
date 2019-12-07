@@ -59,7 +59,7 @@
                                     {!! $post->preview !!}
                                     <p class="footer pt-20">
                                         <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                        <span>{{$post->likes}} {{$post->likes > 1 ? trans('default/category.likes') : trans('default/category.dislikes')}}</span>     <i class="ml-20 fa fa-comment-o" aria-hidden="true"></i>{{$comments_count}}<span> @lang('default/category.comments')</span>
+                                        <span>{{$post->likes}} {{$post->likes > 1 ? trans('default/category.likes') : trans('default/category.likes')}}</span>     <i class="ml-20 fa fa-comment-o" aria-hidden="true"></i>{{$comments_count}}<span> @lang('default/category.comments')</span>
                                     </p>
                                 </div>
                             </div>

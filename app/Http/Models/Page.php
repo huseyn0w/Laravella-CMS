@@ -15,12 +15,13 @@ class Page extends Model implements TranslatableContract
 
     public $timestamps = false;
 
-    public $translatedAttributes = ['title', 'created_at', 'updated_at', 'slug', 'author_id', 'status', 'custom_fields', 'content', 'meta_keywords', 'meta_description'];
+    public $translatedAttributes = ['title', 'page_id', 'created_at', 'updated_at', 'slug', 'author_id', 'status', 'custom_fields', 'content', 'meta_keywords', 'meta_description'];
 
     protected $fillable = [
         'title',
         'slug',
         'author_id',
+        'page_id',
         'status',
         'content',
         'custom_fields',

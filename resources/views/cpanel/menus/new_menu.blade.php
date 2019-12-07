@@ -13,9 +13,14 @@
     <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 @endpush
 
+@php
+    $form_action = route('cpanel_save_new_menu');
+
+    if(!empty(request()->route('id')))  $form_action = route('cpanel_save_new_menu', ['id' => request()->route('id')]);
+@endphp
 @section('content')
 
-    <form action="{{ route('cpanel_save_new_menu') }}" id="add_menu_form" method="POST">
+    <form action="{{ $form_action }}" id="add_menu_form" method="POST">
         @csrf
         <div class="container-fluid">
             <div class="row">
@@ -37,6 +42,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                @include('cpanel.core.translation')
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="menu_title">@lang('cpanel/menus.menu_name')</label>

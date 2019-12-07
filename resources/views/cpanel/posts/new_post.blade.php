@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="{{asset('admin')}}/css/datepicker.min.css" rel="stylesheet">
 @endpush
 
+@php
+    $form_action = route('cpanel_save_new_post');
+
+    if(!empty(request()->route('id')))  $form_action = route('cpanel_save_new_post', ['id' => request()->route('id')]);
+@endphp
 @section('content')
 
     @if ($update_message = Session::get('post_added'))
@@ -25,7 +30,7 @@
         </div>
     @endif
 
-    <form action="{{ route('cpanel_save_new_post') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ $form_action }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="container-fluid">
             <div class="row">
@@ -85,6 +90,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                                @include('cpanel.core.translation')
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>@lang('cpanel/posts.category')</label>

@@ -104,7 +104,7 @@
                                         </td>
                                         <td>
                                             <span class="user_actions">
-                                            <a href="{{route('cpanel_edit_category', $category->id)}}" target="_blank">@lang('cpanel/categories.edit_category')</a>
+                                            <a href="{{route('cpanel_edit_category', ['id' => $category->id, 'lang' => get_current_lang()])}}" target="_blank">@lang('cpanel/categories.edit_category')</a>
                                             @if($category->id !== 1)
                                                 <input type="hidden" class="deleted_category_id" value="{{$category->id}}" name="deleted_category_id">
                                                 <button type="button" class="delete_category">@lang('cpanel/categories.delete_category')</button>

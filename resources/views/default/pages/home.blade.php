@@ -16,6 +16,11 @@
 
         $headline = get_field('headline', $custom_fields);
         $headline_background = get_field('headline-image', $custom_fields);
+
+        $posts_from_category_headline = get_field('posts-from-category-headline', $custom_fields);
+        $posts_from_category_description = get_field('posts-from-category-description', $custom_fields);
+        $posts_from_category_category_id = get_field('posts-from-category-cat-id', $custom_fields);
+
         $about_headline = get_field('about-headline', $custom_fields);
         $about_description = get_field('about-description', $custom_fields);
         $about_big_description = get_field('about-big-text', $custom_fields);
@@ -42,93 +47,52 @@
 <!-- End banner Area -->
 
 
-
+@php
+    $fields = ['post_translations.title', 'post_translations.slug', 'post_translations.preview','post_translations.updated_at','post_translations.thumbnail','post_translations.likes'];
+    $args = ['fields' => $fields, 'category_id' => $posts_from_category_category_id, 'count' => 4];
+    $category_posts = get_category_posts($args);
+@endphp
+@if(!empty($category_posts))
 <!-- Start travel Area -->
 <section class="travel-area section-gap" id="travel">
     <div class="container">
+
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-70 col-lg-8">
                 <div class="title text-center">
-                    <h1 class="mb-10">Hot topics from Travel Section</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua.</p>
+                    <h1 class="mb-10">{{$posts_from_category_headline}}</h1>
+                    <p>{{$posts_from_category_description}}</p>
                 </div>
             </div>
         </div>
+
+
         <div class="row">
-            <div class="col-lg-6 travel-left">
-                <div class="single-travel media pb-70">
-                    <img class="img-fluid d-flex  mr-3" src="{{asset('front/'.env('TEMPLATE_NAME').'/img/t1.jpg')}}" alt="">
-                    <div class="dates">
-                        <span>20</span>
-                        <p>Dec</p>
-                    </div>
-                    <div class="media-body align-self-center">
-                        <h4 class="mt-0"><a href="#">Addiction When Gambling
-                                Becomes A Problem</a></h4>
-                        <p>inappropriate behavior Lorem ipsum dolor sit amet, consectetur.</p>
-                        <div class="meta-bottom d-flex justify-content-between">
-                            <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                            <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                        </div>
-                    </div>
+        @foreach($category_posts as $post)
+            <div class="col-12 col-md-6 single-travel media">
+                <div class="thumb">
+                    <img class="img-fluid d-flex post-  mr-3" src="{{$post->thumbnail}}" alt="">
                 </div>
-                <div class="single-travel media">
-                    <img class="img-fluid d-flex  mr-3" src="{{asset('front/'.env('TEMPLATE_NAME').'/img/t3.jpg')}}" alt="">
-                    <div class="dates">
-                        <span>20</span>
-                        <p>Dec</p>
-                    </div>
-                    <div class="media-body align-self-center">
-                        <h4 class="mt-0"><a href="#">Addiction When Gambling
-                                Becomes A Problem</a></h4>
-                        <p>inappropriate behavior Lorem ipsum dolor sit amet, consectetur.</p>
-                        <div class="meta-bottom d-flex justify-content-between">
-                            <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                            <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                        </div>
+                <div class="dates">
+                    <span>{{Carbon\Carbon::parse($post->updated_at)->format('d')}}</span>
+                    <p>{{Carbon\Carbon::parse($post->updated_at)->format('M')}}</p>
+                </div>
+                <div class="media-body align-self-center">
+                    <h4 class="mt-0"><a href="{{env('APP_URL')}}posts/{{$post->slug}}">{{$post->title}}</a></h4>
+                    <p>{{$post->preview}}</p>
+                    <div class="meta-bottom d-flex justify-content-between">
+                        <p><span class="lnr lnr-heart"></span> {{$post->likes}} {{$post->likes > 1 ? trans('default/category.likes') : trans('default/category.likes')}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 travel-right">
-                <div class="single-travel media pb-70">
-                    <img class="img-fluid d-flex  mr-3" src="{{asset('front/'.env('TEMPLATE_NAME').'/img/t2.jpg')}}" alt="">
-                    <div class="dates">
-                        <span>20</span>
-                        <p>Dec</p>
-                    </div>
-                    <div class="media-body align-self-center">
-                        <h4 class="mt-0"><a href="#">Addiction When Gambling
-                                Becomes A Problem</a></h4>
-                        <p>inappropriate behavior Lorem ipsum dolor sit amet, consectetur.</p>
-                        <div class="meta-bottom d-flex justify-content-between">
-                            <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                            <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="single-travel media">
-                    <img class="img-fluid d-flex  mr-3" src="{{asset('front/'.env('TEMPLATE_NAME').'/img/t4.jpg')}}" alt="">
-                    <div class="dates">
-                        <span>20</span>
-                        <p>Dec</p>
-                    </div>
-                    <div class="media-body align-self-center">
-                        <h4 class="mt-0"><a href="#">Addiction When Gambling
-                                Becomes A Problem</a></h4>
-                        <p>inappropriate behavior Lorem ipsum dolor sit amet, consectetur.</p>
-                        <div class="meta-bottom d-flex justify-content-between">
-                            <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                            <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a href="#" class="primary-btn load-more pbtn-2 text-uppercase mx-auto mt-60">Load More </a>
+        @endforeach
         </div>
+
+
     </div>
 </section>
 <!-- End travel Area -->
-
+@endif;
 
 <!-- Start team Area -->
 <section class="team-area section-gap" id="team">

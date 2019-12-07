@@ -27,6 +27,8 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
     protected $translated_table;
 
+    protected $translated_model;
+
     protected $translated_table_join_column;
 
     protected $select_fields_ready_array;
@@ -37,12 +39,26 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
     }
 
+    protected function checkForTranslation($request)
+    {
+        if(!empty($request->route('id')))
+        {
+            $this->model = $this->translated_model;
+            $id = $request->route('id');
+            $request->merge([$this->translated_table_join_column => $id, 'locale' => get_current_lang()]);
+        }
+
+        return $request;
+    }
+
 
     public function create($request)
     {
+        $final_request = $this->checkForTranslation($request);
 
         try {
-            $data = $request->all();
+            $data = $final_request->all();
+//            dd($data);
             $result = $this->model::create($data);
         } catch (QueryException $e) {
             dd($e->getMessage());
@@ -159,6 +175,8 @@ abstract class BaseRepository implements  BaseRepositoryInterface
         $this->select_fields_ready_array = $this->generateSelectFieldsArray($this->select_fields);
         $this->locale = get_current_lang();
 
+
+
         try {
             $data = $this->model::join($translated_table_name, $main_table_name . '.id', '=', $translated_table_name . '.' . $parent_table_join_column)
                 ->select($this->select_fields_ready_array)
@@ -193,6 +211,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
     protected function get_non_translated_by($paramName, $paramValue, $fields = [])
     {
+
         if (!empty($fields)) {
             $data = $this->model::select($fields)->where($paramName, $paramValue)->first();
         } else {
@@ -215,6 +234,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
     public function get_translated_by($param, $value)
     {
 
+
         $this->select_fields_ready_array = $this->generateSelectFieldsArray($this->select_fields);
 
         $this->locale = get_current_lang();
@@ -228,7 +248,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
                 ->select($this->select_fields_ready_array)
                 ->where($this->translated_table.'.locale', $this->locale)
                 ->where($searchColumn.'.'.$param, $value)
-                ->with('author')->firstOrFail();
+                ->with('author')->first();
 
         } catch (QueryException $e) {
             dd($e->getMessage());

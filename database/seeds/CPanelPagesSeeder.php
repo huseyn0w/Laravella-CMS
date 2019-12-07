@@ -26,6 +26,24 @@ class CPanelPagesSeeder extends Seeder
                         'type' => 'image',
                         'admin_label' => 'Headline Image',
                     ),
+                'posts-from-category-headline' =>
+                    array (
+                        'value' => 'Hot topics from Travel Section',
+                        'type' => 'text',
+                        'admin_label' => 'Posts from Category Headline',
+                    ),
+                'posts-from-category-description' =>
+                    array (
+                        'value' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                        'type' => 'text',
+                        'admin_label' => 'Posts from Category description',
+                    ),
+                'posts-from-category-cat-id' =>
+                    array (
+                        'value' => '1',
+                        'type' => 'category',
+                        'admin_label' => 'Choose category',
+                    ),
                 'about-headline' =>
                     array (
                         'value' => 'About Us',
@@ -129,6 +147,24 @@ class CPanelPagesSeeder extends Seeder
                         'value' => env('APP_URL').'filemanager/images/5d9ca59b897a2.jpg',
                         'type' => 'image',
                         'admin_label' => 'Заголовок изображения',
+                    ),
+                'posts-from-category-headline' =>
+                    array (
+                        'value' => 'Свежие новости с главной категории',
+                        'type' => 'text',
+                        'admin_label' => 'Заголовок секции постов с категории',
+                    ),
+                'posts-from-category-description' =>
+                    array (
+                        'value' => 'Описание будет тут',
+                        'type' => 'text',
+                        'admin_label' => 'Описание секции постов с категории',
+                    ),
+                'posts-from-category-cat-id' =>
+                    array (
+                        'value' => '1',
+                        'type' => 'category',
+                        'admin_label' => 'Выберите категорию',
                     ),
                 'about-headline' =>
                     array (

@@ -13,6 +13,7 @@ if(isset ($entity->custom_fields)  && !empty($entity->custom_fields)){
     $custom_fields = json_decode($entity->custom_fields);
 }
 
+
 ?>
 
 <div class="row">
@@ -23,6 +24,7 @@ if(isset ($entity->custom_fields)  && !empty($entity->custom_fields)){
             <button type="button" data-toggle="modal" data-target="#custom_textarea_modal" class="btn custom-textarea">@lang('cpanel/custom-fields.type_textarea')</button>
             <button type="button" data-toggle="modal" data-target="#custom_image_modal" class="btn custom-image">@lang('cpanel/custom-fields.type_image')</button>
             <button type="button" data-toggle="modal" data-target="#custom_link_modal" class="btn custom-link">@lang('cpanel/custom-fields.type_link')</button>
+            <button type="button" data-toggle="modal" data-target="#custom_category_modal" class="btn custom-link">@lang('cpanel/custom-fields.type_category')</button>
             <button type="button" id="custom_repeater" class="btn custom-repeater">@lang('cpanel/custom-fields.type_repeater')</button>
         </div>
     </div>
@@ -180,11 +182,26 @@ if(isset ($entity->custom_fields)  && !empty($entity->custom_fields)){
                         <div class="row inputRow">
                             <div class="col-md-12">
                                 <div class="form-group custom-form-group">
-                                    <label>{{$item->admin_label}}
-                                        <input type="text" required name="custom_fields[{{$key}}][value]" class="form-control" value="{{$item->value}}">
-                                        <input type="hidden" name="custom_fields[{{$key}}][type]" value="text">
-                                        <input type="hidden" name="custom_fields[{{$key}}][admin_label]" value="{{$item->admin_label}}">
-                                    </label>
+                                    <label>{{$item->admin_label}}</label>
+                                    <input type="text" required name="custom_fields[{{$key}}][value]" class="form-control" value="{{$item->value}}">
+                                    <input type="hidden" name="custom_fields[{{$key}}][type]" value="text">
+                                    <input type="hidden" name="custom_fields[{{$key}}][admin_label]" value="{{$item->admin_label}}">
+                                    <button type="button" class="remove_field">X</button>
+                                </div>
+                            </div>
+                        </div>
+                    @elseif($item->type === "category")
+                        <div class="row inputRow">
+                            <div class="col-md-12">
+                                <div class="form-group custom-form-group">
+                                    <label>{{$item->admin_label}}</label>
+                                    <select name="custom_fields[{{$key}}][value]" required class="form-control">
+                                        @foreach($categories_list as $category)
+                                            <option value="{{$category->category_id}}" {{$item->value == $category->category_id ? 'selected' : null}}>{{$category->title}}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="hidden" name="custom_fields[{{$key}}][type]" value="category">
+                                    <input type="hidden" name="custom_fields[{{$key}}][admin_label]" value="{{$item->admin_label}}">
                                     <button type="button" class="remove_field">X</button>
                                 </div>
                             </div>
@@ -193,11 +210,10 @@ if(isset ($entity->custom_fields)  && !empty($entity->custom_fields)){
                         <div class="row inputRow">
                             <div class="col-md-12">
                                 <div class="form-group custom-form-group">
-                                    <label>{{$item->admin_label}}
-                                        <textarea name="custom_fields[{{$key}}][value]" required class="form-control my-editor">{{$item->value}}</textarea>
-                                        <input type="hidden" name="custom_fields[{{$key}}][type]" value="textarea">
-                                        <input type="hidden" name="custom_fields[{{$key}}][admin_label]" value="{{$item->admin_label}}">
-                                    </label>
+                                    <label>{{$item->admin_label}}</label>
+                                    <textarea name="custom_fields[{{$key}}][value]" required class="form-control my-editor">{{$item->value}}</textarea>
+                                    <input type="hidden" name="custom_fields[{{$key}}][type]" value="textarea">
+                                    <input type="hidden" name="custom_fields[{{$key}}][admin_label]" value="{{$item->admin_label}}">
                                     <button type="button" class="remove_field">X</button>
                                 </div>
                             </div>
@@ -233,12 +249,11 @@ if(isset ($entity->custom_fields)  && !empty($entity->custom_fields)){
                         <div class="row inputRow">
                             <div class="col-md-12">
                                 <div class="form-group custom-form-group">
-                                    <label>{{$item->admin_label}}
-                                        <input type="text" required name="custom_fields[{{$key}}][value]" class="form-control" value="{{$item->value}}">
-                                        <input type="hidden" name="custom_fields[{{$key}}][type]"  value="image">
-                                        <input type="hidden" name="custom_fields[{{$key}}][admin_label]" value="{{$item->admin_label}}">
-                                        <button type="button" class="remove_field">X</button>
-                                    </label>
+                                    <label>{{$item->admin_label}}</label>
+                                    <input type="text" required name="custom_fields[{{$key}}][value]" class="form-control" value="{{$item->value}}">
+                                    <input type="hidden" name="custom_fields[{{$key}}][type]"  value="image">
+                                    <input type="hidden" name="custom_fields[{{$key}}][admin_label]" value="{{$item->admin_label}}">
+                                    <button type="button" class="remove_field">X</button>
                                 </div>
                             </div>
                         </div>

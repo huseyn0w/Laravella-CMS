@@ -5,6 +5,9 @@
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 19.11.2019
  */
+
+$categories = get_post_categories_list(['category_id','title']);
+
 ?>
 
 <script>
@@ -18,6 +21,8 @@
         field_text          = '@lang('cpanel/custom-fields.type_text')',
         field_textarea      = '@lang('cpanel/custom-fields.type_textarea')',
         field_link          = '@lang('cpanel/custom-fields.type_link')',
+        field_category      = '@lang('cpanel/custom-fields.type_category')',
+        categories_list     = '@php echo $categories @endphp',
         field_image         = '@lang('cpanel/custom-fields.type_image')',
         text_label          = '@lang('cpanel/custom-fields.text_label')',
         text_name           = '@lang('cpanel/custom-fields.text_name')',

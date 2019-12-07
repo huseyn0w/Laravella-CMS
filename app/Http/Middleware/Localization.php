@@ -15,16 +15,23 @@ class Localization
      */
     public function handle($request, Closure $next)
     {
-
+//        dd($request->all());
         $locale = session('locale');
+
+        if(!empty($request->route('lang')))
+        {
+            $locale = $request->route('lang');
+            \Session::put('locale', $locale);
+        }
+
         if(lang_exist($locale))
         {
-            \App::setLocale(session('locale'));
+            \App::setLocale($locale);
         }
         else{
             \Session::put('locale', \Config::get('app.locale'));
         }
-        //dd('test');
+
         return $next($request);
 
     }

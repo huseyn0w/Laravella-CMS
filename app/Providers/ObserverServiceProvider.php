@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Http\Models\Page;
 use App\Http\Models\Post;
-use App\Http\Models\User;
 use App\Observers\PageObserver;
 use App\Observers\PostObserver;
 use Illuminate\Support\ServiceProvider;

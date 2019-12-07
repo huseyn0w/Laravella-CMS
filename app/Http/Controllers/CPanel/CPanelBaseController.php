@@ -102,6 +102,7 @@ class CPanelBaseController extends Controller
 
     protected function create($request)
     {
+//        dd($request->route('id'));
         $this->result = $this->repository->create($request);
 
         return $this->result;

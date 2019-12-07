@@ -18,23 +18,23 @@ See deployment for notes on how to deploy the project on a live system.
 
 
 
-## Admin credentials:
+## Administrator area credentials:
 Go to: SITE_URL/cpanel
 <pre>
 Username: admin
 Password: laravelladmin123
 </pre>
 
-##To manage website languages:
+## To manage website languages:
 1) Open config/app.php file and edit array of languages:
 <pre>
 'languages_list' => [
     'en'  => ['title' => 'English', 'icon' => env('APP_URL').'/admin/img/flags/en.png'],
     'ru'  => ['title' => 'Русский', 'icon' => env('APP_URL').'/admin/img/flags/ru.png'],
-    'est' => ['title' => 'Eesti',   'icon' => env('APP_URL').'/admin/img/flags/et.png'],
-],
+    'est' => ['title' => 'Eesti',   'icon' => env('APP_URL').'/admin/img/flags/et.png']
+]
 </pre>
-2) open resourses/lang/ folder to add/edit/remove language localization string files.
+2) Open resourses/lang/ folder to manage language localization string files.
 
 
 ## Demo

@@ -25,6 +25,10 @@
     justify-content: center;
 }
 
+.single-travel{
+    margin-bottom: 30px;
+}
+
 .addthis_inline_share_toolbox{
     text-align: right;
 }

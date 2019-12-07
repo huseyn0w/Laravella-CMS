@@ -13,10 +13,15 @@
     <link rel="stylesheet" href="{{asset('admin')}}/css/datepicker.min.css" rel="stylesheet">
 @endpush
 
+@php
+    $form_action = route('cpanel_save_new_page');
+
+    if(!empty(request()->route('id')))  $form_action = route('cpanel_save_new_page', ['id' => request()->route('id')]);
+@endphp
 @section('content')
 
 
-    <form action="{{ route('cpanel_save_new_page') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{$form_action}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="container-fluid">
             <div class="row">
@@ -69,6 +74,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                                @include('cpanel.core.translation')
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>@lang('cpanel/pages.author')</label>
@@ -136,5 +142,6 @@
     <script src="{{asset('admin')}}/js/custom-fields/custom-textarea.js"></script>
     <script src="{{asset('admin')}}/js/custom-fields/custom-image.js"></script>
     <script src="{{asset('admin')}}/js/custom-fields/custom-link.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-category.js"></script>
     <script src="{{asset('admin')}}/js/custom-fields/custom-repeater.js"></script>
 @endpush

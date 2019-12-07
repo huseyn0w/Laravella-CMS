@@ -18,7 +18,6 @@ class CPanelPostController extends CPanelBaseController
         parent::__construct();
         $this->repository = $repository;
         $this->users_list = get_authors_list();
-        $this->categories_list = get_post_categories_list();
     }
 
 
@@ -78,9 +77,18 @@ class CPanelPostController extends CPanelBaseController
 
     public function editPost($id)
     {
-        parent::edit($id);
+        $this->result = $this->repository->getBy('id', $id);
 
-        return view('cpanel.posts.edit_post', ["entity" => $this->result, "users_list" => $this->users_list, "categories_list" => $this->categories_list]);
+        if(is_null($this->result)) return $this->addPost();
+
+        return view('cpanel.posts.edit_post',
+            [
+                "entity" => $this->result,
+                "users_list" => $this->users_list,
+                "categories_list" => get_post_categories_list(),
+                "translation_links" => get_entity_translation_links('posts', $id)
+            ]
+        );
     }
 
     public function createPost(ValidatePostData $request)
@@ -99,7 +107,17 @@ class CPanelPostController extends CPanelBaseController
 
     public function addPost()
     {
-        return view('cpanel.posts.new_post', ["users_list" => $this->users_list, "categories_list" => $this->categories_list]);
+        $array = [
+            "users_list" => $this->users_list,
+            "categories_list" => get_post_categories_list()
+
+        ];
+
+        if(request()->route('lang'))
+        {
+            $array['translation_links'] = get_entity_translation_links('posts', request()->id);
+        }
+        return view('cpanel.posts.new_post', $array);
     }
 
 

@@ -20,7 +20,8 @@
 
         $categories_ids = [];
 
-        foreach($entity->categories as $category) $categories_ids[] = $category->id;
+        foreach($entity->categories as $category) $categories_ids[] = $entity->id;
+
 
     @endphp
 
@@ -106,12 +107,13 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                                @include('cpanel.core.translation')
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>@lang('cpanel/posts.category')</label>
                                         <select name="category[]" multiple class="form-control category_list multiple_list" id="post_category">
                                             @foreach($categories_list as $category)
-                                                <option value="{{$category->id}}" {{in_array($category->id, $categories_ids) ? 'selected': null}} >{{$category->title}}</option>
+                                                <option value="{{$category->category_id}}" {{$entity->id === $category->category_id ? 'selected': null}} >{{$category->title}}</option>
                                             @endforeach
                                         </select>
                                     </div>

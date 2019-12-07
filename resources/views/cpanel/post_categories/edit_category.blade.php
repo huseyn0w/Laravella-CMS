@@ -49,6 +49,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                @include('cpanel.core.translation')
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="cpanel_title">@lang('cpanel/categories.title')</label>

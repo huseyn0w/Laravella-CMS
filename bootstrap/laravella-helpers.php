@@ -10,6 +10,8 @@ use App\Http\Models\UserRoles;
 use App\Http\Models\UserPermissions;
 use App\Http\Models\User;
 use App\Http\Models\Category;
+use App\Http\Models\CategoryTranslation;
+use App\Http\Models\PostTranslation;
 use App\Http\Models\Post;
 use App\Http\Models\Page;
 use App\Http\Models\Comments;
@@ -73,38 +75,23 @@ function get_user_roles():object
 function get_post_categories_list($fields = []):object
 {
     $locale = get_current_lang();
-    if(empty($fields)){
-        $categories = Category::join('category_translations', 'categories.id', '=', 'category_translations.category_id')
-            ->select(['categories.id', 'category_translations.title'])
-            ->where('category_translations.locale', $locale)->get();
-    }
-    else
-    {
-        $categories = Category::join('category_translations', 'categories.id', '=', 'category_translations.category_id')
-            ->select($fields)
-            ->where('category_translations.locale', $locale)->get();
-    }
 
+    if(empty($fields)) $fields = ['category_id', 'title'];
 
-
+    $categories = CategoryTranslation::where('locale' ,$locale)->get($fields);
 
 
     return $categories;
 
 }
 
-function get_post_list($fields = []):object
+    function get_post_list($fields = []):object
 {
-    $locale = get_current_lang();
+        $locale = get_current_lang();
 
-    if(empty($fields)){
-        $posts = Post::join('post_translations', 'posts.id', '=','post_translations.post_id')
-        ->select('posts.id', 'post_translations.title', 'post_translations.slug')->orderBy('id', 'ASC')->get();
-    }
-    else{
-        $posts = Post::join('post_translations', 'posts.id', '=','post_translations.post_id')
+    if(empty($fields)) $fields = ['posts.id', 'post_translations.title', 'post_translations.slug'];
+    $posts = Post::join('post_translations', 'posts.id', '=','post_translations.post_id')
         ->select($fields)->orderBy('id', 'ASC')->where('locale', $locale)->get();
-    }
 
     return $posts;
 
@@ -114,14 +101,9 @@ function get_pages_list($fields = []):object
 {
     $locale = get_current_lang();
 
-    if(empty($fields)){
-        $pages = Page::join('page_translations', 'pages.id', '=','page_translations.page_id')
-            ->select('pages.id', 'post_translations.title', 'post_translations.slug')->orderBy('id', 'ASC')->get();
-    }
-    else{
-        $pages = Page::join('page_translations', 'pages.id', '=','page_translations.page_id')
-            ->select($fields)->orderBy('id', 'ASC')->where('locale', $locale)->get();
-    }
+    if(empty($fields)) $fields = ['pages.id', 'post_translations.title', 'post_translations.slug'];
+    $pages = Page::join('page_translations', 'pages.id', '=','page_translations.page_id')
+        ->select($fields)->orderBy('id', 'ASC')->where('locale', $locale)->get();
 
     return $pages;
 
@@ -699,13 +681,17 @@ function throwAbort($message = null)
 }
 
 
-function get_category_posts(array $args, $page =1)
+function get_category_posts(array $args, $page = 1)
 {
-    if(!is_array($args) || empty($args['id'])) return false;
+    if(!is_array($args)) return false;
 
 
-    if(!empty($args['id'])){
-        $id = $args['id'];
+
+
+    if(!empty($args['category_id'])){
+        $id = $args['category_id'];
+
+        $locale = get_current_lang();
 
         if(!empty($args['fields'])){
             $fields = $args['fields'];
@@ -720,8 +706,10 @@ function get_category_posts(array $args, $page =1)
         }
 
 
-        $data = Post::select($fields)
+        $data = Post::join('post_translations', 'posts.id', '=', 'post_translations.post_id')
+            ->select($fields)
             ->with('categories')
+            ->where('post_translations.locale', $locale)
             ->whereHas('categories', function($query) use($id) {
                 $query->select('category_id');
                 $query->where('category_id',$id);
@@ -820,4 +808,25 @@ function get_logged_user_username()
     if(is_logged_in()) return Auth()->user()->username;
 
     return false;
+}
+
+
+
+function get_entity_translation_links($type, $id):array
+{
+    $result = [];
+
+    $locale = get_current_lang();
+
+    $languages_list = config('app.languages_list');
+
+
+
+    foreach ($languages_list as $prefix => $data)
+    {
+        if($prefix === $locale) continue;
+        $result[$data['title']] = 'cpanel/'.$type.'/'.$id.'/'.$prefix;
+    }
+
+    return $result;
 }

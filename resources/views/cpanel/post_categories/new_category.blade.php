@@ -10,10 +10,14 @@
 @extends('cpanel.core.index')
 
 
+@php
+    $form_action = route('cpanel_save_new_category');
 
+    if(!empty(request()->route('id')))  $form_action = route('cpanel_save_new_category', ['id' => request()->route('id')]);
+@endphp
 @section('content')
 
-    <form action="{{ route('cpanel_save_new_category') }}" method="POST">
+    <form action="{{ $form_action }}" method="POST">
         @csrf
         <div class="container-fluid">
             <div class="row">
@@ -35,6 +39,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                @include('cpanel.core.translation')
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="cpanel_title">@lang('cpanel/categories.title')</label>

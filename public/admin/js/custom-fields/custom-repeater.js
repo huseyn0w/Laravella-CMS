@@ -161,7 +161,7 @@ $(function(){
 
         var cloned_item = $(this).parents().find('.repeater_content_cover').last().clone();
 
-        console.log(cloned_item);
+        // console.log(cloned_item);
 
         var row_count = $(cloned_item).find('.inputRow').data('row');
         row_count++;

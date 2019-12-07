@@ -78,6 +78,7 @@ class PostObserver extends LaravellaObserver
 
     private function dettachCategory(Post $post)
     {
+//        dd('salam');
         $post->categories()->detach();
     }
 

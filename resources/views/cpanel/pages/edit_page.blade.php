@@ -5,6 +5,8 @@
  * Created by Elman (https://linkedin.com/in/huseyn0w)
  * Date: 16.08.2019
  */
+
+
 ?>
 
 @extends('cpanel.core.index')
@@ -88,6 +90,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                                @include('cpanel.core.translation')
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>@lang('cpanel/pages.author')</label>
@@ -155,5 +158,6 @@
     <script src="{{asset('admin')}}/js/custom-fields/custom-textarea.js"></script>
     <script src="{{asset('admin')}}/js/custom-fields/custom-image.js"></script>
     <script src="{{asset('admin')}}/js/custom-fields/custom-link.js"></script>
+    <script src="{{asset('admin')}}/js/custom-fields/custom-category.js"></script>
     <script src="{{asset('admin')}}/js/custom-fields/custom-repeater.js"></script>
 @endpush

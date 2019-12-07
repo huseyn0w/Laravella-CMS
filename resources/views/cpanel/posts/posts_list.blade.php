@@ -150,7 +150,7 @@ $route_name = Route::current()->getName();
 
                                             <span class="user_actions">
                                              @if (Auth::user()->can('manage_posts', 'App\Http\Models\UserRoles'))
-                                                <a href="{{route('cpanel_edit_post', $post->id)}}" target="_blank">@lang('cpanel/posts.edit_post')</a>
+                                                <a href="{{route('cpanel_edit_post', ['id' => $post->id, 'lang' => get_current_lang()])}}" target="_blank">@lang('cpanel/posts.edit_post')</a>
                                                 <input type="hidden" class="deleted_post_id" value="{{$post->id}}" name="deleted_post_id">
                                                 @if($route_name === "cpanel_posts_list")
                                                     <button type="button" class="delete_post">@lang('cpanel/posts.delete_post')</button>
