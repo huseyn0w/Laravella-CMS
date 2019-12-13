@@ -13,22 +13,26 @@ class PagesController extends BaseController
 {
     public function __construct(PageRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 
 
-    public function index($page_slug = "/")
+    public function index($slug = "/", string $locale = null)
     {
 
-       $data = $this->repository->getBy('slug', $page_slug);
+       $result = parent::index($slug, $locale);
 
-       if(empty($data->custom_fields)) return view('default/pages/'.$data->template, compact('data'));
+       if(is_object($result)) return $result;
 
-       $custom_fields = json_decode($data->custom_fields, true);
+       $data = ['data' => $this->data];
 
+        if(!empty($this->data->custom_fields)) {
+            $custom_fields = json_decode($this->data->custom_fields, true);
+            $data['custom_fields'] = $custom_fields;
+        }
 
-
-       return view('default.pages.'.$data->template, compact('data', 'custom_fields'));
+       return view('default.pages.'.$this->data->template, $data);
     }
 
 
@@ -49,7 +53,7 @@ class PagesController extends BaseController
         Mail::to($contact_mail)->send(new ContactMail($data));
 
 
-        return back()->with('success', 'Your message has been sent! We will get back to you soon, thank you!');
+        return back()->with('success', \Lang::get('default/page.contact_message_success'));
     }
 
 

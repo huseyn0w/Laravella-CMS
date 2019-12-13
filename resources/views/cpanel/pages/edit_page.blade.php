@@ -55,7 +55,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">@lang('cpanel/pages.edit_page_headline')</h4>
-                            <p>@lang('cpanel/pages.url_preview') <strong><a href="{{env('APP_URL')}}{{ old('slug',$page_slug) }}">{{env('APP_URL')}}{{ old('slug',$page_slug) }}</a></strong></p>
+                            <p>@lang('cpanel/pages.url_preview') <strong><a href="{{env('APP_URL')}}/{{ old('slug',$page_slug) }}">{{env('APP_URL')}}/{{ old('slug',$page_slug) }}</a></strong></p>
                         </div>
                         <div class="card-body">
                             <div class="row">

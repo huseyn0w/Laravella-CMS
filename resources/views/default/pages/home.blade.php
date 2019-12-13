@@ -69,17 +69,21 @@
 
         <div class="row">
         @foreach($category_posts as $post)
+            @php
+                $post_thumbnail = $post->thumbnail;
+                if(!$post_thumbnail) $post_thumbnail = asset('front/'.env('TEMPLATE_NAME').'/img/asset/l2.jpg');
+            @endphp
             <div class="col-12 col-md-6 single-travel media">
                 <div class="thumb">
-                    <img class="img-fluid d-flex post-  mr-3" src="{{$post->thumbnail}}" alt="">
+                    <img class="img-fluid d-flex post-  mr-3" src="{{$post_thumbnail}}" alt="">
                 </div>
                 <div class="dates">
                     <span>{{Carbon\Carbon::parse($post->updated_at)->format('d')}}</span>
                     <p>{{Carbon\Carbon::parse($post->updated_at)->format('M')}}</p>
                 </div>
                 <div class="media-body align-self-center">
-                    <h4 class="mt-0"><a href="{{env('APP_URL')}}posts/{{$post->slug}}">{{$post->title}}</a></h4>
-                    <p>{{$post->preview}}</p>
+                    <h4 class="mt-0"><a href="{{env('APP_URL')}}/posts/{{$post->slug}}">{{$post->title}}</a></h4>
+                    <p>{!! $post->preview !!}</p>
                     <div class="meta-bottom d-flex justify-content-between">
                         <p><span class="lnr lnr-heart"></span> {{$post->likes}} {{$post->likes > 1 ? trans('default/category.likes') : trans('default/category.likes')}}</p>
                     </div>

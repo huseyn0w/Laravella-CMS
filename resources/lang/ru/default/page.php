@@ -26,5 +26,6 @@ return [
     'found_for'               => 'найдено для',
     'search_placeholder'      => 'Введите ключевое слово и нажмите ENTER',
     'search_result_headline'  => 'Результат поиска по запросу',
-    'search_nothing_found'    => 'Ничего не найдено'
+    'search_nothing_found'    => 'Ничего не найдено',
+    'contact_message_success' => 'Ваше сообщение успешно отправлено, с вами свяжутся в ближайшее время! Спасибо!'
 ];

@@ -16,8 +16,6 @@ Auth::routes();
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('cpanel-logout');
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Control Panel Routes
@@ -25,6 +23,8 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name
 */
 
 Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpanel')->group(function () {
+
+    Route::get('/locale/{locale}', 'CPanelLanguageController@index')->name('lang_route');
 
     Route::get('/', 'CPanelHomeController@index')->name('cpanel_home');
 
@@ -132,9 +132,7 @@ Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpa
 |--------------------------------------------------------------------------
 */
 
-Route::group(['middleware' => 'web'], function () {
-
-    Route::get('lang/{locale}', 'LanguageController@index')->name('lang_route');
+Route::group([], function () {
 
 
     Route::prefix('search')->group(function(){
@@ -143,9 +141,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/query/{searchstring}/filter/{searchtype}/page/{page}', 'PagesController@paginatedResult')->name('search_result_paginated');
     });
 
-    Route::get('/{slug?}', 'PagesController@index')->name('front_pages');
+    Route::get('/{locale?}/posts/{slug}', 'PostsController@languageIndex')->name('posts');
 
-    Route::prefix('posts')->group(function(){
+    Route::prefix('/posts')->group(function(){
+
         Route::get('/{slug}', 'PostsController@index')->name('posts');
         Route::post('/handlelike/{id}', 'PostsController@handleLike')->middleware('auth')->name('handle_post_likes')->where('id', '[1-9]+[0-9]*');
         Route::put('/handlecomment/', 'PostCommentsController@update')->middleware('auth')->name('update_post_comment');
@@ -154,15 +153,19 @@ Route::group(['middleware' => 'web'], function () {
 
     });
 
+
     Route::post('/contact/sendform', 'PagesController@sendMail')->name('sendform');
 
-    Route::prefix('category')->group(function(){
+    Route::get('/{locale?}/category/{slug}', 'CategoryController@languageIndex')->name('categories_first_page');
+
+    Route::prefix('/category')->group(function(){
         Route::get('/{slug}', 'CategoryController@index')->name('categories_first_page');
         Route::get('/{slug}/page/{page?}', 'CategoryController@index')->name('categories_display_pages')->where('page', '[1-9]+[0-9]*');
     });
 
+
     Route::prefix('profile')->middleware('auth')->group(function(){
-        Route::get('/edit', 'UserController@index')->name('get_user_info');
+        Route::get('/edit', 'UserController@yourProfile')->name('get_user_info');
         Route::put('/update', 'UserController@update')->name('update_user_info');
         Route::get('/change_password', 'UserController@password')->name('get_change_password_interface');
         Route::put('/change_password', 'UserController@changePassword')->name('change_password_action');
@@ -174,6 +177,9 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->where('provider','twitter|facebook|linkedin|google|github');;
     Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->where('provider','twitter|facebook|linkedin|google|github');;
+
+    Route::get('/{locale?}/{slug?}', 'PagesController@languageIndex')->name('front_pages');
+
 
 });
 

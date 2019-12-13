@@ -39,20 +39,25 @@ class CPanelPostRepository extends BaseRepository
     }
 
 
+
     public function trashedPosts($count){
         try{
             $this->locale = get_current_lang();
+            $this->select_fields_ready_array = $this->generateSelectFieldsArray($this->select_fields);
 
             $data = $this->model::join($this->translated_table, $this->main_table.'.id', '=', $this->translated_table.'.'.$this->translated_table_join_column)
-                ->select($this->select)
+                ->select($this->select_fields_ready_array)
                 ->where($this->translated_table.'.locale', $this->locale)
                 ->with('author')->onlyTrashed()->paginate($count);
 
         } catch (QueryException $e) {
+            dd($e->getMessage());
             throwAbort();
         } catch (PDOException $e) {
+            dd($e->getMessage());
             throwAbort();
         } catch (\Error $e) {
+            dd($e->getMessage());
             throwAbort();
         }
 

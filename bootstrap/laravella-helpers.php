@@ -12,6 +12,7 @@ use App\Http\Models\User;
 use App\Http\Models\Category;
 use App\Http\Models\CategoryTranslation;
 use App\Http\Models\PostTranslation;
+use App\Http\Models\PageTranslation;
 use App\Http\Models\Post;
 use App\Http\Models\Page;
 use App\Http\Models\Comments;
@@ -78,7 +79,7 @@ function get_post_categories_list($fields = []):object
 
     if(empty($fields)) $fields = ['category_id', 'title'];
 
-    $categories = CategoryTranslation::where('locale' ,$locale)->get($fields);
+    $categories = CategoryTranslation::where('locale' ,$locale)->orderBy('id', 'ASC')->get($fields);
 
 
     return $categories;
@@ -403,20 +404,32 @@ function render_menu($menu_data, $params)
 
     $html .= $menu_type === "list" ? "<ul class='$menu_class'>" : "<div class=".$menu_class.">";
 
+
+    $locale = get_current_lang();
+
+    if($locale === env("LOCALE"))
+    {
+        $locale = null;
+    }
+    else
+    {
+        $locale.='/';
+    }
+
     foreach($menu_data as $menu_item){
 
         switch ($menu_item->type){
-            case "posts": $type ="posts/";
+            case "posts": $type = $locale."/posts/";
                 break;
-            case "categories": $type ="category/";
+            case "categories": $type = $locale."/category/";
                 break;
-            default: $type ="";
+            default: $type = $locale .'';
                 break;
         }
 
         $slug  = $menu_item->slug === "/" ? " " : $menu_item->slug;
 
-        $link_part = strpos($slug, "https") !== false ? $type.$slug : env("APP_URL").$type.$slug;
+        $link_part = strpos($slug, "https") !== false ? $type.$slug : env("APP_URL").'/'.$type.$slug;
 
         $link = $route_name === "cpanel_edit_menu" ? "javascript:void()": $link_part;
 
@@ -469,7 +482,10 @@ function render_menu($menu_data, $params)
 
 function get_current_lang()
 {
-    return app()->getLocale();
+    $lang = \Session::get('locale');
+
+    if(is_null($lang) || empty($lang)) $lang = app()->getLocale();
+    return $lang;
 }
 
 function set_current_lang(string $string)
@@ -641,7 +657,6 @@ function get_data(int $id, string $entity, $fields = [])
 {
     $params = get_translated_data_params($entity);
     $locale = get_current_lang();
-
 
     try{
         $data = $params['model']::join($params['translated_table'], $params['main_table'].'.id', '=', $params['translated_table'].'.'.$params['join_column'])
@@ -820,13 +835,124 @@ function get_entity_translation_links($type, $id):array
 
     $languages_list = config('app.languages_list');
 
-
-
     foreach ($languages_list as $prefix => $data)
     {
         if($prefix === $locale) continue;
         $result[$data['title']] = 'cpanel/'.$type.'/'.$id.'/'.$prefix;
     }
 
+
     return $result;
+}
+
+
+
+function get_lang_prefixes()
+{
+    $languages_list = config('app.languages_list');
+    return array_keys($languages_list);
+}
+
+
+function get_translation_links()
+{
+
+    $languages = get_languages();
+    $language_prefixes = get_lang_prefixes();
+
+    $result = [];
+    $route_name = request()->route()->getName();
+    $slug = request()->route('slug');
+    $default_locale = app()->getLocale();
+    $page_locale = request()->route('locale');
+
+    if(!in_array($page_locale, $language_prefixes) && (is_null($slug) || $slug === "/"))
+    {
+        $slug = $page_locale;
+    }
+
+
+    if(is_null($slug)) $slug = '/';
+
+
+    switch ($route_name)
+    {
+        case 'front_pages':
+            $model = new PageTranslation;
+            $field_name = 'page_id';
+            $type = '';
+            break;
+        case 'posts':
+            $model = new PostTranslation;
+            $field_name = 'post_id';
+            $type = 'posts/';
+            break;
+        case 'categories_first_page':
+            $model = new CategoryTranslation;
+            $field_name = 'category_id';
+            $type = 'category/';
+            break;
+        default:
+            $model = new PageTranslation;
+            $field_name = 'page_id';
+            $type = '';
+            break;
+    }
+
+
+    foreach ($languages as $key => $value)
+    {
+
+        $result[$key]['title'] = $value['title'];
+
+        if($key === get_current_lang())
+        {
+            $result[$key]['url'] = null;
+            continue;
+        }
+
+
+        $entity_id = $model->select($field_name)->where('slug', $slug)->first();
+
+        $new_slug = $model->select('slug')->where('locale', $key)->where($field_name, $entity_id->$field_name)->first();
+
+        if(is_null($new_slug))
+        {
+            $result[$key]['url'] = "/".$key;
+            continue;
+        }
+
+        $translated_slug = $new_slug->slug;
+
+        $updated_key = null;
+
+        if($key !== $default_locale)
+        {
+            $updated_key = $key;
+            if($slug != "/") $updated_key .='/';
+        }
+
+        $result[$key]['url'] = env('APP_URL').'/'.$updated_key.$type.$translated_slug;
+
+
+    }
+
+
+    return $result;
+}
+
+function get_current_lang_prefix()
+{
+    $current_lang = get_current_lang();
+
+    if($current_lang === env('LOCALE'))
+    {
+        $current_lang = null;
+    }
+    else
+    {
+        $current_lang .= '/';
+    }
+
+    return $current_lang;
 }

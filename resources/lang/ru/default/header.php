@@ -9,7 +9,7 @@
 return [
    'edit_profile'     => 'Изменить профиль',
    'homepage_title'   => 'Laravella CMS',
-   'searchpage_title' => 'Search',
+   'searchpage_title' => 'Поиск по сайту',
    'search'           => 'Поиск',
    'cpanel'           => 'cPanel',
    'profile'          => 'Профиль',

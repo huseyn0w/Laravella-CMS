@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\CategoryRepository;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
+
 
 class CategoryController extends BaseController
 {
@@ -14,15 +13,15 @@ class CategoryController extends BaseController
         $this->repository = $repository;
     }
 
-    public function index(string $category_slug, int $page = 1)
+    public function index(string $category_slug, string $locale = null, int $page = 1)
     {
+        $result = parent::index($category_slug, $locale);
 
-        $data = $this->repository->getBy('slug', $category_slug);
+        if(is_object($result)) return $result;
 
-        $data->posts = $this->repository->displayList($data->id, $page);
+        $this->data->posts = $this->repository->displayList($this->data->id, $page);
 
-
-        return view('default/categories/category', ['data' => $data, 'home_page_data' => $this->home_page_data]);
+        return view('default/categories/category', ['data' => $this->data]);
     }
 
 }

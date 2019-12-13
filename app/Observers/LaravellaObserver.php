@@ -9,6 +9,8 @@
 namespace App\Observers;
 
 
+use App\Http\Models\Category;
+
 class LaravellaObserver
 {
     protected $locale;
@@ -20,5 +22,7 @@ class LaravellaObserver
         $this->locale = get_current_lang();
         $this->request = app('request');
     }
+
+
 
 }

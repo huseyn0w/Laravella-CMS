@@ -13,7 +13,7 @@ class CPanelPagesSeeder extends Seeder
     public function run()
     {
         $home_page_custom_fields = array (
-            'en' => array(
+            'en' => array (
                 'headline' =>
                     array (
                         'value' => 'Laravella CMS',
@@ -22,7 +22,7 @@ class CPanelPagesSeeder extends Seeder
                     ),
                 'headline-image' =>
                     array (
-                        'value' => env('APP_URL').'filemanager/images/5d9ca59b897a2.jpg',
+                        'value' => env('APP_URL').'/filemanager/images/5d9ca59b897a2.jpg',
                         'type' => 'image',
                         'admin_label' => 'Headline Image',
                     ),
@@ -58,7 +58,7 @@ class CPanelPagesSeeder extends Seeder
                     ),
                 'about-big-text' =>
                     array (
-                        'value' => 'Authors description will be here',
+                        'value' => '<p>Authors description will be here</p>',
                         'type' => 'textarea',
                         'admin_label' => 'About Full Description',
                     ),
@@ -72,7 +72,7 @@ class CPanelPagesSeeder extends Seeder
                                     array (
                                         'author-image' =>
                                             array (
-                                                'value' => env('APP_URL').'filemanager/images/5dbb536d16ce8.JPG',
+                                                'value' => env('APP_URL').'/filemanager/images/5dbb536d16ce8.JPG',
                                                 'type' => 'image',
                                                 'admin_label' => 'Author Image',
                                             ),
@@ -104,7 +104,7 @@ class CPanelPagesSeeder extends Seeder
                                     array (
                                         'author-image' =>
                                             array (
-                                                'value' => env('APP_URL').'filemanager/images/5db367b4093af.jpg',
+                                                'value' => env('APP_URL').'/filemanager/images/5db367b4093af.jpg',
                                                 'type' => 'image',
                                                 'admin_label' => 'Author Image',
                                             ),
@@ -134,8 +134,9 @@ class CPanelPagesSeeder extends Seeder
                                     ),
                             ),
                     ),
+
             ),
-            'ru' => array(
+            'ru' => array (
                 'headline' =>
                     array (
                         'value' => 'Laravella CMS',
@@ -144,7 +145,7 @@ class CPanelPagesSeeder extends Seeder
                     ),
                 'headline-image' =>
                     array (
-                        'value' => env('APP_URL').'filemanager/images/5d9ca59b897a2.jpg',
+                        'value' => env('APP_URL').'/filemanager/images/5d9ca59b897a2.jpg',
                         'type' => 'image',
                         'admin_label' => 'Заголовок изображения',
                     ),
@@ -194,7 +195,7 @@ class CPanelPagesSeeder extends Seeder
                                     array (
                                         'author-image' =>
                                             array (
-                                                'value' => env('APP_URL').'filemanager/images/5dbb536d16ce8.JPG',
+                                                'value' => env('APP_URL').'/filemanager/images/5dbb536d16ce8.JPG',
                                                 'type' => 'image',
                                                 'admin_label' => 'Изображение автора',
                                             ),
@@ -226,7 +227,7 @@ class CPanelPagesSeeder extends Seeder
                                     array (
                                         'author-image' =>
                                             array (
-                                                'value' => env('APP_URL').'filemanager/images/5db367b4093af.jpg',
+                                                'value' => env('APP_URL').'/filemanager/images/5db367b4093af.jpg',
                                                 'type' => 'image',
                                                 'admin_label' => 'Изображение автора',
                                             ),
@@ -256,6 +257,7 @@ class CPanelPagesSeeder extends Seeder
                                     ),
                             ),
                     ),
+
             )
         );
 

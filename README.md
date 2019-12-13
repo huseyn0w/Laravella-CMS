@@ -12,8 +12,8 @@ See deployment for notes on how to deploy the project on a live system.
 ## Installation instructions
 1) Clone project to your server
 2) Rename .env.example to .env and put all necessary information (Database, API keys and etc.)
-3) Give CHMOD 777 to public folder
-4) Run SITE_URL/install.php
+3) Run 'composer install' to install all necessary packages
+4) Run 'artisan:migrate --seed' or 'php artisan:migrate --seed' to migrate all necessary database migrations and seeds files.
 5) Enjoy =)
 
 
@@ -30,10 +30,10 @@ Password: laravelladmin123
 <pre>
 'languages_list' => [
     'en'  => ['title' => 'English', 'icon' => env('APP_URL').'/admin/img/flags/en.png'],
-    'ru'  => ['title' => 'Русский', 'icon' => env('APP_URL').'/admin/img/flags/ru.png'],
-    'est' => ['title' => 'Eesti',   'icon' => env('APP_URL').'/admin/img/flags/et.png']
+    'ru'  => ['title' => 'Русский', 'icon' => env('APP_URL').'/admin/img/flags/ru.png']
 ]
 </pre>
+
 2) Open resourses/lang/ folder to manage language localization string files.
 
 

@@ -15,7 +15,7 @@ class UserController extends BaseController
         $this->repository = $repository;
     }
 
-    public function index()
+    public function yourProfile()
     {
         $username = get_logged_user_username();
         $user = $this->repository->getBy('username', $username);

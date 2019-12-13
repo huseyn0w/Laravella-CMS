@@ -39,6 +39,7 @@ endif;
 
 $logo_url = get_site_options('logo_url');
 
+$current_lang = get_current_lang_prefix();
 
 
 ?>

@@ -21,7 +21,7 @@ class Category extends Model implements TranslatableContract
         'title',
         'slug',
         'parent_category_id',
-        'autor_id',
+        'author_id',
         'description',
         'meta_keywords',
         'meta_description'

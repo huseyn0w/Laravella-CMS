@@ -59,7 +59,7 @@ class UserRepository extends BaseRepository
                 $newData['avatar'] = $this->uploadImage($updatedRequest);
             }
 
-            $user = $this->model::where('id', $this->logged_user_id)->findOrFail();
+            $user = $this->model::findOrFail($this->logged_user_id);
             $user->update($newData);
             $result = true;
 

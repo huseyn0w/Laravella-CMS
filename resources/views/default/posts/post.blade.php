@@ -21,6 +21,9 @@
 
     if(is_logged_in()) $user_id = \Auth()->user()->id;
 
+    $current_lang = get_current_lang_prefix();
+
+
 
 @endphp
 
@@ -35,7 +38,7 @@
                 <h1 class="text-white mb-20">{{$data->title}}</h1>
                 <ul class="breadcrumbs">
                     <li><a href="{{env('APP_URL')}}">{{$home_page_data->title}}</a><span class="lnr lnr-arrow-right"></span></li>
-                    <li><a href="{{env('APP_URL').'category/'.$category_slug}}">{{$category_title}}</a><span class="lnr lnr-arrow-right"></span></li>
+                    <li><a href="{{env('APP_URL').'/'.$current_lang.'category/'.$category_slug}}">{{$category_title}}</a><span class="lnr lnr-arrow-right"></span></li>
                     <li><span>{{$data->title}}</span></li>
                 </ul>
             </div>

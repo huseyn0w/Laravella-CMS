@@ -12,7 +12,7 @@ $copyright = $site_options->copyright;
 $linkedin_url = $site_options->linkedin_url;
 $github_url = $site_options->github_url;
 
-$languages = get_languages();
+$languages = get_translation_links();
 
 ?>
 <!-- start footer Area -->
@@ -32,7 +32,11 @@ $languages = get_languages();
                <ul class="languages-list">
                    @foreach($languages as $code => $language)
                        <li>
-                           <a href="{{route('lang_route', ['locale' => $code])}}">{{$language['title']}}</a>
+                           @if($code === get_current_lang())
+                               <span>{{$language['title']}}</span>
+                           @else
+                           <a href="{{$language['url']}}">{{$language['title']}}</a>
+                           @endif
                        </li>
                    @endforeach
                </ul>

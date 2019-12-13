@@ -96,7 +96,7 @@
                                         <label>@lang('cpanel/posts.category')</label>
                                         <select name="category[]" multiple class="form-control multiple_list" id="post_category">
                                         @foreach($categories_list as $category)
-                                            <option value="{{$category->id}}">{{$category->title}}</option>
+                                            <option value="{{$category->category_id}}">{{$category->title}}</option>
                                         @endforeach
                                         </select>
                                     </div>

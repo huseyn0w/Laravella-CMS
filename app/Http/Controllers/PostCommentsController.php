@@ -16,9 +16,9 @@ class PostCommentsController extends BaseController
 
     public function store(PostCommentsRequest $request)
     {
-        $data = $this->repository->create($request);
+        if($this->repository->create($request)) return back()->with('comment_added', true);
 
-        return back()->with('comment_added', true);
+        return false;
 
     }
 

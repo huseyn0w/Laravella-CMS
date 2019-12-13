@@ -138,4 +138,10 @@ class CPanelBaseController extends Controller
         return;
     }
 
+    protected function setLang($lang)
+    {
+        \Session::put('locale',$lang);
+        return redirect()->refresh();
+    }
+
 }

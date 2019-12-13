@@ -17,13 +17,15 @@ class PostsController extends BaseController
         $this->repository = $repository;
     }
 
-    public function index(string $post_slug)
+
+
+    public function index(string $post_slug, string $locale = null)
     {
-        $data = $this->repository->getBy('slug', $post_slug);
+        $result = parent::index($post_slug, $locale);
 
-//        dd($data);
+        if(is_object($result)) return $result;
 
-        return view('default/posts/post', ['data' => $data, 'home_page_data' => $this->home_page_data]);
+        return view('default/posts/post', ['data' => $this->data]);
     }
 
     public function handleLike(LikesRequest $request)

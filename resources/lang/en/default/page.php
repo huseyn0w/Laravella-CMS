@@ -26,5 +26,6 @@ return [
     'found_for'               => 'found for',
     'search_placeholder'      => 'Type keyword here and press ENTER',
     'search_result_headline'  => 'Results for',
-    'search_nothing_found'    => 'Nothing found'
+    'search_nothing_found'    => 'Nothing found',
+    'contact_message_success' => 'Your message has been sent! We will get back to you soon, thank you!'
 ];

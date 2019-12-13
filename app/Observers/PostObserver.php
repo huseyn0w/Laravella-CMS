@@ -9,31 +9,6 @@ class PostObserver extends LaravellaObserver
 {
 
     /**
-     * Handle the post "creating" event.
-     *
-     * @param  \App\Http\Models\Post $post
-     * @return void
-     */
-    public function creating(Post $post)
-    {
-        $post->preview = clean($this->request->preview);
-        $post->content = clean($this->request->content);
-
-    }
-
-    /**
-     * Handle the post "created" event.
-     *
-     * @param  \App\Http\Models\Post $post
-     * @return void
-     */
-    public function created(Post $post)
-    {
-        $this->attachCategory($post);
-    }
-
-
-    /**
      * Handle the post "saving" event.
      *
      * @param  \App\Http\Models\Post  $post
@@ -41,22 +16,24 @@ class PostObserver extends LaravellaObserver
      */
     public function saving(Post $post)
     {
-        $post->preview = clean($this->request->preview);
-        $post->content = clean($this->request->content);
+        if(!is_null($post->post_id))
+        {
+            $this->detachCategory($post);
+            $this->attachCategory($post);
+        }
     }
 
+
     /**
-     * Handle the post "saved" event.
+     * Handle the post "created" event.
      *
      * @param  \App\Http\Models\Post  $post
      * @return void
      */
-    public function saved(Post $post)
+    public function created(Post $post)
     {
-        $this->dettachCategory($post);
         $this->attachCategory($post);
     }
-
 
     /**
      * Handle the post "force deleted" event.
@@ -64,22 +41,24 @@ class PostObserver extends LaravellaObserver
      * @param  \App\Http\Models\Post  $post
      * @return void
      */
-    public function forceDeleted(Post $post)
+    public function forceDeleted($post)
     {
-        $this->dettachCategory($post);
+        $this->detachCategory($post);
     }
 
-    private function attachCategory(Post $post)
+    private function attachCategory($post)
     {
         $categories_list = $this->request->category;
+//        dd($categories_list);
         $category = Category::find($categories_list);
         $post->categories()->attach($category);
     }
 
-    private function dettachCategory(Post $post)
+    private function detachCategory($post)
     {
-//        dd('salam');
         $post->categories()->detach();
     }
+
+
 
 }

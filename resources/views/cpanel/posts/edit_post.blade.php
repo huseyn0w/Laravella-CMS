@@ -20,7 +20,9 @@
 
         $categories_ids = [];
 
-        foreach($entity->categories as $category) $categories_ids[] = $entity->id;
+
+        foreach($entity->categories as $category) $categories_ids[] = $category->id;
+
 
 
     @endphp
@@ -58,7 +60,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">@lang('cpanel/posts.edit_headline')</h4>
-                            <p>@lang('cpanel/posts.url_preview') <strong><a href="{{env('APP_URL')}}posts/{{ old('slug',$entity->slug) }}">{{env('APP_URL')}}posts/{{ old('slug',$entity->slug) }}</a></strong></p>
+                            <p>@lang('cpanel/posts.url_preview') <strong><a href="{{env('APP_URL')}}/posts/{{ old('slug',$entity->slug) }}">{{env('APP_URL')}}/posts/{{ old('slug',$entity->slug) }}</a></strong></p>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -113,7 +115,7 @@
                                         <label>@lang('cpanel/posts.category')</label>
                                         <select name="category[]" multiple class="form-control category_list multiple_list" id="post_category">
                                             @foreach($categories_list as $category)
-                                                <option value="{{$category->category_id}}" {{$entity->id === $category->category_id ? 'selected': null}} >{{$category->title}}</option>
+                                                <option value="{{$category->category_id}}" {{ in_array($category->category_id, $categories_ids) ? 'selected': null}} >{{$category->title}}</option>
                                             @endforeach
                                         </select>
                                     </div>

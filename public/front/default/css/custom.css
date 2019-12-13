@@ -1,5 +1,9 @@
-.footer-area{
+.navbar-nav a.footer-area{
     padding: 50px 0;
+}
+
+.navbar-nav a{
+    text-transform: none;
 }
 
 .thumb img{
@@ -27,6 +31,10 @@
 
 .single-travel{
     margin-bottom: 30px;
+}
+
+.section-gap {
+    padding: 120px 0 100px;
 }
 
 .addthis_inline_share_toolbox{

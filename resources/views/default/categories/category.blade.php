@@ -11,6 +11,8 @@
 
     $category_posts = $data->posts;
 
+    $current_lang = get_current_lang_prefix();
+
 
 @endphp
 
@@ -55,7 +57,7 @@
                                     <img src="{{$post_thumbnail}}" alt="{{$post->title}}">
                                 </div>
                                 <div class="detail">
-                                    <a href="{{env('APP_URL')}}posts/{{$post->slug}}"><h4 class="pb-20">{{$post->title}}</h4></a>
+                                    <a href="{{env('APP_URL')}}/{{$current_lang}}posts/{{$post->slug}}"><h4 class="pb-20">{{$post->title}}</h4></a>
                                     {!! $post->preview !!}
                                     <p class="footer pt-20">
                                         <i class="fa fa-heart-o" aria-hidden="true"></i>

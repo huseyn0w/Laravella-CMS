@@ -239,7 +239,9 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
         $this->locale = get_current_lang();
 
+
         $searchColumn = $this->getSearchedTable($param);
+
 
         if(is_null($searchColumn)) throwAbort();
 
@@ -248,7 +250,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
                 ->select($this->select_fields_ready_array)
                 ->where($this->translated_table.'.locale', $this->locale)
                 ->where($searchColumn.'.'.$param, $value)
-                ->with('author')->first();
+                ->with('author')->firstOrFail();
 
         } catch (QueryException $e) {
             dd($e->getMessage());
@@ -260,7 +262,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
             dd($e->getMessage());
             throwAbort();
         }
-//        dd($data);
+
 
         return $data;
     }
@@ -274,7 +276,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
         try {
 
-            $instance = $this->model::findOrFail($id);
+            $instance = $this->model::find($id);
             $instance->update($request->all());
 
             if($instance) $result = true;
