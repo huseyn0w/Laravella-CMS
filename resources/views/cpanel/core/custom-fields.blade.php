@@ -20,12 +20,12 @@ if(isset ($entity->custom_fields)  && !empty($entity->custom_fields)){
     <div class="col-md-12">
         <div class="form-group">
             <h4>@lang('cpanel/custom-fields.headline')</h4>
-            <button type="button" data-toggle="modal" data-target="#custom_text_modal" class="btn custom-text">@lang('cpanel/custom-fields.type_text')</button>
-            <button type="button" data-toggle="modal" data-target="#custom_textarea_modal" class="btn custom-textarea">@lang('cpanel/custom-fields.type_textarea')</button>
-            <button type="button" data-toggle="modal" data-target="#custom_image_modal" class="btn custom-image">@lang('cpanel/custom-fields.type_image')</button>
-            <button type="button" data-toggle="modal" data-target="#custom_link_modal" class="btn custom-link">@lang('cpanel/custom-fields.type_link')</button>
-            <button type="button" data-toggle="modal" data-target="#custom_category_modal" class="btn custom-link">@lang('cpanel/custom-fields.type_category')</button>
-            <button type="button" id="custom_repeater" class="btn custom-repeater">@lang('cpanel/custom-fields.type_repeater')</button>
+            <button type="button" data-toggle="modal" data-target="#custom_text_modal" class="btn custom-field-btn custom-text">@lang('cpanel/custom-fields.type_text')</button>
+            <button type="button" data-toggle="modal" data-target="#custom_textarea_modal" class="btn custom-field-btn custom-textarea">@lang('cpanel/custom-fields.type_textarea')</button>
+            <button type="button" data-toggle="modal" data-target="#custom_image_modal" class="btn custom-field-btn custom-image">@lang('cpanel/custom-fields.type_image')</button>
+            <button type="button" data-toggle="modal" data-target="#custom_link_modal" class="btn custom-field-btn custom-link">@lang('cpanel/custom-fields.type_link')</button>
+            <button type="button" data-toggle="modal" data-target="#custom_category_modal" class="btn custom-field-btn custom-link">@lang('cpanel/custom-fields.type_category')</button>
+            <button type="button" id="custom_repeater" class="btn custom-field-btn custom-repeater">@lang('cpanel/custom-fields.type_repeater')</button>
         </div>
     </div>
 </div>
@@ -176,7 +176,7 @@ if(isset ($entity->custom_fields)  && !empty($entity->custom_fields)){
 
 
 
-                            <button type="button" class="btn btn-info duplicate_group">Add row</button>
+                            <button type="button" class="btn btn-info duplicate_group">@lang('cpanel/custom-fields.add_row')</button>
                         </div>
                     @elseif($item->type === "text")
                         <div class="row inputRow">

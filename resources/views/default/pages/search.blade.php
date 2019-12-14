@@ -6,6 +6,10 @@
  * Date: 15.11.2019
  * Template Name: "Search Page";
  */
+
+
+$current_lang = get_current_lang_prefix();
+
 ?>
 @extends(env('TEMPLATE_NAME').'/index')
 
@@ -75,13 +79,13 @@
                                 <div class="single-list flex-row d-flex">
                                     <div class="search-item-detail">
                                         @if($searchData['type'] === "post")
-                                            <a href="{{env('APP_URL').'posts/'.$item->slug}}"><h4 class="pb-20">{{$item->title}}</h4></a>
+                                            <a href="{{env('APP_URL').'/'.$current_lang.'posts/'.$item->slug}}"><h4 class="pb-20">{{$item->title}}</h4></a>
                                         @elseif($searchData['type'] === "page")
-                                            <a href="{{env('APP_URL').$item->slug}}"><h4 class="pb-20">{{$item->title}}</h4></a>
+                                            <a href="{{env('APP_URL').'/'.$item->slug}}"><h4 class="pb-20">{{$item->title}}</h4></a>
                                         @elseif($searchData['type'] === "user")
-                                            <a href="{{env('APP_URL').'users/'.$item->username}}"><h4 class="pb-20">{{$item->username}}</h4></a>
+                                            <a href="{{env('APP_URL').$current_lang.'users/'.$item->username}}"><h4 class="pb-20">{{$item->username}}</h4></a>
                                         @elseif($searchData['type'] === "category")
-                                            <a href="{{env('APP_URL').'category/'.$item->slug}}"><h4 class="pb-20">{{$item->title}}</h4></a>
+                                            <a href="{{env('APP_URL').'/'.$current_lang.'category/'.$item->slug}}"><h4 class="pb-20">{{$item->title}}</h4></a>
                                         @endif
                                     </div>
                                 </div>

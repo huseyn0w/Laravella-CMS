@@ -27,8 +27,6 @@ function lang_exist($code)
 {
     $languages = get_languages();
 
-//    dd($languages);
-
     if(array_key_exists($code,$languages)) return true;
 
     return false;
@@ -86,9 +84,9 @@ function get_post_categories_list($fields = []):object
 
 }
 
-    function get_post_list($fields = []):object
+function get_post_list($fields = []):object
 {
-        $locale = get_current_lang();
+    $locale = get_current_lang();
 
     if(empty($fields)) $fields = ['posts.id', 'post_translations.title', 'post_translations.slug'];
     $posts = Post::join('post_translations', 'posts.id', '=','post_translations.post_id')
@@ -402,7 +400,7 @@ function render_menu($menu_data, $params)
     $html = "";
 
 
-    $html .= $menu_type === "list" ? "<ul class='$menu_class'>" : "<div class=".$menu_class.">";
+    $html .= $menu_type === "list" ? "<ul class='$menu_class' id='$menu_id'>" : "<div class=".$menu_class." id=".$menu_id.">";
 
 
     $locale = get_current_lang();
@@ -529,10 +527,7 @@ function get_taxonomy_name()
 
 function get_field($field_key, $custom_fields_array)
 {
-    if(!is_array($custom_fields_array) || empty($custom_fields_array)) return false;
-
-    if(!isset($custom_fields_array[$field_key]['value'])) return;
-
+    if(!is_array($custom_fields_array) || empty($custom_fields_array) || !isset($custom_fields_array[$field_key]['value'])) return false;
 
     return $custom_fields_array[$field_key]['value'];
 
@@ -904,6 +899,7 @@ function get_translation_links()
     {
 
         $result[$key]['title'] = $value['title'];
+        $result[$key]['icon'] = $value['icon'];
 
         if($key === get_current_lang())
         {

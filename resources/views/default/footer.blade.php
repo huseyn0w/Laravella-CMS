@@ -32,10 +32,13 @@ $languages = get_translation_links();
                <ul class="languages-list">
                    @foreach($languages as $code => $language)
                        <li>
+                           <img src="{{$language['icon']}}" alt="{{$language['title']}}">
                            @if($code === get_current_lang())
                                <span>{{$language['title']}}</span>
                            @else
-                           <a href="{{$language['url']}}">{{$language['title']}}</a>
+                           <a href="{{$language['url']}}">
+                               <span>{{$language['title']}}</span>
+                           </a>
                            @endif
                        </li>
                    @endforeach

@@ -30,7 +30,10 @@ $languages = get_languages();
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         @foreach($languages as $code => $language)
-                            <a href="{{route('lang_route', ['locale' => $code])}}" class="dropdown-item">{{$language['title']}}</a>
+                            <a href="{{route('lang_route', ['locale' => $code])}}" class="dropdown-item">
+                                <img src="{{$language['icon']}}" alt="{{$language['title']}}" />
+                                <span>{{$language['title']}}</span>
+                            </a>
                         @endforeach
                     </div>
                 </li>

@@ -160,5 +160,5 @@
 
 
 <script>
-    var site_url = "<?php echo env('APP_URL'); ?>";
+    var site_url = "<?php echo env('APP_URL'); ?>/";
 </script>

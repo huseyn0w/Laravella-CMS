@@ -5,6 +5,10 @@ textarea.form-control{
     height:auto;
 }
 
+.custom-field-btn{
+    margin-bottom: 15px;
+}
+
 .form-check .form-checkbox .form-check-sign::before, .form-check .form-checkbox .form-check-sign::after{
     top: 50%;
     margin-top: -11px;
