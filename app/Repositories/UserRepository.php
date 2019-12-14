@@ -59,7 +59,7 @@ class UserRepository extends BaseRepository
 
         if($request->hasFile('avatar')){
             $data = $request->except(['avatar']);
-            $data['avatar'] = uploadImage($request);
+            $data['avatar'] = uploadImage($request->avatar);
         }
 
         $user = $this->model->findOrFail($id);

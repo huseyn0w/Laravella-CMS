@@ -10,6 +10,7 @@ class PostCommentsController extends BaseController
 {
     public function __construct(PostCommentsRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 

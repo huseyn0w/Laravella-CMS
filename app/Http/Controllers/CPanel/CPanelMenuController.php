@@ -15,7 +15,6 @@ class CPanelMenuController extends CPanelBaseController
     {
         parent::__construct();
         $this->repository = $repository;
-
         $this->post_fields = ['posts.id', 'post_translations.title', 'post_translations.slug'];
         $this->pages_fields = ['pages.id', 'page_translations.title', 'page_translations.slug'];
         $this->categories_fields = ['category_translations.category_id', 'category_translations.title', 'category_translations.slug'];

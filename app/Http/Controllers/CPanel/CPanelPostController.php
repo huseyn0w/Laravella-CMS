@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 class CPanelPostController extends CPanelBaseController
 {
     private $users_list;
-    private $categories_list;
 
     public function __construct(CPanelPostRepository $repository)
     {

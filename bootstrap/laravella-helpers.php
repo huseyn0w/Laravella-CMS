@@ -982,11 +982,11 @@ function deleteDirectory($dir)
 }
 
 
-function uploadImage($request)
+function uploadImage($file)
 {
     $logged_user_id = get_logged_user_id();
 
-    $imageName = time().'.'.$request->avatar->getClientOriginalName();
+    $imageName = time().'.'.$file->getClientOriginalName();
 
     $dir = public_path('uploads/avatars/'.$logged_user_id);
 
@@ -998,7 +998,7 @@ function uploadImage($request)
         $path = public_path('uploads/avatars/'.$logged_user_id.'/'.$imageName);
 
 
-        Image::make($request->file('avatar'))
+        Image::make($file)
             ->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save($path);

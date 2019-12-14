@@ -18,21 +18,19 @@ class BaseController extends Controller
     protected function setLang($lang)
     {
         \Session::put('locale',$lang);
+
         return redirect()->refresh();
     }
 
     protected function index(string $slug, string $locale = null)
     {
-        $result = true;
-
         if(is_null($locale)) $locale = get_current_lang();
 
         $modified_slug = $this->modifyTranslatedSlug($locale, $slug);
 
         if(!is_string($modified_slug))
         {
-//            dd($modified_slug);
-                return $modified_slug;
+            return $modified_slug;
         }
 
         $this->data = $this->repository->getBy('slug', $modified_slug);

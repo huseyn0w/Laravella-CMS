@@ -10,9 +10,6 @@ use Hash;
 
 class UserController extends BaseController
 {
-    private $logged_user_id;
-
-    private $username;
 
     public function __construct(UserRepository $repository)
     {
