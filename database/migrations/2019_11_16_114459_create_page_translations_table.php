@@ -31,6 +31,7 @@ class CreatePageTranslationsTable extends Migration
             $table->string('meta_keywords');
             $table->timestamps();
 
+            $table->unique(['page_id','locale']);
             $table->unique(['locale','title', 'slug']);
             $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
         });

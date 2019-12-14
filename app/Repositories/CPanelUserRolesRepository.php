@@ -23,29 +23,24 @@ class CPanelUserRolesRepository extends BaseRepository
     {
         $data = $this->prepare_role_data($request);
 
-        $result = false;
-        if($this->model::create($data)) $result = true;
-
-        return $result;
+        return parent::create($data);
     }
 
-    public function update($id,$request)
+    public function update($id, $request)
     {
-        $data = $this->prepare_role_data($request);
+        $final_request = $this->prepare_role_data($request);
 
-        $result = $this->model::where('id', $id)->update($data);
-
-        return $result;
+        return parent::update($id, $final_request);
     }
 
 
     private function prepare_role_data($request)
     {
+
         $data = [];
 
         $all_permissions = get_user_role_permissions();
 
-        $data['name'] = $request['name'];
         foreach($all_permissions as $permission){
             $data['permissions'][$permission->name] = 0;
         }
@@ -57,10 +52,9 @@ class CPanelUserRolesRepository extends BaseRepository
             }
         }
 
+        $request->merge(['permissions' => json_encode($data['permissions'])]);
 
-        $data['permissions'] = json_encode($data['permissions']);
 
-        return $data;
-
+        return $request;
     }
 }

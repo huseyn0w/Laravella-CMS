@@ -956,3 +956,56 @@ function get_current_lang_prefix()
 
     return $current_lang;
 }
+
+function deleteDirectory($dir)
+{
+    if (!file_exists($dir)) {
+        return true;
+    }
+
+    if (!is_dir($dir)) {
+        return unlink($dir);
+    }
+
+    foreach (scandir($dir) as $item) {
+        if ($item == '.' || $item == '..') {
+            continue;
+        }
+
+        if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
+            return false;
+        }
+
+    }
+
+    return rmdir($dir);
+}
+
+
+function uploadImage($request)
+{
+    $logged_user_id = get_logged_user_id();
+
+    $imageName = time().'.'.$request->avatar->getClientOriginalName();
+
+    $dir = public_path('uploads/avatars/'.$logged_user_id);
+
+
+    if(deleteDirectory($dir))
+    {
+        mkdir($dir);
+
+        $path = public_path('uploads/avatars/'.$logged_user_id.'/'.$imageName);
+
+
+        Image::make($request->file('avatar'))
+            ->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($path);
+
+        return asset('uploads/avatars/'.$logged_user_id.'/'.$imageName);
+    }
+
+    return false;
+
+}

@@ -31,7 +31,6 @@ class PostCommentsRequest extends FormRequest
         if($route_name === "store_post_comments")
         {
             $rules = [
-                'g-recaptcha-response' => 'required|captcha',
                 'post_id' => 'required|integer',
                 'parent_id' => 'nullable|integer',
                 'comment' => 'required|string'

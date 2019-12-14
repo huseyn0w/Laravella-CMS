@@ -19,14 +19,12 @@ class CPanelSiteOptionsController extends CPanelBaseController
     public function index()
     {
         $site_options = $this->repository->first();
-
         return view('cpanel.settings.site-options', compact("site_options"));
     }
 
     public function store(ValidateSiteOptions $request)
     {
-        $result = $this->repository->update($request);
-
+        $result = $this->repository->update(1, $request);
         return back()->with('message', $result);
     }
 

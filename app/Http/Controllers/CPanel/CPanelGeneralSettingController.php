@@ -25,7 +25,7 @@ class CPanelGeneralSettingController extends CPanelBaseController
 
     public function store(ValidateGeneralSettings $request)
     {
-        $result = $this->repository->update($request);
+        $result = $this->repository->update(1, $request);
 
         return back()->with('message', $result);
     }

@@ -42,7 +42,7 @@ class CPanelPageController extends CPanelBaseController
 
     public function editPage($id)
     {
-
+//        dd('salam');
         $this->result = $this->repository->getBy('id', $id);
 
         if(is_null($this->result)) return $this->addPage();

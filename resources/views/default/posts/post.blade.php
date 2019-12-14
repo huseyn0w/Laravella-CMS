@@ -237,7 +237,6 @@
                                     </div>
                                     <input type="hidden" name="parent_id" id="comment_parent_id" value="">
                                     <input type="hidden" name="post_id" value="{{$data->id}}">
-                                    {!! app('captcha')->render(); !!}
                                     <button type="submit" class="primary-btn mt-20">@lang('default/post.comment')</button>
                                 </form>
                             @else

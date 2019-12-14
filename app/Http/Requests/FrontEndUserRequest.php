@@ -28,7 +28,6 @@ class FrontEndUserRequest extends FormRequest
         $userId = get_logged_user_id();
 
         $rules = [
-            'g-recaptcha-response'          => 'required|captcha',
             'name'                          => 'nullable|string',
             'surname'                       => 'nullable|string',
             'country'                       => 'nullable|string',

@@ -42,7 +42,6 @@ class PostRepository extends BaseRepository
     {
         parent::__construct();
         $this->model = $model;
-
         $this->translated_table_model = new PostTranslation;
     }
 

@@ -37,6 +37,8 @@ class BaseController extends Controller
 
         $this->data = $this->repository->getBy('slug', $modified_slug);
 
+        if(is_null($this->data)) throwNotFound();
+
         \Session::put('slug', $slug);
 
         return true;

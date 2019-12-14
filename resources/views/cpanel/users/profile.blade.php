@@ -280,7 +280,7 @@
 @push('finalscripts')
     <script src="{{asset('admin')}}/js/user.js"></script>
     <script>
-        var site_url = "<?php echo env('APP_URL'); ?>";
+        var site_url = "<?php echo env('APP_URL'); ?>/";
     </script>
     <script src="{{asset('admin')}}/js/thumbnail.js"></script>
 @endpush

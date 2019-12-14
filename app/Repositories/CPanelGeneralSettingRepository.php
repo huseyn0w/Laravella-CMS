@@ -21,22 +21,5 @@ class CPanelGeneralSettingRepository extends BaseRepository
         $this->model = $model;
     }
 
-    public function update($updatedRequest, $id = 1)
-    {
-
-        try {
-            $newData = $updatedRequest->except(['_token']);
-            $settings_column = $this->model::firstOrFail();
-            $settings_column->update($newData);
-            $result = true;
-
-        } catch (QueryException $e) {
-            $result = $e->errorInfo;
-
-        }
-
-        return $result;
-    }
-
 
 }

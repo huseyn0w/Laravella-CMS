@@ -14,6 +14,7 @@ class CreateSiteOptionsTable extends Migration
     public function up()
     {
         Schema::create('site_options', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->char('logo_url', 100);
             $table->string('copyright', 200);
             $table->char('github_url',100);

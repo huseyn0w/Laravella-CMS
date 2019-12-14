@@ -186,7 +186,7 @@
     <script src="{{asset('')}}/vendor/laravel-filemanager/js/lfm.js"></script>
     <script src="{{asset('admin')}}/js/post.js"></script>
     <script>
-        var site_url = "<?php echo env('APP_URL'); ?>";
+        var site_url = "<?php echo env('APP_URL'); ?>/";
     </script>
     <script src="{{asset('admin')}}/js/thumbnail.js"></script>
 @endpush

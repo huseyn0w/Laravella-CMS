@@ -27,6 +27,7 @@ class User extends Authenticatable
         'username',
         'city',
         'country',
+        'avatar',
         'about_me',
         'linkedin_url',
         'xing_url',

@@ -64,25 +64,11 @@ class CPanelUserRepository extends BaseRepository
 
     public function update($id, $updatedRequest)
     {
-        try {
-
-            $newData = $updatedRequest->except(["_token", "_method", "password_confirmation"]);
-//            $newData['password'] = Hash::make($updatedRequest->password);
-//
-            if(empty($updatedRequest->password)){
-                $newData = $updatedRequest->except(["_token", "_method", "password", "password_confirmation"]);
-            }
-
-            $user = $this->model::findOrFail($id);
-
-            if($user->update($newData)) $result = true;
-
-
-        } catch (QueryException $e) {
-            $result = $e->errorInfo;
+        $updatedRequest->request->remove('password_confirmation');
+        if(empty($updatedRequest->password) || is_null($updatedRequest->password)){
+            $updatedRequest->request->remove('password');
         }
-
-        return $result;
+        return parent::update($id, $updatedRequest);
     }
 
 

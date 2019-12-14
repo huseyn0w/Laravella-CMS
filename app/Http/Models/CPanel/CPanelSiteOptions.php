@@ -10,8 +10,6 @@ class CPanelSiteOptions extends Model
     use Cachable;
 
     public $timestamps = false;
-    protected $primaryKey = null;
-    public $incrementing = false;
 
     protected $table = 'site_options';
 

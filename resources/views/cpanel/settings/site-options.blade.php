@@ -94,7 +94,7 @@
 
 @push('finalscripts')
     <script>
-        var site_url = "<?php echo env('APP_URL'); ?>";
+        var site_url = "<?php echo env('APP_URL'); ?>/";
     </script>
     <script src="{{asset('')}}/vendor/laravel-filemanager/js/lfm.js"></script>
     <script src="{{asset('admin')}}/js/custom-fields/custom-image.js"></script>

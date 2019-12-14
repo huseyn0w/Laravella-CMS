@@ -25,22 +25,14 @@ class PostCommentsRepository extends BaseRepository
 
         $comment_status = 0;
 
-        $user_id = Auth()->user()->id;
+        $user_id = get_logged_user_id();
+
         if(Auth()->user()->role->id === 1) $comment_status = 1;
 
-        $data = $request->except('_token', 'g-recaptcha-response');
+        $request->merge(['status' => $comment_status, 'user_id' => $user_id]);
 
-        $data['status'] = $comment_status;
-        $data['user_id'] = $user_id;
+        return parent::create($request);
 
-
-        try{
-            $comment_saved = $this->model::create($data);
-            if($comment_saved) return true;
-        }
-        catch (\Exception $e){
-            abort(403, trans('cpanel/controller.problem_occurred'));
-        }
     }
 
     public function delete($request)

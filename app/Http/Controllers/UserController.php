@@ -10,8 +10,13 @@ use Hash;
 
 class UserController extends BaseController
 {
+    private $logged_user_id;
+
+    private $username;
+
     public function __construct(UserRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 
@@ -25,7 +30,8 @@ class UserController extends BaseController
 
     public function update(FrontEndUserRequest $request)
     {
-        $this->repository->updateUser($request);
+        $user_id = get_logged_user_id();
+        $this->repository->update($user_id, $request);
 
         return back()->with('message', " ");
     }
@@ -46,7 +52,7 @@ class UserController extends BaseController
 
     public function show($username)
     {
-        $user = $this->repository->getBy('username',$username);
+        $user = $this->repository->getBy('username', $username);
         return view('default.users.profile', compact('user'));
     }
 }

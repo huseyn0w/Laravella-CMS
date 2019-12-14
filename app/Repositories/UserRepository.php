@@ -44,33 +44,6 @@ class UserRepository extends BaseRepository
     }
 
 
-    public function updateUser($updatedRequest)
-    {
-
-        $this->get_logged_user_id();
-
-
-        try {
-            $except_fields = ["_token", "_method","g-recaptcha-response"];
-
-            $newData = $updatedRequest->except($except_fields);
-
-            if($updatedRequest->hasFile('avatar')){
-                $newData['avatar'] = $this->uploadImage($updatedRequest);
-            }
-
-            $user = $this->model::findOrFail($this->logged_user_id);
-            $user->update($newData);
-            $result = true;
-
-        } catch (QueryException $e) {
-            return $this->throwAbort();
-        }
-
-        return $result;
-    }
-
-
     private function get_logged_user_id()
     {
         if(!is_logged_in()) return false;
@@ -79,66 +52,29 @@ class UserRepository extends BaseRepository
 
     }
 
-    private function uploadImage($request)
+    public function update(int $id, $request)
     {
-        $this->get_logged_user_id();
 
-        $imageName = time().'.'.$request->avatar->getClientOriginalName();
+        $data = $request->all();
 
-        $dir = public_path('uploads/avatars/'.$this->logged_user_id);
-
-
-        if($this->deleteDirectory($dir))
-        {
-            mkdir($dir);
-
-            $path = public_path('uploads/avatars/'.$this->logged_user_id.'/'.$imageName);
-
-
-            Image::make($request->file('avatar'))
-                ->resize(300, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($path);
-
-            return asset('uploads/avatars/'.$this->logged_user_id.'/'.$imageName);
+        if($request->hasFile('avatar')){
+            $data = $request->except(['avatar']);
+            $data['avatar'] = uploadImage($request);
         }
 
-        return false;
+        $user = $this->model->findOrFail($id);
 
+        $result = $user->update($data) ? true : false;
+
+        return $result;
     }
 
-    private function deleteDirectory($dir)
-    {
-        if (!file_exists($dir)) {
-            return true;
-        }
-
-        if (!is_dir($dir)) {
-            return unlink($dir);
-        }
-
-        foreach (scandir($dir) as $item) {
-            if ($item == '.' || $item == '..') {
-                continue;
-            }
-
-            if (!$this->deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
-                return false;
-            }
-
-        }
-
-        return rmdir($dir);
-    }
 
     public function changePassword($request)
     {
         if (!is_logged_in() || !(Hash::check($request->current_password, \Auth::user()->password))) return false;
 
         $this->get_logged_user_id();
-//        dd($this->logged_user_id);
-
-//        $new_password = bcrypt($request->password);
 
         $user = $this->model->findOrFail($this->logged_user_id);
         $result = $user->update(['password'=> $request->password]);

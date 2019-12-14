@@ -14,7 +14,7 @@
         <label>@lang('cpanel/general.add_translation')</label>
         <p>
             @foreach($translation_links as $title => $link)
-                <a href="{{env('APP_URL').$link}}" target="_blank">{{$title}}</a>
+                <a href="{{env('APP_URL').'/'.$link}}" target="_blank">{{$title}}</a>
             @endforeach
         </p>
     </div>

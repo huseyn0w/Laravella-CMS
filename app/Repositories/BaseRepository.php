@@ -41,7 +41,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
     protected function checkForTranslation($request)
     {
-        if(!empty($request->route('id')))
+        if($request->route('id') && !empty($request->route('id') && !is_null($this->translated_model)))
         {
             $this->model = $this->translated_model;
             $id = $request->route('id');
@@ -56,9 +56,9 @@ abstract class BaseRepository implements  BaseRepositoryInterface
     {
         $final_request = $this->checkForTranslation($request);
 
+
         try {
             $data = $final_request->all();
-//            dd($data);
             $result = $this->model::create($data);
         } catch (QueryException $e) {
             dd($e->getMessage());
@@ -234,7 +234,6 @@ abstract class BaseRepository implements  BaseRepositoryInterface
     public function get_translated_by($param, $value)
     {
 
-
         $this->select_fields_ready_array = $this->generateSelectFieldsArray($this->select_fields);
 
         $this->locale = get_current_lang();
@@ -250,7 +249,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
                 ->select($this->select_fields_ready_array)
                 ->where($this->translated_table.'.locale', $this->locale)
                 ->where($searchColumn.'.'.$param, $value)
-                ->with('author')->firstOrFail();
+                ->with('author')->first();
 
         } catch (QueryException $e) {
             dd($e->getMessage());
@@ -263,7 +262,6 @@ abstract class BaseRepository implements  BaseRepositoryInterface
             throwAbort();
         }
 
-
         return $data;
     }
 
@@ -273,7 +271,6 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
     public function update(int $id, $request)
     {
-
         try {
 
             $instance = $this->model::find($id);

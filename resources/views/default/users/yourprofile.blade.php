@@ -227,7 +227,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {!! app('captcha')->render(); !!}
                                     <button type="submit" class="genric-btn primary e-large pull-right">@lang('default/profile.updated_profile')</button>
                                     <div class="clearfix"></div>
                                 </div>
