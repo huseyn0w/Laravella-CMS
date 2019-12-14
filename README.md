@@ -11,7 +11,7 @@ See deployment for notes on how to deploy the project on a live system.
 
 ## Installation instructions
 1) Clone project to your server
-2) Rename .env.example to .env and put all necessary information (Database, API keys and etc.)
+2) Rename .env.example to .env and put all necessary information (Database, API keys, default language and etc.)
 3) Run 'composer install' to install all necessary packages
 4) Run 'artisan:migrate --seed' or 'php artisan:migrate --seed' to migrate all necessary database migrations and seeds files.
 5) Enjoy =)
@@ -69,7 +69,7 @@ Why it is easy to extend? Because it was written by using best practices and tec
 
 ## Version
 
-Current Version of Laravel Framework is 6.0.4
+Current Version of Laravel Framework is 6.7.0
 
 Current version of CMS is pre~alpha 0.0.1
 

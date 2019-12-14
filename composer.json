@@ -15,7 +15,7 @@
         "genealabs/laravel-model-caching": "*",
         "guzzlehttp/guzzle": "^6.4",
         "intervention/image": "^2.5",
-        "laravel/framework": "6.0.*",
+        "laravel/framework": "6.7.*",
         "laravel/helpers": "^1.1",
         "laravel/socialite": "^4.1",
         "laravel/tinker": "^1.0",

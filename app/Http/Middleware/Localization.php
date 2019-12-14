@@ -15,8 +15,9 @@ class Localization
      */
     public function handle($request, Closure $next)
     {
-//        dd($request->all());
         $locale = session('locale');
+
+        if(empty($locale)) $locale = \Config::get('app.locale');
 
         if(!empty($request->route('lang')))
         {
