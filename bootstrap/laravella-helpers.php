@@ -42,7 +42,7 @@ function get_front_templates_array():array
 {
     $folders_array = [];
 
-    $dir = public_path().'\front';
+    $dir = public_path().'/front';
     $array= scandir($dir);
 
     if($array)
@@ -833,7 +833,7 @@ function get_entity_translation_links($type, $id):array
     foreach ($languages_list as $prefix => $data)
     {
         if($prefix === $locale) continue;
-        $result[$data['title']] = 'cpanel/'.$type.'/'.$id.'/'.$prefix;
+        $result[$data['title']] = 'laravella-admin/'.$type.'/'.$id.'/'.$prefix;
     }
 
 

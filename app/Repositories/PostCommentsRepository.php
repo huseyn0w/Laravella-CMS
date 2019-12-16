@@ -10,6 +10,8 @@ namespace App\Repositories;
 
 
 use App\Http\Models\Comments;
+use Illuminate\Database\QueryException;
+use Doctrine\DBAL\Driver\PDOException;
 
 class PostCommentsRepository extends BaseRepository
 {
@@ -68,13 +70,22 @@ class PostCommentsRepository extends BaseRepository
 
         $comment_id = $request->updated_comment_id;
 
+
+
         try{
-            $comment = $this->model::where('id', $comment_id)->where('user_id', $logged_username_id)->findOrFail();
+            $comment = $this->model::where('user_id', $logged_username_id)->where('id', $comment_id)->firstOrFail();
             $comment_updated = $comment->update($newData);
             if($comment_updated) return true;
         }
-        catch (\Exception $e){
-            abort(403, trans('cpanel/controller.problem_occurred'));
+        catch (QueryException $e) {
+//            dd($e->getMessage());
+            throwAbort();
+        } catch (PDOException $e) {
+//            dd($e->getMessage());
+            throwAbort();
+        } catch (\Error $e) {
+//            dd($e->getMessage());
+            throwAbort();
         }
 
         return $comment_updated;

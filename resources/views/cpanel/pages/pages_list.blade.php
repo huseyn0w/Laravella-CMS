@@ -138,8 +138,8 @@
 @push('finalscripts')
     <script>
         delete_confirmation = '@lang('cpanel/pages.js_delete_confirmation')',
-        delete_success = '@lang('cpanel/pages.js_delete')',
-        error_message = '@lang('cpanel/pages.js_error')';
+        delete_success = '@lang('cpanel/pages.js_delete_success')',
+        error_message = '@lang('cpanel/pages.js_delete_error')';
     </script>
     <script src="{{asset('admin')}}/js/page.js"></script>
 @endpush

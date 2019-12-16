@@ -221,3 +221,22 @@ button.close,
 .languages-list a{
     color: #ffffff;
 }
+
+.team-left strong,
+.single-post-content strong{
+    font-weight: bold;
+    color: #000000;
+}
+
+.single-post-content ul, .single-post-content ol{
+    margin-bottom: 30px;
+    padding-left: 30px;
+}
+
+.single-post-content ol li {
+    list-style: decimal;
+}
+
+.single-post-content ul li{
+    list-style: inside;
+}

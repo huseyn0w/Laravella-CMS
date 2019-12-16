@@ -240,7 +240,7 @@
                                     <button type="submit" class="primary-btn mt-20">@lang('default/post.comment')</button>
                                 </form>
                             @else
-                                <h5 class="text-uppercas pb-50">@lang('default/post.comment_auth')/h5>
+                                <h5 class="text-uppercas pb-50">@lang('default/post.comment_auth')</h5>
                             @endauth
                             </div>
                         </section>

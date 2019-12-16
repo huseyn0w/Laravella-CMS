@@ -13,7 +13,6 @@ class CPanelPageController extends CPanelBaseController
 
     private $users_list;
     private $page_templates;
-    private $categories_list;
 
     public function __construct(CPanelPageRepository $repository)
     {
@@ -21,7 +20,6 @@ class CPanelPageController extends CPanelBaseController
         $this->repository = $repository;
         $this->users_list = get_authors_list();
         $this->page_templates = get_page_templates_list();
-        $this->categories_list = get_post_categories_list(['category_id','title']);
     }
 
 
@@ -51,7 +49,7 @@ class CPanelPageController extends CPanelBaseController
                 "entity" => $this->result,
                 "users_list" => $this->users_list,
                 "page_templates" => $this->page_templates,
-                "categories_list" => $this->categories_list,
+                "categories_list" =>  get_post_categories_list(['category_id','title']),
                 "translation_links" => get_entity_translation_links('pages', $id)
             ]
         );
@@ -77,7 +75,7 @@ class CPanelPageController extends CPanelBaseController
         $array = [
             "users_list" => $this->users_list,
             "page_templates" => $this->page_templates,
-            "categories_list" => $this->categories_list,
+            "categories_list" => get_post_categories_list(['category_id','title']),
         ];
 
         if(request()->route('lang'))

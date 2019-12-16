@@ -22,7 +22,7 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('cpanel')->middleware(['auth', 'see_admin_panel'])->namespace('cpanel')->group(function () {
+Route::prefix('laravella-admin')->middleware(['auth', 'see_admin_panel'])->namespace('CPanel')->group(function () {
 
     Route::get('/locale/{locale}', 'CPanelLanguageController@index')->name('lang_route');
 

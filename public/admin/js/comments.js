@@ -41,7 +41,7 @@ $(function(){
         if(delete_confirmed){
 
             $.ajax({
-                url: "/cpanel/comments/" + deleted_comment_id + "/delete/",
+                url: "/laravella-admin/comments/" + deleted_comment_id + "/delete/",
                 type: 'DELETE',
                 data: {
                     "id": deleted_comment_id
@@ -84,7 +84,7 @@ $(function(){
         if(approve_confirmation){
 
             $.ajax({
-                url: "/cpanel/comments/" + approved_comment_id + "/approve/",
+                url: "/laravella-admin/comments/" + approved_comment_id + "/approve/",
                 type: 'PUT',
                 data: {
                     "id": approved_comment_id
@@ -124,7 +124,7 @@ $(function(){
         if(approve_confirmation){
 
             $.ajax({
-                url: "/cpanel/comments/" + unapproved_comment_id + "/unapprove/",
+                url: "/laravella-admin/comments/" + unapproved_comment_id + "/unapprove/",
                 type: 'PUT',
                 data: {
                     "id": unapproved_comment_id

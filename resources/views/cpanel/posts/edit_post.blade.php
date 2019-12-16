@@ -93,13 +93,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="likes">@lang('cpanel/posts.likes') {{$entity->likes}}</label>
-                                    </div>
-                                </div>
-                            </div>
                             @include('cpanel.core.seo')
                             <div class="clearfix"></div>
                         </div>

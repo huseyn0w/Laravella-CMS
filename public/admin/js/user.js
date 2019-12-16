@@ -32,7 +32,7 @@ $(function () {
         var delete_confirmed = confirm(delete_confirmation);
         if(delete_confirmed){
             $.ajax({
-                url: "/cpanel/users/" + deleted_user_id + "/delete/",
+                url: "/laravella-admin/users/" + deleted_user_id + "/delete/",
                 type: 'DELETE',
                 data: {
                     "id": deleted_user_id

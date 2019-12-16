@@ -96,7 +96,7 @@
     </div>
 </section>
 <!-- End travel Area -->
-@endif;
+@endif
 
 <!-- Start team Area -->
 <section class="team-area section-gap" id="team">

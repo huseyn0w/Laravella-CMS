@@ -279,13 +279,13 @@ abstract class BaseRepository implements  BaseRepositoryInterface
             if($instance) $result = true;
 
         } catch (QueryException $e) {
-            dd($e->getMessage());
+//            dd($e->getMessage());
             throwAbort();
         } catch (PDOException $e) {
-            dd($e->getMessage());
+//            dd($e->getMessage());
             throwAbort();
         } catch (\Error $e) {
-            dd($e->getMessage());
+//            dd($e->getMessage());
             throwAbort();
         }
 

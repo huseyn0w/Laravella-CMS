@@ -19,7 +19,7 @@ See deployment for notes on how to deploy the project on a live system.
 
 
 ## Administrator area credentials:
-Go to: SITE_URL/cpanel
+Go to: SITE_URL/laravella-admin
 <pre>
 Username: admin
 Password: laravelladmin123
@@ -38,7 +38,7 @@ Password: laravelladmin123
 
 
 ## Demo
-soon...
+https://laravella.ilkinalibayli.com/
 
 ## General features
 * General CMS Features;

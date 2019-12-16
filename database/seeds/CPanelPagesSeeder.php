@@ -58,7 +58,8 @@ class CPanelPagesSeeder extends Seeder
                     ),
                 'about-big-text' =>
                     array (
-                        'value' => '<p>Authors description will be here</p>',
+                        'value' => '<p><strong>Elman Hüseynov</strong> - Full Stack Web Developer with more than 3 years of experience at freelance/office/remote jobs, completed more than 50 of projects and websites from scratch, currently Remote Full Stack Wordpress Developer - located in Baku / Azerbaijan.</p>
+<p><strong>Ilkin Alibayli</strong> - Backend Developer with more than 10 years of experience, professsional trainer, owner of it\'s own local company called "DPI Creative Agency" in Baku / Azerbaijan, currently Senior Software Engineer - located in Berlin / Germany.</p>',
                         'type' => 'textarea',
                         'admin_label' => 'About Full Description',
                     ),
@@ -181,7 +182,8 @@ class CPanelPagesSeeder extends Seeder
                     ),
                 'about-big-text' =>
                     array (
-                        'value' => 'Текст об авторах будет тут',
+                        'value' => '<p><strong>Эльман Гусейнов</strong> - Full Stack Web Разработчик с опытом работы более 3 лет в различных сферах начиная от фрилансера, заканчивая удаленной разработкой проектов, создал более 50 проектов с нуля, в данный момент является удаленным разработчиком - находится в Баку / Азербайджан.</p>
+<p><strong>Илькин Алибейли</strong> - Backend Developer с опытом работы более 10 лет, преподователь, владелец своей небольшой компании "DPI Creative Agency" в Баку / Азербайджан, в данный момент Senior Software Engineer - находится в Берлин / Германия.</p>',
                         'type' => 'textarea',
                         'admin_label' => 'Подробное описание раздела об авторах',
                     ),
