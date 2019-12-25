@@ -144,14 +144,14 @@ abstract class BaseRepository implements  BaseRepositoryInterface
         if (!empty($this->translated_table && !empty($this->translated_table_join_column))) {
             $data = $this->translated_only($count, $this->main_table, $this->translated_table, $this->translated_table_join_column, $page);
         } else {
-            $data = $this->non_translated_only($count);
+            $data = $this->nonTranslatedOnly($count);
         }
 
 
         return $data;
     }
 
-    protected function non_translated_only($count)
+    protected function nonTranslatedOnly($count)
     {
         $fields = $this->select_fields;
 
