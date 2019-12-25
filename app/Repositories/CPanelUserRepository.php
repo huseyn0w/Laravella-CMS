@@ -43,7 +43,7 @@ class CPanelUserRepository extends BaseRepository
     }
 
 
-    public function non_translated_only($count)
+    public function nonTranslatedOnly($count)
     {
         $fields = [
             'id','username','email','name','surname','country', 'city', 'role_id'
