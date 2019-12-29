@@ -43,14 +43,25 @@ class CPanelUserRepository extends BaseRepository
     }
 
 
-    public function nonTranslatedOnly($count)
+    public function translatedOnlyOnly($count)
     {
         $fields = [
-            'id','username','email','name','surname','country', 'city', 'role_id'
+            'id',
+            'username',
+            'email',
+            'name',
+            'surname',
+            'country',
+            'city',
+            'role_id'
         ];
 
         try{
-            $data = !empty($fields) ? $data = $this->model::select($fields)->with('role')->paginate($count) : false;
+            $data = !empty($fields) ?
+                $data = $this->model::select($fields)
+                                    ->with('role')
+                                    ->paginate($count)
+                                    : false;
         } catch (QueryException $e) {
             throwAbort();
         } catch (PDOException $e) {
@@ -58,6 +69,7 @@ class CPanelUserRepository extends BaseRepository
         } catch (\Error $e) {
             throwAbort();
         }
+
 
         return $data;
     }
@@ -68,6 +80,8 @@ class CPanelUserRepository extends BaseRepository
         if(empty($updatedRequest->password) || is_null($updatedRequest->password)){
             $updatedRequest->request->remove('password');
         }
+
+
         return parent::update($id, $updatedRequest);
     }
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\ContactMail as ContactRequest;
 
 
-class PagesController extends BaseController
+class PageController extends BaseController
 {
     public function __construct(PageRepository $repository)
     {

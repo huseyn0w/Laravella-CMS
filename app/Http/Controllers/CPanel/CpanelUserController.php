@@ -9,7 +9,7 @@ use App\Repositories\CPanelUserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CPanelUsersController extends CPanelBaseController
+class CPanelUserController extends CPanelBaseController
 {
 
     private $user_roles;

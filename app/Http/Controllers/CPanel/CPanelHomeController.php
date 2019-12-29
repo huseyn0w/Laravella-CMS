@@ -20,26 +20,26 @@ class CPanelHomeController extends CPanelBaseController
     public function index(Request $request)
     {
         $count = 5;
-        $posts = $this->get_posts($count);
-        $users = $this->get_users($count);
-        $comments = $this->get_comments($count);
+        $posts = $this->getPosts($count);
+        $users = $this->getUsers($count);
+        $comments = $this->getComments($count);
 
         return view('cpanel.home', compact('posts','users', 'comments'));
     }
 
-    private function get_posts($count)
+    private function getPosts($count)
     {
         $posts = Post::listsTranslations('title')->orderBy('id', 'desc')->take($count)->get();
         return $posts;
     }
 
-    private function get_users($count)
+    private function getUsers($count)
     {
         $users = User::select('username')->orderBy('id', 'desc')->take($count)->get();
         return $users;
     }
 
-    private function get_comments($count)
+    private function getComments($count)
     {
         $pages = Comments::select('comment')->orderBy('id', 'desc')->take($count)->get();
         return $pages;

@@ -20,7 +20,9 @@ class Comments extends Model
 
     public function replies()
     {
-        return $this->hasMany(Comments::class, 'parent_id')->where('status', 1)->with('user');
+        return $this->hasMany(Comments::class, 'parent_id')
+                    ->where('status', 1)
+                    ->with('user');
     }
 
     public static function boot() {

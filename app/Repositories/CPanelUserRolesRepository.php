@@ -7,6 +7,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Model;
 use Image;
 use App\Http\Models\UserRoles;
 use Illuminate\Support\Facades\Auth;

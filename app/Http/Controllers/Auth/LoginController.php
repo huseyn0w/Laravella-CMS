@@ -109,11 +109,11 @@ class LoginController extends Controller
         $username = $this->get_user_name($user->email);
 
         return User::create([
-            'name'     => $user->name,
-            'email'    => $user->email,
-            'provider' => $provider,
+            'name'        => $user->name,
+            'email'       => $user->email,
+            'provider'    => $provider,
             'provider_id' => $user->id,
-            'username' => $username
+            'username'    => $username
         ]);
 
 
@@ -124,14 +124,14 @@ class LoginController extends Controller
         $username = $this->get_user_name($data->email);
 
         $array_to_validate = [
-            "email" => $data->email,
-            "name" => $data->name,
+            "email"    => $data->email,
+            "name"     => $data->name,
             "username" => $username
         ];
 
         $validator = Validator::make($array_to_validate, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
         ]);
 
@@ -156,7 +156,7 @@ class LoginController extends Controller
             ? $this->username()
             : 'username';
         return [
-            $field => $request->get($this->username()),
+            $field     => $request->get($this->username()),
             'password' => $request->password,
         ];
     }

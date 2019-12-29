@@ -9,6 +9,7 @@
 namespace App\Repositories;
 
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Doctrine\DBAL\Driver\PDOException;
 
@@ -48,6 +49,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
             $request->merge([$this->translated_table_join_column => $id, 'locale' => get_current_lang()]);
         }
 
+
         return $request;
     }
 
@@ -73,7 +75,6 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
 
         return $result;
-
     }
 
     public function all()
@@ -87,6 +88,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
         } catch (\Error $e) {
             throwAbort();
         }
+
 
         return $data;
     }
@@ -119,8 +121,8 @@ abstract class BaseRepository implements  BaseRepositoryInterface
             throwAbort();
         }
 
-        return $data;
 
+        return $data;
     }
 
     public function first()
@@ -135,6 +137,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
             throwAbort();
         }
 
+
         return $data;
     }
 
@@ -142,7 +145,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
     {
 
         if (!empty($this->translated_table && !empty($this->translated_table_join_column))) {
-            $data = $this->translated_only($count, $this->main_table, $this->translated_table, $this->translated_table_join_column, $page);
+            $data = $this->translatedOnly($count, $this->main_table, $this->translated_table, $this->translated_table_join_column, $page);
         } else {
             $data = $this->nonTranslatedOnly($count);
         }
@@ -165,11 +168,12 @@ abstract class BaseRepository implements  BaseRepositoryInterface
             throwAbort();
         }
 
+
         return $data;
     }
 
 
-    protected function translated_only($count, $main_table_name, $translated_table_name, $parent_table_join_column, $page = 1)
+    protected function translatedOnly($count, $main_table_name, $translated_table_name, $parent_table_join_column, $page = 1)
     {
 
         $this->select_fields_ready_array = $this->generateSelectFieldsArray($this->select_fields);
@@ -194,22 +198,23 @@ abstract class BaseRepository implements  BaseRepositoryInterface
             throwAbort();
         }
 
-        return $data;
 
+        return $data;
     }
 
     public function getBy($paramName, $paramValue, $fields = [])
     {
         if (!empty($this->translated_table && !empty($this->translated_table_join_column))) {
-            $data = $this->get_translated_by($paramName, $paramValue);
+            $data = $this->getTranslatedBy($paramName, $paramValue);
         } else {
-            $data = $this->get_non_translated_by($paramName, $paramValue, $fields);
+            $data = $this->getNonTranslatedBy($paramName, $paramValue, $fields);
         }
+
 
         return $data;
     }
 
-    protected function get_non_translated_by($paramName, $paramValue, $fields = [])
+    protected function getNonTranslatedBy($paramName, $paramValue, $fields = [])
     {
 
         if (!empty($fields)) {
@@ -218,20 +223,21 @@ abstract class BaseRepository implements  BaseRepositoryInterface
             $data = $this->model::where($paramName, $paramValue)->first();
         }
 
-        if (!$data) return $this->throwNotFound();
+        if (!$data) return throwNotFound();
+
 
         return $data;
     }
 
 
 
-//    protected function pre_get_translated_by($param, $value)
+//    protected function pre_getTranslatedBy($param, $value)
 //    {
 //        return $this->translated_table_model::where($param, $value)->firstOrFail();
 //    }
 
 
-    public function get_translated_by($param, $value)
+    public function getTranslatedBy($param, $value)
     {
 
         $this->select_fields_ready_array = $this->generateSelectFieldsArray($this->select_fields);
@@ -252,15 +258,16 @@ abstract class BaseRepository implements  BaseRepositoryInterface
                 ->with('author')->first();
 
         } catch (QueryException $e) {
-            dd($e->getMessage());
+//            dd($e->getMessage());
             throwAbort();
         } catch (PDOException $e) {
-            dd($e->getMessage());
+//            dd($e->getMessage());
             throwAbort();
         } catch (\Error $e) {
-            dd($e->getMessage());
+//            dd($e->getMessage());
             throwAbort();
         }
+
 
         return $data;
     }
@@ -271,6 +278,8 @@ abstract class BaseRepository implements  BaseRepositoryInterface
 
     public function update(int $id, $request)
     {
+        $result = false;
+
         try {
 
             $instance = $this->model::find($id);
@@ -289,8 +298,8 @@ abstract class BaseRepository implements  BaseRepositoryInterface
             throwAbort();
         }
 
-        return $result;
 
+        return $result;
     }
     public function updateWhere($data, $parameter = 'id')
     {
@@ -299,6 +308,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
     public function delete($id)
     {
         $result = false;
+
         try{
             if($this->model::destroy($id)) $result = true;
         } catch (QueryException $e) {
@@ -331,6 +341,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
         } catch (\Error $e) {
             throwAbort();
         }
+
 
         return $result;
     }
@@ -379,6 +390,7 @@ abstract class BaseRepository implements  BaseRepositoryInterface
                 $fields_array[] = $translated_table_name.'.'.$field;
             }
         }
+
 
         return $fields_array;
     }

@@ -68,7 +68,7 @@ class CPanelCategoryController extends CPanelBaseController
         return back()->with('message', $result);
     }
 
-    public function updateCategory($id, CategoryRequest $request)
+    public function update($id, CategoryRequest $request)
     {
         return parent::update($id, $request);
     }

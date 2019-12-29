@@ -77,10 +77,10 @@ class PostRepository extends BaseRepository
 
 
 
-    public function get_translated_by($param, $value)
+    public function getTranslatedBy($param, $value)
     {
         $comments_per_page = get_comments_count_per_page();
-        $data = parent::get_translated_by($param,$value);
+        $data = parent::getTranslatedBy($param,$value);
         $data->setRelation('comments', $data->comments()->with('replies')->with('user')->orderBy('id', 'DESC')->paginate($comments_per_page));
 
         return $data;

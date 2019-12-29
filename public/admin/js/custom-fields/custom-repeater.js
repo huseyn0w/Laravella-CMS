@@ -1,12 +1,12 @@
 $(function(){
-    var custom_repeater         = $("#custom_repeater"),
-        group_count             = 0,
-        field_count             = 0,
-        add_repeater_field      = $("#add_repeater_field"),
-        insert_repeater_fields  = $("#insert_repeater_fields"),
-        custom_repeater_buttons = $("#custom_repeater_buttons"),
-        custom_repeater_cover   = $("#custom_repeater_cover"),
-        custom_fields_cover     = $("#custom_fields_cover"),
+    var custom_repeater           = $("#custom_repeater"),
+        group_count               = 0,
+        field_count               = 0,
+        add_repeater_field        = $("#add_repeater_field"),
+        insert_repeater_fields    = $("#insert_repeater_fields"),
+        custom_repeater_buttons   = $("#custom_repeater_buttons"),
+        custom_repeater_cover     = $("#custom_repeater_cover"),
+        custom_fields_cover       = $("#custom_fields_cover"),
         editor_config = {
             path_absolute : "/",
             height : "150",
@@ -15,7 +15,7 @@ $(function(){
                 "advlist autolink lists link image charmap print preview hr anchor pagebreak",
                 "searchreplace wordcount visualblocks visualchars code fullscreen",
                 "insertdatetime media nonbreaking save table contextmenu directionality",
-                "emoticons template paste textcolor colorpicker textpattern"
+                "emoticons template custom_repeaterpaste textcolor colorpicker textpattern"
             ],
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
             relative_urls: false,
@@ -44,7 +44,16 @@ $(function(){
         };
 
 
+    $(document).on('click', '.remove_custom_repeater_group_key', function(e){
+        console.log('salam');
+        $(".custom-repeater-group-key").hide().remove();
+    });
+
+
     custom_repeater.on("click", function (e) {
+
+        if($(".custom-repeater-group-key").length > 0) return;
+
         group_count++;
 
         var repeater_key = `
@@ -61,6 +70,7 @@ $(function(){
                         <input type="text" required="" class="form-control custom-repeater-key-name" name="custom-repeater-key-name_${group_count}">
                     </div>
                </div>
+               <button type="button" class="remove_custom_repeater_group_key">X</button>
            </div>
         `;
 
