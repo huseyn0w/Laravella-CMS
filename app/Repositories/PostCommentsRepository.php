@@ -10,6 +10,7 @@ namespace App\Repositories;
 
 
 use App\Http\Models\Comments;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Doctrine\DBAL\Driver\PDOException;
 
@@ -60,11 +61,11 @@ class PostCommentsRepository extends BaseRepository
 
     public function update($request, $id = null)
     {
-        if(!is_logged_in()) abort(403, 'You are not authorized to make this action');
+        if(!is_logged_in()) throwAbort();
 
         $logged_username_id = Auth()->user()->id;
 
-        if(Auth()->user()->role->id !== 1) abort(403, 'You are not authorized to make this action');
+        if(Auth()->user()->role->id !== 1) throwAbort();
 
         $newData = $request->except(["_token", "_method", "updated_comment_id"]);
 

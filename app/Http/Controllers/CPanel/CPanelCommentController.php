@@ -39,7 +39,7 @@ class CPanelCommentController extends CPanelBaseController
         return;
     }
 
-    public function unapprove(int $id)
+    public function unApprove(int $id)
     {
 
         $this->validateCommentID($id);

@@ -426,6 +426,21 @@ ul.pagination{
     margin-bottom: 30px;
 }
 
+.custom-repeater-group-key{
+    position: relative;
+}
+
+.remove_custom_repeater_group_key{
+    position: absolute;
+    top:5px;
+    right: 5px;
+    outline: none !important;
+    border: none;
+    border-radius: 50%;
+    font-size: 11px;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 991px)
 {
     .navbar{

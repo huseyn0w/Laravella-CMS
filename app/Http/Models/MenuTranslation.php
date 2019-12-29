@@ -10,5 +10,12 @@ class MenuTranslation extends Model
     use Cachable;
 
     public $timestamps = false;
-    protected $fillable = ['title', 'menu_id', 'locale', 'slug', 'author_id', 'content'];
+    protected $fillable = [
+        'title',
+        'menu_id',
+        'locale',
+        'slug',
+        'author_id',
+        'content'
+    ];
 }

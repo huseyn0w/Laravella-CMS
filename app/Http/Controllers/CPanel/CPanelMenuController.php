@@ -31,7 +31,7 @@ class CPanelMenuController extends CPanelBaseController
     public function addMenu()
     {
         $array = [
-            "terms_list" => $this->get_terms_list_for_menu()
+            "terms_list" => $this->getTermsListForMenu()
         ];
 
         if(request()->route('lang'))
@@ -58,12 +58,12 @@ class CPanelMenuController extends CPanelBaseController
 
         return view('cpanel.menus.edit_menu', [
             "entity" => $this->result,
-            "terms_list" => $this->get_terms_list_for_menu(),
+            "terms_list" => $this->getTermsListForMenu(),
             "translation_links" => get_entity_translation_links('menus', $id)
         ]);
     }
 
-    private function get_terms_list_for_menu()
+    private function getTermsListForMenu()
     {
         return [
             'posts' => get_post_list($this->post_fields),

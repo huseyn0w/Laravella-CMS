@@ -88,7 +88,6 @@ class CategoryRepository extends BaseRepository
 
 
         return $data;
-
     }
     
 }

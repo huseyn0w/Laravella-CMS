@@ -13,7 +13,12 @@ class Menu extends Model implements TranslatableContract
 
     use Translatable;
 
-    public $translatedAttributes = ['title', 'menu_id', 'author_id', 'content'];
+    public $translatedAttributes = [
+        'title',
+        'menu_id',
+        'author_id',
+        'content'
+    ];
 
     public $timestamps = false;
 

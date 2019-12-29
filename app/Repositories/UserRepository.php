@@ -49,7 +49,6 @@ class UserRepository extends BaseRepository
         if(!is_logged_in()) return false;
 
         $this->logged_user_id = get_logged_user_id();
-
     }
 
     public function update(int $id, $request)
@@ -66,6 +65,7 @@ class UserRepository extends BaseRepository
 
         $result = $user->update($data) ? true : false;
 
+
         return $result;
     }
 
@@ -78,6 +78,7 @@ class UserRepository extends BaseRepository
 
         $user = $this->model->findOrFail($this->logged_user_id);
         $result = $user->update(['password'=> $request->password]);
+
 
         return $result;
     }

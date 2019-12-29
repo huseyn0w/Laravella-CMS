@@ -19,7 +19,20 @@ class Post extends Model implements TranslatableContract
 
     public $timestamps = false;
 
-    public $translatedAttributes = ['title', 'post_id', 'created_at', 'updated_at', 'author_id', 'slug', 'thumbnail', 'preview', 'status', 'content', 'meta_keywords', 'meta_description'];
+    public $translatedAttributes = [
+        'title',
+        'post_id',
+        'created_at',
+        'updated_at',
+        'author_id',
+        'slug',
+        'thumbnail',
+        'preview',
+        'status',
+        'content',
+        'meta_keywords',
+        'meta_description'
+    ];
 
     protected $fillable = [
         'created_at',
@@ -45,7 +58,11 @@ class Post extends Model implements TranslatableContract
 
     public function comments()
     {
-        return $this->hasMany(Comments::class)->whereNull('parent_id')->where('status', 1)->with('user')->with('replies');
+        return $this->hasMany(Comments::class)
+                    ->whereNull('parent_id')
+                    ->where('status', 1)
+                    ->with('user')
+                    ->with('replies');
     }
 
     public function allCommentsCount()

@@ -9,7 +9,7 @@ use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 use PhpParser\Comment;
 
-class PostsController extends BaseController
+class PostController extends BaseController
 {
     public function __construct(PostRepository $repository)
     {

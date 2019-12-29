@@ -6,7 +6,7 @@ use App\Http\Requests\PostCommentsRequest;
 use App\Repositories\PostCommentsRepository;
 use Illuminate\Http\Request;
 
-class PostCommentsController extends BaseController
+class PostCommentController extends BaseController
 {
     public function __construct(PostCommentsRepository $repository)
     {

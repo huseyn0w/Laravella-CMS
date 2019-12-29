@@ -39,17 +39,17 @@ Route::prefix('laravella-admin')->middleware(['auth', 'see_admin_panel'])->names
     });
 
     Route::prefix('myprofile')->group(function(){
-        Route::get('/', 'CPanelUsersController@editUser')->name('cpanel_myprofile');
+        Route::get('/', 'CPanelUserController@editUser')->name('cpanel_myprofile');
     });
 
     Route::prefix('users')->middleware('manage_users')->group(function(){
-        Route::get('/', 'CPanelUsersController@index')->name('cpanel_all_users_list');
-        Route::get('/{id}', 'CPanelUsersController@editUser')->name('cpanel_edit_user_profile')->where('id', '[0-9]+');
-        Route::put('/{id}/update', 'CPanelUsersController@updateUser')->name('cpanel_update_user_profile')->where('id', '[0-9]+');
-        Route::delete('/{id}/delete', 'CPanelUsersController@deleteAjax')->name('cpanel_delete_user')->where('id', '[0-9]+');
-        Route::delete('/multipleDelete', 'CPanelUsersController@multipleDelete')->name('cpanel_users_bulk_delete');
-        Route::get('/new', 'CPanelUsersController@addUser')->name('cpanel_add_new_user');
-        Route::post('/new', 'CPanelUsersController@createUser')->name('cpanel_save_new_user');
+        Route::get('/', 'CPanelUserController@index')->name('cpanel_all_users_list');
+        Route::get('/{id}', 'CPanelUserController@editUser')->name('cpanel_edit_user_profile')->where('id', '[0-9]+');
+        Route::put('/{id}/update', 'CPanelUserController@updateUser')->name('cpanel_update_user_profile')->where('id', '[0-9]+');
+        Route::delete('/{id}/delete', 'CPanelUserController@deleteAjax')->name('cpanel_delete_user')->where('id', '[0-9]+');
+        Route::delete('/multipleDelete', 'CPanelUserController@multipleDelete')->name('cpanel_users_bulk_delete');
+        Route::get('/new', 'CPanelUserController@addUser')->name('cpanel_add_new_user');
+        Route::post('/new', 'CPanelUserController@createUser')->name('cpanel_save_new_user');
     });
 
 
@@ -109,11 +109,11 @@ Route::prefix('laravella-admin')->middleware(['auth', 'see_admin_panel'])->names
     });
 
     Route::prefix('comments')->middleware('manage_comments')->group(function(){
-        Route::get('/', 'CpanelCommentController@index')->name('cpanel_comments_list');
-        Route::put('/{id}/approve', 'CpanelCommentController@approve')->name('cpanel_approve_comment')->where('id', '[0-9]+');
-        Route::put('/{id}/unapprove', 'CpanelCommentController@unapprove')->name('cpanel_unapprove_comment')->where('id', '[0-9]+');
-        Route::delete('/{id}/delete', 'CpanelCommentController@deleteAjax')->name('cpanel_delete_comment')->where('id', '[0-9]+');
-        Route::delete('/multipleDelete', 'CpanelCommentController@multipleDelete')->name('cpanel_comments_bulk_delete');
+        Route::get('/', 'CPanelCommentController@index')->name('cpanel_comments_list');
+        Route::put('/{id}/approve', 'CPanelCommentController@approve')->name('cpanel_approve_comment')->where('id', '[0-9]+');
+        Route::put('/{id}/unapprove', 'CPanelCommentController@unApprove')->name('cpanel_unapprove_comment')->where('id', '[0-9]+');
+        Route::delete('/{id}/delete', 'CPanelCommentController@deleteAjax')->name('cpanel_delete_comment')->where('id', '[0-9]+');
+        Route::delete('/multipleDelete', 'CPanelCommentController@multipleDelete')->name('cpanel_comments_bulk_delete');
     });
 
     Route::prefix('media')->group(function(){
@@ -136,25 +136,25 @@ Route::group([], function () {
 
 
     Route::prefix('search')->group(function(){
-        Route::get('/', 'PagesController@search')->name('get_search_page');
-        Route::post('/', 'PagesController@searchResult')->name('get_search_result');
-        Route::get('/query/{searchstring}/filter/{searchtype}/page/{page}', 'PagesController@paginatedResult')->name('search_result_paginated');
+        Route::get('/', 'PageController@search')->name('get_search_page');
+        Route::post('/', 'PageController@searchResult')->name('get_search_result');
+        Route::get('/query/{searchstring}/filter/{searchtype}/page/{page}', 'PageController@paginatedResult')->name('search_result_paginated');
     });
 
-    Route::get('/{locale?}/posts/{slug}', 'PostsController@languageIndex')->name('posts');
+    Route::get('/{locale?}/posts/{slug}', 'PostController@languageIndex')->name('posts');
 
     Route::prefix('/posts')->group(function(){
 
-        Route::get('/{slug}', 'PostsController@index')->name('posts');
-        Route::post('/handlelike/{id}', 'PostsController@handleLike')->middleware('auth')->name('handle_post_likes')->where('id', '[1-9]+[0-9]*');
-        Route::put('/handlecomment/', 'PostCommentsController@update')->middleware('auth')->name('update_post_comment');
-        Route::post('/handlecomment/{id}', 'PostCommentsController@store')->middleware('auth')->name('store_post_comments')->where('id', '[1-9]+[0-9]*');
-        Route::delete('/deletecomment/{id}', 'PostCommentsController@delete')->middleware('auth')->name('delete_post_comments')->where('id', '[1-9]+[0-9]*');
+        Route::get('/{slug}', 'PostController@index')->name('posts');
+        Route::post('/handlelike/{id}', 'PostController@handleLike')->middleware('auth')->name('handle_post_likes')->where('id', '[1-9]+[0-9]*');
+        Route::put('/handlecomment/', 'PostCommentController@update')->middleware('auth')->name('update_post_comment');
+        Route::post('/handlecomment/{id}', 'PostCommentController@store')->middleware('auth')->name('store_post_comments')->where('id', '[1-9]+[0-9]*');
+        Route::delete('/deletecomment/{id}', 'PostCommentController@delete')->middleware('auth')->name('delete_post_comments')->where('id', '[1-9]+[0-9]*');
 
     });
 
 
-    Route::post('/contact/sendform', 'PagesController@sendMail')->name('sendform');
+    Route::post('/contact/sendform', 'PageController@sendMail')->name('sendform');
 
     Route::get('/{locale?}/category/{slug}', 'CategoryController@languageIndex')->name('categories_first_page');
 
@@ -178,7 +178,7 @@ Route::group([], function () {
     Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->where('provider','twitter|facebook|linkedin|google|github');;
     Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->where('provider','twitter|facebook|linkedin|google|github');;
 
-    Route::get('/{locale?}/{slug?}', 'PagesController@languageIndex')->name('front_pages');
+    Route::get('/{locale?}/{slug?}', 'PageController@languageIndex')->name('front_pages');
 
 
 });

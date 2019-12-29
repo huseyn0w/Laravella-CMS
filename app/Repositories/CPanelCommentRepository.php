@@ -21,18 +21,22 @@ class CPanelCommentRepository extends BaseRepository
 
     public function approve(int $id)
     {
-        $result = false;
-        if($this->model::where('id', $id)->update(['status' => '1'])) $result = true;
+        $comment = $this->model::find($id);
+        if(!$comment) $result = false;
+        if($comment->update(['status' => '1'])) $result = true;
 
 
         return $result;
 
     }
 
-    public function unapprove(int $id)
+    public function unApprove(int $id)
     {
-        $result = false;
-        if($this->model::where('id', $id)->update(['status' => '0'])) $result = true;
+        $comment = $this->model::find($id);
+        if(!$comment) $result = 'salam';
+
+        if($comment->update(['status' => '0'])) $result = true;
+
 
         return $result;
     }

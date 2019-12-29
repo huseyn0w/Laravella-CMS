@@ -9,19 +9,19 @@
 namespace App\Repositories;
 
 
+use Illuminate\Database\Eloquent\Model;
+
 interface BaseRepositoryInterface
 {
 
+
     /**
-     * Create new record
      * @param $data
-     * @return mixed
      */
     public function create($data);
 
     /**
      * Get all records
-     * @return mixed
      */
     public function all();
 
@@ -29,13 +29,11 @@ interface BaseRepositoryInterface
     /**
      * Get only limited amount of records
      * @param $count
-     * @return mixed
      */
     public function only($count, $page = 1);
 
     /**
      * Get first value from database
-     * @return mixed
      */
     public function first();
 
@@ -43,7 +41,6 @@ interface BaseRepositoryInterface
     /**
      * Get one record by $param
      * @param $param
-     * @return mixed
      */
     public function get($param);
 
@@ -53,7 +50,6 @@ interface BaseRepositoryInterface
      * @param $parameter
      * @param $value
      * @param array $fields
-     * @return mixed
      */
     public function getBy($parameter, $value, $field = []);
 
@@ -61,29 +57,24 @@ interface BaseRepositoryInterface
      * Get record by ID
      * @param $newData
      * @param $id
-     * @return mixed
      */
     public function update(int $id, $newData);
 
     /**
      * Update one record by custom parameter
      * @param $newData
-     * @param $parameter
-     * @return mixed
      */
     public function updateWhere($newData, $parameter);
 
     /**
      * Delete record by ID
      * @param $id
-     * @return mixed
      */
     public function delete($id);
 
     /**
      * Delete record by custom parameter
      * @param $parameter
-     * @return mixed
      */
     public function deleteWhere($parameter);
 

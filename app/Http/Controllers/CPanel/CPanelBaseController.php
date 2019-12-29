@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\CPanel;
 
+use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -90,10 +91,9 @@ class CPanelBaseController extends Controller
         $this->result = $this->repository->getBy('id', $id);
 
         if(!$this->result) abort(404);
-
     }
 
-    protected function update($id, $data)
+    protected function update($id,  $data)
     {
         $this->result = $this->repository->update($id, $data);
 
@@ -102,7 +102,6 @@ class CPanelBaseController extends Controller
 
     protected function create($request)
     {
-//        dd($request->route('id'));
         $this->result = $this->repository->create($request);
 
         return $this->result;

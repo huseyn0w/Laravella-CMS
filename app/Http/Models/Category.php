@@ -13,7 +13,16 @@ class Category extends Model implements TranslatableContract
 
     use Translatable;
 
-    public $translatedAttributes = ['title', 'category_id', 'author_id', 'slug', 'description', 'parent_category_id', 'meta_keywords', 'meta_description'];
+    public $translatedAttributes = [
+        'title',
+        'category_id',
+        'author_id',
+        'slug',
+        'description',
+        'parent_category_id',
+        'meta_keywords',
+        'meta_description'
+    ];
 
     public $timestamps = false;
 
