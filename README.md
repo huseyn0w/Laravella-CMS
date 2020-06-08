@@ -38,7 +38,7 @@ Password: laravelladmin123
 
 
 ## Demo
-https://laravella.ilkinalibayli.com/
+https://huseyn0w-laravella.herokuapp.com/
 
 ## General features
 * General CMS Features;
