@@ -264,8 +264,8 @@ class CPanelPagesSeeder extends Seeder
         );
 
         DB::table('pages')->insert([
-            [],
-            []
+            ['id' => 1],
+            ['id' => 2]
         ]);
 
         DB::table('page_translations')->insert([
