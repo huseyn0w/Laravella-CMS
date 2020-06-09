@@ -23,7 +23,7 @@
         "laravel/ui": "^2.0",
         "mews/purifier": "^3.1",
         "unisharp/laravel-filemanager": "~1.8",
-        "fzaninotto/faker": "^1.9.1",
+        "fzaninotto/faker": "^1.9.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
