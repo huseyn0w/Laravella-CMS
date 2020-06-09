@@ -12,7 +12,7 @@ class CPanelCategorySeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([
-            [],[]
+            ['id' => 1],['id' => 2]
         ]);
 
         DB::table('category_translations')->insert([

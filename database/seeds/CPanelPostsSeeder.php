@@ -13,7 +13,7 @@ class CPanelPostsSeeder extends Seeder
     public function run()
     {
         DB::table('posts')->insert([
-            []
+            ['id' => 1]
         ]);
 
         DB::table('post_translations')->insert([
