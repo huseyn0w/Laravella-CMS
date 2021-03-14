@@ -93,7 +93,7 @@ class CPanelBaseController extends Controller
         if(!$this->result) abort(404);
     }
 
-    protected function update($id,  $data)
+    protected function update($id, $data)
     {
         $this->result = $this->repository->update($id, $data);
 

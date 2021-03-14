@@ -69,9 +69,9 @@ Why it is easy to extend? Because it was written by using best practices and tec
 
 ## Version
 
-Current Version of Laravel Framework is 7.0
+Current Version of Laravel Framework is 8.0
 
-Current version of CMS is 1.0
+Current version of CMS is 1.1
 
 ## Author
 

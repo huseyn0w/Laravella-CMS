@@ -1,7 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
-/config/database.php
+/config
 /storage/*.key
 /vendor
 /tests
