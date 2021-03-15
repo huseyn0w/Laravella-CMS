@@ -7,15 +7,15 @@
  */
 
 return [
-    'header_title'      => 'Laravella CMS Control Panel Area',
-    'logged_in_as'      => 'Logged in as:',
-    'homepage'          => 'Homepage',
-    'settings'          => 'Settings',
-    'general_settings'  => 'General Settings',
-    'site_options'      => 'Site Options',
+    'header_title'      => 'Laravella CMS Painel de Controle',
+    'logged_in_as'      => 'logado como:',
+    'homepage'          => 'Pagina inicial',
+    'settings'          => 'Configurações',
+    'general_settings'  => 'Configurações Gerais',
+    'site_options'      => 'Opções do site.',
     'menus'             => 'Menus',
-    'user_roles'        => 'User Roles',
-    'change_language'   => 'Change Language',
-    'log_out'           => 'Log out',
+    'user_roles'        => 'Funções do usuário',
+    'change_language'   => 'Mudar idioma',
+    'log_out'           => 'Sair',
 
 ];

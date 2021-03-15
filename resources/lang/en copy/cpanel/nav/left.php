@@ -8,19 +8,19 @@
 
 return [
 
-    'dashboard'         => 'Dashboard',
-    'edit_profile'      => 'Edit Profile',
-    'media'             => 'Media',
-    'pages'             => 'Pages',
-    'posts'             => 'Posts',
-    'categories'        => 'Categories',
-    'all_posts'         => 'All Posts',
-    'comments'          => 'Comments',
-    'users'             => 'Users',
-    'settings'          => 'Settings',
-    'general_settings'  => 'General',
-    'site_options'      => 'Site Options',
-    'menus'             => 'Menus',
-    'user_roles'        => 'User Roles'
+    'dashboard'         => 'Painel',
+    'edit_profile'      => 'Editar Perfil',
+    'media'             => 'Mídia',
+    'pages'             => 'Páginas',
+    'posts'             => 'Postagens',
+    'categories'        => 'Categorias',
+    'all_posts'         => 'Todas as publicações',
+    'comments'          => 'Comentários',
+    'users'             => 'Usuários',
+    'settings'          => 'Consfigurações',
+    'general_settings'  => 'Configurações gerais',
+    'site_options'      => 'Opções do site.',
+    'menus'             => 'Menus.',
+    'user_roles'        => 'Funções do usuário'
 
 ];

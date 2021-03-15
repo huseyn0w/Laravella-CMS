@@ -7,9 +7,9 @@
  */
 
 return [
-    'verify_page_headline' => 'Verify Your Email Address',
-    'fresh_link'           => 'A fresh verification link has been sent to your email address.',
-    'check_email'          => 'Before proceeding, please check your email for a verification link.',
-    'not_receive_email'    => 'If you did not receive the email',
-    'request_other_email'  => 'click here to request another'
+    'verify_page_headline' => 'Verifique seu endereço de e-mail',
+    'fresh_link'           => 'Um novo link de verificação foi enviado ao seu endereço de e-mail.',
+    'check_email'          => 'Antes de prosseguir, verifique seu e-mail para um link de verificação.',
+    'not_receive_email'    => 'Se você não recebeu o email',
+    'request_other_email'  => 'Clique aqui para solicitar outro'
 ];

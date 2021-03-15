@@ -8,11 +8,11 @@
 
 
 return [
-  'reset_page_headline' => 'Password Reset',
-  'reset_password'      => 'Reset Password',
-  'reset_password_btn'  => 'Reset Password',
-  'email'               => 'E-Mail Address',
-  'password'            => 'Password',
-  'confirm_password'    => 'Confirm password',
-  'send_password_link'  => 'Send Password Reset Link'
+  'reset_page_headline' => 'Redefinição de senha',
+  'reset_password'      => 'Redefinir senha',
+  'reset_password_btn'  => 'Redefinir senha',
+  'email'               => 'Endereço de email',
+  'password'            => 'Senha',
+  'confirm_password'    => 'Confirme sua senha',
+  'send_password_link'  => 'Enviar o link de redefinição de senha'
 ];

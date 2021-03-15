@@ -7,5 +7,5 @@
  */
 
 return [
-    'add_translation' => "Add translation for languages:"
+    'add_translation' => "Para adicionar uma tradução para idiomas: "
 ];

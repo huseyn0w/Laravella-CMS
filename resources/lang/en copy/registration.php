@@ -7,12 +7,12 @@
  */
 
 return [
-    'register_page_headline' => 'Registration',
-    'register'               => 'Register',
-    'name'                   => 'Name',
-    'email'                  => 'E-Mail Address',
-    'username'               => 'Username',
-    'password'               => 'Password',
-    'confirm_password'       => 'Confirm Password',
-    'register_btn'           => 'Register'
+    'register_page_headline' => 'Cadastro',
+    'register'               => 'Registro',
+    'name'                   => 'Nome',
+    'email'                  => 'Endereço de email',
+    'username'               => 'Nome de usuário',
+    'password'               => 'Senha',
+    'confirm_password'       => 'Confirme sua senha',
+    'register_btn'           => 'Registro'
 ];

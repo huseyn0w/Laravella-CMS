@@ -8,6 +8,6 @@
 
 return [
 
-    'headline' => 'Media'
+    'headline' => 'Mídias'
 
 ];

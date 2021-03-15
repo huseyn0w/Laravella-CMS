@@ -10,6 +10,6 @@
 return [
     'likes'     => 'Likes',
     'dislikes'  => 'Dislikes',
-    'comments'  => 'Comments',
-    'not_found' => 'No posts found'
+    'comments'  => 'Comentários',
+    'not_found' => 'nenhuma postagem encontrada'
 ];

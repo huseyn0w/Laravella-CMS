@@ -8,6 +8,6 @@
 
 
 return [
-    'edit_comment'       => 'Edit comment',
+    'edit_comment'       => 'Editar comentários',
     'update_comment_btn' => 'Update Comment'
 ];

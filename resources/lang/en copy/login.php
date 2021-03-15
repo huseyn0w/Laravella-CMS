@@ -8,11 +8,11 @@
 
 return [
     'login_page_headline'    => 'Login',
-    'login_with'             => 'Login with:',
-    'or'                     => 'Or:',
-    'username_or_email'      => 'Username or E-Mail Address',
-    'login'                  => 'Login',
-    'password'               => 'Password',
-    'remember_me'            => 'Remember me',
-    'forgot_password'        => 'Forgot Your Password?'
+    'login_with'             => 'Faça o login com:',
+    'or'                     => 'Ou:',
+    'username_or_email'      => 'Nome de Usuário ou Endereço de Email',
+    'login'                  => 'Conecte-se',
+    'password'               => 'Senha',
+    'remember_me'            => 'Lembre de mim',
+    'forgot_password'        => 'Esqueceu sua senha?'
 ];
